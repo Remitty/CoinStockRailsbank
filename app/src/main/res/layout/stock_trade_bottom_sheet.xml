@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="90dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+    <RadioGroup
+        android:id="@+id/rdg_stock_trade"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rdb_mkt_price"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:text="MKT PRICE"
+            android:textSize="15dp"
+            android:textColor="@color/colorBlack"/>
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rdb_limit_price"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:text="LIMIT PRICE"
+            android:textSize="15dp"
+            android:textColor="@color/colorBlack"/>
+    </RadioGroup>
+</LinearLayout>

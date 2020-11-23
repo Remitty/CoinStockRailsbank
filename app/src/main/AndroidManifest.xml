@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.brian.stocks">
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/agora"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/agora"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".predict.AddPredictActivity"></activity>
+        <activity android:name=".predict.PredictableListActivity" />
+        <activity android:name=".predict.PredictActivity" />
+        <activity android:name=".profile.ProfileCompleteActivity" />
+        <activity android:name=".cash.InfoActivity" />
+        <activity android:name=".cash.AddFriendActivity" />
+        <activity android:name=".stock.StocksActivity" />
+        <activity android:name=".cash.AddBankActivity" />
+        <activity android:name=".profile.ProfileActivity" />
+        <activity android:name=".cash.CollectCashActivity" />
+        <activity android:name=".cash.SendCashActivity" />
+        <activity android:name=".cash.SendTargetActivity" />
+        <activity android:name=".main.SupportActivity" />
+        <activity android:name=".main.ChangePasswordActivity" />
+        <activity android:name=".main.ResetPasswordActivity" />
+        <activity android:name=".main.ForgotPasswordActivity" />
+        <activity android:name=".stock.stockorder.StockOrderHistoryActivity" />
+        <activity android:name=".chat.SocialGroupActivity" />
+        <activity
+            android:name=".main.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.SignInActivity"
+            android:parentActivityName=".main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.SignUpActivity"
+            android:parentActivityName=".main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".home.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".stock.stocktrade.StocksTradingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".stock.stocktrade.StockBuyActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".stock.stocktrade.StockSellActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".stock.stocktrade.StocksOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".stock.NewsListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".stock.NewsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".coins.TransferFundsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".stock.stockwithdraw.StockCoinWithdrawActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".stock.stocktrade.StockReplaceActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".stock.StockDepositActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".coins.CoinWithdrawActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".stock.StockNewsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".coins.CoinDepositHistoryActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+    </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+</manifest>

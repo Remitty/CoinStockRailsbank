@@ -1,0 +1,59 @@
+package com.brian.stocks.helper;
+
+public class URLHelper {
+    public static final String base = "https://www.joiintapp.com/";
+    public static final String api_url = "https://joiintapp.com/api/user/";
+
+    public static final String REDIRECT_URL = api_url + "coinstock/";
+
+    public static final String login = REDIRECT_URL+"oauth/token ";
+    public static final String register = REDIRECT_URL+"signup";
+    public static final String CHECK_MAIL_ALREADY_REGISTERED = api_url+"verify";
+
+    public static final String UserProfile = api_url+"details";
+    public static final String UseProfileUpdate = api_url+"update/profile";
+    public static final String RESET_PASSWORD = api_url + "reset/password";
+    public static final String CHANGE_PASSWORD = api_url + "change/password";
+    public static final String FORGOT_PASSWORD = api_url + "forgot/password";
+    public static final String LOGOUT = api_url + "logout";
+    public static final String HELP = api_url + "help";
+
+    public static final String GET_USER_BALANCES = REDIRECT_URL + "balances";
+
+    public static final String COIN_DEPOSIT = REDIRECT_URL + "coin/deposit";
+    public static final String COIN_WITHDRAW = REDIRECT_URL + "coin/withdraw";
+    public static final String COIN_EXCHANGE = REDIRECT_URL + "coin/exchange";
+    public static final String GET_ALL_COINS = REDIRECT_URL + "coins";
+    public static final String GET_BUY_COIN_ASSETS = REDIRECT_URL + "coin/buy_assets";
+    public static final String GET_SEND_COIN_ASSETS = REDIRECT_URL + "coin/send_assets";
+    public static final String GET_WITHDRAWBLE_COIN_ASSETS = REDIRECT_URL + "coin/withdraw_assets";
+
+    public static final String GET_ALL_STOCKS = REDIRECT_URL + "stocks";
+    public static final String GET_ALL_STOCKS_DAILY = REDIRECT_URL + "stocks/daily";
+    public static final String GET_ALL_STOCKS_AGGREGATE = REDIRECT_URL + "stocks/aggregates";
+    public static final String GET_STOCK_DETAIL = REDIRECT_URL + "stock/detail";
+    public static final String GET_STOCK_NEWS = REDIRECT_URL + "stock/news";
+    public static final String REQUEST_STOCK_ORDER_CREATE = REDIRECT_URL + "stock/order/create";
+    public static final String REQUEST_STOCK_ORDER_REPLACE = REDIRECT_URL + "stock/order/replace";
+    public static final String REQUEST_STOCK_ORDER_CANCEL = REDIRECT_URL + "stock/order/cancel";
+    public static final String GET_STOCK_ORDER_INVESTED = REDIRECT_URL + "stock/order/status/user/invested";
+    public static final String GET_STOCK_ORDER_PENDING = REDIRECT_URL + "stock/order/status/user/pending";
+    public static final String GET_STOCK_ORDER = REDIRECT_URL + "stock/order/status/user";
+    public static final String STOCK_WITHDRAW = REDIRECT_URL + "stock/withdraw";
+    public static final String REQUEST_DEPOSIT_STOCK = REDIRECT_URL + "stock/deposit";
+
+    public static final String GET_BANK_DETAIL = REDIRECT_URL + "bank/detail";
+    public static final String REQUEST_ADD_BANK = REDIRECT_URL + "bank/add";
+    public static final String REQUEST_REMOVE_FRIEND_BANK = REDIRECT_URL + "bank/friend/remove";
+    public static final String REQUEST_ADD_IBAN = REDIRECT_URL + "bank/assign/iban";
+    public static final String REQUEST_ADD_FRIEND_BANK = REDIRECT_URL + "bank/friend/add";
+    public static final String REQUEST_ADD_MONEY = REDIRECT_URL + "bank/money/add";
+    public static final String REQUEST_SEND_MONEY = REDIRECT_URL + "bank/money/send";
+    public static final String REQUEST_CONVERSION_RATE = REDIRECT_URL + "bank/currency/rate";
+    public static final String REQUEST_FRIEND_BANK_LIST = REDIRECT_URL + "bank/friend/list";
+
+    public static final String GET_PREDICTABLE_LIST = REDIRECT_URL + "predictable/list";
+    public static final String REQUEST_PREDICT = REDIRECT_URL + "predict";
+    public static final String REQUEST_PREDICT_BID = REDIRECT_URL + "predict/bid";
+    public static final String REQUEST_PREDICT_CANCEL = REDIRECT_URL + "predict/cancel";
+}
