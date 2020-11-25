@@ -40,9 +40,9 @@
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
-                            android:textSize="13dp"
+                            android:textSize="11dp"
                             android:textColor="@color/colorBlack"
-                            android:text="Balance: "/>
+                            android:text="BALANCE: "/>
 
                         <TextView
                             android:id="@+id/stock_balance"
@@ -50,7 +50,7 @@
                             android:layout_height="wrap_content"
                             android:text="$ 0.0"
                             android:textColor="@color/green"
-                            android:textSize="20dp" />
+                            android:textSize="17dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_weight="1"
@@ -63,14 +63,14 @@
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
-                            android:textSize="13dp"
+                            android:textSize="10dp"
                             android:textColor="@color/colorBlack"
-                            android:text="Profit / Loss: "/>
+                            android:text="PROFIT / LOSS: "/>
                         <TextView
                             android:id="@+id/stock_profit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20dp"
+                            android:textSize="17dp"
                             android:textColor="@color/green"
                             android:text="$ 0.0"/>
                     </LinearLayout>
@@ -91,16 +91,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
-                            android:textSize="13dp"
+                            android:textSize="11dp"
                             android:gravity="right"
                             android:textColor="@color/colorBlack"
-                            android:text="Portfolio:  "/>
+                            android:text="PORTFOLIO:  "/>
                         <TextView
                             android:layout_weight="1"
                             android:id="@+id/total_balance"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="20dp"
+                            android:textSize="17dp"
                             android:textColor="@color/colorBlue"
                             android:text="$ 0.0"/>
                     </LinearLayout>
@@ -114,17 +114,17 @@
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="13dp"
+                            android:textSize="11dp"
                             android:gravity="right"
                             android:textStyle="bold"
                             android:textColor="@color/colorBlack"
-                            android:text="Margin:  "/>
+                            android:text="MARGIN:  "/>
                         <TextView
                             android:layout_weight="1"
                             android:id="@+id/margin_balance"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="20dp"
+                            android:textSize="17dp"
                             android:textColor="@color/colorBlue"
                             android:text="$ 0.0"/>
                     </LinearLayout>
@@ -215,16 +215,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Symbol"
+                    android:text="SYMBOL"
                     android:textStyle="bold"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="@color/colorBlack"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorPurple"
                     android:textSize="12dp" />
                 <TextView
                     android:layout_weight="1"
                     android:textSize="12dp"
-                    android:textColor="@color/colorBlack"
-                    android:text="Price / Share"
+                    android:textColor="@color/colorPurple"
+                    android:text="PRICE / SHARE"
                     android:textStyle="bold"
                     android:layout_marginLeft="0dp"
                     android:layout_width="match_parent"
@@ -232,8 +232,8 @@
                 <TextView
                     android:layout_weight="1"
                     android:textSize="12dp"
-                    android:textColor="@color/colorBlack"
-                    android:text="Holdings"
+                    android:textColor="@color/colorPurple"
+                    android:text="HOLDINGS"
                     android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -243,8 +243,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="0dp"
                     android:layout_weight="1"
-                    android:text="Profit / loss"
-                    android:textColor="@color/colorBlack"
+                    android:text="PROFIT / LOSS"
+                    android:textColor="@color/colorPurple"
                     android:textSize="12dp"
                     android:textStyle="bold" />
             </LinearLayout>

@@ -108,6 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
                         SharedHelper.putKey(getBaseContext(), "access_token", user.optString("access_token"));
                         SharedHelper.putKey(getBaseContext(), "is_completed", "false");
                         Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_LONG).show();
+                        SharedHelper.putKey(getBaseContext(), "fullName", mFirstNameEditText.getText().toString() + " " + mLastNameEditText.getText().toString());
                         startActivity(new Intent(getApplicationContext(), ProfileCompleteActivity.class));
                     }
 

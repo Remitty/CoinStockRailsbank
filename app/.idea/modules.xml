@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../Coinstock.iml" filepath="$PROJECT_DIR$/../Coinstock.iml" group="Coinstock" />
-      <module fileurl="file://$PROJECT_DIR$/../PhoneVerification/PhoneVerification.iml" filepath="$PROJECT_DIR$/../PhoneVerification/PhoneVerification.iml" group="Coinstock/PhoneVerification" />
-      <module fileurl="file://$PROJECT_DIR$/../anychart/anychart.iml" filepath="$PROJECT_DIR$/../anychart/anychart.iml" group="Coinstock/anychart" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/app.iml" filepath="$PROJECT_DIR$/.idea/app.iml" group="Coinstock/app" />
-      <module fileurl="file://$PROJECT_DIR$/../bottom-nav-bar/bottom-nav-bar.iml" filepath="$PROJECT_DIR$/../bottom-nav-bar/bottom-nav-bar.iml" group="Coinstock/bottom-nav-bar" />
+      <module fileurl="file://$PROJECT_DIR$/../CoinStockRailsbank.iml" filepath="$PROJECT_DIR$/../CoinStockRailsbank.iml" group="CoinStockRailsbank" />
+      <module fileurl="file://$PROJECT_DIR$/../PhoneVerification/PhoneVerification.iml" filepath="$PROJECT_DIR$/../PhoneVerification/PhoneVerification.iml" group="CoinStockRailsbank/PhoneVerification" />
+      <module fileurl="file://$PROJECT_DIR$/../anychart/anychart.iml" filepath="$PROJECT_DIR$/../anychart/anychart.iml" group="CoinStockRailsbank/anychart" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/app.iml" filepath="$PROJECT_DIR$/.idea/app.iml" group="CoinStockRailsbank/app" />
+      <module fileurl="file://$PROJECT_DIR$/../bottom-nav-bar/bottom-nav-bar.iml" filepath="$PROJECT_DIR$/../bottom-nav-bar/bottom-nav-bar.iml" group="CoinStockRailsbank/bottom-nav-bar" />
     </modules>
   </component>
 </project>
