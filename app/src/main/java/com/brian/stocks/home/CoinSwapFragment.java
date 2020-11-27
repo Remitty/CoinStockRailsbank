@@ -349,6 +349,8 @@ public class CoinSwapFragment extends Fragment {
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                            }catch (NullPointerException e) {
+                                e.printStackTrace();
                             }
                         }else {
                             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
@@ -410,6 +412,8 @@ public class CoinSwapFragment extends Fragment {
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                            }catch (NullPointerException e) {
+                                e.printStackTrace();
                             }
 
                         }
@@ -470,6 +474,8 @@ public class CoinSwapFragment extends Fragment {
                                     mAdapter.notifyDataSetChanged();
                                     dialog.show();
                                 } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }catch (NullPointerException e) {
                                     e.printStackTrace();
                                 }
 

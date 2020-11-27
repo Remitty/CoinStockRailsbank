@@ -434,6 +434,8 @@ public class CoinsFragment extends Fragment {
                             mAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
+                        }catch (NullPointerException e) {
+                            e.printStackTrace();
                         }
 
                     }

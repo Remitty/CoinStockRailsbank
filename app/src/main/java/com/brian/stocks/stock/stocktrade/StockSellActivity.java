@@ -168,7 +168,7 @@ public class StockSellActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 Log.d("radiobuttonid", i+"");
                 dialog.dismiss();
-                if(i == 2131230947){//limit price
+                if(radioGroup.getCheckedRadioButtonId() == R.id.rdb_limit_price){//limit price
                     mStockPrice=mEditStockLimitPrice.getText().toString();
                     if(mStockPrice.equals(""))
                         mStockPrice = "0";

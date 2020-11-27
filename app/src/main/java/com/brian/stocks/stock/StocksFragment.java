@@ -163,6 +163,8 @@ public class StocksFragment extends Fragment {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                        }catch (NullPointerException e) {
+                            e.printStackTrace();
                         }
                     }
 
@@ -250,6 +252,8 @@ public class StocksFragment extends Fragment {
                             }
 
                         } catch (JSONException e) {
+                            e.printStackTrace();
+                        }catch (NullPointerException e) {
                             e.printStackTrace();
                         }
 
