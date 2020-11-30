@@ -91,16 +91,18 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
             });
         }
 
-        NavigationPage page1 = new NavigationPage("Coins", ContextCompat.getDrawable(this, R.drawable.coin), CoinsFragment.newInstance());
-        NavigationPage page2 = new NavigationPage("Swap", ContextCompat.getDrawable(this, R.drawable.swap_24), CoinSwapFragment.newInstance());
-        NavigationPage page3 = new NavigationPage("Cash", ContextCompat.getDrawable(this, R.drawable.currency_icon), CashFragment.newInstance());
-        NavigationPage page4 = new NavigationPage("Stocks", ContextCompat.getDrawable(this, R.drawable.ic_assessment_black_24dp), InvestedStockFragment.newInstance());
+        NavigationPage page1 = new NavigationPage("Pay", ContextCompat.getDrawable(this, R.drawable.coin), TransferCoinFragment.newInstance());
+        NavigationPage page2 = new NavigationPage("Coins", ContextCompat.getDrawable(this, R.drawable.coin), CoinsFragment.newInstance());
+        NavigationPage page3 = new NavigationPage("Swap", ContextCompat.getDrawable(this, R.drawable.swap_24), CoinSwapFragment.newInstance());
+        NavigationPage page4 = new NavigationPage("Cash", ContextCompat.getDrawable(this, R.drawable.currency_icon), CashFragment.newInstance());
+        NavigationPage page5 = new NavigationPage("Stocks", ContextCompat.getDrawable(this, R.drawable.ic_assessment_black_24dp), InvestedStockFragment.newInstance());
 
         List<NavigationPage> navigationPages = new ArrayList<>();
         navigationPages.add(page1);
         navigationPages.add(page2);
         navigationPages.add(page3);
         navigationPages.add(page4);
+        navigationPages.add(page5);
 
         Log.d("navigationpageitem", page1.toString());
 
@@ -219,6 +221,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
             case BottomNavigationBar.MENU_BAR_4:
                 fragment = mNavigationPageList.get(3).getFragment();
                 break;
+            case BottomNavigationBar.MENU_BAR_5:
+                fragment = mNavigationPageList.get(4).getFragment();
+                break;
         }
 
         // replacing fragment with the current one
@@ -233,13 +238,13 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     public void setupBottomBarHolderActivity(List<NavigationPage> pages) {
 
         // throw error if pages does not have 4 elements
-        if (pages.size() != 4) {
-            throw new RuntimeException("List of NavigationPage must contain 4 members.");
-        } else {
+//        if (pages.size() != 4) {
+//            throw new RuntimeException("List of NavigationPage must contain 4 members.");
+//        } else {
             mNavigationPageList = pages;
             mBottomNav = new BottomNavigationBar(this, pages, this);
             setupFragments();
-        }
+//        }
 
     }
 

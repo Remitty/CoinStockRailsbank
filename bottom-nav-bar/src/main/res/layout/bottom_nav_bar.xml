@@ -156,6 +156,41 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:id="@+id/linearLayoutBar5"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_horizontal">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorNavAccentSelected"
+                android:id="@+id/viewBar5"
+                android:visibility="invisible"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="6dp"
+                android:id="@+id/imageViewBar5"
+                android:scaleType="fitXY"
+                android:tint="@color/colorNavAccentUnselected"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="SUPPORT"
+                android:textSize="12sp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/textViewBar5"
+                android:textColor="@color/colorNavAccentUnselected"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

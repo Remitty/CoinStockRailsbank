@@ -26,6 +26,9 @@ import net.steamcrafted.loadtoast.LoadToast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText mUserNameEditText, mFirstNameEditText, mLastNameEditText, mEmailEditText, mPasswordEditText;
@@ -49,18 +52,23 @@ public class SignUpActivity extends AppCompatActivity {
         mSigninButton = findViewById(R.id.already_user);
         Button mSignUpButton = findViewById(R.id.signup);
 
+        Pattern p = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
+        final Matcher m = p.matcher(mEmailEditText.getText().toString());
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mFirstNameEditText.getText().toString().isEmpty())
-                    Toast.makeText(getApplicationContext(), "please enter first name", Toast.LENGTH_SHORT).show();
+                    mFirstNameEditText.setError("!");
                 else if (mLastNameEditText.getText().toString().isEmpty())
-                    Toast.makeText(getApplicationContext(), "please enter last name", Toast.LENGTH_SHORT).show();
+                    mLastNameEditText.setError("!");
                 else if (mEmailEditText.getText().toString().isEmpty())
-                    Toast.makeText(getApplicationContext(), "please enter email", Toast.LENGTH_SHORT).show();
+                    mEmailEditText.setError("!");
+                else if (!m.find()) {
+                    mEmailEditText.setError("Invalid email format");
+                }
                 else if (mPasswordEditText.getText().toString().isEmpty())
-                    Toast.makeText(getApplicationContext(), "please enter password", Toast.LENGTH_SHORT).show();
+                    mPasswordEditText.setError("!");
                 else checkMailAlreadyExit();
             }
         });

@@ -401,7 +401,7 @@ public class CoinsFragment extends Fragment {
 
         Log.d("access_token", SharedHelper.getKey(getContext(), "access_token"));
         if(getContext() != null)
-        AndroidNetworking.get(URLHelper.GET_ALL_COINS)
+            AndroidNetworking.get(URLHelper.GET_ALL_COINS)
                 .addHeaders("Content-Type", "application/json")
                 .addHeaders("accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))

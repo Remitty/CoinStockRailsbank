@@ -23,6 +23,7 @@ public class BottomNavigationBar implements View.OnClickListener {
     public static final int MENU_BAR_2 = 1;
     public static final int MENU_BAR_3 = 2;
     public static final int MENU_BAR_4 = 3;
+    public static final int MENU_BAR_5 = 4;
 
     private List<NavigationPage> mNavigationPageList = new ArrayList<>();
 
@@ -30,10 +31,10 @@ public class BottomNavigationBar implements View.OnClickListener {
     private AppCompatActivity mActivity;
     private BottomNavigationMenuClickListener mListener;
 
-    private LinearLayout mLLBar1, mLLBar2, mLLBar3, mLLBar4;
-    private View mViewBar1, mViewBar2, mViewBar3, mViewBar4;
-    private AppCompatImageView mImageViewBar1, mImageViewBar2, mImageViewBar3, mImageViewBar4;
-    private AppCompatTextView mTextViewBar1, mTextViewBar2, mTextViewBar3, mTextViewBar4;
+    private LinearLayout mLLBar1, mLLBar2, mLLBar3, mLLBar4, mLLBar5;
+    private View mViewBar1, mViewBar2, mViewBar3, mViewBar4, mViewBar5;
+    private AppCompatImageView mImageViewBar1, mImageViewBar2, mImageViewBar3, mImageViewBar4, mImageViewBar5;
+    private AppCompatTextView mTextViewBar1, mTextViewBar2, mTextViewBar3, mTextViewBar4, mTextViewBar5;
 
     public BottomNavigationBar(AppCompatActivity context, List<NavigationPage> pages, BottomNavigationMenuClickListener listener) {
 
@@ -48,18 +49,21 @@ public class BottomNavigationBar implements View.OnClickListener {
         mLLBar2 = (LinearLayout) mActivity.findViewById(R.id.linearLayoutBar2);
         mLLBar3 = (LinearLayout) mActivity.findViewById(R.id.linearLayoutBar3);
         mLLBar4 = (LinearLayout) mActivity.findViewById(R.id.linearLayoutBar4);
+        mLLBar5 = (LinearLayout) mActivity.findViewById(R.id.linearLayoutBar5);
 
         // getting reference to bar upper highlight
         mViewBar1 = (View) mActivity.findViewById(R.id.viewBar1);
         mViewBar2 = (View) mActivity.findViewById(R.id.viewBar2);
         mViewBar3 = (View) mActivity.findViewById(R.id.viewBar3);
         mViewBar4 = (View) mActivity.findViewById(R.id.viewBar4);
+        mViewBar5 = (View) mActivity.findViewById(R.id.viewBar5);
 
         // getting reference to bar titles
         mTextViewBar1 = (AppCompatTextView) mActivity.findViewById(R.id.textViewBar1);
         mTextViewBar2 = (AppCompatTextView) mActivity.findViewById(R.id.textViewBar2);
         mTextViewBar3 = (AppCompatTextView) mActivity.findViewById(R.id.textViewBar3);
         mTextViewBar4 = (AppCompatTextView) mActivity.findViewById(R.id.textViewBar4);
+        mTextViewBar5 = (AppCompatTextView) mActivity.findViewById(R.id.textViewBar5);
 
         NavigationPage temp = mNavigationPageList.get(0);
         String title = temp.getTitle();
@@ -69,12 +73,14 @@ public class BottomNavigationBar implements View.OnClickListener {
         mTextViewBar2.setText(mNavigationPageList.get(1).getTitle());
         mTextViewBar3.setText(mNavigationPageList.get(2).getTitle());
         mTextViewBar4.setText(mNavigationPageList.get(3).getTitle());
+        mTextViewBar5.setText(mNavigationPageList.get(4).getTitle());
 
         // getting reference to bar icons
         mImageViewBar1 = (AppCompatImageView) mActivity.findViewById(R.id.imageViewBar1);
         mImageViewBar2 = (AppCompatImageView) mActivity.findViewById(R.id.imageViewBar2);
         mImageViewBar3 = (AppCompatImageView) mActivity.findViewById(R.id.imageViewBar3);
         mImageViewBar4 = (AppCompatImageView) mActivity.findViewById(R.id.imageViewBar4);
+        mImageViewBar5 = (AppCompatImageView) mActivity.findViewById(R.id.imageViewBar5);
 
         // setting the icons
 
@@ -82,12 +88,14 @@ public class BottomNavigationBar implements View.OnClickListener {
         mImageViewBar2.setImageDrawable(mNavigationPageList.get(1).getIcon());
         mImageViewBar3.setImageDrawable(mNavigationPageList.get(2).getIcon());
         mImageViewBar4.setImageDrawable(mNavigationPageList.get(3).getIcon());
+        mImageViewBar5.setImageDrawable(mNavigationPageList.get(4).getIcon());
 
         // setting click listeners
         mLLBar1.setOnClickListener(this);
         mLLBar2.setOnClickListener(this);
         mLLBar3.setOnClickListener(this);
         mLLBar4.setOnClickListener(this);
+        mLLBar5.setOnClickListener(this);
     }
 
     @Override
@@ -108,6 +116,9 @@ public class BottomNavigationBar implements View.OnClickListener {
             return;
         } else if (view.getId() == R.id.linearLayoutBar4) {
             mListener.onClickedOnBottomNavigationMenu(MENU_BAR_4);
+            return;
+        } else if (view.getId() == R.id.linearLayoutBar5) {
+            mListener.onClickedOnBottomNavigationMenu(MENU_BAR_5);
             return;
         } else {
             return;
