@@ -52,7 +52,7 @@ public class TransferCoinHistoryAdapter extends RecyclerView.Adapter<TransferCoi
         JSONObject item = history.get(position);
 
         holder.tvUser.setText(item.optString("send_to"));
-        holder.tvSendAmount.setText(item.optString("amount"));
+        holder.tvSendAmount.setText(item.optString("amount") + "USDC");
         holder.tvItemDate.setText(item.optString("updated_at").substring(0, 10));
 
     }

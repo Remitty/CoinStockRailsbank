@@ -48,7 +48,11 @@ public class CoinInfo {
 
     public String getCoinBalance() {
 
-        return data.optString("balance");
+        try {
+            return data.getString("balance");
+        } catch (JSONException e) {
+            return "0.0";
+        }
     }
 
     public String getCoinRate() {
@@ -61,11 +65,20 @@ public class CoinInfo {
     }
 
     public String getCoinExchangeRate() {
-        return data.optString("exchange_rate");
+        try {
+            return data.getString("exchange_rate");
+        } catch (JSONException e) {
+            return "0.0";
+        }
     }
 
     public String getCoinUsdc() {
-        BigDecimal balance = new BigDecimal(data.optString("est_usdc")).setScale(4, BigDecimal.ROUND_HALF_UP);
+        BigDecimal balance = null;
+        try {
+            balance = new BigDecimal(data.getString("est_usdc")).setScale(4, BigDecimal.ROUND_HALF_UP);
+        } catch (JSONException e) {
+            return "0.0";
+        }
         return balance.toString();
     }
 
@@ -78,7 +91,12 @@ public class CoinInfo {
     }
 
     public String getCoinEffect() {
-        BigDecimal balance = new BigDecimal(data.optString("change_rate"));
+        BigDecimal balance = null;
+        try {
+            balance = new BigDecimal(data.getString("change_rate"));
+        } catch (JSONException e) {
+            return "0.0";
+        }
         return balance.toString();
     }
 

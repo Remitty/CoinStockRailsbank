@@ -63,7 +63,7 @@ public class CoinsFragment extends Fragment {
     private CoinAdapter mAdapter;
     private List<CoinInfo> coinList = new ArrayList<>();
     private RecyclerView coinListView;
-    private TextView mTotalBalance, mTotalEffect, mUSDBalance;
+    private TextView mTotalBalance, mTotalEffect, mUSDBalance, mtvUserName;
     private Handler handler;
     private SwipeRefreshLayout refreshLayout;
     private String CoinSymbol, CoinId;
@@ -167,6 +167,8 @@ public class CoinsFragment extends Fragment {
         mTotalBalance = rootView.findViewById(R.id.total_balance);
         mTotalEffect = rootView.findViewById(R.id.total_effect);
         mUSDBalance = rootView.findViewById(R.id.usd_balance);
+        mtvUserName = rootView.findViewById(R.id.user_name);
+        mtvUserName.setText(SharedHelper.getKey(getContext(), "fullName"));
 
         refreshLayout = rootView.findViewById(R.id.swipe_refresh_layout);
 

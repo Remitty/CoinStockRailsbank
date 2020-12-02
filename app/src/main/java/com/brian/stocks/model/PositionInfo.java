@@ -30,15 +30,27 @@ public class PositionInfo {
     }
 
     public String getQty() {
-        return data.optString("filled_qty");
+        try {
+            return data.getString("filled_qty");
+        } catch (JSONException e) {
+            return "0";
+        }
     }
 
     public String getAvgPrice() {
-        return DoubleFormat(data.optString("avg_entry_price"));
+        try {
+            return DoubleFormat(data.getString("avg_entry_price"));
+        } catch (JSONException e) {
+            return "0.0";
+        }
     }
 
     public String getCurrentPrice(){
-        return DoubleFormat(data.optString("current_price"));
+        try {
+            return DoubleFormat(data.getString("current_price"));
+        } catch (JSONException e) {
+            return "0.0";
+        }
     }
 
     public String getEquity(){
@@ -48,7 +60,11 @@ public class PositionInfo {
     }
 
     public String getLastDayPrice(){
-        return DoubleFormat(data.optString("lastday_price"));
+        try {
+            return DoubleFormat(data.getString("lastday_price"));
+        } catch (JSONException e) {
+            return "0.0";
+        }
     }
 
     public String getChangePrice(){
@@ -65,7 +81,11 @@ public class PositionInfo {
     }
 
     public String getChangePricePercent(){
-        return DoubleFormat(data.optString("change_today"));
+        try {
+            return DoubleFormat(data.getString("change_today"));
+        } catch (JSONException e) {
+            return "0.0";
+        }
     }
 
     private String DoubleFormat(String number){

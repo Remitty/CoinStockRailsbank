@@ -196,15 +196,17 @@ public class StocksTradingActivity extends AppCompatActivity {
 
                                 StockBalance = response.optString("stock_balance");
 
-                                JSONObject company = response.optJSONObject("company");
-                                mStockSymbol.setText(company.optString("name"));
-                                companysummary = company.optString("description");
-                                companyindustry = company.optString("industry");
-                                companyweb = company.optString("url");
+                                JSONObject company = response.getJSONObject("company");
+                                if(company != null) {
+                                    mStockSymbol.setText(company.optString("name"));
+                                    companysummary = company.optString("description");
+                                    companyindustry = company.optString("industry");
+                                    companyweb = company.optString("url");
 
-                                mTextCompanyIndustry.setText(companyindustry);
-                                mTextCompanySummary.setText(companysummary);
-                                mTextCompanyWeb.setText(companyweb);
+                                    mTextCompanyIndustry.setText(companyindustry);
+                                    mTextCompanySummary.setText(companysummary);
+                                    mTextCompanyWeb.setText(companyweb);
+                                }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

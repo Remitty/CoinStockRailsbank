@@ -248,6 +248,15 @@
             <TextView
                 android:layout_weight="1"
                 android:gravity="center"
+                android:text="Address"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="Date"
                 android:textSize="15dp"
                 android:textStyle="bold"

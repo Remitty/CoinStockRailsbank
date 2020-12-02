@@ -221,7 +221,7 @@ public class CoinSwapFragment extends Fragment {
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                     alert.setIcon(R.mipmap.ic_launcher_round)
                             .setTitle("Confirm Exchange")
-                            .setMessage("Are you sure this exchange?")
+                            .setMessage("Are you sure this exchange? Exchange fee is 0.5%. If you have XMT, fee is 0.25%.")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

@@ -91,7 +91,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
             });
         }
 
-        NavigationPage page1 = new NavigationPage("Pay", ContextCompat.getDrawable(this, R.drawable.coin), TransferCoinFragment.newInstance());
+        NavigationPage page1 = new NavigationPage("Pay", ContextCompat.getDrawable(this, R.drawable.ic_home_black_24dp), TransferCoinFragment.newInstance());
         NavigationPage page2 = new NavigationPage("Coins", ContextCompat.getDrawable(this, R.drawable.coin), CoinsFragment.newInstance());
         NavigationPage page3 = new NavigationPage("Swap", ContextCompat.getDrawable(this, R.drawable.swap_24), CoinSwapFragment.newInstance());
         NavigationPage page4 = new NavigationPage("Cash", ContextCompat.getDrawable(this, R.drawable.currency_icon), CashFragment.newInstance());

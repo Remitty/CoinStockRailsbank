@@ -110,8 +110,24 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
 
         getBankData();
 
+        showAlert();
+
         return mView;
 
+    }
+
+    private void showAlert() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setIcon(R.mipmap.ic_launcher_round)
+                .setTitle("Alert")
+                .setMessage("Coming soon")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     private void getBankData() {
