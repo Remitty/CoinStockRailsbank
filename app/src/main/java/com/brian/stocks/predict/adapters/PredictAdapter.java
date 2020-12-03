@@ -49,12 +49,7 @@ public class PredictAdapter extends RecyclerView.Adapter<PredictAdapter.Customer
             holder.mtvContent.setText(item.getJSONObject("item").optString("symbol") + " will be "+getEstType(item.optInt("type")) +" $"+item.optString("est_price"));
             holder.mtvCreatedDate.setText(item.optString("created_at").substring(0, 10));
             holder.timer.start(Long.parseLong(item.getString("day_left"))*1000);
-            if(!item.optString("status").equals("Finished"))
-                holder.mtvResult.setText(item.optString("status"));
-            else {
-                holder.mtvResult.setText(item.optString("win"));
-                holder.mtvResultPrice.setText("( $"+item.optString("result") + ")");
-            }
+
 //            holder.mtvBidders.setText(item.optJSONArray("bidders").length()+"");
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -82,10 +77,26 @@ public class PredictAdapter extends RecyclerView.Adapter<PredictAdapter.Customer
                     break;
                 case 1://my answer
                     holder.btnNo.setVisibility(View.GONE);
+                    if(!item.optString("status").equals("Finished"))
+                        holder.mtvResult.setText(item.optString("status"));
+                    else {
+                        String str = item.optString("win");
+                        if(str.equals("Win"))
+                            holder.mtvResult.setText("Lose");
+                        else
+                            holder.mtvResult.setText("Win");
+                        holder.mtvResultPrice.setText("( $"+item.optString("result") + ")");
+                    }
                     break;
                 case 2://my post
                     holder.answerLayout.setVisibility(View.GONE);
                     holder.btnNo.setVisibility(View.GONE);
+                    if(!item.optString("status").equals("Finished"))
+                        holder.mtvResult.setText(item.optString("status"));
+                    else {
+                        holder.mtvResult.setText(item.optString("win"));
+                        holder.mtvResultPrice.setText("( $"+item.optString("result") + ")");
+                    }
                     if(item.optString("status").equals("Created"))
                         holder.btnCancel.setVisibility(View.VISIBLE);
                     break;
