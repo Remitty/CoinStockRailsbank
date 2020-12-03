@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class PredictPageAdapter extends FragmentPagerAdapter {
-    private String[] items={"New", "My bids", "My posts"};
+    private String[] items={"Predict", "Results", "My posts"};
     private List<Fragment> fragments = new ArrayList<>();
     public PredictPageAdapter(FragmentManager fm) {
         super(fm);

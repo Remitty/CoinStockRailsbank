@@ -51,7 +51,10 @@ public class PredictAdapter extends RecyclerView.Adapter<PredictAdapter.Customer
             holder.timer.start(Long.parseLong(item.getString("day_left"))*1000);
             if(!item.optString("status").equals("Finished"))
                 holder.mtvResult.setText(item.optString("status"));
-            else holder.mtvResult.setText(item.optString("win")+"("+item.optString("result") + ")");
+            else {
+                holder.mtvResult.setText(item.optString("win"));
+                holder.mtvResultPrice.setText("( $"+item.optString("result") + ")");
+            }
 //            holder.mtvBidders.setText(item.optJSONArray("bidders").length()+"");
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +117,7 @@ public class PredictAdapter extends RecyclerView.Adapter<PredictAdapter.Customer
     }
 
     public class CustomerViewHolder extends RecyclerView.ViewHolder{
-        TextView mtvSymbol, mtvName, mtvContent, mtvResult, mtvCreatedDate, mtvPoster, mtvAnswer, mtvBidders, mtvPrice, mtvBettingPrice, mtvTotalPayout;
+        TextView mtvSymbol, mtvName, mtvContent, mtvResult, mtvResultPrice, mtvCreatedDate, mtvPoster, mtvAnswer, mtvBidders, mtvPrice, mtvBettingPrice, mtvTotalPayout;
         CountdownView timer;
         LinearLayout posterLayout, answerLayout, questionLayout;
         Button btnYes, btnNo, btnCancel;
@@ -127,6 +130,7 @@ public class PredictAdapter extends RecyclerView.Adapter<PredictAdapter.Customer
             mtvBettingPrice = itemView.findViewById(R.id.betting_price);
             mtvContent = itemView.findViewById(R.id.content);
             mtvResult = itemView.findViewById(R.id.result);
+            mtvResultPrice = itemView.findViewById(R.id.result_price);
             mtvCreatedDate = itemView.findViewById(R.id.created_date);
             mtvPoster = itemView.findViewById(R.id.poster_name);
             mtvAnswer = itemView.findViewById(R.id.answer);

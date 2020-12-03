@@ -64,7 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
                     mLastNameEditText.setError("!");
                 else if (mEmailEditText.getText().toString().isEmpty())
                     mEmailEditText.setError("!");
-                else if (!m.find()) {
+                else if (!m.matches()) {
                     mEmailEditText.setError("Invalid email format");
                 }
                 else if (mPasswordEditText.getText().toString().isEmpty())

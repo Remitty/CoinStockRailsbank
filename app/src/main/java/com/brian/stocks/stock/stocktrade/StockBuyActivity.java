@@ -293,7 +293,7 @@ public class StockBuyActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(StockBuyActivity.this);
         alert.setIcon(R.mipmap.ic_launcher_round)
                 .setTitle("Confirm Transaction")
-                .setMessage("Please confirm your transaction. Trading fees is $1.99. If you hold 50XMT fees is $0.99")
+                .setMessage("Please confirm your transaction. Trading fees is $1.99. If you hold 200XMT fees is $0.99")
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

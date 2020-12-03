@@ -29,6 +29,9 @@ import net.steamcrafted.loadtoast.LoadToast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignInActivity extends AppCompatActivity {
 
     private SharedPrefs sharedPrefs;
@@ -69,8 +72,14 @@ public class SignInActivity extends AppCompatActivity {
         mSigninButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Pattern p = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
+                final Matcher m = p.matcher(mUserNameEditText.getText().toString());
+
                 if (mUserNameEditText.getText().toString().isEmpty())
                     Toast.makeText(getApplicationContext(), "enter your email", Toast.LENGTH_SHORT).show();
+                else if (!m.matches()) {
+                    mUserNameEditText.setError("Invalid email format");
+                }
                 else if (mPasswordEditText.getText().toString().isEmpty())
                     Toast.makeText(getApplicationContext(), "enter your password", Toast.LENGTH_SHORT).show();
                 else
@@ -141,7 +150,6 @@ public class SignInActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "wrong username or password", Toast.LENGTH_SHORT).show();
                         // handle error
                         Log.d("errorb", "" + error.getErrorBody());
-                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
                         Log.d("errord", "" + error.getErrorDetail());
                         Log.d("errorc", "" + error.getErrorCode());
                         Log.d("errorm", "" + error.getMessage());
