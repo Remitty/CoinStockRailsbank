@@ -67,6 +67,7 @@ public class TransferCoinFragment extends Fragment {
     TransferCoinHistoryAdapter historyAdapter;
 
     private LoadToast loadToast;
+    private TextView mtvUserName;
 
     public TransferCoinFragment() {
         // Required empty public constructor
@@ -96,7 +97,8 @@ public class TransferCoinFragment extends Fragment {
         payHistoryView = view.findViewById(R.id.pay_history_view);
         btnPay = view.findViewById(R.id.btn_pay);
         btnAddContact = view.findViewById(R.id.btn_add_contact);
-
+        mtvUserName = view.findViewById(R.id.user_name);
+        mtvUserName.setText(SharedHelper.getKey(getContext(), "fullName"));
 
 
 

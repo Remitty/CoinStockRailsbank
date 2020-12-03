@@ -22,6 +22,25 @@
                 android:orientation="vertical"
                 android:paddingVertical="10dp"
                 android:paddingHorizontal="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hello, "
+                        android:textColor="@color/colorBlue"
+                        android:textSize="17dp"
+                        />
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlue"
+                        android:textSize="17dp"/>
+                </LinearLayout>
                 <TextView
                     android:id="@+id/usdc_balance"
                     android:layout_width="wrap_content"

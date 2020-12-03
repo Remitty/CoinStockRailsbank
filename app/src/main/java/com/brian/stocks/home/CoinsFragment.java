@@ -328,8 +328,8 @@ public class CoinsFragment extends Fragment {
         }
     }
 
-    private void showWalletAddressDialog(String generatedAddress) {
-        DepositDialog mContentDialog = new DepositDialog(R.layout.fragment_coin_deposit, generatedAddress, CoinSymbol);
+    private void showWalletAddressDialog(JSONObject data) {
+        DepositDialog mContentDialog = new DepositDialog(R.layout.fragment_coin_deposit, data, CoinSymbol);
         mContentDialog.setListener(new DepositDialog.Listener() {
 
             @Override
@@ -477,11 +477,7 @@ public class CoinsFragment extends Fragment {
                             Log.d("response", "" + response);
                             loadToast.success();
                             if(response.optBoolean("success")) {
-                                try {
-                                    showWalletAddressDialog(response.getString("address"));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                showWalletAddressDialog(response);
                             }
                             else
                                 Toast.makeText(getContext(), response.optString("error"), Toast.LENGTH_SHORT).show();

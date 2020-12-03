@@ -1,7 +1,11 @@
 package com.brian.stocks.stock.stocktrade;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.Toolbar;
@@ -249,24 +253,35 @@ public class StockSellActivity extends AppCompatActivity {
     }
 
     private void showSellConfirmAlertDialog() {
-        String total = BigDecimalDouble.newInstance().multify(mEditShares.getText().toString(), mStockPrice);
-        total = BigDecimalDouble.newInstance().sub(total, "1.99");
-        final StockTradeInvoiceDialog dialog = new StockTradeInvoiceDialog(R.layout.dialog_stock_trade_invoice, mStockName, mEditShares.getText().toString(), "$ "+mStockPrice, "$ 1.99","SELL",total);
-        dialog.setListener(new StockTradeInvoiceDialog.Listener() {
-
-            @Override
-            public void onOk() {
-                dialog.dismiss();
-                onSell();
-            }
-
-            @Override
-            public void onCancel() {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show(getSupportFragmentManager(), "deposit");
+//        String total = BigDecimalDouble.newInstance().multify(mEditShares.getText().toString(), mStockPrice);
+//        total = BigDecimalDouble.newInstance().sub(total, "1.99");
+//        final StockTradeInvoiceDialog dialog = new StockTradeInvoiceDialog(R.layout.dialog_stock_trade_invoice, mStockName, mEditShares.getText().toString(), "$ "+mStockPrice, "$ 1.99","SELL",total);
+//        dialog.setListener(new StockTradeInvoiceDialog.Listener() {
+//
+//            @Override
+//            public void onOk() {
+//                dialog.dismiss();
+//                onSell();
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        dialog.show(getSupportFragmentManager(), "deposit");
+        AlertDialog.Builder alert = new AlertDialog.Builder(StockSellActivity.this);
+        alert.setIcon(R.mipmap.ic_launcher_round)
+                .setTitle("Confirm Transaction")
+                .setMessage("Please confirm your transaction. Trading fees is $1.99. If you hold 50XMT fees is $0.99")
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onSell();
+                    }
+                })
+                .show();
     }
 
     @Override

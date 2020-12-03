@@ -68,6 +68,8 @@ dependencies {
 //    implementation 'org.chat21.android:chat21:1.0.15'
     implementation 'io.michaelrocks:libphonenumber-android:8.4.1'
 
+    implementation 'com.google.zxing:core:3.3.0'
+
     implementation project(path: ':bottom-nav-bar')
     implementation project(path: ':anychart')
 //    implementation project(path: ':chat21')

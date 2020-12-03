@@ -229,7 +229,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_no"
                     android:layout_width="150dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_height="match_parent"
                     android:text="I Disagree"/>
                 <TextView

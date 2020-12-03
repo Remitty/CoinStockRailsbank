@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.brian.stocks.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -51,9 +52,14 @@ public class TransferCoinHistoryAdapter extends RecyclerView.Adapter<TransferCoi
     public void onBindViewHolder(@NonNull final TransferCoinHistoryAdapter.OrderViewHolder holder, final int position) {
         JSONObject item = history.get(position);
 
-        holder.tvUser.setText(item.optString("send_to"));
-        holder.tvSendAmount.setText(item.optString("amount") + "USDC");
-        holder.tvItemDate.setText(item.optString("updated_at").substring(0, 10));
+        try {
+            holder.tvUser.setText(item.getString("send_to"));
+            holder.tvSendAmount.setText(item.getString("amount") + "USDC");
+            holder.tvItemDate.setText(item.getString("updated_at").substring(0, 10));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AlertDialog;
@@ -12,26 +13,35 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brian.stocks.R;
+import com.brian.stocks.zxing.encoding.EncodingHandler;
+import com.google.zxing.WriterException;
+
+import org.json.JSONObject;
 
 public class DepositDialog extends DialogFragment {
 
     private Listener mListener;
     private int mView;
-    private String mAddress, mCoinName;
-    private Button btnCopy;
+    private String mAddress, mqrCode, mCoinName;
+    private ImageButton btnCopy;
     private TextView address, coinname;
+    ImageView imgQrcode;
+    Bitmap bmpQrcode;
 
     public DepositDialog() {
         // Required empty public constructor
     }
 
     @SuppressLint("ValidFragment")
-    public DepositDialog(int view, String address, String coinanme) {
+    public DepositDialog(int view, JSONObject address, String coinanme) {
         mView = view;
-        mAddress = address;
+        mAddress = address.optString("address");
+        mqrCode = address.optString("qrcode");
         mCoinName = coinanme;
     }
 
@@ -62,8 +72,22 @@ public class DepositDialog extends DialogFragment {
         View view = inflater.inflate(mView, null);
         btnCopy = view.findViewById(R.id.btn_copy);
         address = view.findViewById(R.id.tv_wallet_address);
+        imgQrcode = view.findViewById(R.id.image_qrcode);
         coinname = view.findViewById(R.id.tv_coin_name);
         registerForContextMenu(address);
+
+        try {
+            if(!mqrCode.equals("")) {
+                bmpQrcode = EncodingHandler.createQRCode(mqrCode, 400);
+                imgQrcode.setImageBitmap(bmpQrcode);
+            }
+            else
+                imgQrcode.setVisibility(View.GONE);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+
+
         address.setText(mAddress);
         coinname.setText(mCoinName);
         builder.setView(view);
