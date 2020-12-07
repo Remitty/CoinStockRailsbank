@@ -31,8 +31,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class NewPredictsFragment extends Fragment {
     JSONArray data = new JSONArray();
+    ArrayList<JSONObject> dataList = new ArrayList<JSONObject>();
     RecyclerView recyclerView;
     PredictAdapter mAdapter;
     LinearLayout emptyLayout;
@@ -64,7 +67,14 @@ public class NewPredictsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new PredictAdapter(data, 0);
+        for (int i = 0; i < data.length(); i ++) {
+            try {
+                dataList.add(data.getJSONObject(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        mAdapter = new PredictAdapter(dataList, 0);
         recyclerView.setAdapter(mAdapter);
         mAdapter.seListener(new PredictAdapter.Listener() {
             @Override
@@ -142,7 +152,8 @@ public class NewPredictsFragment extends Fragment {
                         loadToast.success();
                         if(response.optBoolean("success")) {
                             Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
-                            data.remove(idx);
+                            dataList.remove(idx);
+                            mAdapter.notifyDataSetChanged();
                         }
                         else
                             Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();

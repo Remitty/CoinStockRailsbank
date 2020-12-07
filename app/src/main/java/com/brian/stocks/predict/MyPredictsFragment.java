@@ -30,8 +30,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class MyPredictsFragment extends Fragment {
     JSONArray data = new JSONArray();
+    ArrayList<JSONObject> dataList = new ArrayList<JSONObject>();
     RecyclerView recyclerView;
     PredictAdapter mAdapter;
     LinearLayout emptyLayout;
@@ -62,7 +65,14 @@ public class MyPredictsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new PredictAdapter(data, 2);
+        for (int i = 0; i < data.length(); i ++) {
+            try {
+                dataList.add(data.getJSONObject(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        mAdapter = new PredictAdapter(dataList, 2);
         recyclerView.setAdapter(mAdapter);
         mAdapter.seListener(new PredictAdapter.Listener() {
             @Override

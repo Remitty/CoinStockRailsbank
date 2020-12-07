@@ -64,7 +64,7 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
             mtvSymbol.setText(getIntent().getStringExtra("symbol"));
             mtvPrice.setText("$ "+getIntent().getStringExtra("price"));
             mtvName.setText(getIntent().getStringExtra("name"));
-            mtvUsdcBalance.setText(getIntent().getStringExtra("usdc_balance"));
+            mtvUsdcBalance.setText(String.format("%.4f",Double.parseDouble(getIntent().getStringExtra("usdc_balance"))));
         }
     }
 

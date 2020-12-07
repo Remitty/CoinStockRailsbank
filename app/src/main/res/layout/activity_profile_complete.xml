@@ -425,7 +425,6 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/rounded_corners_edittext_dark"
                                 android:gravity="center_vertical"
-                                android:maxLength="3"
                                 android:padding="10dp"
                                 android:hint=""
                                 android:textSize="14sp" />

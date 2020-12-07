@@ -17,14 +17,17 @@ import org.json.JSONObject;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
 import cn.iwgang.countdownview.CountdownView;
 
 public class PredictAdapter extends RecyclerView.Adapter<PredictAdapter.CustomerViewHolder> {
     int type;
     Listener listener;
-    JSONArray data = new JSONArray();
+    ArrayList<JSONObject> data = new ArrayList<JSONObject>();
     
-    public PredictAdapter(JSONArray data, int type) {
+    public PredictAdapter(ArrayList data, int type) {
         this.data = data;
         this.type = type;
     }
@@ -40,7 +43,7 @@ public class PredictAdapter extends RecyclerView.Adapter<PredictAdapter.Customer
     @Override
     public void onBindViewHolder(@NonNull CustomerViewHolder holder, final int position) {
         try {
-            JSONObject item = data.getJSONObject(position);
+            JSONObject item = data.get(position);
 
             holder.mtvSymbol.setText("");
             holder.mtvName.setText(item.getJSONObject("item").optString("name"));
@@ -111,7 +114,7 @@ public class PredictAdapter extends RecyclerView.Adapter<PredictAdapter.Customer
 
     @Override
     public int getItemCount() {
-        return data!= null? data.length(): 0;
+        return data!= null? data.size(): 0;
     }
 
     private String getEstType(int type) {

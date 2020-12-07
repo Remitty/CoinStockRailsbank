@@ -15,9 +15,14 @@ import com.brian.stocks.R;
 import com.brian.stocks.predict.adapters.PredictAdapter;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class IncomingPredictsFragment extends Fragment {
     JSONArray data = new JSONArray();
+    ArrayList<JSONObject> dataList = new ArrayList<JSONObject>();
     RecyclerView recyclerView;
     PredictAdapter mAdapter;
     LinearLayout emptyLayout;
@@ -44,7 +49,14 @@ public class IncomingPredictsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_predict_answer, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new PredictAdapter(data, 1);
+        for (int i = 0; i < data.length(); i ++) {
+            try {
+                dataList.add(data.getJSONObject(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        mAdapter = new PredictAdapter(dataList, 1);
         recyclerView.setAdapter(mAdapter);
         mAdapter.seListener(new PredictAdapter.Listener() {
             @Override

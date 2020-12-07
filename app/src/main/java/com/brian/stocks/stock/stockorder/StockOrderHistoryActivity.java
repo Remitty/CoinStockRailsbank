@@ -1,8 +1,11 @@
 package com.brian.stocks.stock.stockorder;
 
+import com.brian.stocks.home.HomeActivity;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.brian.stocks.R;
@@ -41,6 +44,7 @@ public class StockOrderHistoryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        startActivity(new Intent(StockOrderHistoryActivity.this, HomeActivity.class));
         finish();
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
