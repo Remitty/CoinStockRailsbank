@@ -11,15 +11,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b609c952-7f38-4eca-8fe0-4d572c73ba63" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/coins/CoinStakeActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_coin_stake.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/predict/AddPredictActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/predict/AddPredictActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/predict/IncomingPredictsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/predict/IncomingPredictsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/predict/MyPredictsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/predict/MyPredictsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/predict/NewPredictsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/predict/NewPredictsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/predict/adapters/PredictAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/predict/adapters/PredictAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/stockorder/StockOrderHistoryActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/stockorder/StockOrderHistoryActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_profile_complete.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_profile_complete.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_edit_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_edit_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/helper/URLHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/helper/URLHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/main/SignUpActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/main/SignUpActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/model/ProfileModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/model/ProfileModel.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,22 +95,25 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Groovy JUnit" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Groovy JUnit" value="groovy.util.GroovyTestCase" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/androidTest/java/com/brian/stocks" />
-    <property name="last_opened_file_path" value="F:/eos-ios-android(wallet)/eos_and/app" />
+    <property name="last_opened_file_path" value="F:/upwork/ionic/platforms/android/app" />
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.brian.stocks.activities" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.brian.stocks.activities" />
     </key>
     <key name="android.template.packageName">
+      <recent name="com.brian.stocks.coins" />
       <recent name="com.brian.stocks.predict" />
       <recent name="com.brian.stocks.main" />
       <recent name="com.brian.stocks.cash" />
       <recent name="com.brian.stocks.stock" />
-      <recent name="com.brian.stocks.profile" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="groovy.util.GroovyTestCase" />
@@ -123,16 +125,13 @@
       <recent name="com.brian.stocks.home.adapters" />
       <recent name="com.brian.stocks.home" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Brian\Coinstock\app\src\main\res\menu" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\Brian\CoinStocks\App\app\src\main\res\drawable-v21" />
       <recent name="F:\Brian\CoinStocks\App\app\src\main\res\menu" />
       <recent name="F:\Brian\CoinStocks\App\app\src\main\res\drawable" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Brian\Coinstock\app\src\main\res\menu" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.brian.stocks.activities" />
     </key>
   </component>
   <component name="RunDashboard">

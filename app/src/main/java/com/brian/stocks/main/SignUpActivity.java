@@ -101,10 +101,10 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         AndroidNetworking.post(URLHelper.register)
-                .addJSONObjectBody(jsonObject)// posting json
                 .addHeaders("Content-Type", "application/json")
                 .addHeaders("accept", "application/json")
                 .setPriority(Priority.MEDIUM)
+                .addJSONObjectBody(jsonObject)// posting json
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
@@ -112,12 +112,16 @@ public class SignUpActivity extends AppCompatActivity {
                         // do anything with response
                         Log.d("response", "" + response.toString());
                         loadToast.success();
-                        JSONObject user = response.optJSONObject("data");
-                        SharedHelper.putKey(getBaseContext(), "access_token", user.optString("access_token"));
-                        SharedHelper.putKey(getBaseContext(), "is_completed", "false");
-                        Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_LONG).show();
-                        SharedHelper.putKey(getBaseContext(), "fullName", mFirstNameEditText.getText().toString() + " " + mLastNameEditText.getText().toString());
-                        startActivity(new Intent(getApplicationContext(), ProfileCompleteActivity.class));
+                        if(response.optBoolean("success")) {
+                            JSONObject user = response.optJSONObject("data");
+                            SharedHelper.putKey(getBaseContext(), "access_token", user.optString("access_token"));
+                            SharedHelper.putKey(getBaseContext(), "is_completed", "false");
+
+                            SharedHelper.putKey(getBaseContext(), "fullName", mFirstNameEditText.getText().toString() + " " + mLastNameEditText.getText().toString());
+                            startActivity(new Intent(getApplicationContext(), ProfileCompleteActivity.class));
+                        }
+
+                        Toast.makeText(getApplicationContext(), response.optString("message"), Toast.LENGTH_LONG).show();
                     }
 
                     @Override

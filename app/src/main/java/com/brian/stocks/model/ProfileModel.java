@@ -44,13 +44,13 @@ public class ProfileModel {
         try {
             return data.getString("country_code");
         } catch (JSONException e) {
-            return "";
+            return "+1";
         }
     }
 
     public String getPostalCode(){
         try {
-            return data.getJSONObject("payment").getString("postalcode");
+            return data.getJSONObject("profile").getString("postalcode");
         } catch (JSONException e) {
             return "";
         }
@@ -58,7 +58,7 @@ public class ProfileModel {
 
     public String getFirstAddress(){
         try {
-            return data.getJSONObject("payment").getString("address");
+            return data.getJSONObject("profile").getString("address");
         } catch (JSONException e) {
             return "";
         }
@@ -66,7 +66,7 @@ public class ProfileModel {
 
     public String getSecondAddress(){
         try {
-            return data.getJSONObject("payment").getString("address2");
+            return data.getJSONObject("profile").getString("address2");
         } catch (JSONException e) {
             return "";
         }
@@ -74,15 +74,7 @@ public class ProfileModel {
 
     public String getCountry(){
         try {
-            return data.getJSONObject("payment").getString("country");
-        } catch (JSONException e) {
-            return "";
-        }
-    }
-
-    public String getState(){
-        try {
-            return data.getJSONObject("payment").getString("state");
+            return data.getJSONObject("profile").getString("country");
         } catch (JSONException e) {
             return "";
         }
@@ -90,7 +82,7 @@ public class ProfileModel {
 
     public String getCity(){
         try {
-            return data.getJSONObject("payment").getString("city");
+            return data.getJSONObject("profile").getString("city");
         } catch (JSONException e) {
             return "";
         }
@@ -98,7 +90,7 @@ public class ProfileModel {
 
     public String getDOB(){
         try {
-            return data.getJSONObject("payment").getString("dob");
+            return data.getJSONObject("profile").getString("dob");
         } catch (JSONException e) {
             return "";
         }
@@ -106,49 +98,10 @@ public class ProfileModel {
 
     public String getRegion(){
         try {
-            return data.getJSONObject("payment").getString("region");
+            return data.getJSONObject("profile").getString("region");
         } catch (JSONException e) {
             return "";
         }
     }
 
-    public String getAccountNumber(){
-        try {
-            String account = data.getJSONObject("payment").getString("account_number");
-            if( account.equals("null")) return "";
-            return data.getJSONObject("payment").getString("account_number");
-        } catch (JSONException e) {
-            return "";
-        }
-    }
-
-    public String getBankName(){
-        try {
-            String bank = data.getJSONObject("payment").getString("bank_name");
-            if(bank.equals("null")) return "";
-            return bank;
-        } catch (JSONException e) {
-            return "";
-        }
-    }
-
-    public String getAcoountHolderName(){
-        try {
-            String holder = data.getJSONObject("payment").getString("account_holder_name");
-            if(holder.equals("null")) return "";
-            return holder;
-        } catch (JSONException e) {
-            return "";
-        }
-    }
-
-    public String getAccountRoutingNumber(){
-        try {
-            String routing = data.getJSONObject("payment").getString("account_routing_number");
-            if(routing.equals("null")) return "";
-            return routing;
-        } catch (JSONException e) {
-            return "";
-        }
-    }
 }

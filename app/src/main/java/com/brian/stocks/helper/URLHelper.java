@@ -2,22 +2,22 @@ package com.brian.stocks.helper;
 
 public class URLHelper {
     public static final String base = "https://www.joiintapp.com/";
-    public static final String api_url = "https://joiintapp.com/api/user/";
+    public static final String api_url = "https://joiintapp.com/api/user";
 
-    public static final String REDIRECT_URL = api_url + "coinstock/";
+    public static final String REDIRECT_URL = base + "api/coinstock/";
 
     public static final String login = REDIRECT_URL+"oauth/token ";
     public static final String register = REDIRECT_URL+"signup";
-    public static final String CHECK_MAIL_ALREADY_REGISTERED = api_url+"verify";
 
-    public static final String UserProfile = api_url+"details";
-    public static final String UseProfileUpdate = api_url+"update/profile";
+    public static final String CHECK_MAIL_ALREADY_REGISTERED = api_url+"verify";
     public static final String RESET_PASSWORD = api_url + "reset/password";
     public static final String CHANGE_PASSWORD = api_url + "change/password";
     public static final String FORGOT_PASSWORD = api_url + "forgot/password";
     public static final String LOGOUT = api_url + "logout";
     public static final String HELP = api_url + "help";
 
+    public static final String UserProfile = REDIRECT_URL+"profile";
+    public static final String UseProfileUpdate = REDIRECT_URL+"profile/update";
     public static final String GET_USER_BALANCES = REDIRECT_URL + "balances";
 
     public static final String COIN_DEPOSIT = REDIRECT_URL + "coin/deposit";
