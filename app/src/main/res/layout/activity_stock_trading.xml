@@ -93,21 +93,21 @@
                     android:id="@+id/stock_today_change"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="13dp"
                     android:textColor="@color/colorRedCrayon"
                     android:text="+$ 0.00"/>
                 <TextView
                     android:id="@+id/stock_today_change_perc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="13dp"
                     android:textColor="@color/colorRedCrayon"
                     android:text="(+% 0.00)"/>
                 <TextView
                     android:id="@+id/trade_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="13dp"
                     android:textColor="@color/colorBlack"
                     android:text="Today"
                     />
@@ -142,14 +142,12 @@
                     android:layout_marginHorizontal="10dp"
                     android:text="buy"
                     android:textColor="@android:color/white"
-                    android:textSize="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <Button
                     android:id="@+id/btn_stock_sell"
                     android:layout_weight="1"
                     android:layout_marginHorizontal="10dp"
-                    android:textSize="20dp"
                     android:textColor="@android:color/white"
                     android:text="sell"
                     android:layout_width="match_parent"
@@ -242,14 +240,13 @@
                     android:layout_height="wrap_content"
                     android:text="Company Profile"
                     android:textColor="@color/colorBlack"
-                    android:textSize="20dp"/>
+                    android:textSize="17dp"/>
 
                 <TextView
                     android:id="@+id/company_summary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="this is company profile"
-                    android:textSize="13dp"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     />
                 <LinearLayout
@@ -257,19 +254,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="19dp"
+                        android:text=" "
                         android:textColor="@color/colorBlack"
-                        android:textSize="15dp"
-                        android:text="Industry: "
-                        />
+                        android:textSize="13dp" />
                     <TextView
                         android:id="@+id/company_industry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack"
-                        android:textSize="15dp"
                         android:text=""/>
                 </LinearLayout>
                 <LinearLayout
@@ -277,12 +273,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
                     android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
-                        android:text="website: "
-                        />
+
                     <TextView
                         android:id="@+id/company_web"
                         android:layout_width="wrap_content"

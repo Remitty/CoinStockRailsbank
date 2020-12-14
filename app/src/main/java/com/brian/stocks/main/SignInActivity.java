@@ -132,16 +132,30 @@ public class SignInActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
                         loadToast.success();
-                        String key = response.optString("access_token");
-                        sharedPrefs.savePref(key);
-                        SharedHelper.putKey(getBaseContext(), "access_token", key);
-                        SharedHelper.putKey(getBaseContext(), "loggedIn", "true");
-                        SharedHelper.putKey(getBaseContext(), "email", mUserNameEditText.getText().toString());
-                        SharedHelper.putKey(getBaseContext(), "password", mPasswordEditText.getText().toString());
-                        String first_name = response.optString("first_name");
-                        String last_name = response.optString("last_name");
-                        SharedHelper.putKey(getBaseContext(), "fullName", first_name + " " + last_name);
-                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        if(response.optBoolean("success")){
+                            try {
+                                response = response.getJSONObject("user");
+                                String key = response.optString("access_token");
+                                sharedPrefs.savePref(key);
+                                SharedHelper.putKey(getBaseContext(), "access_token", key);
+                                SharedHelper.putKey(getBaseContext(), "loggedIn", "true");
+                                SharedHelper.putKey(getBaseContext(), "email", mUserNameEditText.getText().toString());
+                                SharedHelper.putKey(getBaseContext(), "password", mPasswordEditText.getText().toString());
+                                String first_name = response.optString("first_name");
+                                String last_name = response.optString("last_name");
+                                SharedHelper.putKey(getBaseContext(), "fullName", first_name + " " + last_name);
+                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            return;
+                        }
+
+                        try {
+                            Toast.makeText(getBaseContext(), response.getString("message"), Toast.LENGTH_LONG ).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override

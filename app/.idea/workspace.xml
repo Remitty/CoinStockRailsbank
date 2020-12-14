@@ -11,14 +11,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b609c952-7f38-4eca-8fe0-4d572c73ba63" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/coins/CoinStakeActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_coin_stake.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/coins/CoinStakeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/coins/CoinStakeActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/helper/URLHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/helper/URLHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/main/SignUpActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/main/SignUpActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/model/ProfileModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/model/ProfileModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/CoinSwapFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/CoinSwapFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/HomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/HomeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/main/SignInActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/main/SignInActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_coin_stake.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_coin_stake.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_stock_buy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_stock_buy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_stock_sell.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_stock_sell.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_stock_trading.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_stock_trading.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_coin_swap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_coin_swap.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/menu/activity_home_drawer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/activity_home_drawer.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

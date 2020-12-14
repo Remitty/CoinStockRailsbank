@@ -31,6 +31,12 @@
             android:title="Crypto Withdraw" />
 
         <item
+            android:id="@+id/nav_coin_stake"
+            android:icon="@drawable/xmt"
+            android:visible="true"
+            android:title="XMT Stake" />
+
+        <item
                 android:id="@+id/nav_coin_activity"
                 android:icon="@drawable/btc"
             android:title="Deposit Activities"/>

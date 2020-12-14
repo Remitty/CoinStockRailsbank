@@ -408,7 +408,9 @@ public class CoinSwapFragment extends Fragment {
                                     }
 
                                     mAdapter.notifyDataSetChanged();
-                                    dialog.show();
+                                    if(coins.length() > 0)
+                                        dialog.show();
+                                    else Toast.makeText(getContext(), "You have no deposited coins.", Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

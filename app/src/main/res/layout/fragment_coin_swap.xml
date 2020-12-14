@@ -29,13 +29,13 @@
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="15dp"
+                            android:padding="10dp"
                             android:orientation="vertical">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="You Send"
-                                android:textSize="15dp"
+                                android:textSize="13dp"
                                 android:textColor="@color/colorBlack"
                                 android:layout_marginTop="0dp"
                                 android:gravity="center_horizontal"/>
@@ -44,7 +44,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="50dp"
                                 android:textStyle="bold"
-                                android:textSize="35dp"
+                                android:textSize="25dp"
                                 android:inputType="numberDecimal"
                                 android:hint="0.00"
                                 android:background="@null"/>
@@ -61,7 +61,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="select coin"
-                                android:textSize="15dp"
                                 android:textColor="@color/colorBlack"
                                 android:gravity="center_horizontal"/>
                             <TextView
@@ -74,7 +73,7 @@
                                 android:text=""
                                 android:textColor="@color/colorBlack"
                                 android:textStyle="bold"
-                                android:textSize="25dp"
+                                android:textSize="17dp"
                                 />
                             <TextView
                                 android:id="@+id/tv_sell_avail_qty"
@@ -142,13 +141,13 @@
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="15dp"
+                            android:padding="10dp"
                             android:orientation="vertical">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="You get approximately"
-                                android:textSize="15dp"
+                                android:textSize="13dp"
                                 android:textColor="@color/colorBlack"
                                 android:layout_marginTop="0dp"
                                 android:gravity="center_horizontal"/>
@@ -157,7 +156,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="50dp"
                                 android:gravity="center_vertical"
-                                android:textSize="35dp"
+                                android:textSize="25dp"
                                 android:textStyle="bold"
                                 android:textColor="@color/colorBlack"
                                 android:text="0.00"/>
@@ -174,7 +173,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="select coin"
-                                android:textSize="15dp"
                                 android:textColor="@color/colorBlack"
                                 android:gravity="center_horizontal"/>
                             <TextView
@@ -187,7 +185,7 @@
                                 android:text=""
                                 android:textColor="@color/colorBlack"
                                 android:textStyle="bold"
-                                android:textSize="25dp"
+                                android:textSize="17dp"
                                 />
                             <TextView
                                 android:id="@+id/tv_buy_avail_qty"
@@ -201,14 +199,12 @@
                                 android:text=""/>
                         </LinearLayout>
                     </LinearLayout>
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_coin_exchange"
                         android:layout_width="200dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_button"
                         android:layout_marginTop="20dp"
-                        android:textSize="20dp"
                         android:textColor="@android:color/white"
                         android:text="Exchange"/>
                 </LinearLayout>

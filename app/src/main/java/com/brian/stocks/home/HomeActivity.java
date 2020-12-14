@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
+import com.brian.stocks.coins.CoinStakeActivity;
 import com.brian.stocks.predict.PredictActivity;
 import com.brian.stocks.profile.ProfileActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -181,6 +182,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                 break;
             case R.id.nav_coin_activity:
                 startActivity(new Intent(getApplicationContext(), CoinDepositHistoryActivity.class));
+                break;
+            case R.id.nav_coin_stake:
+                startActivity(new Intent(getApplicationContext(), CoinStakeActivity.class));
                 break;
             case R.id.nav_predict:
                 startActivity(new Intent(getApplicationContext(), PredictActivity.class));
