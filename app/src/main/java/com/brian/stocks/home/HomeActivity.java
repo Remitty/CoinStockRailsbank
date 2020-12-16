@@ -189,6 +189,14 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
             case R.id.nav_predict:
                 startActivity(new Intent(getApplicationContext(), PredictActivity.class));
                 break;
+            case R.id.nav_exchange:
+                Fragment fragment = CoinExchangeFragment.newInstance("BTC-XMT");
+                if (fragment != null) {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(me.riddhimanadib.library.R.id.frameLayout, fragment);
+                    fragmentTransaction.commit();
+                }
+                break;
             case R.id.nav_help:
                 startActivity(new Intent(getApplicationContext(), SupportActivity.class));
                 break;

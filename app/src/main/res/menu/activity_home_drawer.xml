@@ -42,9 +42,14 @@
             android:title="Deposit Activities"/>
 
         <item
-                android:id="@+id/nav_predict"
-                android:icon="@drawable/ic_predict"
-                android:title="Prediction"/>
+            android:id="@+id/nav_predict"
+            android:icon="@drawable/ic_predict"
+            android:title="Prediction"/>
+
+        <item
+            android:id="@+id/nav_exchange"
+            android:icon="@drawable/stock"
+            android:title="Exchange"/>
 
         <item
             android:id="@+id/nav_stock_news"

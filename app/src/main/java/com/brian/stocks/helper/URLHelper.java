@@ -23,6 +23,9 @@ public class URLHelper {
     public static final String COIN_DEPOSIT = REDIRECT_URL + "coin/deposit";
     public static final String COIN_WITHDRAW = REDIRECT_URL + "coin/withdraw";
     public static final String COIN_EXCHANGE = REDIRECT_URL + "coin/exchange";
+    public static final String COIN_REALEXCHANGE = REDIRECT_URL + "coin/realexchange";
+    public static final String COIN_REALEXCHANGE_DATA = REDIRECT_URL + "coin/realexchangedata";
+    public static final String COIN_REALEXCHANGE_CANCEL = REDIRECT_URL + "coin/realexchangecancel";
     public static final String GET_ALL_COINS = REDIRECT_URL + "coins";
     public static final String GET_BUY_COIN_ASSETS = REDIRECT_URL + "coin/buy_assets";
     public static final String GET_SEND_COIN_ASSETS = REDIRECT_URL + "coin/send_assets";

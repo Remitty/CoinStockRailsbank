@@ -1,5 +1,7 @@
 package com.brian.stocks.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.fragment.app.Fragment;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,9 +22,11 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.SendData;
+import com.brian.stocks.home.DepositERC20Dialog;
 import com.brian.stocks.home.adapters.CoinAdapter;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
+import com.brian.stocks.main.MainActivity;
 import com.brian.stocks.model.CoinInfo;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
@@ -158,8 +163,8 @@ public class CoinsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_coins, container, false);
 
@@ -183,7 +188,13 @@ public class CoinsFragment extends Fragment {
 //                GoToTransaction(position);
                 CoinSymbol = coinList.get(position).getCoinSymbol();
                 CoinId = coinList.get(position).getCoinId();
-                doGenerateWalletAddress();
+
+                if (CoinSymbol.equals("XMT")) {
+                    showInputDialog(inflater, container,
+                            savedInstanceState);
+                } else {
+                    doGenerateWalletAddress("");
+                }
             }
         });
 
@@ -308,6 +319,34 @@ public class CoinsFragment extends Fragment {
         }
     };
 
+    protected void showInputDialog(LayoutInflater inflater, ViewGroup container,
+                                   Bundle savedInstanceState) {
+
+        // get prompts.xml view
+        View promptView = inflater.inflate(R.layout.prompt_deposit_amount, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setView(promptView);
+
+        final EditText editText = (EditText) promptView.findViewById(R.id.edittext);
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("Deposit", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //depositAmount.setText(editText.getText());
+                        doGenerateWalletAddress(String.valueOf(editText.getText()));
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
 
     private void getKrakenAPIToken() {
         if(getContext() != null){
@@ -329,22 +368,41 @@ public class CoinsFragment extends Fragment {
     }
 
     private void showWalletAddressDialog(JSONObject data) {
-        DepositDialog mContentDialog = new DepositDialog(R.layout.fragment_coin_deposit, data, CoinSymbol);
-        mContentDialog.setListener(new DepositDialog.Listener() {
+        if (data.has("deposit_amount")) {
+            DepositERC20Dialog DepositDialogERC20;
+            DepositDialogERC20 = new DepositERC20Dialog(R.layout.fragment_coin_deposit_erc20, data, CoinSymbol);
+            DepositDialogERC20.setListener(new DepositERC20Dialog.Listener() {
 
-            @Override
-            public void onOk() {
+                @Override
+                public void onOk() {
 //                mContentDialog.dismiss();
-                Toast.makeText(getContext(), "Copied successfully", Toast.LENGTH_SHORT).show();
-            }
+                    Toast.makeText(getContext(), "Copied successfully", Toast.LENGTH_SHORT).show();
+                }
 
-            @Override
-            public void onCancel() {
+                @Override
+                public void onCancel() {
 //                mContentDialog.dismiss();
-            }
-        });
+                }
+            });
+            DepositDialogERC20.show(this.getActivity().getSupportFragmentManager(), "deposit");
+        } else {
+            DepositDialog mContentDialog;
+            mContentDialog = new DepositDialog(R.layout.fragment_coin_deposit, data, CoinSymbol);
+            mContentDialog.setListener(new DepositDialog.Listener() {
 
-        mContentDialog.show(this.getActivity().getSupportFragmentManager(), "deposit");
+                @Override
+                public void onOk() {
+//                mContentDialog.dismiss();
+                    Toast.makeText(getContext(), "Copied successfully", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancel() {
+//                mContentDialog.dismiss();
+                }
+            });
+            mContentDialog.show(this.getActivity().getSupportFragmentManager(), "deposit");
+        }
     }
 
     private void refresh() {
@@ -452,13 +510,16 @@ public class CoinsFragment extends Fragment {
                 });
     }
 
-    private void doGenerateWalletAddress() {
+    private void doGenerateWalletAddress(String depositQuant) {
         loadToast.show();
 //        loadToast.show();
         JSONObject jsonObject = new JSONObject();
 
         try {
             jsonObject.put("coin", CoinId);
+            if (!depositQuant.isEmpty()) {
+                jsonObject.put("deposit_amount", depositQuant);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
