@@ -105,6 +105,8 @@ public class CoinExchangeFragment extends Fragment {
         TabLayout.Tab tabsel = tabLayout.getTabAt(0);
         tabsel.select();
         selType = "buy";
+
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -256,6 +258,13 @@ public class CoinExchangeFragment extends Fragment {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+
+
+                            try {
+                                mEditPrice.setText(df.format(getPrice()));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
 
 
@@ -364,6 +373,8 @@ public class CoinExchangeFragment extends Fragment {
         orderBookBidsAdapter2 = new OrderBookBidsAdapter(bidsList);
         orderbookBidsView.setLayoutManager(new LinearLayoutManager(getContext()));
         orderbookBidsView.setAdapter(orderBookBidsAdapter2);
+
+
     }
 
 

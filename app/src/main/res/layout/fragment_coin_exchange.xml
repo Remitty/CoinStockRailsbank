@@ -40,10 +40,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                android:paddingTop="10dp"
-                android:paddingLeft="10dp"
-                android:paddingBottom="10dp"
-                android:paddingRight="40dp">
+                android:paddingTop="3dp"
+                android:paddingLeft="3dp"
+                android:paddingBottom="3dp"
+                android:paddingRight="3dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -56,25 +56,27 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:padding="15dp">
+                            android:padding="10dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="0dp"
                                 android:gravity="center_horizontal"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
                                 android:text="Quantity"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="15dp" />
+                                android:textSize="13dp" />
 
                             <EditText
                                 android:id="@+id/edit_quantity"
                                 android:layout_width="wrap_content"
-                                android:layout_height="50dp"
+                                android:layout_height="35dp"
                                 android:background="@null"
                                 android:hint="0.00"
                                 android:inputType="numberDecimal"
-                                android:textSize="35dp"
+                                android:textSize="25dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
@@ -83,14 +85,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/solid_edittext"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:padding="15dp">
+                            android:padding="10dp">
                             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
@@ -101,7 +104,7 @@
                                     android:layout_alignParentLeft="true"
                                     android:text="Price"
                                     android:textColor="@color/colorBlack"
-                                    android:textSize="15dp" />
+                                    android:textSize="13dp" />
                                 <TextView
                                     android:id="@+id/price_usd"
                                     android:layout_width="wrap_content"
@@ -110,22 +113,31 @@
                                     android:layout_alignParentRight="true"
                                     android:text="$0.0"
                                     android:textColor="@color/white_greyish"
-                                    android:textSize="12dp" />
+                                    android:textSize="13dp" />
                             </RelativeLayout>
                             <EditText
                                 android:id="@+id/edit_price"
                                 android:layout_width="wrap_content"
-                                android:layout_height="50dp"
+                                android:layout_height="35dp"
                                 android:background="@null"
                                 android:hint="0.00"
                                 android:inputType="numberDecimal"
-                                android:textSize="35dp"
+                                android:textSize="25dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
 
 
 
+                <Button
+                    android:id="@+id/btn_coin_trade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Trade"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@android:color/white"
+                    android:layout_gravity="center"
+                    android:textSize="20dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -206,16 +218,6 @@
 
 
                 </LinearLayout>
-            <Button
-                android:id="@+id/btn_coin_trade"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:text="T\nr\na\nd\ne"
-                android:lineHeight="17dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@android:color/white"
-                android:layout_gravity="right"
-                android:textSize="20dp" />
     </androidx.cardview.widget.CardView>
 
 
