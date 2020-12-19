@@ -78,14 +78,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                         public void onResponse(JSONObject response) {
 
                             Log.d("coin post response", "" + response.toString());
-                            /*
+
                             if (!response.has("success")) {
-                                return;
+                                Toast.makeText(thiscontext, "Order Cancelled.", Toast.LENGTH_SHORT).show();
                             }
-                            */
-
-
-                            Toast.makeText(thiscontext, "Order Cancelled.", Toast.LENGTH_SHORT).show();
 
                         }
 
