@@ -62,6 +62,7 @@ public class CoinExchangeFragment extends Fragment {
     OrderHistoryAdapter orderHistoryAdapter;
     OrderBookBidsAdapter orderBookBidsAdapter2;
     OrderBookAsksAdapter orderbookAsksAdapter;
+    private boolean changedPrice = false;
     private ArrayList<JSONObject> bidsList = new ArrayList<>();
     private ArrayList<JSONObject> asksList = new ArrayList<>();
     private ArrayList<JSONObject> ordersList = new ArrayList<>();
@@ -73,6 +74,17 @@ public class CoinExchangeFragment extends Fragment {
     private JSONArray asks = null;
     final Handler h = new Handler();
     int select = 0;
+    private Handler mHandler;
+    private int i;
+    private Runnable mUpdate = new Runnable() {
+        public void run() {
+
+            getData();
+            i++;
+            mHandler.postDelayed(this, 10000);
+
+        }
+    };
 
     public CoinExchangeFragment() {
         // Required empty public constructor
@@ -115,6 +127,7 @@ public class CoinExchangeFragment extends Fragment {
                 } else {
                     selType = "buy";
                 }
+                changedPrice = false;
                 try {
                     mEditPrice.setText(df.format(getPrice()));
                 } catch (JSONException e) {
@@ -136,6 +149,12 @@ public class CoinExchangeFragment extends Fragment {
 
         initListeners();
 
+        getData();
+
+        i = 0;
+        mHandler = new Handler();
+        mHandler.post(mUpdate);
+        /*
         h.postDelayed(new Runnable()
         {
             //private long time = 0;
@@ -150,6 +169,8 @@ public class CoinExchangeFragment extends Fragment {
                 h.postDelayed(this, 10000);
             }
         }, 10000); // 1 second delay (takes millis)
+
+         */
         return mView;
     }
 
@@ -261,7 +282,8 @@ public class CoinExchangeFragment extends Fragment {
 
 
                             try {
-                                mEditPrice.setText(df.format(getPrice()));
+                                if (!changedPrice)
+                                    mEditPrice.setText(df.format(getPrice()));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -320,6 +342,8 @@ public class CoinExchangeFragment extends Fragment {
                             } else {
                                 Toast.makeText(getContext(), "Order created, waiting to be filled.", Toast.LENGTH_SHORT).show();
                             }
+
+                            changedPrice = false;
 
 
                         }
@@ -450,7 +474,7 @@ public class CoinExchangeFragment extends Fragment {
                     return;
                 }
                 calculate();
-
+                changedPrice = true;
             }
         });
     }
@@ -460,7 +484,7 @@ public class CoinExchangeFragment extends Fragment {
             if (asksList.isEmpty()) {
                 return 0.00000001;
             } else {
-                JSONObject item = asksList.get(bidsList.size() - 1);
+                JSONObject item = asksList.get(0);
                 return Float.parseFloat(df.format(Float.parseFloat(item.optString("price"))));
             }
         } else {
@@ -492,66 +516,6 @@ public class CoinExchangeFragment extends Fragment {
             mTextOutputTrade.setText("Getting "+df.format(calc)+" BTC ($"+df.format(calc * mBTCUSD_rate)+")");
         }
     }
-
-    private void initFormat() {
-        //mPair.setText("BTC-XMT");
-        /*
-        mEditSellingAmount.setText("");
-        mtvBuyRateQty.setText("1.00");
-        mtvBuyRateCoin.setText("BTC");
-        mEditBuyingCoin.setText("");
-        mtvBuyingEstQty.setText("0.00");
-
-         */
-    }
-
-    private void doExchange() {
-        loadToast.show();
-        JSONObject jsonObject = new JSONObject();
-
-        try {
-            jsonObject.put("pair", mPair);
-            jsonObject.put("quantity", mEditQuantity.getText().toString());
-            jsonObject.put("price", mEditPrice.getText().toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.d("exchange param", jsonObject.toString());
-        if(getContext() != null)
-            AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE)
-                .addHeaders("Content-Type", "application/json")
-                .addHeaders("accept", "application/json")
-                .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
-                .addJSONObjectBody(jsonObject)
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("response", "" + response);
-                        loadToast.success();
-                        if(response.optBoolean("success")) {
-                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
-
-                        }else {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                            alert.setIcon(R.mipmap.ic_launcher_round)
-                                    .setTitle("Error")
-                                    .setMessage(response.optString("message"))
-                                    .show();
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError error) {
-                        loadToast.error();
-                        // handle error
-                        Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
-                    }
-                });
-    }
-
 
     @Override
     public void onStart() {

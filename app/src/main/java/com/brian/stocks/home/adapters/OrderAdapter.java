@@ -25,6 +25,7 @@ import com.brian.stocks.helper.URLHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -33,17 +34,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     ArrayList<JSONObject> orders;
     Context thiscontext;
     private Button mBtnTrade;
+    private DecimalFormat df = new DecimalFormat("#.########");
     public OrderAdapter(ArrayList orders) {
         this.orders = orders;
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvQuantity, tvValue, tvDate;
+        TextView tvType, tvQuantity, tvValue, tvDate;
 
         @SuppressLint("ResourceAsColor")
         public OrderViewHolder(View view) {
             super(view);
+            tvType = view.findViewById(R.id.type);
             tvQuantity = view.findViewById(R.id.quantity);
             mBtnTrade = view.findViewById(R.id.btn_cancel);
             tvValue = view.findViewById(R.id.value);
@@ -112,8 +115,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public void onBindViewHolder(@NonNull final OrderAdapter.OrderViewHolder holder, final int position) {
         JSONObject item = orders.get(position);
 
-        holder.tvQuantity.setText(item.optString("quantity"));
-        holder.tvValue.setText(item.optString("price"));
+
+        holder.tvType.setText(item.optString("type"));
+        holder.tvQuantity.setText(df.format(Float.parseFloat(item.optString("quantity"))));
+        holder.tvValue.setText(df.format(Float.parseFloat(item.optString("price"))));
         holder.tvDate.setText(item.optString("created_at"));
 
         mBtnTrade.setOnClickListener(new View.OnClickListener() {
