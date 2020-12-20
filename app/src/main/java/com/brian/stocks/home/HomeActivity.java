@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.brian.stocks.coins.CoinStakeActivity;
 import com.brian.stocks.predict.PredictActivity;
 import com.brian.stocks.profile.ProfileActivity;
+import com.brian.stocks.xmt.XMTTradingActivity;
 import com.google.android.material.navigation.NavigationView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -190,12 +191,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                 startActivity(new Intent(getApplicationContext(), PredictActivity.class));
                 break;
             case R.id.nav_exchange:
-                Fragment fragment = CoinExchangeFragment.newInstance("BTC-XMT");
-                if (fragment != null) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(me.riddhimanadib.library.R.id.frameLayout, fragment);
-                    fragmentTransaction.commit();
-                }
+                startActivity(new Intent(getApplicationContext(), XMTTradingActivity.class));
                 break;
             case R.id.nav_help:
                 startActivity(new Intent(getApplicationContext(), SupportActivity.class));

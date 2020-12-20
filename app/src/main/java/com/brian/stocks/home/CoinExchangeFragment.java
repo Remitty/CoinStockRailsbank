@@ -521,4 +521,11 @@ public class CoinExchangeFragment extends Fragment {
     public void onStart() {
         super.onStart();
     }
+
+    @Override
+    public void onPause() {
+
+        super.onPause();
+        mHandler.removeCallbacksAndMessages(null);
+    }
 }
