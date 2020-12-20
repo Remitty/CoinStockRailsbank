@@ -34,7 +34,7 @@
             android:id="@+id/nav_coin_stake"
             android:icon="@drawable/xmt"
             android:visible="true"
-            android:title="XMT Stake" />
+            android:title="Stake XMT" />
 
         <item
                 android:id="@+id/nav_coin_activity"
