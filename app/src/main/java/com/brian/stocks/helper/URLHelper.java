@@ -65,4 +65,9 @@ public class URLHelper {
     public static final String GET_STAKE_BALANCE = REDIRECT_URL + "stake/balance";
     public static final String REQUEST_STAKE = REDIRECT_URL + "stake";
     public static final String REQUEST_STAKE_RELEASE = REDIRECT_URL + "stake/release";
+
+    public static final String GET_MTN_SERVICE = REDIRECT_URL + "mtn";
+    public static final String GET_MTN_TRANSACTION = REDIRECT_URL + "mtn/transactions";
+    public static final String REQUEST_MTN_PAY = REDIRECT_URL + "mtn/pay";
+    public static final String REQUEST_MTN_TOPUP = REDIRECT_URL + "mtn/topup";
 }

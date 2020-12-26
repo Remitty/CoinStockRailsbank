@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.brian.stocks.coins.CoinStakeActivity;
+import com.brian.stocks.mtn.MTNActivity;
 import com.brian.stocks.predict.PredictActivity;
 import com.brian.stocks.profile.ProfileActivity;
 import com.brian.stocks.xmt.XMTTradingActivity;
@@ -189,6 +190,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                 break;
             case R.id.nav_predict:
                 startActivity(new Intent(getApplicationContext(), PredictActivity.class));
+                break;
+            case R.id.nav_mtn:
+                startActivity(new Intent(getApplicationContext(), MTNActivity.class));
                 break;
             case R.id.nav_exchange:
                 startActivity(new Intent(getApplicationContext(), XMTTradingActivity.class));

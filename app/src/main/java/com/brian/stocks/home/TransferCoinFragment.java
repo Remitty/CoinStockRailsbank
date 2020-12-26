@@ -44,11 +44,10 @@ import java.util.regex.Pattern;
 
 public class TransferCoinFragment extends Fragment {
     TextView tvBalance;
-    TextView tvTo;
-    EditText editAmount;
+
     RecyclerView payHistoryView, contactListView;
-    Button btnPay;
-    FloatingActionButton btnAddContact;
+    Button btnSend;
+    Button btnAddContact;
 
     View addContactView;
     EditText editName, editEmail;
@@ -60,7 +59,7 @@ public class TransferCoinFragment extends Fragment {
     ArrayList<ContactUser> usersTemp = new ArrayList();
     ArrayList<JSONObject> payHistory = new ArrayList();
 
-    String selectedUserID, usdcBalance="0.0";
+    String selectedUserID, usdcBalance="0.0", amount;
 
     AutoUserAdapter userAdapter;
     UserContactAdapter userContactAdapter;
@@ -92,15 +91,12 @@ public class TransferCoinFragment extends Fragment {
         loadToast = new LoadToast(getActivity());
 
         tvBalance = view.findViewById(R.id.usdc_balance);
-        tvTo = view.findViewById(R.id.edit_pay_to);
-        editAmount = view.findViewById(R.id.edit_pay_amount);
+
         payHistoryView = view.findViewById(R.id.pay_history_view);
-        btnPay = view.findViewById(R.id.btn_pay);
+        btnSend = view.findViewById(R.id.btn_usdc_send);
         btnAddContact = view.findViewById(R.id.btn_add_contact);
         mtvUserName = view.findViewById(R.id.user_name);
         mtvUserName.setText(SharedHelper.getKey(getContext(), "fullName"));
-
-
 
         View dialogView = getLayoutInflater().inflate(R.layout.coins_bottom_sheet, null);
         dialog = new BottomSheetDialog(getContext());
@@ -114,7 +110,7 @@ public class TransferCoinFragment extends Fragment {
             public void onSelect(int position) {
                 dialog.hide();
                 selectedUserID = users.get(position).getEmail();
-                tvTo.setText(users.get(position).getName());
+//                tvTo.setText(users.get(position).getName());
             }
         });
 
@@ -124,33 +120,64 @@ public class TransferCoinFragment extends Fragment {
         payHistoryView.setAdapter(historyAdapter);
         payHistoryView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        tvTo.setOnClickListener(new View.OnClickListener() {
+        btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(users.size() == 0) {
-                    Toast.makeText(getActivity(), "No contact list", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                dialog.show();
-            }
-        });
+                AlertDialog.Builder alert = new AlertDialog.Builder((getContext()));
+                View view = getLayoutInflater().inflate(R.layout.dialog_send_usdc, null);
+                final TextView tvTo = view.findViewById(R.id.edit_pay_to);
+                final EditText editAmount = view.findViewById(R.id.edit_pay_amount);
+                Button btnPay = view.findViewById(R.id.btn_pay);
+                alert.setTitle("Send USDC")
+                        .setIcon(R.mipmap.ic_launcher_round)
+                        .setView(view);
+                final AlertDialog dialog = alert.create();
+                btnPay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean validate = true;
+                        if(!TextUtils.isEmpty(editAmount.getText().toString()) && Double.parseDouble(usdcBalance) < Double.parseDouble(editAmount.getText().toString())){
+                            Toast.makeText(getActivity(), "Insufficient funds", Toast.LENGTH_SHORT).show();
+                            validate = false;
+                        }
+                        if(TextUtils.isEmpty(editAmount.getText().toString())){
+                            editAmount.setError("!");
+                            validate = false;
+                        }
+                        if(TextUtils.isEmpty(tvTo.getText().toString())){
+                            tvTo.setError("!");
+                            validate = false;
+                        }
+                        if(validate) {
+                            dialog.dismiss();
+                            AlertDialog.Builder alert1 = new AlertDialog.Builder(getActivity());
+                            alert1.setTitle("Confirm Pay")
+                                    .setIcon(R.mipmap.ic_launcher_round)
+                                    .setMessage("Are you sure you want to pay " + editAmount.getText().toString() + "usdc to " + tvTo.getText().toString())
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            amount = editAmount.getText().toString();
+                                            sendCoin();
+                                        }
+                                    })
+                                    .show();
+                        }
+                    }
+                });
 
-        btnPay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(checkValidate()) {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                    alert.setTitle("Confirm Pay")
-                            .setIcon(R.mipmap.ic_launcher_round)
-                            .setMessage("Are you sure you want to pay " + editAmount.getText().toString() + "usdc to " + tvTo.getText().toString())
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    sendCoin();
-                                }
-                            })
-                            .show();
-                }
+                tvTo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(users.size() == 0) {
+                            Toast.makeText(getActivity(), "No contact list", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        dialog.show();
+                    }
+                });
+
+                dialog.show();
             }
         });
 
@@ -165,13 +192,6 @@ public class TransferCoinFragment extends Fragment {
                 editEmail = addContactView.findViewById(R.id.edit_contact_email);
                 editName = addContactView.findViewById(R.id.edit_contact_name);
                 btnAddContact1 = addContactView.findViewById(R.id.btn_add_contact);
-
-                btnAddContact1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-//                        alert.
-                    }
-                });
 
                 alert.setTitle("Add contact")
                         .setIcon(R.mipmap.ic_launcher_round)
@@ -196,31 +216,22 @@ public class TransferCoinFragment extends Fragment {
                                 sendContact();
 //                                dialog.dismiss();
                             }
-                        })
-                        .show();
+                        });
+                final AlertDialog dialog = alert.create();
+                dialog.show();
+
+                btnAddContact1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
 
         getData();
 
         return view;
-    }
-
-    private boolean checkValidate() {
-        boolean validate = true;
-        if(!TextUtils.isEmpty(editAmount.getText().toString()) && Double.parseDouble(usdcBalance) < Double.parseDouble(editAmount.getText().toString())){
-            Toast.makeText(getActivity(), "Insufficient funds", Toast.LENGTH_SHORT).show();
-            validate = false;
-        }
-        if(TextUtils.isEmpty(editAmount.getText().toString())){
-            editAmount.setError("!");
-            validate = false;
-        }
-        if(TextUtils.isEmpty(tvTo.getText().toString())){
-            tvTo.setError("!");
-            validate = false;
-        }
-        return validate;
     }
 
     private void getData() {
@@ -257,7 +268,7 @@ public class TransferCoinFragment extends Fragment {
         JSONObject param = new JSONObject();
         try {
             param.put("user", selectedUserID);
-            param.put("amount", editAmount.getText().toString());
+            param.put("amount", amount);
         } catch (JSONException e) {
             e.printStackTrace();
         }

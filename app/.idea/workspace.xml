@@ -11,13 +11,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b609c952-7f38-4eca-8fe0-4d572c73ba63" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/xmt/XMTTradingActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/model/MTNTransactionItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/mtn/MTNActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/mtn/MtnTransactionActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/mtn/adapter/MTNTransactionAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_mtn.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_mtn_transaction.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/dialog_send_usdc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/item_mtn_transaction.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/layout_mtn_payment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/CoinExchangeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/CoinExchangeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/helper/URLHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/helper/URLHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/HomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/HomeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/NewsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/NewsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/TransferCoinFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/TransferCoinFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_transfer_coin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_transfer_coin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/menu/activity_home_drawer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/activity_home_drawer.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,15 +111,18 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.brian.stocks.activities" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.brian.stocks.activities" />
     </key>
     <key name="android.template.packageName">
+      <recent name="com.brian.stocks.mtn" />
       <recent name="com.brian.stocks.xmt" />
       <recent name="com.brian.stocks.coins" />
       <recent name="com.brian.stocks.predict" />
       <recent name="com.brian.stocks.main" />
-      <recent name="com.brian.stocks.cash" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="groovy.util.GroovyTestCase" />
@@ -121,16 +134,13 @@
       <recent name="com.brian.stocks.home.adapters" />
       <recent name="com.brian.stocks.home" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Brian\Coinstock\app\src\main\res\menu" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\Brian\CoinStocks\App\app\src\main\res\drawable-v21" />
       <recent name="F:\Brian\CoinStocks\App\app\src\main\res\menu" />
       <recent name="F:\Brian\CoinStocks\App\app\src\main\res\drawable" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Brian\Coinstock\app\src\main\res\menu" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.brian.stocks.activities" />
     </key>
   </component>
   <component name="RunDashboard">
