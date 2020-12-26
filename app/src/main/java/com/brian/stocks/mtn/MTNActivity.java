@@ -38,6 +38,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MTNActivity extends AppCompatActivity {
 
@@ -95,6 +97,12 @@ public class MTNActivity extends AppCompatActivity {
                             mtnTo.setError("!");
                             return;
                         }
+                        Pattern p = Pattern.compile("^\\+[0-9]{10,13}$");
+                        Matcher m = p.matcher(mtnTo.getText().toString());
+                        if(!m.matches()) {
+                            mtnTo.setError("Invalid phone number");
+                            return;
+                        }
                         alertDialog.dismiss();
                         AlertDialog.Builder alert = new AlertDialog.Builder(MTNActivity.this);
                         alert.setIcon(R.mipmap.ic_launcher_round)
@@ -133,6 +141,12 @@ public class MTNActivity extends AppCompatActivity {
                         }
                         if(to.equals("")) {
                             mtnTo.setError("!");
+                            return;
+                        }
+                        Pattern p = Pattern.compile("^\\+[0-9]{10,13}$");
+                        Matcher m = p.matcher(mtnTo.getText().toString());
+                        if(!m.matches()) {
+                            mtnTo.setError("Invalid phone number");
                             return;
                         }
                         alertDialog.dismiss();

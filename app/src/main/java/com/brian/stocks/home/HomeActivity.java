@@ -165,20 +165,14 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         int id = item.getItemId();
         drawer.closeDrawer(GravityCompat.START);
         switch (id){
-            case R.id.nav_profile:
-                break;
-            case R.id.nav_stock_withdraw:
-                startActivity(new Intent(getApplicationContext(), StockCoinWithdrawActivity.class));
-                break;
+
             case R.id.nav_stock_activity:
                 startActivity(new Intent(getApplicationContext(), StockOrderHistoryActivity.class));
                 break;
             case R.id.nav_coin_withdraw:
                 startActivity(new Intent(getApplicationContext(), CoinWithdrawActivity.class));
                 break;
-            case R.id.nav_coin_stock_transfer:
-                startActivity(new Intent(getApplicationContext(), StockDepositActivity.class));
-                break;
+
             case R.id.nav_stock_news:
                 startActivity(new Intent(getApplicationContext(), StockNewsActivity.class));
                 break;
