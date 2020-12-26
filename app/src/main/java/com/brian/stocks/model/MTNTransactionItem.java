@@ -60,7 +60,7 @@ public class MTNTransactionItem {
     public String getCurrency() {
         try {
             String currency = data.getString("currency");
-            return "SAF";
+            return "XAF";
         } catch (JSONException e) {
             return "";
         }

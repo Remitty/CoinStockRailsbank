@@ -47,12 +47,12 @@
             android:title="Prediction"/>
         <item
             android:id="@+id/nav_mtn"
-            android:icon="@drawable/ic_predict"
+            android:icon="@drawable/ic_mtn"
             android:title="MTN Service"/>
         <item
             android:id="@+id/nav_exchange"
-            android:icon="@drawable/stock"
-            android:title="Exchange"/>
+            android:icon="@drawable/ic_trade"
+            android:title="Trade"/>
 
         <item
             android:id="@+id/nav_stock_news"

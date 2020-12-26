@@ -2,6 +2,7 @@ package com.brian.stocks.home;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -45,25 +46,18 @@ import java.util.regex.Pattern;
 public class TransferCoinFragment extends Fragment {
     TextView tvBalance;
 
-    RecyclerView payHistoryView, contactListView;
+    RecyclerView payHistoryView;
     Button btnSend;
     Button btnAddContact;
 
-    View addContactView;
     EditText editName, editEmail;
     Button btnAddContact1;
 
-    private BottomSheetDialog dialog;
-
-    ArrayList<ContactUser> users = new ArrayList();
-    ArrayList<ContactUser> usersTemp = new ArrayList();
     ArrayList<JSONObject> payHistory = new ArrayList();
-
-    String selectedUserID, usdcBalance="0.0", amount;
-
-    AutoUserAdapter userAdapter;
-    UserContactAdapter userContactAdapter;
     TransferCoinHistoryAdapter historyAdapter;
+
+    String usdcBalance="0.0";
+
 
     private LoadToast loadToast;
     private TextView mtvUserName;
@@ -98,24 +92,6 @@ public class TransferCoinFragment extends Fragment {
         mtvUserName = view.findViewById(R.id.user_name);
         mtvUserName.setText(SharedHelper.getKey(getContext(), "fullName"));
 
-        View dialogView = getLayoutInflater().inflate(R.layout.coins_bottom_sheet, null);
-        dialog = new BottomSheetDialog(getContext());
-        dialog.setContentView(dialogView);
-        contactListView = dialogView.findViewById(R.id.bottom_coins_list);
-        userContactAdapter  = new UserContactAdapter(users);
-        contactListView.setLayoutManager(new LinearLayoutManager(getContext()));
-        contactListView.setAdapter(userContactAdapter);
-        userContactAdapter.setListener(new UserContactAdapter.Listener() {
-            @Override
-            public void onSelect(int position) {
-                dialog.hide();
-                selectedUserID = users.get(position).getEmail();
-//                tvTo.setText(users.get(position).getName());
-            }
-        });
-
-//        userAdapter = new AutoUserAdapter(getActivity(), R.layout.item_user ,users);
-
         historyAdapter = new TransferCoinHistoryAdapter(payHistory);
         payHistoryView.setAdapter(historyAdapter);
         payHistoryView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -123,61 +99,7 @@ public class TransferCoinFragment extends Fragment {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder((getContext()));
-                View view = getLayoutInflater().inflate(R.layout.dialog_send_usdc, null);
-                final TextView tvTo = view.findViewById(R.id.edit_pay_to);
-                final EditText editAmount = view.findViewById(R.id.edit_pay_amount);
-                Button btnPay = view.findViewById(R.id.btn_pay);
-                alert.setTitle("Send USDC")
-                        .setIcon(R.mipmap.ic_launcher_round)
-                        .setView(view);
-                final AlertDialog dialog = alert.create();
-                btnPay.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean validate = true;
-                        if(!TextUtils.isEmpty(editAmount.getText().toString()) && Double.parseDouble(usdcBalance) < Double.parseDouble(editAmount.getText().toString())){
-                            Toast.makeText(getActivity(), "Insufficient funds", Toast.LENGTH_SHORT).show();
-                            validate = false;
-                        }
-                        if(TextUtils.isEmpty(editAmount.getText().toString())){
-                            editAmount.setError("!");
-                            validate = false;
-                        }
-                        if(TextUtils.isEmpty(tvTo.getText().toString())){
-                            tvTo.setError("!");
-                            validate = false;
-                        }
-                        if(validate) {
-                            dialog.dismiss();
-                            AlertDialog.Builder alert1 = new AlertDialog.Builder(getActivity());
-                            alert1.setTitle("Confirm Pay")
-                                    .setIcon(R.mipmap.ic_launcher_round)
-                                    .setMessage("Are you sure you want to pay " + editAmount.getText().toString() + "usdc to " + tvTo.getText().toString())
-                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            amount = editAmount.getText().toString();
-                                            sendCoin();
-                                        }
-                                    })
-                                    .show();
-                        }
-                    }
-                });
-
-                tvTo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(users.size() == 0) {
-                            Toast.makeText(getActivity(), "No contact list", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        dialog.show();
-                    }
-                });
-
-                dialog.show();
+                startActivity(new Intent(getActivity(), SendUsdcActivity.class));
             }
         });
 
@@ -263,45 +185,6 @@ public class TransferCoinFragment extends Fragment {
                     });
     }
 
-    private void sendCoin() {
-        loadToast.show();
-        JSONObject param = new JSONObject();
-        try {
-            param.put("user", selectedUserID);
-            param.put("amount", amount);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.d("transfer parmas", param.toString());
-        if(getContext() != null)
-            AndroidNetworking.post(URLHelper.TRANSFER_COIN)
-                    .addHeaders("Content-Type", "application/json")
-                    .addHeaders("accept", "application/json")
-                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
-                    .addJSONObjectBody(param)
-                    .setPriority(Priority.MEDIUM)
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Log.d("response", "" + response);
-                            loadToast.success();
-
-                            setData(response);
-
-                        }
-
-                        @Override
-                        public void onError(ANError error) {
-                            loadToast.error();
-                            // handle error
-                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
-                        }
-                    });
-    }
-
-
     private void sendContact() {
         loadToast.show();
         JSONObject param = new JSONObject();
@@ -327,24 +210,6 @@ public class TransferCoinFragment extends Fragment {
                             loadToast.success();
                             try {
                                 Toast.makeText(getActivity(), response.getString("message"), Toast.LENGTH_SHORT).show();
-                                users.clear();
-                                if(response.optBoolean("success")) {
-                                    JSONArray userarray = response.getJSONArray("users");
-                                    for (int i = 0; i < userarray.length(); i++) {
-                                        try {
-                                            ContactUser user = new ContactUser();
-                                            user.setData(userarray.getJSONObject(i));
-                                            user.setData(userarray.getJSONObject(i));
-                                            users.add(user);
-                                            usersTemp.add(user);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    userContactAdapter.notifyDataSetChanged();
-                                }
-
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -363,39 +228,11 @@ public class TransferCoinFragment extends Fragment {
     }
 
     private void setData(JSONObject response) {
-        users.clear();
-        payHistory.clear();
+
         try {
-            JSONArray userarray = response.getJSONArray("users");
-            for(int i = 0; i < userarray.length(); i ++) {
-                try {
-                    ContactUser user = new ContactUser();
-                    user.setData(userarray.getJSONObject(i));
-                    user.setData(userarray.getJSONObject(i));
-                    users.add(user);
-                    usersTemp.add(user);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            JSONArray payhistory = response.getJSONArray("pay_history");
-            for(int i = 0; i < payhistory.length(); i ++) {
-                try {
-                    payHistory.add(payhistory.getJSONObject(i));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            userContactAdapter.notifyDataSetChanged();
-            historyAdapter.notifyDataSetChanged();
-
             usdcBalance = String.format("%.4f", Double.parseDouble(response.getString("usdc_balance")));
             tvBalance.setText(usdcBalance);
         } catch (JSONException e) {
-            e.printStackTrace();
-        }catch (NullPointerException e) {
             e.printStackTrace();
         }
     }

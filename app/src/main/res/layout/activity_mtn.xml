@@ -143,7 +143,8 @@
                         android:layout_height="40dp"
                         app:cornerRadius="15dp"
                         android:layout_gravity="right"
-                        android:text="Pay"/>
+                        android:text="Withdraw"
+                        android:textSize="10dp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
