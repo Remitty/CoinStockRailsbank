@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.adapters.BottomCoinAdapter;
@@ -72,6 +74,7 @@ public class CoinExchangeFragment extends Fragment {
     double buyCoinPrice=0, sellCoinPrice=0;
     private JSONArray bids = null;
     private JSONArray asks = null;
+    private ArrayList<String> pairList = new ArrayList<>();
     final Handler h = new Handler();
     int select = 0;
     private Handler mHandler;
@@ -107,6 +110,7 @@ public class CoinExchangeFragment extends Fragment {
         loadToast = new LoadToast(getActivity());
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -117,6 +121,8 @@ public class CoinExchangeFragment extends Fragment {
         TabLayout.Tab tabsel = tabLayout.getTabAt(0);
         tabsel.select();
         selType = "buy";
+
+
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -145,33 +151,84 @@ public class CoinExchangeFragment extends Fragment {
 
             }
         });
+
+        mPair = "BTC-XMT";
         initComponents();
 
         initListeners();
 
         getData();
-
         i = 0;
         mHandler = new Handler();
         mHandler.post(mUpdate);
-        /*
-        h.postDelayed(new Runnable()
-        {
-            //private long time = 0;
 
-            @Override
-            public void run()
-            {
-                // do stuff then
-                // can call h again after work!
-                //Log.d("TimerExample", "Going for... " + time);
-                getData();
-                h.postDelayed(this, 10000);
-            }
-        }, 10000); // 1 second delay (takes millis)
-
-         */
+        getPairs();
         return mView;
+    }
+
+    private void updatePairs() {
+        LinearLayout l = mView.findViewById(R.id.pairslist);
+        l.removeAllViews();
+        for(final String s : pairList){
+            Button newButton = new Button(getContext());
+            if (s.equals(mPair)) {
+                newButton.setSelected(true);
+                newButton.setBackgroundColor(0xFFFFFFFF);
+            } else {
+                newButton.setBackgroundColor(0xFFE9E9E9);
+            }
+            newButton.setText(s);
+            newButton.setTextSize(15);
+            newButton.setPadding(125,3,125,3);
+            newButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPair = s;
+                    TextView vscoin = mView.findViewById(R.id.coin_buyy);
+                    vscoin.setText(s.split("-")[1]);
+                    updatePairs();
+
+                    getData();
+
+                }
+            });
+            l.addView(newButton);
+        }
+    }
+    private void getPairs() {
+
+        if(getContext() != null)
+            AndroidNetworking.get(URLHelper.COIN_REALEXCHANGE_LIST)
+                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
+                    .setPriority(Priority.MEDIUM)
+                    .build()
+                    .getAsJSONArray(new JSONArrayRequestListener() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            Log.d("pairs list response", "" + response.toString());
+
+                            pairList.clear();
+
+                            if(response != null && response.length() > 0) {
+                                for (int i = 0; i < response.length(); i++) {
+                                    try {
+                                        pairList.add(response.getString(i));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                            updatePairs();
+                        }
+
+
+                        @Override
+                        public void onError(ANError error) {
+                            // handle error
+
+                            Log.d("errorpairlist", "" + error.getMessage()+" responde: "+error.getResponse());
+                        }
+                    });
     }
 
     private void getData() {
@@ -197,8 +254,22 @@ public class CoinExchangeFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("coin assets response", "" + response.toString());
-                            if (!response.has("success")) {
-                                return;
+                            try {
+                                if (!response.has("success") || response.getBoolean("success") == false) {
+                                    ordersList.clear();
+                                    ordersHistoryList.clear();
+                                    bidsList.clear();
+                                    asksList.clear();
+                                    mTextPriceUSD.setText("$0");
+                                    mTextAsksTotalUSD.setText("Asks ($0");
+                                    mTextBidsTotalUSD.setText("Bids ($0)");
+                                    mTextCoinBuyBalance.setText(df.format(0.0));
+                                    mTextCoinSellBalance.setText(df.format(0.0));
+                                    updateComponents();
+                                    return;
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
 
 
@@ -276,6 +347,7 @@ public class CoinExchangeFragment extends Fragment {
                                 mTextPriceUSD.setText("$"+df.format(mBTCXMT_rate));
                                 mTextAsksTotalUSD.setText("Asks ($"+df.format(Float.parseFloat(response.getString("asks_total")))+")");
                                 mTextBidsTotalUSD.setText("Bids ($"+df.format(Float.parseFloat(response.getString("bids_total")))+")");
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -287,13 +359,23 @@ public class CoinExchangeFragment extends Fragment {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            updateComponents();
                         }
 
 
                         @Override
                         public void onError(ANError error) {
                             // handle error
-
+                            ordersList.clear();
+                            ordersHistoryList.clear();
+                            bidsList.clear();
+                            asksList.clear();
+                            mTextPriceUSD.setText("$0");
+                            mTextAsksTotalUSD.setText("Asks ($0");
+                            mTextBidsTotalUSD.setText("Bids ($0)");
+                            mTextCoinBuyBalance.setText(df.format(0.0));
+                            mTextCoinSellBalance.setText(df.format(0.0));
+                            updateComponents();
                             Log.d("errorm", "" + error.getMessage()+" responde: "+error.getResponse());
                         }
                     });
@@ -357,9 +439,35 @@ public class CoinExchangeFragment extends Fragment {
                     });
     }
 
+    private void updateComponents() {
+        try {
+            mEditPrice.setText(df.format(getPrice()));
+
+            orderAdapter = new OrderAdapter(ordersList);
+            orderView.setLayoutManager(new LinearLayoutManager(getContext()));
+            orderView.setAdapter(orderAdapter);
+
+            orderHistoryView = mView.findViewById(R.id.orders_history_view);
+            orderHistoryAdapter = new OrderHistoryAdapter(ordersHistoryList);
+            orderHistoryView.setLayoutManager(new LinearLayoutManager(getContext()));
+            orderHistoryView.setAdapter(orderHistoryAdapter);
+
+            orderbookAsksView = mView.findViewById(R.id.orderbook_asks_view);
+            orderbookAsksAdapter = new OrderBookAsksAdapter(asksList);
+            orderbookAsksView.setLayoutManager(new LinearLayoutManager(getContext()));
+            orderbookAsksView.setAdapter(orderbookAsksAdapter);
+
+            orderbookBidsView = mView.findViewById(R.id.orderbook_bids_view);
+            orderBookBidsAdapter2 = new OrderBookBidsAdapter(bidsList);
+            orderbookBidsView.setLayoutManager(new LinearLayoutManager(getContext()));
+            orderbookBidsView.setAdapter(orderBookBidsAdapter2);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void initComponents() {
         mBtnTrade = mView.findViewById(R.id.btn_coin_trade);
-        mPair = "BTC-XMT";
 
         mTextPriceUSD = mView.findViewById(R.id.price_usd);
         mEditQuantity = mView.findViewById(R.id.edit_quantity);

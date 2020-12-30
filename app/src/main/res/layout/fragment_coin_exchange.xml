@@ -10,7 +10,19 @@
     tools:context=".home.CoinExchangeFragment"
     android:background="@color/colorDivider"
     android:orientation="vertical">
+    <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:fillViewport="true">
+        <LinearLayout
+            android:id="@+id/pairslist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+        </LinearLayout>
+    </HorizontalScrollView>
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
