@@ -2,6 +2,7 @@ package com.brian.stocks.home;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -219,6 +220,7 @@ public class CoinExchangeFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
                 return v;
 
             }
@@ -457,7 +459,6 @@ public class CoinExchangeFragment extends Fragment {
                                 mTextPriceUSD.setText("$"+df.format(mBTCXMT_rate));
                                 mTextAsksTotalUSD.setText("Asks ($"+df.format(Float.parseFloat(response.getString("asks_total")))+")");
                                 mTextBidsTotalUSD.setText("Bids ($"+df.format(Float.parseFloat(response.getString("bids_total")))+")");
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

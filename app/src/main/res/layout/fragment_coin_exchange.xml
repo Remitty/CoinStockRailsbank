@@ -14,7 +14,7 @@
         android:id="@+id/pairslist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@drawable/spinner_rect"
         android:popupBackground="#FFFFFF"
         android:layout_gravity="center"
         android:layout_marginTop="0dp"
