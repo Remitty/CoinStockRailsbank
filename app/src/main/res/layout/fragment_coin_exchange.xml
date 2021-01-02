@@ -289,7 +289,7 @@
         android:textSize="16dp"
         android:visibility="visible"
         android:gravity="center_horizontal"
-        android:textColor="@color/colorAccent"
+        android:textColor="#4F9723"
         android:text="Bids ($0)"/>
 
     <LinearLayout
