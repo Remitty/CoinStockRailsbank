@@ -1,7 +1,8 @@
 package com.brian.stocks.home;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -10,9 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,16 +30,12 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
-import com.brian.stocks.adapters.BottomCoinAdapter;
-import com.brian.stocks.helper.BigDecimalDouble;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
 import com.brian.stocks.home.adapters.OrderAdapter;
 import com.brian.stocks.home.adapters.OrderHistoryAdapter;
 import com.brian.stocks.home.adapters.OrderBookAsksAdapter;
 import com.brian.stocks.home.adapters.OrderBookBidsAdapter;
-import com.brian.stocks.model.CoinInfo;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -43,12 +43,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
-import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener;
 
 public class CoinExchangeFragment extends Fragment {
     private Button mBtnTrade;
@@ -74,7 +74,7 @@ public class CoinExchangeFragment extends Fragment {
     double buyCoinPrice=0, sellCoinPrice=0;
     private JSONArray bids = null;
     private JSONArray asks = null;
-    private ArrayList<String> pairList = new ArrayList<>();
+    private ArrayList<JSONObject> pairList = new ArrayList<>();
     final Handler h = new Handler();
     int select = 0;
     private Handler mHandler;
@@ -123,8 +123,6 @@ public class CoinExchangeFragment extends Fragment {
         selType = "buy";
 
 
-
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -152,12 +150,11 @@ public class CoinExchangeFragment extends Fragment {
             }
         });
 
-        mPair = "BTC-XMT";
+        mPair = "XMT-BTC";
         initComponents();
 
         initListeners();
 
-        getData();
         i = 0;
         mHandler = new Handler();
         mHandler.post(mUpdate);
@@ -166,9 +163,111 @@ public class CoinExchangeFragment extends Fragment {
         return mView;
     }
 
+    private class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
+
+        private String url;
+        private ImageView imageView;
+
+        public ImageLoadTask(String url, ImageView imageView) {
+            this.url = url;
+            this.imageView = imageView;
+        }
+
+        @Override
+        protected Bitmap doInBackground(Void... params) {
+            try {
+                URL urlConnection = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) urlConnection
+                        .openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                Bitmap myBitmap = BitmapFactory.decodeStream(input);
+                return myBitmap;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            super.onPostExecute(result);
+            imageView.setImageBitmap(result);
+        }
+
+    }
+
     private void updatePairs() {
-        LinearLayout l = mView.findViewById(R.id.pairslist);
-        l.removeAllViews();
+        Spinner l = mView.findViewById(R.id.pairslist);
+
+        ArrayAdapter<JSONObject> adapter = new ArrayAdapter<JSONObject>(getContext(), R.layout.pairs_row, R.id.tvPair, pairList) {
+
+            public View getView(int position, View convertView,ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                ImageView coin1 = v.findViewById(R.id.ivCoin1);
+                TextView pair = v.findViewById(R.id.tvPair);
+                ImageView coin2 = v.findViewById(R.id.ivCoin2);
+
+                try {
+                    pair.setText((String) pairList.get(position).get("symbol"));
+                    new ImageLoadTask((String) pairList.get(position).get("icon1"), coin1).execute();
+                    new ImageLoadTask((String) pairList.get(position).get("icon2"), coin2).execute();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return v;
+
+            }
+
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+
+                View v = super.getDropDownView(position, convertView, parent);
+                ImageView coin1 = v.findViewById(R.id.ivCoin1);
+                TextView pair = v.findViewById(R.id.tvPair);
+                ImageView coin2 = v.findViewById(R.id.ivCoin2);
+
+                try {
+                    pair.setText((String) pairList.get(position).get("symbol"));
+                    new ImageLoadTask((String) pairList.get(position).get("icon1"), coin1).execute();
+                    new ImageLoadTask((String) pairList.get(position).get("icon2"), coin2).execute();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return v;
+
+            }
+        };
+        l.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                // TODO Auto-generated method stub
+                try {
+                    mPair = (String) pairList.get(arg2).get("symbol");
+                    Log.d("pairs list response", "got pair " + mPair);
+
+                    TextView vscoin = mView.findViewById(R.id.coin_buyy);
+                    vscoin.setText(" "+mPair.split("-")[0]);
+
+                    getData();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+        l.setAdapter(adapter);
+
+        /*
         for(final String s : pairList){
             Button newButton = new Button(getContext());
             if (s.equals(mPair)) {
@@ -194,6 +293,8 @@ public class CoinExchangeFragment extends Fragment {
             });
             l.addView(newButton);
         }
+
+         */
     }
     private void getPairs() {
 
@@ -209,15 +310,17 @@ public class CoinExchangeFragment extends Fragment {
 
                             pairList.clear();
 
+
                             if(response != null && response.length() > 0) {
                                 for (int i = 0; i < response.length(); i++) {
                                     try {
-                                        pairList.add(response.getString(i));
+                                        pairList.add(response.getJSONObject(i));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
                                 }
                             }
+
                             updatePairs();
                         }
 
