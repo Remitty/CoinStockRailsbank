@@ -65,6 +65,8 @@ public class CoinExchangeFragment extends Fragment {
     OrderBookBidsAdapter orderBookBidsAdapter2;
     OrderBookAsksAdapter orderbookAsksAdapter;
     private boolean changedPrice = false;
+    private boolean focusedPrice = false;
+
     private ArrayList<JSONObject> bidsList = new ArrayList<>();
     private ArrayList<JSONObject> asksList = new ArrayList<>();
     private ArrayList<JSONObject> ordersList = new ArrayList<>();
@@ -131,6 +133,7 @@ public class CoinExchangeFragment extends Fragment {
                 } else {
                     selType = "buy";
                 }
+                focusedPrice = false;
                 changedPrice = false;
                 try {
                     mEditPrice.setText(df.format(getPrice()));
@@ -246,11 +249,13 @@ public class CoinExchangeFragment extends Fragment {
                 // TODO Auto-generated method stub
                 try {
                     mPair = (String) pairList.get(arg2).get("symbol");
-                    Log.d("pairs list response", "got pair " + mPair);
+                    //Log.d("pairs list response", "got pair " + mPair);
 
                     TextView vscoin = mView.findViewById(R.id.coin_buyy);
                     vscoin.setText(" "+mPair.split("-")[0]);
 
+                    focusedPrice = false;
+                    changedPrice = false;
                     getData();
 
 
@@ -306,7 +311,7 @@ public class CoinExchangeFragment extends Fragment {
                     .getAsJSONArray(new JSONArrayRequestListener() {
                         @Override
                         public void onResponse(JSONArray response) {
-                            Log.d("pairs list response", "" + response.toString());
+                            //Log.d("pairs list response", "" + response.toString());
 
                             pairList.clear();
 
@@ -343,8 +348,8 @@ public class CoinExchangeFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("exchange param", jsonObject.toString()+" -> "+URLHelper.COIN_REALEXCHANGE_DATA);
-        Log.d("token",SharedHelper.getKey(getContext(),"access_token"));
+        //Log.d("exchange param", jsonObject.toString()+" -> "+URLHelper.COIN_REALEXCHANGE_DATA);
+        //Log.d("token",SharedHelper.getKey(getContext(),"access_token"));
         if(getContext() != null)
             AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE_DATA)
                     .addHeaders("Content-Type", "application/json")
@@ -356,7 +361,7 @@ public class CoinExchangeFragment extends Fragment {
                     .getAsJSONObject(new JSONObjectRequestListener() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d("coin assets response", "" + response.toString());
+                            //Log.d("coin assets response", "" + response.toString());
                             try {
                                 if (!response.has("success") || response.getBoolean("success") == false) {
                                     ordersList.clear();
@@ -444,9 +449,11 @@ public class CoinExchangeFragment extends Fragment {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+
+
                             try {
                                 mBTCUSD_rate = Float.parseFloat(response.getString("btc_rate"));
-                                mBTCXMT_rate = mBTCUSD_rate * Float.parseFloat(String.valueOf(mEditPrice.getText()));
+                                mBTCXMT_rate = mBTCUSD_rate * Float.parseFloat(String.valueOf(getPrice()));
                                 mTextPriceUSD.setText("$"+df.format(mBTCXMT_rate));
                                 mTextAsksTotalUSD.setText("Asks ($"+df.format(Float.parseFloat(response.getString("asks_total")))+")");
                                 mTextBidsTotalUSD.setText("Bids ($"+df.format(Float.parseFloat(response.getString("bids_total")))+")");
@@ -455,13 +462,13 @@ public class CoinExchangeFragment extends Fragment {
                                 e.printStackTrace();
                             }
 
-
                             try {
-                                if (!changedPrice)
+                                if (!changedPrice && !focusedPrice)
                                     mEditPrice.setText(df.format(getPrice()));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+
                             updateComponents();
                         }
 
@@ -509,7 +516,7 @@ public class CoinExchangeFragment extends Fragment {
                     .getAsJSONObject(new JSONObjectRequestListener() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d("coin post response", "" + response.toString());
+                            //Log.d("coin post response", "" + response.toString());
                             if (!response.has("success")) {
                                 /*
                                 try {
@@ -543,30 +550,24 @@ public class CoinExchangeFragment extends Fragment {
     }
 
     private void updateComponents() {
-        try {
-            mEditPrice.setText(df.format(getPrice()));
+        orderAdapter = new OrderAdapter(ordersList);
+        orderView.setLayoutManager(new LinearLayoutManager(getContext()));
+        orderView.setAdapter(orderAdapter);
 
-            orderAdapter = new OrderAdapter(ordersList);
-            orderView.setLayoutManager(new LinearLayoutManager(getContext()));
-            orderView.setAdapter(orderAdapter);
+        orderHistoryView = mView.findViewById(R.id.orders_history_view);
+        orderHistoryAdapter = new OrderHistoryAdapter(ordersHistoryList);
+        orderHistoryView.setLayoutManager(new LinearLayoutManager(getContext()));
+        orderHistoryView.setAdapter(orderHistoryAdapter);
 
-            orderHistoryView = mView.findViewById(R.id.orders_history_view);
-            orderHistoryAdapter = new OrderHistoryAdapter(ordersHistoryList);
-            orderHistoryView.setLayoutManager(new LinearLayoutManager(getContext()));
-            orderHistoryView.setAdapter(orderHistoryAdapter);
+        orderbookAsksView = mView.findViewById(R.id.orderbook_asks_view);
+        orderbookAsksAdapter = new OrderBookAsksAdapter(asksList);
+        orderbookAsksView.setLayoutManager(new LinearLayoutManager(getContext()));
+        orderbookAsksView.setAdapter(orderbookAsksAdapter);
 
-            orderbookAsksView = mView.findViewById(R.id.orderbook_asks_view);
-            orderbookAsksAdapter = new OrderBookAsksAdapter(asksList);
-            orderbookAsksView.setLayoutManager(new LinearLayoutManager(getContext()));
-            orderbookAsksView.setAdapter(orderbookAsksAdapter);
-
-            orderbookBidsView = mView.findViewById(R.id.orderbook_bids_view);
-            orderBookBidsAdapter2 = new OrderBookBidsAdapter(bidsList);
-            orderbookBidsView.setLayoutManager(new LinearLayoutManager(getContext()));
-            orderbookBidsView.setAdapter(orderBookBidsAdapter2);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        orderbookBidsView = mView.findViewById(R.id.orderbook_bids_view);
+        orderBookBidsAdapter2 = new OrderBookBidsAdapter(bidsList);
+        orderbookBidsView.setLayoutManager(new LinearLayoutManager(getContext()));
+        orderbookBidsView.setAdapter(orderBookBidsAdapter2);
     }
 
     private void initComponents() {
@@ -641,7 +642,16 @@ public class CoinExchangeFragment extends Fragment {
 
             }
         });
+        mEditPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
 
+                if(hasFocus) {
+                    focusedPrice = true;
+                } else {
+                    focusedPrice = false;
+                }
+            }
+        });
         mEditQuantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -670,6 +680,7 @@ public class CoinExchangeFragment extends Fragment {
         });
 
         mEditPrice.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -677,6 +688,7 @@ public class CoinExchangeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                changedPrice = true;
             }
 
             @Override
@@ -709,14 +721,14 @@ public class CoinExchangeFragment extends Fragment {
     }
 
     private void calculate() {
-        Log.d("calculate","Quantity: "+mEditQuantity.getText().toString()+" Price: "+mEditPrice.getText().toString());
+        //Log.d("calculate","Quantity: "+mEditQuantity.getText().toString()+" Price: "+mEditPrice.getText().toString());
         String fixval1, fixval2;
         fixval1 = mEditQuantity.getText().toString();
-        if (fixval1.isEmpty()) {
+        if (fixval1 == null || fixval1.isEmpty()) {
             fixval1 = "0.00000001";
         }
         fixval2 = mEditPrice.getText().toString();
-        if (fixval2.isEmpty()) {
+        if (fixval2 == null || fixval2.isEmpty()) {
             fixval2 = "0.00000001";
         }
         Float calc = Float.parseFloat(fixval1) * Float.parseFloat(fixval2);

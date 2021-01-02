@@ -337,7 +337,7 @@
         android:textSize="16dp"
         android:visibility="visible"
         android:gravity="center_horizontal"
-        android:textColor="@color/colorAccent"
+        android:textColor="#223477"
         android:text="My active orders"/>
 
     <LinearLayout
