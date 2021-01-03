@@ -197,64 +197,15 @@ public class CoinsFragment extends Fragment {
                     showInputDialog(inflater, container,
                             savedInstanceState);
                 } else {
-                    doGenerateWalletAddress("");
+                    doGenerateWalletAddress("", 0);
                 }
             }
 
             @Override
             public void OnRamp(final int position) {
                 CoinSymbol = coinList.get(position).getCoinSymbol();
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                View view = getLayoutInflater().inflate(R.layout.layout_coin_buy, null);
-                final EditText address = view.findViewById(R.id.coin_buy_address);
-                final EditText amount = view.findViewById(R.id.coin_buy_amount);
-                TextView coin = view.findViewById(R.id.coin_symbol);
-                coin.setText(CoinSymbol);
-                Button btn = view.findViewById(R.id.coin_buy);
-                alert.setView(view);
-                final AlertDialog dialog = alert.create();
-                dialog.show();
-
-                String decimal = "0";
-                if(CoinSymbol.equals("BTC")) decimal = "100000000";
-                if(CoinSymbol.equals("USDC")) decimal = "10000000000";
-                if(CoinSymbol.equals("ETH") || CoinSymbol.equals("DAI")) decimal = "1000000000000000000";
-                final String finalDecimal = decimal;
-                btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean validation = true;
-                        if(address.getText().toString().equals("")) {
-                            validation = false;
-                            address.setError("!");
-                        }
-                        if(amount.getText().toString().equals("")) {
-                            validation = false;
-                            amount.setError("!");
-                        }
-                        if(validation) {
-
-                            Double swapamount = Double.parseDouble(amount.getText().toString()) * Double.parseDouble(finalDecimal);
-                            Long longamount = Double.valueOf(swapamount).longValue();
-                            // initialize RampInstantSDK
-                            RampInstantSDK rampInstantSDK = new RampInstantSDK(
-                                    getContext(),
-                                    address.getText().toString(),
-                                    "https://cdn-images-1.medium.com/max/2600/1*nqtMwugX7TtpcS-5c3lRjw.png",
-                                    "Coins",
-                                    "com.brian.stocks",
-                                    CoinSymbol,
-                                    longamount.toString(),
-                                    "",
-//                                    "https://widget-instant.ramp.network/"
-                                    "https://ri-widget-staging-ropsten.firebaseapp.com/"
-                            );
-                            dialog.dismiss();
-                            rampInstantSDK.show();
-                        }
-
-                    }
-                });
+                CoinId = coinList.get(position).getCoinId();
+                doGenerateWalletAddress("", 1);
 
             }
         });
@@ -394,7 +345,7 @@ public class CoinsFragment extends Fragment {
                 .setPositiveButton("Deposit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //depositAmount.setText(editText.getText());
-                        doGenerateWalletAddress(String.valueOf(editText.getText()));
+                        doGenerateWalletAddress(String.valueOf(editText.getText()), 0);
                     }
                 })
                 .setNegativeButton("Cancel",
@@ -571,7 +522,7 @@ public class CoinsFragment extends Fragment {
                 });
     }
 
-    private void doGenerateWalletAddress(String depositQuant) {
+    private void doGenerateWalletAddress(String depositQuant, final int type) {
         loadToast.show();
 //        loadToast.show();
         JSONObject jsonObject = new JSONObject();
@@ -599,7 +550,23 @@ public class CoinsFragment extends Fragment {
                             Log.d("response", "" + response);
                             loadToast.success();
                             if(response.optBoolean("success")) {
+                                if(type == 0)
                                 showWalletAddressDialog(response);
+                                else {
+                                    RampInstantSDK rampInstantSDK = new RampInstantSDK(
+                                            getContext(),
+                                            response.optString("address"),
+                                            "https://cdn-images-1.medium.com/max/2600/1*nqtMwugX7TtpcS-5c3lRjw.png",
+                                            "Coins",
+                                            "com.brian.stocks",
+                                            CoinSymbol,
+                                "",
+                                            "",
+        //                                    "https://widget-instant.ramp.network/"
+                                            "https://ri-widget-staging-ropsten.firebaseapp.com/"
+                                    );
+                                    rampInstantSDK.show();
+                                }
                             }
                             else
                                 Toast.makeText(getContext(), response.optString("error"), Toast.LENGTH_SHORT).show();

@@ -135,7 +135,7 @@
                         android:layout_weight="1"
                         android:text="Disbursement"
                         android:textColor="@color/colorBlack"
-                        android:textSize="20dp" />
+                        android:textSize="17dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_mtn_pay"
@@ -206,15 +206,16 @@
                         android:adjustViewBounds="true"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/usdc"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
                         android:layout_weight="1"
                         android:text="Converting"
                         android:textColor="@color/colorBlack"
-                        android:layout_marginLeft="20dp"
-                        android:layout_gravity="center"
-                        android:textSize="20dp"/>
+                        android:textSize="17dp" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -49,7 +49,7 @@ public class CoinInfo {
     public String getCoinBalance() {
 
         try {
-            return data.getString("balance");
+            return String.format("%.4f", Double.parseDouble(data.getString("balance")));
         } catch (JSONException e) {
             return "0.0";
         }
