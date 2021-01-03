@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,9 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import network.ramp.instantsdk.events.model.RampInstantEvent;
+import network.ramp.instantsdk.facade.RampInstantSDK;
 
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
@@ -195,6 +199,63 @@ public class CoinsFragment extends Fragment {
                 } else {
                     doGenerateWalletAddress("");
                 }
+            }
+
+            @Override
+            public void OnRamp(final int position) {
+                CoinSymbol = coinList.get(position).getCoinSymbol();
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                View view = getLayoutInflater().inflate(R.layout.layout_coin_buy, null);
+                final EditText address = view.findViewById(R.id.coin_buy_address);
+                final EditText amount = view.findViewById(R.id.coin_buy_amount);
+                TextView coin = view.findViewById(R.id.coin_symbol);
+                coin.setText(CoinSymbol);
+                Button btn = view.findViewById(R.id.coin_buy);
+                alert.setView(view);
+                final AlertDialog dialog = alert.create();
+                dialog.show();
+
+                String decimal = "0";
+                if(CoinSymbol.equals("BTC")) decimal = "100000000";
+                if(CoinSymbol.equals("USDC")) decimal = "10000000000";
+                if(CoinSymbol.equals("ETH") || CoinSymbol.equals("DAI")) decimal = "1000000000000000000";
+                final String finalDecimal = decimal;
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean validation = true;
+                        if(address.getText().toString().equals("")) {
+                            validation = false;
+                            address.setError("!");
+                        }
+                        if(amount.getText().toString().equals("")) {
+                            validation = false;
+                            amount.setError("!");
+                        }
+                        if(validation) {
+
+                            Double swapamount = Double.parseDouble(amount.getText().toString()) * Double.parseDouble(finalDecimal);
+                            Long longamount = Double.valueOf(swapamount).longValue();
+                            // initialize RampInstantSDK
+                            RampInstantSDK rampInstantSDK = new RampInstantSDK(
+                                    getContext(),
+                                    address.getText().toString(),
+                                    "https://cdn-images-1.medium.com/max/2600/1*nqtMwugX7TtpcS-5c3lRjw.png",
+                                    "Coins",
+                                    "com.brian.stocks",
+                                    CoinSymbol,
+                                    longamount.toString(),
+                                    "",
+//                                    "https://widget-instant.ramp.network/"
+                                    "https://ri-widget-staging-ropsten.firebaseapp.com/"
+                            );
+                            dialog.dismiss();
+                            rampInstantSDK.show();
+                        }
+
+                    }
+                });
+
             }
         });
 

@@ -186,14 +186,21 @@
                                     android:text="0.00"/>
                             </LinearLayout>
                         </LinearLayout>
-                        <Button
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/colorBlack"
+                            android:text="You can't withdraw above $5000 weekly."/>
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_coin_withdraw"
                             android:layout_width="200dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_button"
                             android:layout_marginTop="30dp"
-                            android:textSize="20dp"
+                            app:cornerRadius="20dp"
+                            android:textSize="15dp"
                             android:textColor="@android:color/white"
                             android:text="Withdraw"/>
                         <TextView

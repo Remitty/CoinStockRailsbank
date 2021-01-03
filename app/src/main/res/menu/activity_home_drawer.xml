@@ -12,7 +12,7 @@
         <item
             android:id="@+id/nav_exchange"
             android:icon="@drawable/ic_trade"
-            android:title="Trade XMT"/>
+            android:title="Trade cryptos"/>
 
         <item
             android:id="@+id/nav_mtn"

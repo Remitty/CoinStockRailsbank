@@ -84,7 +84,7 @@ public class CoinInfo {
 
     public String getWithdrawalFee() {
         try {
-            return data.getString("withdrawal_fee");
+            return String.format("%.6f", Double.parseDouble(data.getString("withdrawal_fee")));
         } catch (JSONException e) {
             return "";
         }

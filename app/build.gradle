@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.brian.stocks"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 28
         multiDexEnabled true
         versionCode 1
@@ -69,6 +69,7 @@ dependencies {
     implementation 'io.michaelrocks:libphonenumber-android:8.4.1'
 
     implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.github.RampNetwork:ramp-instant-sdk-android:v0.4.3'
 
     implementation project(path: ':bottom-nav-bar')
     implementation project(path: ':anychart')

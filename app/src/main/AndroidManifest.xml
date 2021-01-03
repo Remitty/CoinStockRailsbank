@@ -103,6 +103,31 @@
         <activity
             android:name=".coins.CoinDepositHistoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="network.ramp.instantsdk.ui.bank.BankActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/RampInstant.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.brian.stocks"
+                    android:scheme="rampnetwork" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="network.ramp.instantsdk.ui.rampinstant.RampInstantActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/RampInstant.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

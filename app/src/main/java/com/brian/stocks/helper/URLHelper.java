@@ -71,4 +71,5 @@ public class URLHelper {
     public static final String GET_MTN_TRANSACTION = REDIRECT_URL + "mtn/transactions";
     public static final String REQUEST_MTN_PAY = REDIRECT_URL + "mtn/pay";
     public static final String REQUEST_MTN_TOPUP = REDIRECT_URL + "mtn/topup";
+    public static final String REQUEST_MTN_CONVERT = REDIRECT_URL + "mtn/convert";
 }

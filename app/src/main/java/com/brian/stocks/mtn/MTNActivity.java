@@ -43,7 +43,7 @@ import java.util.regex.Pattern;
 
 public class MTNActivity extends AppCompatActivity {
 
-    Button btnPay, btnTopup;
+    Button btnPay, btnTopup, btnConvert, btnConvert1;
     TextView tvBalance, tvCurrency, tvViewAll;
     TextView tvEmpty;
     RecyclerView mtnTransactionView;
@@ -165,6 +165,80 @@ public class MTNActivity extends AppCompatActivity {
             }
         });
 
+        btnConvert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View view = View.inflate(getBaseContext(), R.layout.layout_mtn_payment, null);
+                final EditText mtnAmount = view.findViewById(R.id.edit_mtn_pay_amount);
+                final EditText mtnTo = view.findViewById(R.id.edit_mtn_pay_to);
+                mtnTo.setVisibility(View.GONE);
+                alert.setTitle("Convert")
+                        .setView(view);
+                final AlertDialog alertDialog = alert.create();
+                alertDialog.show();
+                Button btnOk = view.findViewById(R.id.btn_mtn_ok);
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        amount = mtnAmount.getText().toString();
+                        if(amount.equals("")) {
+                            mtnAmount.setError("!");
+                            return;
+                        }
+
+                        alertDialog.dismiss();
+                        AlertDialog.Builder alert = new AlertDialog.Builder(MTNActivity.this);
+                        alert.setIcon(R.mipmap.ic_launcher_round)
+                                .setTitle("Are you sure you want to convert " + amount + "" + currency + "?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        handleConvert(0);
+                                    }
+                                })
+                                .show();
+                    }
+                });
+            }
+        });
+
+        btnConvert1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View view = View.inflate(getBaseContext(), R.layout.layout_mtn_payment, null);
+                final EditText mtnAmount = view.findViewById(R.id.edit_mtn_pay_amount);
+                final EditText mtnTo = view.findViewById(R.id.edit_mtn_pay_to);
+                mtnTo.setVisibility(View.GONE);
+                alert.setTitle("Collection")
+                        .setView(view);
+                final AlertDialog alertDialog = alert.create();
+                alertDialog.show();
+                Button btnOk = view.findViewById(R.id.btn_mtn_ok);
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        amount = mtnAmount.getText().toString();
+                        if(amount.equals("")) {
+                            mtnAmount.setError("!");
+                            return;
+                        }
+
+                        alertDialog.dismiss();
+                        AlertDialog.Builder alert = new AlertDialog.Builder(MTNActivity.this);
+                        alert.setIcon(R.mipmap.ic_launcher_round)
+                                .setTitle("Are you sure you want to convert " + amount +  "USDC ?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        handleConvert(1);
+                                    }
+                                })
+                                .show();
+                    }
+                });
+            }
+        });
+
         tvViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,6 +260,8 @@ public class MTNActivity extends AppCompatActivity {
 
         btnPay = findViewById(R.id.btn_mtn_pay);
         btnTopup = findViewById(R.id.btn_mtn_topup);
+        btnConvert = findViewById(R.id.btn_mtn_convert);
+        btnConvert1 = findViewById(R.id.btn_mtn_convert1);
     }
 
     private void getData() {
@@ -324,6 +400,58 @@ public class MTNActivity extends AppCompatActivity {
                                     tvEmpty.setVisibility(View.GONE);
                                 }
 
+                                tvBalance.setText(response.getString("balance"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        loadToast.error();
+                        // handle error
+                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getMessage());
+                    }
+                });
+    }
+
+
+    private void handleConvert(int type) {
+        loadToast.show();
+        JSONObject object = new JSONObject();
+        try {
+            object.put("amount", amount);
+            object.put("type", type);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        AndroidNetworking.post(URLHelper.REQUEST_MTN_CONVERT)
+                .addHeaders("Content-Type", "application/json")
+                .addHeaders("accept", "application/json")
+                .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))
+                .addJSONObjectBody(object)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("response", "" + response);
+                        loadToast.success();
+                        if(response.optBoolean("success")) {
+                            transactions.clear();
+                            JSONObject data = null;
+                            try {
+                                data = response.getJSONObject("transaction");
+                                MTNTransactionItem item = new MTNTransactionItem();
+                                item.setData(data);
+                                transactions.add(item);
+                                mtnTransactionAdapter.notifyDataSetChanged();
+                                if(transactions.size() > 0) {
+                                    tvEmpty.setVisibility(View.GONE);
+                                }
                                 tvBalance.setText(response.getString("balance"));
                             } catch (JSONException e) {
                                 e.printStackTrace();

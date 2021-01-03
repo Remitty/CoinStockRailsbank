@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import com.brian.stocks.model.CoinInfo;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.graphics.Color.GREEN;
@@ -37,7 +40,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
         TextView tvCoinName, tvCoinRate, tvCoinEstAmount, tvCoinBalance, tvCoinEffect;
         ImageView coinIcon;
         LinearLayout llCoinBalance;
-        Button btnDeposit;
+        Button btnDeposit, btnRamp;
 
         public OrderViewHolder(View view) {
             super(view);
@@ -50,6 +53,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
             coinIcon = view.findViewById(R.id.coin_icon);
             llCoinBalance = view.findViewById(R.id.ll_coin_balance);
             btnDeposit = view.findViewById(R.id.btn_deposit);
+            btnRamp = view.findViewById(R.id.btn_ramp);
         }
     }
 
@@ -114,6 +118,19 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
                 listener.OnDeposit(position);
             }
         });
+        holder.btnRamp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.OnRamp(position);
+            }
+        });
+        String coins = "BTC ETH DAI XDAI USDC DOT";
+        if(coins.contains(item.getCoinSymbol())) {
+            holder.btnRamp.setVisibility(View.VISIBLE);
+        }
+        else {
+            holder.btnRamp.setVisibility(View.GONE);
+        }
 
     }
 
@@ -135,5 +152,6 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
          * @param position
          */
         void OnDeposit(int position);
+        void OnRamp(int position);
     }
 }
