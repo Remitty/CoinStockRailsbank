@@ -2,6 +2,7 @@ package com.brian.stocks.home;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -138,6 +140,9 @@ public class CoinsFragment extends Fragment {
     };
 
     private Socket mSocket;
+    private String mOnramperApikey;
+    private String onRamperCoins;
+
     {
         try {
             Options option = new IO.Options();
@@ -203,10 +208,32 @@ public class CoinsFragment extends Fragment {
 
             @Override
             public void OnRamp(final int position) {
-                CoinSymbol = coinList.get(position).getCoinSymbol();
-                CoinId = coinList.get(position).getCoinId();
-                doGenerateWalletAddress("", 1);
+                final CoinInfo coin = coinList.get(position);
+                CoinSymbol = coin.getCoinSymbol();
+                CoinId = coin.getCoinId();
+                if(coin.getBuyNowOption() == 2) { // btc, eth, usdc, dai
+                    AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                    View view = getLayoutInflater().inflate(R.layout.dialog_coin_buy_option, null);
+                    final RadioGroup coinRdg = view.findViewById(R.id.coin_rdg);
+                    alert.setView(view)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
+                                    if (coinRdg.getCheckedRadioButtonId() == R.id.coin_rdb_1)
+                                        doGenerateWalletAddress("", 1); // ramp
+                                    else if(coinRdg.getCheckedRadioButtonId() == R.id.coin_rdb_2)doGenerateWalletAddress("", 2); // onramp
+                                    else {
+                                        Toast.makeText(getContext(), "Please select otion", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                }
+                            })
+                            .show();
+                }
+                else { // xrp, bch, ltc
+                    doGenerateWalletAddress("", 2);
+                }
             }
         });
 
@@ -292,45 +319,6 @@ public class CoinsFragment extends Fragment {
         return rootView;
     }
 
-
-    private Emitter.Listener onConnect = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if(mSocket.connected())
-                        Log.d("socketsuccess", mSocket.id());
-                }
-            });
-        }
-    };
-    private Emitter.Listener onDisconnect = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.i("socket disconnect", "diconnected");
-
-                }
-            });
-        }
-    };
-
-    private Emitter.Listener onConnectError = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("socket connect eorrr", "Error connecting");
-
-                }
-            });
-        }
-    };
-
     protected void showInputDialog(LayoutInflater inflater, ViewGroup container,
                                    Bundle savedInstanceState) {
 
@@ -358,25 +346,6 @@ public class CoinsFragment extends Fragment {
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
-    }
-
-    private void getKrakenAPIToken() {
-        if(getContext() != null){
-            AndroidNetworking.get("https://api.kraken.com/0/private/GetWebSocketsToken")
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Log.d("kraknetoekn", response.toString());
-//                            Log.d("kraknetoken", response.optJSONObject("subscription").optString("token"));
-                        }
-
-                        @Override
-                        public void onError(ANError anError) {
-
-                        }
-                    });
-        }
     }
 
     private void showWalletAddressDialog(JSONObject data) {
@@ -490,6 +459,7 @@ public class CoinsFragment extends Fragment {
                             mTotalBalance.setText("$ " + response.getString("total_balance"));
                             mTotalEffect.setText(response.getString("total_effect")+" %");
                             mUSDBalance.setText(response.getString("usd_balance"));
+                            mOnramperApikey = response.getString("onramper_api_key");
                             if(response.getString("total_effect").startsWith("-"))
                                 mTotalEffect.setTextColor(RED);
                             else mTotalEffect.setTextColor(GREEN);
@@ -497,7 +467,9 @@ public class CoinsFragment extends Fragment {
                             JSONArray coins = response.getJSONArray("coins");
                             for(int i = 0; i < coins.length(); i ++) {
                                 try {
-                                    coinList.add(new CoinInfo((JSONObject) coins.get(i)));
+                                    CoinInfo coin = new CoinInfo((JSONObject) coins.get(i));
+                                    coinList.add(coin);
+                                    onRamperCoins = onRamperCoins+coin.getCoinSymbol()+",";
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -550,22 +522,28 @@ public class CoinsFragment extends Fragment {
                             Log.d("response", "" + response);
                             loadToast.success();
                             if(response.optBoolean("success")) {
+                                String address = response.optString("address");
                                 if(type == 0)
                                 showWalletAddressDialog(response);
-                                else {
+                                else if(type == 1){
                                     RampInstantSDK rampInstantSDK = new RampInstantSDK(
                                             getContext(),
-                                            response.optString("address"),
+                                            address,
                                             "https://cdn-images-1.medium.com/max/2600/1*nqtMwugX7TtpcS-5c3lRjw.png",
                                             "Coins",
                                             "com.brian.stocks",
                                             CoinSymbol,
                                 "",
                                             "",
-        //                                    "https://widget-instant.ramp.network/"
-                                            "https://ri-widget-staging-ropsten.firebaseapp.com/"
+                                            "https://widget-instant.ramp.network/"
+//                                            "https://ri-widget-staging-ropsten.firebaseapp.com/"
                                     );
                                     rampInstantSDK.show();
+                                } else {
+                                    String url = "https://widget.onramper.dev?color=1d2d50&apiKey="+mOnramperApikey+"&defaultCrypto="+CoinSymbol+"&defaultAddrs="+address+"&onlyCryptos="+onRamperCoins;
+                                    Intent browserIntent = new Intent(getActivity(), WebViewActivity.class);
+                                    browserIntent.putExtra("uri", url);
+                                    startActivity(browserIntent);
                                 }
                             }
                             else

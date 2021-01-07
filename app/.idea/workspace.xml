@@ -10,10 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b609c952-7f38-4eca-8fe0-4d572c73ba63" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/WebViewActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_web_view.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/dialog_coin_buy_option.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/CoinsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/CoinsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/adapters/CoinAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/adapters/CoinAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/model/CoinInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/model/CoinInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_mtn.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_mtn.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,7 +26,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="test" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="test1" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -83,8 +88,8 @@
   <component name="ProjectId" id="1coKKK9IOZBrsNvQQ9fvyllu3ZW" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="test" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-11-20T00:53:05.218Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="test1" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-01-07T17:43:59.434Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="D:/Android/sdk" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Groovy JUnit" />
@@ -97,6 +102,9 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.brian.stocks.activities" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.brian.stocks.activities" />
     </key>
@@ -117,16 +125,13 @@
       <recent name="com.brian.stocks.home.adapters" />
       <recent name="com.brian.stocks.home" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Brian\Coinstock\app\src\main\res\menu" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\Brian\CoinStocks\App\app\src\main\res\drawable-v21" />
       <recent name="F:\Brian\CoinStocks\App\app\src\main\res\menu" />
       <recent name="F:\Brian\CoinStocks\App\app\src\main\res\drawable" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Brian\Coinstock\app\src\main\res\menu" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.brian.stocks.activities" />
     </key>
   </component>
   <component name="RunDashboard">

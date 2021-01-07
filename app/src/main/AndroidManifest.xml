@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".home.SendUsdcActivity"></activity>
+        <activity android:name=".home.WebViewActivity"></activity>
+        <activity android:name=".home.SendUsdcActivity" />
         <activity android:name=".mtn.MtnTransactionActivity" />
         <activity android:name=".mtn.MTNActivity" />
         <activity android:name=".xmt.XMTTradingActivity" />
@@ -107,8 +108,8 @@
             android:name="network.ramp.instantsdk.ui.bank.BankActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/RampInstant.NoActionBar">
+            android:theme="@style/RampInstant.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -124,10 +125,8 @@
             android:name="network.ramp.instantsdk.ui.rampinstant.RampInstantActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/RampInstant.NoActionBar">
-
-        </activity>
+            android:theme="@style/RampInstant.NoActionBar"
+            android:windowSoftInputMode="adjustResize"></activity>
     </application>
 
 </manifest>

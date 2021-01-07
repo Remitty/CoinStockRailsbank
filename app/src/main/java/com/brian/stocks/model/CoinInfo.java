@@ -108,5 +108,13 @@ public class CoinInfo {
         }
     }
 
+    public int getBuyNowOption() {
+        try {
+            return data.getInt("buy_now");
+        } catch (JSONException e) {
+            return 0;
+        }
+    }
+
 }
 
