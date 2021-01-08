@@ -192,7 +192,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_gravity="center_horizontal"
                             android:textColor="@color/colorBlack"
-                            android:text="You can't withdraw above $5000 weekly."/>
+                            android:text="Your withdrawal limit is $5000.00 weekly."/>
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_coin_withdraw"
                             android:layout_width="200dp"

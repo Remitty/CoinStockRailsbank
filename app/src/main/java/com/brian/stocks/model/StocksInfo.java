@@ -51,7 +51,11 @@ public class StocksInfo {
     }
 
     public String getStocksShares() {
-       return data.optString("shares");
+        try {
+            return data.getString("shares");
+        } catch (JSONException e) {
+            return "0";
+        }
     }
 
     public String getStocksOrderName() {
@@ -64,11 +68,19 @@ public class StocksInfo {
     }
 
     public String getStocksOrderShares(){
-        return data.optString("qty");
+        try {
+            return data.getString("qty");
+        } catch (JSONException e) {
+            return "0";
+        }
     }
 
     public String getStockAvgPrice(){
-        return data.optString("filled_avg_price");
+        try {
+            return data.getString("filled_avg_price");
+        } catch (JSONException e) {
+            return "0.0";
+        }
     }
 
     public String getStocksPrice() {
@@ -107,23 +119,49 @@ public class StocksInfo {
     }
 
     public String getStockOrderStatus(){
-        return data.optString("status");
+        try {
+            return data.getString("status");
+        } catch (JSONException e) {
+            return "";
+        }
     }
-    public String getStockOrderLimitPrice() {return data.optString("limit_price");}
+    public String getStockOrderLimitPrice() {
+        try {
+            return data.getString("limit_price");
+        } catch (JSONException e) {
+            return "0.0";
+        }
+    }
     public String getStockOrderSide(){
-        return data.optString("side");
+        try {
+            return data.getString("side");
+        } catch (JSONException e) {
+            return "";
+        }
     }
 
     public String getStockOrderType(){
-        return data.optString("type");
+        try {
+            return data.getString("type");
+        } catch (JSONException e) {
+            return "";
+        }
     }
 
     public String getStockOrderID(){
-        return data.optString("order_id");
+        try {
+            return data.getString("order_id");
+        } catch (JSONException e) {
+            return  "";
+        }
     }
 
     public String getStockOrderDate(){
-        return data.optString("created_at").split(" ")[0];
+        try {
+            return data.getString("created_at").split(" ")[0];
+        } catch (JSONException e) {
+            return "";
+        }
     }
 
 }

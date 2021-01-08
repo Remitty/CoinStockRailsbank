@@ -126,7 +126,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
         });
         String coins = "BTC ETH DAI XDAI USDC DOT";
 //        if(coins.contains(item.getCoinSymbol())) {
-        if(item.getBuyNowOption() != 0) {
+        if(item.getBuyNowOption() != 0 && item.getBuyNowOption() != 3) {
             holder.btnRamp.setVisibility(View.VISIBLE);
         }
         else {

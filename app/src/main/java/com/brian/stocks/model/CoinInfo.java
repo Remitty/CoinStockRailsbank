@@ -31,9 +31,18 @@ public class CoinInfo {
     }
 
     public String getCoinIcon() {
-        String path = data.optString("icon");
-        if(!path.startsWith("http"))
-            path = URLHelper.base + path;
+        String path = "";
+        try {
+            path = data.getString("coin_icon");
+            if(path.equals("") || path.equals("null")) {
+                path = data.getString("icon");
+            }
+            if(!path.startsWith("http"))
+                path = URLHelper.base + path;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         return path;
     }
 

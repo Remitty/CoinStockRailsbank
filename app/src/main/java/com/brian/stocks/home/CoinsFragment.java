@@ -79,69 +79,9 @@ public class CoinsFragment extends Fragment {
     private SwipeRefreshLayout refreshLayout;
     private String CoinSymbol, CoinId;
 
-    private OkSocketOptions mOkOptions;
-    private IConnectionManager mManager;
-    private ConnectionInfo mInfo;
-
-    private SocketActionAdapter adapter = new SocketActionAdapter() {
-
-        @Override
-        public void onSocketConnectionSuccess(ConnectionInfo info, String action) {
-            JSONObject object = new JSONObject();
-            JSONObject subscription = new JSONObject();
-            try {
-                object.put("event", "ping");
-//                object.put("event", "subscribe");
-//                String pair = "XBT/USD";
-//                object.put("pair", pair);
-//                subscription.put("name", "ticker");
-//                object.put("subscription", subscription);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-//            mManager.send(new HandShakeBean());
-//            mManager.send(new SendData(object.toString()));
-//            String data = "{\"event\":\"subscribe\",\"pair\":[\"XBT/USD\"],\"subscription\":{\"name\":\"ticker\"}}";
-            mManager.send(new SendData(object.toString()));
-            Log.d("socket success", "Socket connect success");
-        }
-
-        @Override
-        public void onSocketDisconnection(ConnectionInfo info, String action, Exception e) {
-            if (e != null) {
-                Log.d("socket disconnet", e.getMessage());
-            } else {
-                Log.d("socketdisconnect", "(Disconnect Manually)");
-            }
-        }
-
-        @Override
-        public void onSocketConnectionFailed(ConnectionInfo info, String action, Exception e) {
-            Log.d("socket faild", "(Connecting Failed)");
-        }
-
-        @Override
-        public void onSocketReadResponse(ConnectionInfo info, String action, OriginalData data) {
-            String str = new String(data.getBodyBytes(), Charset.forName("utf-8"));
-            Log.d("socket response", str);
-        }
-
-        @Override
-        public void onSocketWriteResponse(ConnectionInfo info, String action, ISendable data) {
-            String str = new String(data.parse(), Charset.forName("utf-8"));
-            Log.d("socket write", str);
-        }
-
-        @Override
-        public void onPulseSend(ConnectionInfo info, IPulseSendable data) {
-            String str = new String(data.parse(), Charset.forName("utf-8"));
-            Log.d("socket plse", str);
-        }
-    };
-
     private Socket mSocket;
     private String mOnramperApikey;
-    private String onRamperCoins;
+    private String onRamperCoins="";
 
     {
         try {
@@ -216,7 +156,8 @@ public class CoinsFragment extends Fragment {
                     View view = getLayoutInflater().inflate(R.layout.dialog_coin_buy_option, null);
                     final RadioGroup coinRdg = view.findViewById(R.id.coin_rdg);
                     alert.setView(view)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            .setIcon(R.mipmap.ic_launcher_round)
+                            .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
@@ -224,7 +165,7 @@ public class CoinsFragment extends Fragment {
                                         doGenerateWalletAddress("", 1); // ramp
                                     else if(coinRdg.getCheckedRadioButtonId() == R.id.coin_rdb_2)doGenerateWalletAddress("", 2); // onramp
                                     else {
-                                        Toast.makeText(getContext(), "Please select otion", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Please select option", Toast.LENGTH_SHORT).show();
                                         return;
                                     }
                                 }
@@ -237,23 +178,6 @@ public class CoinsFragment extends Fragment {
             }
         });
 
-//        mSocket.on(Socket.EVENT_CONNECT,onConnect);
-//        mSocket.on(Socket.EVENT_DISCONNECT,onDisconnect);
-//        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
-////        mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-//        mSocket.connect();
-//        mSocket.on("updatecoins", updateValue);
-//
-//        JSONObject object = new JSONObject();
-//        try {
-//            object.put("pair", "XBT/USD");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        mSocket.emit("subscribe", object);
-
-//        getKrakenAPIToken();
         getAllCoins(false);
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -273,48 +197,7 @@ public class CoinsFragment extends Fragment {
                 }
         );
 
-//        try {
-//            SSLSocketFactory factory = (SSLSocketFactory)SSLSocketFactory.getDefault();
-//            SSLSocket socket = (SSLSocket)factory.createSocket("ws.kraken.com", 443);
-//            socket.connect();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         final Handler handler = new Handler();
-        mInfo = new ConnectionInfo("ws.kraken.com", 443);
-        mOkOptions = new OkSocketOptions.Builder()
-                .setReaderProtocol(new IReaderProtocol() {
-                    @Override
-                    public int getHeaderLength() {
-                        return 10;
-                    }
-
-                    @Override
-                    public int getBodyLength(byte[] header, ByteOrder byteOrder) {
-                        ByteBuffer bb = ByteBuffer.allocate(header.length);
-                        bb.order(byteOrder);
-                        bb.put(header);
-                        Log.d("socket header data", Arrays.toString(bb.array()));
-                        int value = header.length;
-                        Log.d("socketheaderdata1", value+"");
-                        return value;
-                    }
-                })
-                .setReconnectionManager(new NoneReconnect())
-                .setConnectTimeoutSecond(10)
-                .setCallbackThreadModeToken(new OkSocketOptions.ThreadModeToken() {
-                    @Override
-                    public void handleCallbackEvent(ActionDispatcher.ActionRunnable runnable) {
-                        handler.post(runnable);
-                    }
-                })
-                .build();
-
-        mManager = OkSocket.open(mInfo).option(mOkOptions);
-        mManager.registerReceiver(adapter);
-
-        mManager.connect();
 
         return rootView;
     }
@@ -540,7 +423,9 @@ public class CoinsFragment extends Fragment {
                                     );
                                     rampInstantSDK.show();
                                 } else {
-                                    String url = "https://widget.onramper.dev?color=1d2d50&apiKey="+mOnramperApikey+"&defaultCrypto="+CoinSymbol+"&defaultAddrs="+address+"&onlyCryptos="+onRamperCoins;
+                                    String coin_address = CoinSymbol+":["+address+"]";
+                                    String excludeCryptos = "&excludeCryptos=EOS,USDT,XLM,BUSD,GUSD,HUSD,PAX,USDS";
+                                    String url = "https://widget.onramper.dev?color=1d2d50&apiKey="+mOnramperApikey+"&defaultCrypto="+CoinSymbol+excludeCryptos+"&defaultAddrs="+coin_address+"&onlyCryptos="+onRamperCoins;
                                     Intent browserIntent = new Intent(getActivity(), WebViewActivity.class);
                                     browserIntent.putExtra("uri", url);
                                     startActivity(browserIntent);

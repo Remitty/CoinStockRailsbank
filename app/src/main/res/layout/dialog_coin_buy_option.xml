@@ -3,23 +3,36 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="50dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select option to buy cryptocurrencies with over 40 fiat currencies"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:textColor="@color/green"/>
     <RadioGroup
         android:id="@+id/coin_rdg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         >
         <RadioButton
             android:id="@+id/coin_rdb_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="USD, EUR"
-            android:textColor="@color/black"/>
+            android:text="USA, EUROPE"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColorHint="@color/colorBlack"/>
         <RadioButton
             android:id="@+id/coin_rdb_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CHF, CYN"
-            android:textColor="@color/black"/>
+            android:text="ASIA, EUROPE, AFRICA, AUSTRALIA, SOUTH AMERICA"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColorHint="@color/colorBlack"/>
     </RadioGroup>
 </LinearLayout>

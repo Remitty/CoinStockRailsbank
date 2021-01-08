@@ -18,7 +18,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="bottom"
         >
         <androidx.cardview.widget.CardView
@@ -57,7 +57,7 @@
                         android:id="@+id/login_emailid"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="70dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/rounded_corners_edittext_dark"
                         android:drawableStart="@drawable/ic_mail_outline"
                         android:drawablePadding="8dp"
