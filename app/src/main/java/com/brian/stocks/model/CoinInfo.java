@@ -37,17 +37,12 @@ public class CoinInfo {
             if(path.equals("") || path.equals("null")) {
                 path = data.getString("icon");
             }
-
+            if(!path.startsWith("http"))
+                path = URLHelper.base + path;
         } catch (JSONException e) {
             e.printStackTrace();
-            try {
-                path = data.getString("icon");
-            } catch (JSONException ex) {
-                ex.printStackTrace();
-            }
         }
-        if(!path.startsWith("http"))
-            path = URLHelper.base + path;
+
         return path;
     }
 
@@ -63,7 +58,7 @@ public class CoinInfo {
     public String getCoinBalance() {
 
         try {
-            return String.format("%.6f", Double.parseDouble(data.getString("balance")));
+            return String.format("%.4f", Double.parseDouble(data.getString("balance")));
         } catch (JSONException e) {
             return "0.0";
         }
