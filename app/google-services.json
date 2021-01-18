@@ -1,0 +1,45 @@
+{
+  "project_info": {
+    "project_number": "734344968620",
+    "firebase_url": "https://rideshare-14b25.firebaseio.com",
+    "project_id": "rideshare-14b25",
+    "storage_bucket": "rideshare-14b25.appspot.com"
+  },
+  "client": [
+
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734344968620:android:bbb9dc40ea7b60af56e209",
+        "android_client_info": {
+          "package_name": "com.brian.stocks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734344968620-t20fm1o6m2tf8snr9isms79ae2d6mdnv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb8n_B0JONvtFhup1IZo_J3zekUT6Y3A0"
+        },
+        {
+          "current_key": "AIzaSyCnCBo4qiU3PuiLNvNstl8GadA4-E__NqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734344968620-t20fm1o6m2tf8snr9isms79ae2d6mdnv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+
+  ],
+  "configuration_version": "1"
+}

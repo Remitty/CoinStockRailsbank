@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.brian.stocks"
+        minSdkVersion 24
+        targetSdkVersion 28
+        multiDexEnabled true
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                def appName = "wyretrade"
+                outputFileName = appName + "-${variant.versionName}.apk"
+            }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'net.steamcrafted:load-toast:1.0.12'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    implementation 'com.google.android.material:material:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.github.iwgang:countdownview:2.1.6'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    implementation 'com.google.firebase:firebase-core:11.8.0'
+    implementation 'com.google.firebase:firebase-database:11.8.0'
+    implementation 'com.google.firebase:firebase-storage:11.8.0'
+    implementation 'com.google.firebase:firebase-crash:11.8.0'
+    implementation 'com.google.firebase:firebase-messaging:11.8.0'
+    implementation 'com.google.firebase:firebase-auth:11.8.0'
+    implementation 'com.google.firebase:firebase-firestore:11.8.0'
+
+//    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+//    implementation 'com.google.android.gms:play-services-places:17.0.0'
+//    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+//    implementation 'com.google.android.libraries.places:places:2.1.0'
+
+
+    implementation 'androidx.multidex:multidex:2.0.0'
+//    implementation "com.google.android.gms:play-services:11.8.0"
+
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    implementation 'com.github.nkzawa:socket.io-client:0.6.0'
+    api 'com.tonystark.android:socket:latest.release'
+
+//    implementation 'org.chat21.android:chat21:1.0.15'
+    implementation 'io.michaelrocks:libphonenumber-android:8.4.1'
+
+    implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.github.RampNetwork:ramp-instant-sdk-android:v0.4.3'
+
+    implementation project(path: ':bottom-nav-bar')
+    implementation project(path: ':anychart')
+//    implementation project(path: ':chat21')
+    implementation project(":PhoneVerification")
+}
+apply plugin: 'com.google.gms.google-services'
+//
+//configurations.all {
+//    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//        def requested = details.requested
+//        if (requested.group == 'com.android.support') {
+//            if (!requested.name.startsWith("multidex")) {
+//                details.useVersion '26.1.0'
+//            }
+//        }
+//    }
+//}
+
