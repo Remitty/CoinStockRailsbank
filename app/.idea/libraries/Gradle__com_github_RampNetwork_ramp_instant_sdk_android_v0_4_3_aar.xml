@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.RampNetwork:ramp-instant-sdk-android:v0.4.3@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/32c50eb592968e790a4116782046af4e/ramp-instant-sdk-android-v0.4.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/32c50eb592968e790a4116782046af4e/ramp-instant-sdk-android-v0.4.3/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.RampNetwork/ramp-instant-sdk-android/v0.4.3/789851ffd01058d7c5822dabf527626f1208648a/ramp-instant-sdk-android-v0.4.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

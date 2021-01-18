@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.brian.stocks"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="24"
+        android:targetSdkVersion="28" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.brian.stocks.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.brian.stocks.permission.C2D_MESSAGE" />
+
+    <application
+        android:name="com.brian.stocks.MyApplication"
+        android:allowBackup="true"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:debuggable="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:testOnly="true"
+        android:theme="@style/AppTheme" >
+        <activity android:name="com.brian.stocks.home.WebViewActivity" />
+        <activity android:name="com.brian.stocks.home.SendUsdcActivity" />
+        <activity android:name="com.brian.stocks.mtn.MtnTransactionActivity" />
+        <activity android:name="com.brian.stocks.mtn.MTNActivity" />
+        <activity android:name="com.brian.stocks.xmt.XMTTradingActivity" />
+        <activity android:name="com.brian.stocks.coins.CoinStakeActivity" />
+        <activity android:name="com.brian.stocks.predict.AddPredictActivity" />
+        <activity android:name="com.brian.stocks.predict.PredictableListActivity" />
+        <activity android:name="com.brian.stocks.predict.PredictActivity" />
+        <activity android:name="com.brian.stocks.profile.ProfileCompleteActivity" />
+        <activity android:name="com.brian.stocks.cash.InfoActivity" />
+        <activity android:name="com.brian.stocks.cash.AddFriendActivity" />
+        <activity android:name="com.brian.stocks.stock.StocksActivity" />
+        <activity android:name="com.brian.stocks.cash.AddBankActivity" />
+        <activity android:name="com.brian.stocks.profile.ProfileActivity" />
+        <activity android:name="com.brian.stocks.cash.CollectCashActivity" />
+        <activity android:name="com.brian.stocks.cash.SendCashActivity" />
+        <activity android:name="com.brian.stocks.cash.SendTargetActivity" />
+        <activity android:name="com.brian.stocks.main.SupportActivity" />
+        <activity android:name="com.brian.stocks.main.ChangePasswordActivity" />
+        <activity android:name="com.brian.stocks.main.ResetPasswordActivity" />
+        <activity android:name="com.brian.stocks.main.ForgotPasswordActivity" />
+        <activity android:name="com.brian.stocks.stock.stockorder.StockOrderHistoryActivity" />
+        <activity android:name="com.brian.stocks.chat.SocialGroupActivity" />
+        <activity
+            android:name="com.brian.stocks.main.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.brian.stocks.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.main.SignInActivity"
+            android:parentActivityName="com.brian.stocks.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.main.SignUpActivity"
+            android:parentActivityName="com.brian.stocks.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.home.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.stock.stocktrade.StocksTradingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.stock.stocktrade.StockBuyActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.stock.stocktrade.StockSellActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.stock.stocktrade.StocksOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.stock.NewsListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.stock.NewsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.coins.TransferFundsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.stock.stockwithdraw.StockCoinWithdrawActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.stock.stocktrade.StockReplaceActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.stock.StockDepositActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.coins.CoinWithdrawActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.stock.StockNewsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brian.stocks.coins.CoinDepositHistoryActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="network.ramp.instantsdk.ui.bank.BankActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTask"
+            android:theme="@style/RampInstant.NoActionBar"
+            android:windowSoftInputMode="adjustResize" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.brian.stocks"
+                    android:scheme="rampnetwork" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="network.ramp.instantsdk.ui.rampinstant.RampInstantActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTask"
+            android:theme="@style/RampInstant.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.phonenumberui.PhoneNumberActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.phonenumberui.CountryCodeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.phonenumberui.VerificationCodeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--
+             FirebaseMessagingService performs security checks at runtime,
+             no need for explicit permissions despite exported="true"
+        -->
+        <service
+            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+            android:exported="true" >
+            <intent-filter android:priority="-500" >
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <receiver
+            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <receiver
+            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.INSTALL_PACKAGES" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.google.android.gms.measurement.AppMeasurementService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <receiver
+            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.brian.stocks" />
+            </intent-filter>
+        </receiver>
+        <!--
+             FirebaseInstanceIdService performs security checks at runtime,
+             no need for explicit permissions despite exported="true"
+        -->
+        <service
+            android:name="com.google.firebase.iid.FirebaseInstanceIdService"
+            android:exported="true" >
+            <intent-filter android:priority="-500" >
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name="com.google.firebase.provider.FirebaseInitProvider"
+            android:authorities="com.brian.stocks.firebaseinitprovider"
+            android:exported="false"
+            android:initOrder="100" />
+
+        <activity
+            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
+
+</manifest>

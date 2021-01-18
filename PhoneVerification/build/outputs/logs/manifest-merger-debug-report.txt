@@ -1,0 +1,67 @@
+-- Merging decision tree log ---
+manifest
+ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:2:1-24:12
+	package
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:3:5-32
+		INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+		INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:2:1-24:12
+		INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:2:1-24:12
+		INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:5:5-79
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:5:22-76
+application
+ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:6:5-22:19
+activity#com.phonenumberui.PhoneNumberActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:8:9-11:52
+	android:screenOrientation
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:11:13-49
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:10:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:9:13-48
+activity#com.phonenumberui.CountryCodeActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:12:9-16:52
+	android:screenOrientation
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:16:13-49
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:14:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:13:13-48
+activity#com.phonenumberui.VerificationCodeActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:17:9-21:52
+	android:screenOrientation
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:21:13-49
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:19:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml:18:13-53
+uses-sdk
+INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+		INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+		ADDED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml
+		INJECTED from F:\Brian\work\CoinStockRailsbank\PhoneVerification\src\main\AndroidManifest.xml

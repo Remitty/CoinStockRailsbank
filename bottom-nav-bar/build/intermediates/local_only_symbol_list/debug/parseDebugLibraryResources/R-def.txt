@@ -1,0 +1,30 @@
+R_DEF: Internal format may change without notice
+local
+color colorBackground
+color colorNavAccentSelected
+color colorNavAccentUnselected
+id frameLayout
+id imageViewBar1
+id imageViewBar2
+id imageViewBar3
+id imageViewBar4
+id imageViewBar5
+id linearLayoutBar1
+id linearLayoutBar2
+id linearLayoutBar3
+id linearLayoutBar4
+id linearLayoutBar5
+id panelAddress
+id textViewBar1
+id textViewBar2
+id textViewBar3
+id textViewBar4
+id textViewBar5
+id viewBar1
+id viewBar2
+id viewBar3
+id viewBar4
+id viewBar5
+layout activity_bottom_bar_holder
+layout bottom_nav_bar
+string app_name

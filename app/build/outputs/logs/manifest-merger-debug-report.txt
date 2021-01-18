@@ -1,0 +1,852 @@
+-- Merging decision tree log ---
+manifest
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:2:1-132:12
+INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:2:1-132:12
+INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:2:1-132:12
+INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:2:1-132:12
+MERGED from [com.amitshekhar.android:android-networking:1.0.2] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\282eccf0ddb7094d1a4902bf89d2a81a\jetified-android-networking-1.0.2\AndroidManifest.xml:18:1-27:12
+MERGED from [:bottom-nav-bar] F:\Brian\work\CoinStockRailsbank\bottom-nav-bar\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-17:12
+MERGED from [com.google.android.material:material:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\376a8f31a9d6d8802a2eb3b59706882b\material-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.github.RampNetwork:ramp-instant-sdk-android:v0.4.3] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\32c50eb592968e790a4116782046af4e\ramp-instant-sdk-android-v0.4.3\AndroidManifest.xml:2:1-11:12
+MERGED from [:anychart] F:\Brian\work\CoinStockRailsbank\anychart\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-17:12
+MERGED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-28:12
+MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\a7668d41c08d1f3b9b482997d2bfc08b\appcompat-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\da10c63ca90943d7ea52092ceba1432f\constraintlayout-1.1.3\AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.firebase:firebase-database:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\7fba4ffbdb1912b4ea8e859f32daf92a\jetified-firebase-database-11.8.0\AndroidManifest.xml:2:1-8:12
+MERGED from [com.google.firebase:firebase-storage:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e3d396b942c194df643f8f562d74b949\jetified-firebase-storage-11.8.0\AndroidManifest.xml:2:1-8:12
+MERGED from [com.google.firebase:firebase-crash:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\08fef1c9e3e9a71ca693a0c09abbab9b\jetified-firebase-crash-11.8.0\AndroidManifest.xml:17:1-27:12
+MERGED from [com.google.firebase:firebase-messaging:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f818ab7180811b0ecd42cc25c8da706c\jetified-firebase-messaging-11.8.0\AndroidManifest.xml:17:1-37:12
+MERGED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\04755092fa88871ad80be55ef699526f\jetified-firebase-auth-11.8.0\AndroidManifest.xml:17:1-32:12
+MERGED from [com.google.firebase:firebase-firestore:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\58a5d46f52f40ce26e792fbb911b0cea\jetified-firebase-firestore-11.8.0\AndroidManifest.xml:2:1-8:12
+MERGED from [com.google.firebase:firebase-core:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e0a8ed85e5f8d91e3eb1fd8b77641348\firebase-core-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:17:1-54:12
+MERGED from [com.google.firebase:firebase-database-connection:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\d4f961e35da89df1a561a3fa7c5a5250\jetified-firebase-database-connection-11.8.0\AndroidManifest.xml:2:1-8:12
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:17:1-40:12
+MERGED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:17:1-59:12
+MERGED from [com.google.firebase:firebase-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\6e808c4a7b0af7fb3a4616f839b1eb07\jetified-firebase-common-11.8.0\AndroidManifest.xml:2:1-15:12
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\9cb5373c9c45892abc68852824016ee9\jetified-play-services-base-11.8.0\AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\dea0851089aaf97e815a47603b78ea8d\jetified-play-services-tasks-11.8.0\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-storage-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\468ada09546baaf26ed5f358830211e8\jetified-firebase-storage-common-11.8.0\AndroidManifest.xml:2:1-8:12
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4defd699a7cceb0a702453264ac42d92\jetified-play-services-basement-11.8.0\AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\d974f9056a6693ebceaf987019ae0f13\legacy-support-v4-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [net.steamcrafted:load-toast:1.0.12] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e52df22c8c32f2f4aa8eb2fb4fc90f74\load-toast-1.0.12\AndroidManifest.xml:2:1-16:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\aa864e992300409aa4277dd19e3aca57\viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\53260c81c5352ef530af3fdead294180\recyclerview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\1ff726bd2994ffcd14e5f41884885c5e\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.iwgang:countdownview:2.1.6] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4f2e7b7c2b3cb442b1a515bf03752b1b\countdownview-2.1.6\AndroidManifest.xml:2:1-12:12
+MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\87dceb849916de20d2109f36702dfbc9\multidex-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [io.michaelrocks:libphonenumber-android:8.4.1] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\1a60ee47882d0480fb1f367f6199b8c3\libphonenumber-android-8.4.1\AndroidManifest.xml:2:1-12:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\7d48b5b1c48a09064d6cb6d650b7b30c\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\db9ebe8536796f83b41b4ac1da416b24\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\0e511bf9451379747512e10fcd275887\media-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f65212a5062b7109ed6c8f492c594ef6\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\becfcd020c79afcb42f2f636bc507ac7\transition-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\01d3e35e587e14b1e5b589c30d8ea9f1\appcompat-resources-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4ff34eed9668855982b33a9ca77a3e4a\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4d878ec455e5c7c8f1e8d37ffc96e3a3\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core-ktx:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\768b0db6c2e28247fe29d2210eaeb9c2\core-ktx-1.1.0\AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\fc08d6ec5f12eee9ac0c9abb34aa5bdd\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5ef2f5f997647e0c9375ce1335a9456b\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\1eb23940abe99030e11fa0421de49eb7\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\fdc978b4a4fe054268c164d3d2233aa4\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\46e64a70813528a78da8f8f18f608af5\slidingpanelayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\0e280b1b45508c784fe65bd88ce7c242\customview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\2362188d267a43899ed24e2124bc3a9f\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\89911384b18bba63d33f09486903c4ba\asynclayoutinflater-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\0c8ebfd55617e92668d36ce4aee94c96\activity-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\b1cc223acd5eb298666417a3c32e122e\core-1.2.0\AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\eaaee9a97d12f6de146b3139b0316381\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\38cf200f41a62534f95c5ee46ead5c7e\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8b3c0994640b552f5ffeb1eed6f8fe13\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\abf6e75610b4783195fb8eecdc8527ee\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\0b6006d86e5d00f93dbf0dc0a22bddc5\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\84b95b8b1fe59027864d79a4a15acf83\versionedparcelable-1.1.0\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\cec436cfbd7ef9a84aaceb6a5dbb92d8\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8e678a2871c61eb3e0763aac667942a8\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\37c7921899e6c2986a9085f79338cc5b\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\13a48fbf78333703038801fd5c6e519d\lifecycle-runtime-2.1.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\a1b8f833b7058ef41725f2c1557d4ec8\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5a6aa67f74bc412f2b7a19f9f29e2b4e\savedstate-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.annotation:annotation-experimental:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\37e774cd703a8a61d35c8a45e0c36175\annotation-experimental-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.firebase:firebase-database-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\516caa6967930c596011e9cdc5afa76c\firebase-database-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.firebase:firebase-storage-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\599cd4a631de40cc624a0d481e35ccbb\firebase-storage-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.firebase:firebase-crash-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\94563588ade3baf29ec7b24b03ec586a\firebase-crash-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.firebase:firebase-messaging-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5b81bb824ed85256c93d13e017eecbae\firebase-messaging-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.firebase:firebase-auth-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\fb2ae43d3292048a92e0b8c6a52f8cc8\firebase-auth-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.jakewharton.timber:timber:4.7.1] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\3738013ec72a397ef1a5ba9d9d0b7202\jetified-timber-4.7.1\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-analytics-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\c994f34f84efb5382f000dfb90e00797\firebase-analytics-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.firebase:firebase-database-connection-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\335dcfa0427136acaf44df16e7c82ad6\firebase-database-connection-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\42a8b663d543a0329f0597c12bfd1ec1\play-services-basement-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.firebase:firebase-common-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\197e42d14b7278d7775cf71ce24bcc87\firebase-common-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\26f2143050bc2596873b64398f26cd1e\play-services-tasks-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.firebase:firebase-storage-common-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\84e3dda57e606ad862aee983eb2ae8f9\firebase-storage-common-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.firebase:firebase-iid-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\74780d133fe54709de8a042d5af4e045\firebase-iid-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\88e23bd126e7788e5ae4ae9c39bfc3eb\play-services-base-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.firebase:firebase-analytics-impl-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\bc934e69118279b01176305abe3194aa\firebase-analytics-impl-license-11.8.0\AndroidManifest.xml:2:1-6:12
+INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:2:1-132:12
+INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:2:1-132:12
+INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:2:1-132:12
+	package
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:4:5-31
+		INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+		INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:2:1-132:12
+		INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:2:1-132:12
+		INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:6:5-81
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:6:22-78
+uses-permission#android.permission.INTERNET
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:7:5-67
+MERGED from [com.google.firebase:firebase-crash:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\08fef1c9e3e9a71ca693a0c09abbab9b\jetified-firebase-crash-11.8.0\AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-crash:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\08fef1c9e3e9a71ca693a0c09abbab9b\jetified-firebase-crash-11.8.0\AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:23:5-67
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:7:22-64
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:8:5-80
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:8:22-77
+application
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:10:5-130:19
+MERGED from [:bottom-nav-bar] F:\Brian\work\CoinStockRailsbank\bottom-nav-bar\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-15:19
+MERGED from [:bottom-nav-bar] F:\Brian\work\CoinStockRailsbank\bottom-nav-bar\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-15:19
+MERGED from [com.google.android.material:material:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\376a8f31a9d6d8802a2eb3b59706882b\material-1.2.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\376a8f31a9d6d8802a2eb3b59706882b\material-1.2.0\AndroidManifest.xml:22:5-20
+MERGED from [:anychart] F:\Brian\work\CoinStockRailsbank\anychart\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-15:19
+MERGED from [:anychart] F:\Brian\work\CoinStockRailsbank\anychart\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-15:19
+MERGED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:5-26:19
+MERGED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:5-26:19
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\da10c63ca90943d7ea52092ceba1432f\constraintlayout-1.1.3\AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\da10c63ca90943d7ea52092ceba1432f\constraintlayout-1.1.3\AndroidManifest.xml:9:5-20
+MERGED from [com.google.firebase:firebase-crash:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\08fef1c9e3e9a71ca693a0c09abbab9b\jetified-firebase-crash-11.8.0\AndroidManifest.xml:24:5-25:19
+MERGED from [com.google.firebase:firebase-crash:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\08fef1c9e3e9a71ca693a0c09abbab9b\jetified-firebase-crash-11.8.0\AndroidManifest.xml:24:5-25:19
+MERGED from [com.google.firebase:firebase-messaging:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f818ab7180811b0ecd42cc25c8da706c\jetified-firebase-messaging-11.8.0\AndroidManifest.xml:22:5-35:19
+MERGED from [com.google.firebase:firebase-messaging:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f818ab7180811b0ecd42cc25c8da706c\jetified-firebase-messaging-11.8.0\AndroidManifest.xml:22:5-35:19
+MERGED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\04755092fa88871ad80be55ef699526f\jetified-firebase-auth-11.8.0\AndroidManifest.xml:22:5-30:19
+MERGED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\04755092fa88871ad80be55ef699526f\jetified-firebase-auth-11.8.0\AndroidManifest.xml:22:5-30:19
+MERGED from [com.google.firebase:firebase-core:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e0a8ed85e5f8d91e3eb1fd8b77641348\firebase-core-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-core:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e0a8ed85e5f8d91e3eb1fd8b77641348\firebase-core-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:27:5-52:19
+MERGED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:27:5-52:19
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:27:5-38:19
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:27:5-38:19
+MERGED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:34:5-57:19
+MERGED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:34:5-57:19
+MERGED from [com.google.firebase:firebase-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\6e808c4a7b0af7fb3a4616f839b1eb07\jetified-firebase-common-11.8.0\AndroidManifest.xml:7:5-13:19
+MERGED from [com.google.firebase:firebase-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\6e808c4a7b0af7fb3a4616f839b1eb07\jetified-firebase-common-11.8.0\AndroidManifest.xml:7:5-13:19
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\9cb5373c9c45892abc68852824016ee9\jetified-play-services-base-11.8.0\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\9cb5373c9c45892abc68852824016ee9\jetified-play-services-base-11.8.0\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\dea0851089aaf97e815a47603b78ea8d\jetified-play-services-tasks-11.8.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\dea0851089aaf97e815a47603b78ea8d\jetified-play-services-tasks-11.8.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4defd699a7cceb0a702453264ac42d92\jetified-play-services-basement-11.8.0\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4defd699a7cceb0a702453264ac42d92\jetified-play-services-basement-11.8.0\AndroidManifest.xml:22:5-26:19
+MERGED from [net.steamcrafted:load-toast:1.0.12] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e52df22c8c32f2f4aa8eb2fb4fc90f74\load-toast-1.0.12\AndroidManifest.xml:11:5-14:19
+MERGED from [net.steamcrafted:load-toast:1.0.12] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e52df22c8c32f2f4aa8eb2fb4fc90f74\load-toast-1.0.12\AndroidManifest.xml:11:5-14:19
+MERGED from [androidx.core:core:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\b1cc223acd5eb298666417a3c32e122e\core-1.2.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\b1cc223acd5eb298666417a3c32e122e\core-1.2.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\84b95b8b1fe59027864d79a4a15acf83\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\84b95b8b1fe59027864d79a4a15acf83\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
+MERGED from [com.google.firebase:firebase-database-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\516caa6967930c596011e9cdc5afa76c\firebase-database-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-database-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\516caa6967930c596011e9cdc5afa76c\firebase-database-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-storage-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\599cd4a631de40cc624a0d481e35ccbb\firebase-storage-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-storage-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\599cd4a631de40cc624a0d481e35ccbb\firebase-storage-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-crash-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\94563588ade3baf29ec7b24b03ec586a\firebase-crash-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-crash-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\94563588ade3baf29ec7b24b03ec586a\firebase-crash-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-messaging-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5b81bb824ed85256c93d13e017eecbae\firebase-messaging-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-messaging-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5b81bb824ed85256c93d13e017eecbae\firebase-messaging-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-auth-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\fb2ae43d3292048a92e0b8c6a52f8cc8\firebase-auth-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-auth-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\fb2ae43d3292048a92e0b8c6a52f8cc8\firebase-auth-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.jakewharton.timber:timber:4.7.1] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\3738013ec72a397ef1a5ba9d9d0b7202\jetified-timber-4.7.1\AndroidManifest.xml:7:5-20
+MERGED from [com.jakewharton.timber:timber:4.7.1] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\3738013ec72a397ef1a5ba9d9d0b7202\jetified-timber-4.7.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-analytics-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\c994f34f84efb5382f000dfb90e00797\firebase-analytics-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-analytics-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\c994f34f84efb5382f000dfb90e00797\firebase-analytics-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-database-connection-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\335dcfa0427136acaf44df16e7c82ad6\firebase-database-connection-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-database-connection-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\335dcfa0427136acaf44df16e7c82ad6\firebase-database-connection-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\42a8b663d543a0329f0597c12bfd1ec1\play-services-basement-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\42a8b663d543a0329f0597c12bfd1ec1\play-services-basement-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-common-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\197e42d14b7278d7775cf71ce24bcc87\firebase-common-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-common-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\197e42d14b7278d7775cf71ce24bcc87\firebase-common-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\26f2143050bc2596873b64398f26cd1e\play-services-tasks-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\26f2143050bc2596873b64398f26cd1e\play-services-tasks-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-storage-common-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\84e3dda57e606ad862aee983eb2ae8f9\firebase-storage-common-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-storage-common-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\84e3dda57e606ad862aee983eb2ae8f9\firebase-storage-common-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-iid-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\74780d133fe54709de8a042d5af4e045\firebase-iid-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-iid-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\74780d133fe54709de8a042d5af4e045\firebase-iid-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\88e23bd126e7788e5ae4ae9c39bfc3eb\play-services-base-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\88e23bd126e7788e5ae4ae9c39bfc3eb\play-services-base-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-analytics-impl-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\bc934e69118279b01176305abe3194aa\firebase-analytics-impl-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-analytics-impl-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\bc934e69118279b01176305abe3194aa\firebase-analytics-impl-license-11.8.0\AndroidManifest.xml:5:5-20
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\b1cc223acd5eb298666417a3c32e122e\core-1.2.0\AndroidManifest.xml:24:18-86
+	android:supportsRtl
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:17:9-35
+	android:label
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:15:9-41
+	android:hardwareAccelerated
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:13:9-43
+	android:roundIcon
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:16:9-54
+	android:icon
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:14:9-43
+	android:allowBackup
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:12:9-35
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:18:9-40
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:11:9-38
+activity#com.brian.stocks.home.WebViewActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:19:9-67
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:19:19-55
+activity#com.brian.stocks.home.SendUsdcActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:20:9-59
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:20:19-56
+activity#com.brian.stocks.mtn.MtnTransactionActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:21:9-64
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:21:19-61
+activity#com.brian.stocks.mtn.MTNActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:22:9-53
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:22:19-50
+activity#com.brian.stocks.xmt.XMTTradingActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:23:9-60
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:23:19-57
+activity#com.brian.stocks.coins.CoinStakeActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:24:9-61
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:24:19-58
+activity#com.brian.stocks.predict.AddPredictActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:25:9-64
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:25:19-61
+activity#com.brian.stocks.predict.PredictableListActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:26:9-69
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:26:19-66
+activity#com.brian.stocks.predict.PredictActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:27:9-61
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:27:19-58
+activity#com.brian.stocks.profile.ProfileCompleteActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:28:9-69
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:28:19-66
+activity#com.brian.stocks.cash.InfoActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:29:9-55
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:29:19-52
+activity#com.brian.stocks.cash.AddFriendActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:30:9-60
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:30:19-57
+activity#com.brian.stocks.stock.StocksActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:31:9-58
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:31:19-55
+activity#com.brian.stocks.cash.AddBankActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:32:9-58
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:32:19-55
+activity#com.brian.stocks.profile.ProfileActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:33:9-61
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:33:19-58
+activity#com.brian.stocks.cash.CollectCashActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:34:9-62
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:34:19-59
+activity#com.brian.stocks.cash.SendCashActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:35:9-59
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:35:19-56
+activity#com.brian.stocks.cash.SendTargetActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:36:9-61
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:36:19-58
+activity#com.brian.stocks.main.SupportActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:37:9-58
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:37:19-55
+activity#com.brian.stocks.main.ChangePasswordActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:38:9-65
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:38:19-62
+activity#com.brian.stocks.main.ResetPasswordActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:39:9-64
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:39:19-61
+activity#com.brian.stocks.main.ForgotPasswordActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:40:9-65
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:40:19-62
+activity#com.brian.stocks.stock.stockorder.StockOrderHistoryActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:41:9-80
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:41:19-77
+activity#com.brian.stocks.chat.SocialGroupActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:42:9-62
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:42:19-59
+activity#com.brian.stocks.main.SplashActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:43:9-52:20
+	android:screenOrientation
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:45:13-49
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:46:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:44:13-48
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:47:13-51:29
+action#android.intent.action.MAIN
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:48:17-69
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:48:25-66
+category#android.intent.category.LAUNCHER
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:50:17-77
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:50:27-74
+activity#com.brian.stocks.main.MainActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:53:9-55:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:55:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:54:13-46
+activity#com.brian.stocks.main.SignInActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:56:9-59:59
+	android:parentActivityName
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:58:13-60
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:59:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:57:13-48
+activity#com.brian.stocks.main.SignUpActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:60:9-63:59
+	android:parentActivityName
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:62:13-60
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:63:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:61:13-48
+activity#com.brian.stocks.home.HomeActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:64:9-67:59
+	android:label
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:66:13-56
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:67:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:65:13-46
+activity#com.brian.stocks.stock.stocktrade.StocksTradingActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:68:9-70:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:70:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:69:13-67
+activity#com.brian.stocks.stock.stocktrade.StockBuyActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:71:9-73:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:73:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:72:13-62
+activity#com.brian.stocks.stock.stocktrade.StockSellActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:74:9-76:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:76:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:75:13-63
+activity#com.brian.stocks.stock.stocktrade.StocksOrderActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:77:9-79:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:79:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:78:13-65
+activity#com.brian.stocks.stock.NewsListActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:80:9-82:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:82:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:81:13-51
+activity#com.brian.stocks.stock.NewsActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:83:9-85:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:85:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:84:13-47
+activity#com.brian.stocks.coins.TransferFundsActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:86:9-88:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:88:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:87:13-56
+activity#com.brian.stocks.stock.stockwithdraw.StockCoinWithdrawActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:89:9-91:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:91:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:90:13-74
+activity#com.brian.stocks.stock.stocktrade.StockReplaceActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:92:9-94:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:94:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:93:13-66
+activity#com.brian.stocks.stock.StockDepositActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:95:9-97:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:97:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:96:13-55
+activity#com.brian.stocks.coins.CoinWithdrawActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:98:9-100:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:100:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:99:13-55
+activity#com.brian.stocks.stock.StockNewsActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:101:9-103:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:103:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:102:13-52
+activity#com.brian.stocks.coins.CoinDepositHistoryActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:104:9-106:59
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:106:13-56
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:105:13-61
+activity#network.ramp.instantsdk.ui.bank.BankActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:107:9-123:20
+	android:launchMode
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:110:13-44
+	android:windowSoftInputMode
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:112:13-55
+	android:configChanges
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:109:13-122
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:111:13-59
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:108:13-72
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:com.brian.stocks+data:scheme:rampnetwork
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:113:13-122:29
+action#android.intent.action.VIEW
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:114:17-69
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:114:25-66
+category#android.intent.category.DEFAULT
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:116:17-76
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:116:27-73
+category#android.intent.category.BROWSABLE
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:117:17-78
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:117:27-75
+data
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:119:17-121:52
+	android:host
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:120:21-52
+	android:scheme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:121:21-49
+activity#network.ramp.instantsdk.ui.rampinstant.RampInstantActivity
+ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:124:9-129:67
+	android:launchMode
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:127:13-44
+	android:windowSoftInputMode
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:129:13-55
+	android:configChanges
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:126:13-122
+	android:theme
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:128:13-59
+	android:name
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml:125:13-86
+uses-sdk
+INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+MERGED from [com.amitshekhar.android:android-networking:1.0.2] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\282eccf0ddb7094d1a4902bf89d2a81a\jetified-android-networking-1.0.2\AndroidManifest.xml:23:5-25:41
+MERGED from [com.amitshekhar.android:android-networking:1.0.2] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\282eccf0ddb7094d1a4902bf89d2a81a\jetified-android-networking-1.0.2\AndroidManifest.xml:23:5-25:41
+MERGED from [:bottom-nav-bar] F:\Brian\work\CoinStockRailsbank\bottom-nav-bar\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:bottom-nav-bar] F:\Brian\work\CoinStockRailsbank\bottom-nav-bar\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.material:material:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\376a8f31a9d6d8802a2eb3b59706882b\material-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\376a8f31a9d6d8802a2eb3b59706882b\material-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [com.github.RampNetwork:ramp-instant-sdk-android:v0.4.3] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\32c50eb592968e790a4116782046af4e\ramp-instant-sdk-android-v0.4.3\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.RampNetwork:ramp-instant-sdk-android:v0.4.3] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\32c50eb592968e790a4116782046af4e\ramp-instant-sdk-android-v0.4.3\AndroidManifest.xml:7:5-9:41
+MERGED from [:anychart] F:\Brian\work\CoinStockRailsbank\anychart\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:anychart] F:\Brian\work\CoinStockRailsbank\anychart\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\a7668d41c08d1f3b9b482997d2bfc08b\appcompat-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\a7668d41c08d1f3b9b482997d2bfc08b\appcompat-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\da10c63ca90943d7ea52092ceba1432f\constraintlayout-1.1.3\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\da10c63ca90943d7ea52092ceba1432f\constraintlayout-1.1.3\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.firebase:firebase-database:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\7fba4ffbdb1912b4ea8e859f32daf92a\jetified-firebase-database-11.8.0\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-database:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\7fba4ffbdb1912b4ea8e859f32daf92a\jetified-firebase-database-11.8.0\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-storage:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e3d396b942c194df643f8f562d74b949\jetified-firebase-storage-11.8.0\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-storage:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e3d396b942c194df643f8f562d74b949\jetified-firebase-storage-11.8.0\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-crash:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\08fef1c9e3e9a71ca693a0c09abbab9b\jetified-firebase-crash-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-crash:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\08fef1c9e3e9a71ca693a0c09abbab9b\jetified-firebase-crash-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-messaging:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f818ab7180811b0ecd42cc25c8da706c\jetified-firebase-messaging-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-messaging:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f818ab7180811b0ecd42cc25c8da706c\jetified-firebase-messaging-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\04755092fa88871ad80be55ef699526f\jetified-firebase-auth-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\04755092fa88871ad80be55ef699526f\jetified-firebase-auth-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-firestore:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\58a5d46f52f40ce26e792fbb911b0cea\jetified-firebase-firestore-11.8.0\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-firestore:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\58a5d46f52f40ce26e792fbb911b0cea\jetified-firebase-firestore-11.8.0\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-core:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e0a8ed85e5f8d91e3eb1fd8b77641348\firebase-core-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-core:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e0a8ed85e5f8d91e3eb1fd8b77641348\firebase-core-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-database-connection:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\d4f961e35da89df1a561a3fa7c5a5250\jetified-firebase-database-connection-11.8.0\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-database-connection:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\d4f961e35da89df1a561a3fa7c5a5250\jetified-firebase-database-connection-11.8.0\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\6e808c4a7b0af7fb3a4616f839b1eb07\jetified-firebase-common-11.8.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\6e808c4a7b0af7fb3a4616f839b1eb07\jetified-firebase-common-11.8.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\9cb5373c9c45892abc68852824016ee9\jetified-play-services-base-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\9cb5373c9c45892abc68852824016ee9\jetified-play-services-base-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\dea0851089aaf97e815a47603b78ea8d\jetified-play-services-tasks-11.8.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\dea0851089aaf97e815a47603b78ea8d\jetified-play-services-tasks-11.8.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-storage-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\468ada09546baaf26ed5f358830211e8\jetified-firebase-storage-common-11.8.0\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-storage-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\468ada09546baaf26ed5f358830211e8\jetified-firebase-storage-common-11.8.0\AndroidManifest.xml:6:5-44
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4defd699a7cceb0a702453264ac42d92\jetified-play-services-basement-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4defd699a7cceb0a702453264ac42d92\jetified-play-services-basement-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\d974f9056a6693ebceaf987019ae0f13\legacy-support-v4-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\d974f9056a6693ebceaf987019ae0f13\legacy-support-v4-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [net.steamcrafted:load-toast:1.0.12] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e52df22c8c32f2f4aa8eb2fb4fc90f74\load-toast-1.0.12\AndroidManifest.xml:7:5-9:41
+MERGED from [net.steamcrafted:load-toast:1.0.12] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\e52df22c8c32f2f4aa8eb2fb4fc90f74\load-toast-1.0.12\AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\aa864e992300409aa4277dd19e3aca57\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\aa864e992300409aa4277dd19e3aca57\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\53260c81c5352ef530af3fdead294180\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\53260c81c5352ef530af3fdead294180\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\1ff726bd2994ffcd14e5f41884885c5e\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\1ff726bd2994ffcd14e5f41884885c5e\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.github.iwgang:countdownview:2.1.6] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4f2e7b7c2b3cb442b1a515bf03752b1b\countdownview-2.1.6\AndroidManifest.xml:8:5-10:41
+MERGED from [com.github.iwgang:countdownview:2.1.6] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4f2e7b7c2b3cb442b1a515bf03752b1b\countdownview-2.1.6\AndroidManifest.xml:8:5-10:41
+MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\87dceb849916de20d2109f36702dfbc9\multidex-2.0.0\AndroidManifest.xml:20:5-43
+MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\87dceb849916de20d2109f36702dfbc9\multidex-2.0.0\AndroidManifest.xml:20:5-43
+MERGED from [io.michaelrocks:libphonenumber-android:8.4.1] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\1a60ee47882d0480fb1f367f6199b8c3\libphonenumber-android-8.4.1\AndroidManifest.xml:8:5-10:41
+MERGED from [io.michaelrocks:libphonenumber-android:8.4.1] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\1a60ee47882d0480fb1f367f6199b8c3\libphonenumber-android-8.4.1\AndroidManifest.xml:8:5-10:41
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\7d48b5b1c48a09064d6cb6d650b7b30c\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\7d48b5b1c48a09064d6cb6d650b7b30c\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\db9ebe8536796f83b41b4ac1da416b24\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\db9ebe8536796f83b41b4ac1da416b24\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\0e511bf9451379747512e10fcd275887\media-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\0e511bf9451379747512e10fcd275887\media-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f65212a5062b7109ed6c8f492c594ef6\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f65212a5062b7109ed6c8f492c594ef6\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\becfcd020c79afcb42f2f636bc507ac7\transition-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\becfcd020c79afcb42f2f636bc507ac7\transition-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\01d3e35e587e14b1e5b589c30d8ea9f1\appcompat-resources-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\01d3e35e587e14b1e5b589c30d8ea9f1\appcompat-resources-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4ff34eed9668855982b33a9ca77a3e4a\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4ff34eed9668855982b33a9ca77a3e4a\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4d878ec455e5c7c8f1e8d37ffc96e3a3\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4d878ec455e5c7c8f1e8d37ffc96e3a3\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core-ktx:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\768b0db6c2e28247fe29d2210eaeb9c2\core-ktx-1.1.0\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.core:core-ktx:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\768b0db6c2e28247fe29d2210eaeb9c2\core-ktx-1.1.0\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\fc08d6ec5f12eee9ac0c9abb34aa5bdd\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\fc08d6ec5f12eee9ac0c9abb34aa5bdd\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5ef2f5f997647e0c9375ce1335a9456b\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5ef2f5f997647e0c9375ce1335a9456b\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\1eb23940abe99030e11fa0421de49eb7\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\1eb23940abe99030e11fa0421de49eb7\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\fdc978b4a4fe054268c164d3d2233aa4\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\fdc978b4a4fe054268c164d3d2233aa4\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\46e64a70813528a78da8f8f18f608af5\slidingpanelayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\46e64a70813528a78da8f8f18f608af5\slidingpanelayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\0e280b1b45508c784fe65bd88ce7c242\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\0e280b1b45508c784fe65bd88ce7c242\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\2362188d267a43899ed24e2124bc3a9f\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\2362188d267a43899ed24e2124bc3a9f\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\89911384b18bba63d33f09486903c4ba\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\89911384b18bba63d33f09486903c4ba\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\0c8ebfd55617e92668d36ce4aee94c96\activity-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\0c8ebfd55617e92668d36ce4aee94c96\activity-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\b1cc223acd5eb298666417a3c32e122e\core-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.2.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\b1cc223acd5eb298666417a3c32e122e\core-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\eaaee9a97d12f6de146b3139b0316381\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\eaaee9a97d12f6de146b3139b0316381\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\38cf200f41a62534f95c5ee46ead5c7e\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\38cf200f41a62534f95c5ee46ead5c7e\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8b3c0994640b552f5ffeb1eed6f8fe13\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8b3c0994640b552f5ffeb1eed6f8fe13\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\abf6e75610b4783195fb8eecdc8527ee\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\abf6e75610b4783195fb8eecdc8527ee\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\0b6006d86e5d00f93dbf0dc0a22bddc5\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\0b6006d86e5d00f93dbf0dc0a22bddc5\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\84b95b8b1fe59027864d79a4a15acf83\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\84b95b8b1fe59027864d79a4a15acf83\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\cec436cfbd7ef9a84aaceb6a5dbb92d8\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\cec436cfbd7ef9a84aaceb6a5dbb92d8\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8e678a2871c61eb3e0763aac667942a8\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8e678a2871c61eb3e0763aac667942a8\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\37c7921899e6c2986a9085f79338cc5b\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\37c7921899e6c2986a9085f79338cc5b\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\13a48fbf78333703038801fd5c6e519d\lifecycle-runtime-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\13a48fbf78333703038801fd5c6e519d\lifecycle-runtime-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\a1b8f833b7058ef41725f2c1557d4ec8\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\a1b8f833b7058ef41725f2c1557d4ec8\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5a6aa67f74bc412f2b7a19f9f29e2b4e\savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5a6aa67f74bc412f2b7a19f9f29e2b4e\savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\37e774cd703a8a61d35c8a45e0c36175\annotation-experimental-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.0.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\37e774cd703a8a61d35c8a45e0c36175\annotation-experimental-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.firebase:firebase-database-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\516caa6967930c596011e9cdc5afa76c\firebase-database-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-database-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\516caa6967930c596011e9cdc5afa76c\firebase-database-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-storage-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\599cd4a631de40cc624a0d481e35ccbb\firebase-storage-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-storage-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\599cd4a631de40cc624a0d481e35ccbb\firebase-storage-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-crash-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\94563588ade3baf29ec7b24b03ec586a\firebase-crash-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-crash-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\94563588ade3baf29ec7b24b03ec586a\firebase-crash-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-messaging-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5b81bb824ed85256c93d13e017eecbae\firebase-messaging-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-messaging-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5b81bb824ed85256c93d13e017eecbae\firebase-messaging-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-auth-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\fb2ae43d3292048a92e0b8c6a52f8cc8\firebase-auth-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-auth-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\fb2ae43d3292048a92e0b8c6a52f8cc8\firebase-auth-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.jakewharton.timber:timber:4.7.1] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\3738013ec72a397ef1a5ba9d9d0b7202\jetified-timber-4.7.1\AndroidManifest.xml:5:5-43
+MERGED from [com.jakewharton.timber:timber:4.7.1] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\3738013ec72a397ef1a5ba9d9d0b7202\jetified-timber-4.7.1\AndroidManifest.xml:5:5-43
+MERGED from [com.google.firebase:firebase-analytics-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\c994f34f84efb5382f000dfb90e00797\firebase-analytics-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-analytics-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\c994f34f84efb5382f000dfb90e00797\firebase-analytics-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-database-connection-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\335dcfa0427136acaf44df16e7c82ad6\firebase-database-connection-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-database-connection-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\335dcfa0427136acaf44df16e7c82ad6\firebase-database-connection-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\42a8b663d543a0329f0597c12bfd1ec1\play-services-basement-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\42a8b663d543a0329f0597c12bfd1ec1\play-services-basement-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-common-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\197e42d14b7278d7775cf71ce24bcc87\firebase-common-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-common-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\197e42d14b7278d7775cf71ce24bcc87\firebase-common-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\26f2143050bc2596873b64398f26cd1e\play-services-tasks-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\26f2143050bc2596873b64398f26cd1e\play-services-tasks-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-storage-common-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\84e3dda57e606ad862aee983eb2ae8f9\firebase-storage-common-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-storage-common-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\84e3dda57e606ad862aee983eb2ae8f9\firebase-storage-common-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-iid-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\74780d133fe54709de8a042d5af4e045\firebase-iid-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-iid-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\74780d133fe54709de8a042d5af4e045\firebase-iid-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\88e23bd126e7788e5ae4ae9c39bfc3eb\play-services-base-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\88e23bd126e7788e5ae4ae9c39bfc3eb\play-services-base-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-analytics-impl-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\bc934e69118279b01176305abe3194aa\firebase-analytics-impl-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-analytics-impl-license:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\bc934e69118279b01176305abe3194aa\firebase-analytics-impl-license-11.8.0\AndroidManifest.xml:4:5-43
+INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+		INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+		ADDED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+		INJECTED from F:\Brian\work\CoinStockRailsbank\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-79
+MERGED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:22:5-79
+	android:name
+		ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:22-76
+activity#com.phonenumberui.PhoneNumberActivity
+ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:9-17:59
+	android:screenOrientation
+		ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-49
+	android:theme
+		ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:17:13-56
+	android:name
+		ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-65
+activity#com.phonenumberui.CountryCodeActivity
+ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:9-21:59
+	android:screenOrientation
+		ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:13-49
+	android:theme
+		ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:13-56
+	android:name
+		ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:13-65
+activity#com.phonenumberui.VerificationCodeActivity
+ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:22:9-25:59
+	android:screenOrientation
+		ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:13-49
+	android:theme
+		ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:13-56
+	android:name
+		ADDED from [:PhoneVerification] F:\Brian\work\CoinStockRailsbank\PhoneVerification\build\intermediates\library_manifest\debug\AndroidManifest.xml:23:13-70
+service#com.google.firebase.messaging.FirebaseMessagingService
+ADDED from [com.google.firebase:firebase-messaging:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f818ab7180811b0ecd42cc25c8da706c\jetified-firebase-messaging-11.8.0\AndroidManifest.xml:28:9-34:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-messaging:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f818ab7180811b0ecd42cc25c8da706c\jetified-firebase-messaging-11.8.0\AndroidManifest.xml:30:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-messaging:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f818ab7180811b0ecd42cc25c8da706c\jetified-firebase-messaging-11.8.0\AndroidManifest.xml:29:13-82
+intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
+ADDED from [com.google.firebase:firebase-messaging:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f818ab7180811b0ecd42cc25c8da706c\jetified-firebase-messaging-11.8.0\AndroidManifest.xml:31:13-33:29
+	android:priority
+		ADDED from [com.google.firebase:firebase-messaging:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f818ab7180811b0ecd42cc25c8da706c\jetified-firebase-messaging-11.8.0\AndroidManifest.xml:31:28-51
+action#com.google.firebase.MESSAGING_EVENT
+ADDED from [com.google.firebase:firebase-messaging:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f818ab7180811b0ecd42cc25c8da706c\jetified-firebase-messaging-11.8.0\AndroidManifest.xml:32:17-78
+	android:name
+		ADDED from [com.google.firebase:firebase-messaging:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\f818ab7180811b0ecd42cc25c8da706c\jetified-firebase-messaging-11.8.0\AndroidManifest.xml:32:25-75
+activity#com.google.firebase.auth.internal.FederatedSignInActivity
+ADDED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\04755092fa88871ad80be55ef699526f\jetified-firebase-auth-11.8.0\AndroidManifest.xml:23:9-29:75
+	android:excludeFromRecents
+		ADDED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\04755092fa88871ad80be55ef699526f\jetified-firebase-auth-11.8.0\AndroidManifest.xml:25:13-46
+	android:launchMode
+		ADDED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\04755092fa88871ad80be55ef699526f\jetified-firebase-auth-11.8.0\AndroidManifest.xml:27:13-48
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\04755092fa88871ad80be55ef699526f\jetified-firebase-auth-11.8.0\AndroidManifest.xml:26:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\04755092fa88871ad80be55ef699526f\jetified-firebase-auth-11.8.0\AndroidManifest.xml:28:13-102
+	android:theme
+		ADDED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\04755092fa88871ad80be55ef699526f\jetified-firebase-auth-11.8.0\AndroidManifest.xml:29:13-72
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\04755092fa88871ad80be55ef699526f\jetified-firebase-auth-11.8.0\AndroidManifest.xml:24:13-85
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:25:5-68
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:25:5-68
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:25:5-68
+MERGED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:24:5-68
+MERGED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:24:5-68
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:25:22-65
+receiver#com.google.android.gms.measurement.AppMeasurementReceiver
+ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:28:9-32:20
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:28:9-32:20
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:28:9-32:20
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:30:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:31:13-37
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:29:13-85
+receiver#com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver
+ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:33:9-41:20
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:35:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:36:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:37:13-69
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:34:13-100
+intent-filter#action:name:com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:38:13-40:29
+action#com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:39:17-79
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:39:25-76
+service#com.google.android.gms.measurement.AppMeasurementService
+ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:43:9-46:40
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:34:9-37:40
+MERGED from [com.google.firebase:firebase-analytics-impl:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\275e19dc295bad7b0c5e0770c4f89de2\jetified-firebase-analytics-impl-11.8.0\AndroidManifest.xml:34:9-37:40
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:45:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:46:13-37
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:44:13-84
+service#com.google.android.gms.measurement.AppMeasurementJobService
+ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:47:9-51:72
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:49:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:50:13-37
+	android:permission
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:51:13-69
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\5d4c9f6ab4dc1261fbaaa84b082896a8\jetified-firebase-analytics-11.8.0\AndroidManifest.xml:48:13-87
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:26:5-82
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:26:22-79
+permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:28:5-30:47
+	android:protectionLevel
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:30:9-44
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:29:9-63
+permission#com.brian.stocks.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:28:5-30:47
+	android:protectionLevel
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:30:9-44
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:29:9-63
+uses-permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:32:5-79
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:32:22-76
+uses-permission#com.brian.stocks.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:32:5-79
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:32:22-76
+receiver#com.google.firebase.iid.FirebaseInstanceIdReceiver
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:35:9-44:20
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:37:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:38:13-73
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:36:13-78
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE+category:name:${applicationId}
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:39:13-43:29
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE+category:name:com.brian.stocks
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:39:13-43:29
+action#com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:40:17-81
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:40:25-78
+category#${applicationId}
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:42:17-61
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:42:27-58
+category#com.brian.stocks
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:42:17-61
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:42:27-58
+service#com.google.firebase.iid.FirebaseInstanceIdService
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:50:9-56:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:52:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:51:13-77
+intent-filter#action:name:com.google.firebase.INSTANCE_ID_EVENT
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:53:13-55:29
+	android:priority
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:53:28-51
+action#com.google.firebase.INSTANCE_ID_EVENT
+ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:54:17-80
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\8ab8403067b12addbfebe892ab531d3c\jetified-firebase-iid-11.8.0\AndroidManifest.xml:54:25-77
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\6e808c4a7b0af7fb3a4616f839b1eb07\jetified-firebase-common-11.8.0\AndroidManifest.xml:8:9-12:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\6e808c4a7b0af7fb3a4616f839b1eb07\jetified-firebase-common-11.8.0\AndroidManifest.xml:10:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\6e808c4a7b0af7fb3a4616f839b1eb07\jetified-firebase-common-11.8.0\AndroidManifest.xml:11:13-37
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\6e808c4a7b0af7fb3a4616f839b1eb07\jetified-firebase-common-11.8.0\AndroidManifest.xml:12:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\6e808c4a7b0af7fb3a4616f839b1eb07\jetified-firebase-common-11.8.0\AndroidManifest.xml:9:13-77
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\9cb5373c9c45892abc68852824016ee9\jetified-play-services-base-11.8.0\AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\9cb5373c9c45892abc68852824016ee9\jetified-play-services-base-11.8.0\AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\9cb5373c9c45892abc68852824016ee9\jetified-play-services-base-11.8.0\AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\9cb5373c9c45892abc68852824016ee9\jetified-play-services-base-11.8.0\AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4defd699a7cceb0a702453264ac42d92\jetified-play-services-basement-11.8.0\AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4defd699a7cceb0a702453264ac42d92\jetified-play-services-basement-11.8.0\AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\APOLLO\.gradle\caches\transforms-2\files-2.1\4defd699a7cceb0a702453264ac42d92\jetified-play-services-basement-11.8.0\AndroidManifest.xml:24:13-58
