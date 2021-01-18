@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.brian.stocks.R;
-import com.brian.stocks.home.CoinExchangeFragment;
 
 public class XMTTradingActivity extends AppCompatActivity {
 

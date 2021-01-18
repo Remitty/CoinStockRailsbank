@@ -1,8 +1,7 @@
-package com.brian.stocks.home;
+package com.brian.stocks.xmt;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
