@@ -626,6 +626,7 @@ public class CoinExchangeFragment extends Fragment {
         mBtnTrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(validate())
                 sendData();
                 /*
                 if(mEditSellingAmount.getText().toString().equals("")||
@@ -706,6 +707,19 @@ public class CoinExchangeFragment extends Fragment {
                 changedPrice = true;
             }
         });
+    }
+
+    private boolean validate() {
+        boolean validation = true;
+        if(mEditPrice.getText().toString().equals("")) {
+            mEditPrice.setError("!");
+            validation = false;
+        }
+        if(mEditQuantity.getText().toString().equals("")) {
+            mEditQuantity.setError("!");
+            validation = false;
+        }
+        return validation;
     }
 
     private double getPrice() throws JSONException {
