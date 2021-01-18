@@ -131,8 +131,12 @@ public class CoinExchangeFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() > 0) {
                     selType = "sell";
+                    mBtnTrade.setText("Sell");
+                    mBtnTrade.setBackgroundColor(getResources().getColor(R.color.green));
                 } else {
                     selType = "buy";
+                    mBtnTrade.setText("Buy");
+                    mBtnTrade.setBackgroundColor(getResources().getColor(R.color.colorRedCrayon));
                 }
                 focusedPrice = false;
                 changedPrice = false;
@@ -573,7 +577,8 @@ public class CoinExchangeFragment extends Fragment {
 
     private void initComponents() {
         mBtnTrade = mView.findViewById(R.id.btn_coin_trade);
-
+        mBtnTrade.setText("Buy");
+        mBtnTrade.setBackgroundColor(getResources().getColor(R.color.colorRedCrayon));
         mTextPriceUSD = mView.findViewById(R.id.price_usd);
         mEditQuantity = mView.findViewById(R.id.edit_quantity);
         mEditPrice = mView.findViewById(R.id.edit_price);
