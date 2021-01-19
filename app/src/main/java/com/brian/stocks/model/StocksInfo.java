@@ -33,7 +33,9 @@ public class StocksInfo {
 
     public String getStocksNameOther() {
         try {
-            return data.getString("name");
+            String name = data.getString("name");
+            if(name.equals("null")) name="";
+            return name;
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -85,7 +87,7 @@ public class StocksInfo {
 
     public String getStocksPrice() {
         try {
-            return data.getString("vw");
+            return String.format("%.2f", Double.parseDouble(data.getString("vw")));
         } catch (JSONException e) {
             e.printStackTrace();
             return "0.0";
@@ -111,7 +113,7 @@ public class StocksInfo {
 
     public String getStockTodayChangePercent() {
         try {
-            return data.getString("todaysChangePerc");
+            return String.format("%.4f", Double.parseDouble(data.getString("todaysChangePerc")));
         } catch (JSONException e) {
             e.printStackTrace();
             return "0.0";

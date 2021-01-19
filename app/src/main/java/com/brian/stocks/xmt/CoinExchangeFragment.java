@@ -520,7 +520,7 @@ public class CoinExchangeFragment extends Fragment {
                     .getAsJSONObject(new JSONObjectRequestListener() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            //Log.d("coin post response", "" + response.toString());
+                            Log.d("xmt trading response", "" + response.toString());
                             if (!response.has("success")) {
                                 /*
                                 try {
@@ -530,6 +530,7 @@ public class CoinExchangeFragment extends Fragment {
                                 }
 
                                  */
+                                Toast.makeText(getContext(), "Order failed.", Toast.LENGTH_SHORT).show();
                                 return;
                             }
 

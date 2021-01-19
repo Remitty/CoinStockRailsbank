@@ -123,16 +123,19 @@ public class TransferCoinFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 if (TextUtils.isEmpty(editEmail.getText().toString())) {
                                     editEmail.setError("!");
+                                    Toast.makeText(getContext(), "Please fill into form.", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
                                 if (TextUtils.isEmpty(editName.getText().toString())) {
                                     editName.setError("!");
+                                    Toast.makeText(getContext(), "Please fill into form.", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
                                 Pattern p = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
                                 final Matcher m = p.matcher(editEmail.getText().toString());
                                 if (!m.find()) {
                                     editEmail.setError("Invalid email format");
+                                    Toast.makeText(getContext(), "Invalid email format.", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
                                 sendContact();

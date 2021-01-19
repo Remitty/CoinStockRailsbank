@@ -40,7 +40,7 @@ public class StocksTradingActivity extends AppCompatActivity {
     private double StockPrice = 0.0;
     TextView mTextCompanySummary, mTextCompanyWeb, mTextCompanyIndustry;
 
-    private JSONArray mAggregateDay, mAggregateWeek, mAggregateMonth, mAggregate6Month, mAggregateYear, mAggregateAll;
+    private JSONArray mAggregateDay = new JSONArray(), mAggregateWeek = new JSONArray(), mAggregateMonth = new JSONArray(), mAggregate6Month = new JSONArray(), mAggregateYear = new JSONArray(), mAggregateAll = new JSONArray();
     private ViewPager mStockChartViewPager;
     private TabLayout mStockTabBar;
     StockChartTabAdapter mPageAdapter;
@@ -102,6 +102,8 @@ public class StocksTradingActivity extends AppCompatActivity {
             mStocksContent.setVisibility(View.GONE);
             mBtnSell.setVisibility(View.GONE);
         }
+
+        mPageAdapter=new StockChartTabAdapter(getSupportFragmentManager());
 
         getStockDetailData();
     }
@@ -176,23 +178,53 @@ public class StocksTradingActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
                             loadToast.success();
+
                             try {
                                 mAggregateDay = response.getJSONArray("aggregate_day");
-                                mAggregateWeek = response.getJSONArray("aggregate_week");
-                                mAggregateMonth = response.getJSONArray("aggregate_month");
-                                mAggregate6Month = response.getJSONArray("aggregate_month6");
-                                mAggregateYear = response.getJSONArray("aggregate_year");
-                                mAggregateAll = response.getJSONArray("aggregate_all");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
-                                mPageAdapter=new StockChartTabAdapter(getSupportFragmentManager());
+                            try {
+                                mAggregateWeek = response.getJSONArray("aggregate_week");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                mAggregateMonth = response.getJSONArray("aggregate_month");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                mAggregate6Month = response.getJSONArray("aggregate_month6");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                mAggregateYear = response.getJSONArray("aggregate_year");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                mAggregateAll = response.getJSONArray("aggregate_all");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                                 mPageAdapter.addCharData(mAggregateDay);
                                 mPageAdapter.addCharData(mAggregateWeek);
                                 mPageAdapter.addCharData(mAggregateMonth);
                                 mPageAdapter.addCharData(mAggregate6Month);
                                 mPageAdapter.addCharData(mAggregateYear);
                                 mPageAdapter.addCharData(mAggregateAll);
-                                mStockChartViewPager.setAdapter(mPageAdapter);
-                                mStockTabBar.setupWithViewPager(mStockChartViewPager);
+                            mStockChartViewPager.setAdapter(mPageAdapter);
+                            mStockTabBar.setupWithViewPager(mStockChartViewPager);
+
+                            try {
 
                                 StockBalance = response.optString("stock_balance");
 
