@@ -9,15 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3652006d-3cf4-4de3-a802-aefaa4be7a03" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/TransferCoinFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/TransferCoinFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/model/StocksInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/model/StocksInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/stocktrade/StocksTradingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/stocktrade/StocksTradingActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/xmt/CoinExchangeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/xmt/CoinExchangeFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_sign_in.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_sign_in.xml" afterDir="false" />
-    </list>
+    <list default="true" id="3652006d-3cf4-4de3-a802-aefaa4be7a03" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
