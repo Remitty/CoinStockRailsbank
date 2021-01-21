@@ -120,7 +120,7 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setIcon(R.mipmap.ic_launcher_round)
                 .setTitle("Alert")
-                .setMessage("Coming soon")
+                .setMessage("Coming soon make sure no one can access")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
