@@ -40,7 +40,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
         TextView tvCoinName, tvCoinRate, tvCoinEstAmount, tvCoinBalance, tvCoinEffect;
         ImageView coinIcon;
         LinearLayout llCoinBalance;
-        Button btnDeposit, btnRamp;
+        Button btnDeposit, btnBuyNow;
 
         public OrderViewHolder(View view) {
             super(view);
@@ -53,7 +53,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
             coinIcon = view.findViewById(R.id.coin_icon);
             llCoinBalance = view.findViewById(R.id.ll_coin_balance);
             btnDeposit = view.findViewById(R.id.btn_deposit);
-            btnRamp = view.findViewById(R.id.btn_ramp);
+            btnBuyNow = view.findViewById(R.id.btn_coin_buy);
         }
     }
 
@@ -118,19 +118,19 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
                 listener.OnDeposit(position);
             }
         });
-        holder.btnRamp.setOnClickListener(new View.OnClickListener() {
+        holder.btnBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.OnRamp(position);
+                listener.OnBuyNow(position);
             }
         });
         String coins = "BTC ETH DAI XDAI USDC DOT";
 //        if(coins.contains(item.getCoinSymbol())) {
-        if(item.getBuyNowOption() != 0 && item.getBuyNowOption() != 3) {
-            holder.btnRamp.setVisibility(View.VISIBLE);
+        if(item.getBuyNowOption() != 0 && item.getBuyNowOption() != 100) {
+            holder.btnBuyNow.setVisibility(View.VISIBLE);
         }
         else {
-            holder.btnRamp.setVisibility(View.GONE);
+            holder.btnBuyNow.setVisibility(View.GONE);
         }
 
     }
@@ -153,6 +153,6 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
          * @param position
          */
         void OnDeposit(int position);
-        void OnRamp(int position);
+        void OnBuyNow(int position);
     }
 }

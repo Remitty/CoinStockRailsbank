@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,6 +83,7 @@ public class CoinsFragment extends Fragment {
     private Socket mSocket;
     private String mOnramperApikey;
     private String onRamperCoins="";
+    private String xanpoolApikey;
 
     {
         try {
@@ -147,14 +149,18 @@ public class CoinsFragment extends Fragment {
             }
 
             @Override
-            public void OnRamp(final int position) {
+            public void OnBuyNow(final int position) {
                 final CoinInfo coin = coinList.get(position);
                 CoinSymbol = coin.getCoinSymbol();
                 CoinId = coin.getCoinId();
-                if(coin.getBuyNowOption() == 2) { // btc, eth, usdc, dai
+                if(coin.getBuyNowOption() >= 2) { // btc, eth, usdc, dai
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                     View view = getLayoutInflater().inflate(R.layout.dialog_coin_buy_option, null);
                     final RadioGroup coinRdg = view.findViewById(R.id.coin_rdg);
+                    if(coin.getBuyNowOption() == 2) {
+                        RadioButton rdb3 = view.findViewById(R.id.coin_rdb_3);
+                        rdb3.setVisibility(View.GONE);
+                    }
                     alert.setView(view)
                             .setIcon(R.mipmap.ic_launcher_round)
                             .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
@@ -164,6 +170,7 @@ public class CoinsFragment extends Fragment {
                                     if (coinRdg.getCheckedRadioButtonId() == R.id.coin_rdb_1)
                                         doGenerateWalletAddress("", 1); // ramp
                                     else if(coinRdg.getCheckedRadioButtonId() == R.id.coin_rdb_2)doGenerateWalletAddress("", 2); // onramp
+                                    else if(coinRdg.getCheckedRadioButtonId() == R.id.coin_rdb_3)doGenerateWalletAddress("", 3); // xanpool
                                     else {
                                         Toast.makeText(getContext(), "Please select option", Toast.LENGTH_SHORT).show();
                                         return;
@@ -343,6 +350,7 @@ public class CoinsFragment extends Fragment {
                             mTotalEffect.setText(response.getString("total_effect")+" %");
                             mUSDBalance.setText(response.getString("usd_balance"));
                             mOnramperApikey = response.getString("onramper_api_key");
+                            xanpoolApikey = response.getString("xanpool_api_key");
                             if(response.getString("total_effect").startsWith("-"))
                                 mTotalEffect.setTextColor(RED);
                             else mTotalEffect.setTextColor(GREEN);
@@ -422,10 +430,23 @@ public class CoinsFragment extends Fragment {
 //                                            "https://ri-widget-staging-ropsten.firebaseapp.com/"
                                     );
                                     rampInstantSDK.show();
-                                } else {
+                                } else if(type == 2){
                                     String coin_address = CoinSymbol+":["+address+"]";
                                     String excludeCryptos = "&excludeCryptos=EOS,USDT,XLM,BUSD,GUSD,HUSD,PAX,USDS";
                                     String url = "https://widget.onramper.dev?color=1d2d50&apiKey="+mOnramperApikey+"&defaultCrypto="+CoinSymbol+excludeCryptos+"&defaultAddrs="+coin_address+"&onlyCryptos="+onRamperCoins;
+                                    Intent browserIntent = new Intent(getActivity(), WebViewActivity.class);
+                                    browserIntent.putExtra("uri", url);
+                                    startActivity(browserIntent);
+                                }
+                                else if(type == 3){ //xanpool
+                                    String base = "https://checkout.xanpool.com/";
+                                    String apikey = "?apiKey="+xanpoolApikey;
+                                    String wallet = "&wallet=" + address;
+                                    String cryptoCurrency = "&cryptoCurrency=" + CoinSymbol;
+                                    String transactionType = "&transactionType=buy";
+                                    String isWebview = "&isWebview=true";
+                                    String url = base + apikey + wallet + cryptoCurrency + transactionType + isWebview;
+                                    Log.d("xanpool url:", url);
                                     Intent browserIntent = new Intent(getActivity(), WebViewActivity.class);
                                     browserIntent.putExtra("uri", url);
                                     startActivity(browserIntent);
