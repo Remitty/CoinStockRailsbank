@@ -232,7 +232,7 @@ public class CoinsFragment extends Fragment {
     }
 
     private void showWalletAddressDialog(JSONObject data) {
-        if (data.has("deposit_amount")) {
+        if (CoinSymbol.equals("XMT")) {
             DepositERC20Dialog DepositDialogERC20;
             DepositDialogERC20 = new DepositERC20Dialog(R.layout.fragment_coin_deposit_erc20, data, CoinSymbol);
             DepositDialogERC20.setListener(new DepositERC20Dialog.Listener() {

@@ -54,7 +54,7 @@ public class CoinExchangeFragment extends Fragment {
     private Button mBtnTrade;
     private TabLayout tabLayout;
     private EditText mEditQuantity, mEditPrice;
-    private TextView mTextCoinBuy2, mTextCoinSell2, mTextCoinBuyBalance, mTextCoinSellBalance, mTextOutputTrade, mTextAsksTotalUSD, mTextBidsTotalUSD, mTextPriceUSD;
+    private TextView mTextChangeVolume, mTextChangeRate, mTextCoinBuy2, mTextCoinSell2, mTextCoinBuyBalance, mTextCoinSellBalance, mTextOutputTrade, mTextAsksTotalUSD, mTextBidsTotalUSD, mTextPriceUSD;
     private static String CoinSymbol;
     private View mView;
     private DecimalFormat df = new DecimalFormat("#.########");
@@ -366,7 +366,7 @@ public class CoinExchangeFragment extends Fragment {
                     .getAsJSONObject(new JSONObjectRequestListener() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            //Log.d("coin assets response", "" + response.toString());
+                            Log.d("coin assets response", "" + response.toString());
                             try {
                                 if (!response.has("success") || response.getBoolean("success") == false) {
                                     ordersList.clear();
@@ -378,6 +378,8 @@ public class CoinExchangeFragment extends Fragment {
                                     mTextBidsTotalUSD.setText("Bids ($0)");
                                     mTextCoinBuyBalance.setText(df.format(0.0));
                                     mTextCoinSellBalance.setText(df.format(0.0));
+                                    mTextChangeVolume.setText("Volume 24h: "+df.format(0.0)+" USD");
+                                    mTextChangeRate.setText("Rate 24h: "+df.format(0.0)+" USD");
                                     updateComponents();
                                     return;
                                 }
@@ -393,6 +395,9 @@ public class CoinExchangeFragment extends Fragment {
 
                             JSONObject responseObj = null;
                             try {
+                                mTextChangeVolume.setText("Volume 24h: "+df.format(Float.parseFloat(response.getString("change_volume")))+" USD");
+                                mTextChangeRate.setText("Rate 24h: "+df.format(Float.parseFloat(response.getString("change_rate")))+" USD");
+
                                 mTextCoinBuyBalance.setText(df.format(Float.parseFloat(response.getString("coin2_balance"))));
                                 mTextCoinSellBalance.setText(df.format(Float.parseFloat(response.getString("coin1_balance"))));
                                 responseObj = response.getJSONObject("orders");
@@ -487,6 +492,8 @@ public class CoinExchangeFragment extends Fragment {
                             mTextPriceUSD.setText("$0");
                             mTextAsksTotalUSD.setText("Asks ($0");
                             mTextBidsTotalUSD.setText("Bids ($0)");
+                            mTextChangeVolume.setText("Volume 24h: "+df.format(0.0)+" USD");
+                            mTextChangeRate.setText("Rate 24h: "+df.format(0.0)+" USD");
                             mTextCoinBuyBalance.setText(df.format(0.0));
                             mTextCoinSellBalance.setText(df.format(0.0));
                             updateComponents();
@@ -595,6 +602,10 @@ public class CoinExchangeFragment extends Fragment {
 
         mTextCoinBuyBalance = mView.findViewById(R.id.coin_buy_balance);
         mTextCoinSellBalance = mView.findViewById(R.id.coin_sell_balance);
+
+
+        mTextChangeVolume = mView.findViewById(R.id.coin_volume_change);
+        mTextChangeRate = mView.findViewById(R.id.coin_rate_change);
 
         orderView = mView.findViewById(R.id.orders_view);
         orderAdapter = new OrderAdapter(ordersList);
