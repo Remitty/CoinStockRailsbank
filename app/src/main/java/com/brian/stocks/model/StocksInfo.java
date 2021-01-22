@@ -104,7 +104,7 @@ public class StocksInfo {
 
     public String getStockTodayChange() {
         try {
-            return data.getString("todaysChange");
+            return String.format("%.4f", Double.parseDouble(data.getString("todaysChange")));
         } catch (JSONException e) {
             e.printStackTrace();
             return "0.0";

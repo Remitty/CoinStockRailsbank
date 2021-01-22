@@ -123,12 +123,8 @@ public class OrderStockFragment extends Fragment {
         StocksInfo stock = stocksList.get(position);
         Intent intent = new Intent(getActivity(), StocksOrderActivity.class);
         intent.putExtra("stock_name", stock.getStocksOrderName());
-        intent.putExtra("stock_price", stock.getStocksPrice());
         intent.putExtra("stock_limit_price", stock.getStockOrderLimitPrice());
-        intent.putExtra("stock_shares", stock.getStocksShares());
         intent.putExtra("stock_order_shares", stock.getStocksOrderShares());
-        intent.putExtra("stock_today_change", stock.getStockTodayChange());
-        intent.putExtra("stock_today_change_perc", stock.getStockTodayChangePercent());
         intent.putExtra("stock_order_id", stock.getStockOrderID());
         intent.putExtra("stock_order_side", stock.getStockOrderSide());
         intent.putExtra("stock_order_type", stock.getStockOrderType());

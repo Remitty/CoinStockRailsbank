@@ -130,19 +130,17 @@
         <Button
             android:id="@+id/btn_stock_cancel"
             android:layout_weight="1"
-            android:background="@drawable/feather_red_button"
             android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@color/white_greyish"
             android:text="cancel"
             android:textColor="@android:color/white"
-            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <Button
             android:id="@+id/btn_stock_edit"
             android:layout_weight="1"
-            android:background="@drawable/feather_red_button"
             android:layout_marginHorizontal="10dp"
-            android:textSize="20dp"
+            android:backgroundTint="@color/colorBlue"
             android:textColor="@android:color/white"
             android:text="edit"
             android:layout_width="match_parent"
