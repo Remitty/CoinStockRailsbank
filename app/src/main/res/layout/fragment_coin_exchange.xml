@@ -22,6 +22,107 @@
         android:paddingTop="0dp"
         android:paddingBottom="0dp"
         android:spinnerMode="dropdown"/>
+
+
+
+    <TextView
+        android:id="@+id/asks_total_usd"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:visibility="visible"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorAccent"
+        android:text="Asks ($0)"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorBlack"
+                android:text="Quantity"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:visibility="visible"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorBlack"
+                android:text="Value"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/colorBlack"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/orderbook_asks_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/bids_total_usd"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:visibility="visible"
+        android:gravity="center_horizontal"
+        android:textColor="#4F9723"
+        android:text="Bids ($0)"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorBlack"
+                android:text="Quantity"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:visibility="visible"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorBlack"
+                android:text="Value"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/colorBlack"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/orderbook_bids_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
@@ -214,14 +315,44 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/output_trade"
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="180dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="" />
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:visibility="visible">
+                            <TextView
+                                android:id="@+id/output_trade"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left"
+                                android:gravity="left"
+                                android:text="" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:visibility="visible"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/coin_volume_change"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="" />
+
+                            <TextView
+                                android:id="@+id/coin_rate_change"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="" />
+                        </LinearLayout>
                     </LinearLayout>
 
 
@@ -229,103 +360,6 @@
     </androidx.cardview.widget.CardView>
 
 
-    <TextView
-        android:id="@+id/asks_total_usd"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:visibility="visible"
-        android:gravity="center_horizontal"
-        android:textColor="@color/colorAccent"
-        android:text="Asks ($0)"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:text="Quantity"/>
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:visibility="visible"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:text="Value"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/colorBlack"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/orderbook_asks_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" />
-
-    <TextView
-        android:id="@+id/bids_total_usd"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:visibility="visible"
-        android:gravity="center_horizontal"
-        android:textColor="#4F9723"
-        android:text="Bids ($0)"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:text="Quantity"/>
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:visibility="visible"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:text="Value"/>
-        </LinearLayout>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/colorBlack"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/orderbook_bids_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" />
 
     <TextView
         android:layout_weight="1"
