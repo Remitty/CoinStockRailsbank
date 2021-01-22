@@ -22,7 +22,7 @@ public class StockOrderAdapter extends RecyclerView.Adapter<StockOrderAdapter.Or
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvStocksName, tvStocksShared, tvStocksOrderStatus, tvStocksOrderSide, tvStocksOrderDate;
+        TextView tvStocksName, tvStocksShared, tvStocksOrderStatus, tvStocksOrderSide, tvStocksOrderDate, tvStocksOrderCost;
 
         @SuppressLint("ResourceAsColor")
         public OrderViewHolder(View view) {
@@ -33,6 +33,7 @@ public class StockOrderAdapter extends RecyclerView.Adapter<StockOrderAdapter.Or
             tvStocksOrderStatus = view.findViewById(R.id.stocks_order_status);
             tvStocksOrderSide = view.findViewById(R.id.stocks_order_side);
             tvStocksOrderDate = view.findViewById(R.id.stocks_order_date);
+            tvStocksOrderCost = view.findViewById(R.id.stocks_order_cost);
 
         }
     }
@@ -55,6 +56,7 @@ public class StockOrderAdapter extends RecyclerView.Adapter<StockOrderAdapter.Or
         holder.tvStocksOrderSide.setText(item.getStockOrderSide());
         holder.tvStocksOrderStatus.setText(item.getStockOrderStatus());
         holder.tvStocksOrderDate.setText(item.getStockOrderDate());
+        holder.tvStocksOrderCost.setText("$ "+item.getStockOrderCost());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -85,13 +85,24 @@
                     android:textSize="15dp"
                     android:textColor="@android:color/white"
                     android:text="accepted"/>
-                <TextView
+                <LinearLayout
                     android:layout_weight="1"
-                    android:id="@+id/stocks_order_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@color/colorBlack"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/stocks_order_cost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:textColor="@color/colorBlack"/>
+                    <TextView
+                        android:id="@+id/stocks_order_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:textColor="@color/colorBlack"/>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
