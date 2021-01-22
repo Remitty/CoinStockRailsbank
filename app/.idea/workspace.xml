@@ -9,14 +9,21 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3652006d-3cf4-4de3-a802-aefaa4be7a03" name="Default Changelist" comment="" />
+    <list default="true" id="3652006d-3cf4-4de3-a802-aefaa4be7a03" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/CashFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/CashFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_stock_buy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_stock_buy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_stock_replace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_stock_replace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_stock_sell.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_stock_sell.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_invested_stock.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_invested_stock.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="test1" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="test" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -152,7 +159,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610973531904</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="change text">
+      <created>1611249527007</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1611249527007</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -170,6 +184,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update style xmt trade card" />
-    <option name="LAST_COMMIT_MESSAGE" value="update style xmt trade card" />
+    <MESSAGE value="change text" />
+    <option name="LAST_COMMIT_MESSAGE" value="change text" />
   </component>
 </project>

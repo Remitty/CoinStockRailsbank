@@ -83,7 +83,7 @@
                         android:gravity="center_horizontal"
                         android:text="$ 0.0"
                         android:textSize="15dp"
-                        android:textColor="@color/colorRedCrayon"
+                        android:textColor="@color/colorBlack"
                         />
                 </LinearLayout>
                 <LinearLayout

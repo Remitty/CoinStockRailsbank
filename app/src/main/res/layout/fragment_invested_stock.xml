@@ -49,6 +49,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="$ 0.0"
+                            android:inputType="text"
+                            android:maxLines="1"
                             android:textColor="@color/green"
                             android:textSize="17dp" />
                     </LinearLayout>
@@ -70,6 +72,8 @@
                             android:id="@+id/stock_profit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLines="1"
                             android:textSize="17dp"
                             android:textColor="@color/green"
                             android:text="$ 0.0"/>
@@ -100,6 +104,8 @@
                             android:id="@+id/total_balance"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLines="1"
                             android:textSize="17dp"
                             android:textColor="@color/colorBlue"
                             android:text="$ 0.0"/>
@@ -124,6 +130,8 @@
                             android:id="@+id/margin_balance"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLines="1"
                             android:textSize="17dp"
                             android:textColor="@color/colorBlue"
                             android:text="$ 0.0"/>
