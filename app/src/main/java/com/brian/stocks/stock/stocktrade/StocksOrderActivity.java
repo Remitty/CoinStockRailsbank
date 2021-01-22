@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+
+import com.brian.stocks.model.StocksInfo;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +46,8 @@ public class StocksOrderActivity extends AppCompatActivity {
     private ViewPager mStockChartViewPager;
     private TabLayout mStockTabBar;
     StockChartTabAdapter mPageAdapter;
+    private String price, shares;
+    private boolean loading = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,18 +67,14 @@ public class StocksOrderActivity extends AppCompatActivity {
         mIntent = getIntent();
 
         mStockName.setText(mIntent.getStringExtra("stock_name"));
-        String price = mIntent.getStringExtra("stock_price");
-        String[] separatedPrice = price.split("\\.");
-        mStockPriceInteger.setText(separatedPrice[0].trim());
-        mStockPriceFloat.setText("."+separatedPrice[1].trim());
         mStockShares.setText(mIntent.getStringExtra("stock_shares"));
         StockSide = mIntent.getStringExtra("stock_order_side");
-        mStockTodayChange.setText("$ "+mIntent.getStringExtra("stock_today_change"));
-        mStockTodayChangePerc.setText("( % "+mIntent.getStringExtra("stock_today_change_perc")+" )");
+
 
         mBtnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!loading)
                 onEditOrder();
             }
         });
@@ -170,12 +170,12 @@ public class StocksOrderActivity extends AppCompatActivity {
 
     private void onEditOrder() {
         Intent intent = new Intent(this, StockReplaceActivity.class);
-        intent.putExtra("stock_price", mIntent.getStringExtra("stock_price"));
+        intent.putExtra("stock_price", price);
         intent.putExtra("stock_limit_price", mIntent.getStringExtra("stock_limit_price"));
         intent.putExtra("stock_name", mIntent.getStringExtra("stock_name"));
         intent.putExtra("stock_symbol", mStockSymbol.getText());
         intent.putExtra("stock_order_id", mIntent.getStringExtra("stock_order_id"));
-        intent.putExtra("stock_shares", mIntent.getStringExtra("stock_shares"));
+        intent.putExtra("stock_shares", shares);
         intent.putExtra("stock_order_shares", mIntent.getStringExtra("stock_order_shares"));
         intent.putExtra("stock_order_type", mIntent.getStringExtra("stock_order_type"));
         intent.putExtra("stock_balance", StockBalance);
@@ -204,6 +204,7 @@ public class StocksOrderActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
                             loadToast.success();
+                            loading = false;
                             try {
                                 mAggregateDay = response.getJSONArray("aggregate_day");
                                 mAggregateWeek = response.getJSONArray("aggregate_week");
@@ -225,6 +226,14 @@ public class StocksOrderActivity extends AppCompatActivity {
 
                                 mStockSymbol.setText(response.optString("symbol"));
                                 StockBalance = response.optString("stock_balance");
+                                StocksInfo stock = new StocksInfo(response.optJSONObject("stock"));
+                                price = stock.getStocksPrice();
+                                String[] separatedPrice = price.split("\\.");
+                                mStockPriceInteger.setText(separatedPrice[0].trim());
+                                mStockPriceFloat.setText("."+separatedPrice[1].trim());
+                                mStockTodayChange.setText("$ "+stock.getStockTodayChange());
+                                mStockTodayChangePerc.setText("( % "+ stock.getStockTodayChangePercent() + " )");
+                                shares = stock.getStocksShares();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

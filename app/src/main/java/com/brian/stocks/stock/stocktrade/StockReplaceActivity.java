@@ -268,8 +268,12 @@ public class StockReplaceActivity extends AppCompatActivity {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            try {
+                                JSONObject errorObject = new JSONObject(error.getErrorBody());
+                                Toast.makeText(getBaseContext(), errorObject.getString("error"), Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
     }

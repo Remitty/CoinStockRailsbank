@@ -172,7 +172,7 @@ public class StocksFragment extends Fragment {
                     public void onError(ANError error) {
 
                         // handle error
-                        Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
                         Log.d("errorm", "" + error.getMessage());
                     }
                 });
