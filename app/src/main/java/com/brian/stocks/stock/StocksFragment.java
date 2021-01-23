@@ -101,6 +101,8 @@ public class StocksFragment extends Fragment {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     getAllStocks(false);
+                    aggregates=new JSONArray();
+                    getAggregate();
                     return true;
                 }
                 return false;
@@ -141,6 +143,9 @@ public class StocksFragment extends Fragment {
 
     private void getAggregate() {
         String url = URLHelper.GET_ALL_STOCKS_AGGREGATE;
+        if(!mSearch.equalsIgnoreCase(""))
+            url = url + "?search="+mSearch;
+        Log.d("stock aggregate url", url);
         AndroidNetworking.get(url)
                 .addHeaders("Content-Type", "application/json")
                 .addHeaders("accept", "application/json")
@@ -173,7 +178,7 @@ public class StocksFragment extends Fragment {
 
                         // handle error
 //                        Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }
@@ -229,7 +234,6 @@ public class StocksFragment extends Fragment {
                             if(stocks != null)
                             for(int i = 0; i < stocks.length(); i ++) {
                                 try {
-                                    Log.d("stocksitem", stocks.get(i).toString());
                                     StocksInfo stock = new StocksInfo((JSONObject) stocks.get(i));
                                     if(aggregates.length() > 0)
                                         stock.setStockAggregate(aggregates.optJSONArray(i));
@@ -269,8 +273,8 @@ public class StocksFragment extends Fragment {
                             loadToast.error();
 
                         // handle error
-                        Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }

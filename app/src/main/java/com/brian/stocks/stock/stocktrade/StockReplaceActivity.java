@@ -268,12 +268,7 @@ public class StockReplaceActivity extends AppCompatActivity {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            try {
-                                JSONObject errorObject = new JSONObject(error.getErrorBody());
-                                Toast.makeText(getBaseContext(), errorObject.getString("error"), Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            Toast.makeText(getBaseContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
                         }
                     });
     }

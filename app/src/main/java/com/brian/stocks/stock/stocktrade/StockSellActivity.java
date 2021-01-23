@@ -137,10 +137,10 @@ public class StockSellActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Please input shares", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(Double.parseDouble(mEditShares.getText().toString()) > Double.parseDouble(mStockShares)){
-                    Toast.makeText(getBaseContext(), "Insufficient Shares", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if(Double.parseDouble(mEditShares.getText().toString()) > Double.parseDouble(mStockShares)){
+//                    Toast.makeText(getBaseContext(), "Insufficient Shares", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 if(Double.parseDouble(mEstCost) == 0){
                     Toast.makeText(getBaseContext(), "Please fill in all", Toast.LENGTH_SHORT).show();
                     return;
@@ -238,7 +238,8 @@ public class StockSellActivity extends AppCompatActivity {
                             loadToast.success();
                             mStockBalance = response.optString("stock_balance");
                             mTextStockBalance.setText("$ "+mStockBalance);
-                            mStockShares =  BigDecimalDouble.newInstance().sub(mStockShares, mEditShares.getText().toString());
+                            mStockShares =  response.optString("shares");
+                            mTextStockShares.setText(mStockShares);
                             Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                         }
 
@@ -246,8 +247,8 @@ public class StockSellActivity extends AppCompatActivity {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Toast.makeText(getBaseContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }
