@@ -9,25 +9,10 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3652006d-3cf4-4de3-a802-aefaa4be7a03" name="Default Changelist" comment="">
-
+    <list default="true" id="61f9f7d5-de52-4696-8df7-a56dbb74f9cd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/CoinsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/CoinsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/adapters/CoinAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/adapters/CoinAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/dialog_coin_buy_option.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/dialog_coin_buy_option.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_coin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_coin.xml" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/InvestedStockFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/InvestedStockFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/adapters/CoinAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/home/adapters/CoinAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/model/StocksInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/model/StocksInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/StocksFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/StocksFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/stockorder/OrderStockFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/stockorder/OrderStockFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/stocktrade/StockReplaceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/stocktrade/StockReplaceActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/stocktrade/StocksOrderActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/stocktrade/StocksOrderActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_stock_buy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_stock_buy.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_stock_replace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_stock_replace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_stock_sell.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_stock_sell.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_stocks_order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_stocks_order.xml" afterDir="false" />
-
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -146,7 +131,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="3652006d-3cf4-4de3-a802-aefaa4be7a03" name="Default Changelist" comment="" />
+      <changelist id="61f9f7d5-de52-4696-8df7-a56dbb74f9cd" name="Default Changelist" comment="" />
       <created>1610971721132</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -200,5 +185,16 @@
     <MESSAGE value="update style xmt trade card" />
     <MESSAGE value="change text" />
     <option name="LAST_COMMIT_MESSAGE" value="change text" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/brian/stocks/stock/StocksFragment.java</url>
+          <line>162</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

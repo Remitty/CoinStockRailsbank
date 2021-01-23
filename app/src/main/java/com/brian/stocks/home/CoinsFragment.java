@@ -445,6 +445,8 @@ public class CoinsFragment extends Fragment {
                                     String cryptoCurrency = "&cryptoCurrency=" + CoinSymbol;
                                     String transactionType = "&transactionType=buy";
                                     String isWebview = "&isWebview=true";
+                                    String partnerData = "&partnerData=88824d8683434f4e";
+
                                     String url = base + apikey + wallet + cryptoCurrency + transactionType + isWebview;
                                     Log.d("xanpool url:", url);
                                     Intent browserIntent = new Intent(getActivity(), WebViewActivity.class);
