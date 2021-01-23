@@ -172,6 +172,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
             case R.id.nav_coin_withdraw:
                 startActivity(new Intent(getApplicationContext(), CoinWithdrawActivity.class));
                 break;
+            case R.id.nav_coin_trade:
+                
+                break;
 
             case R.id.nav_stock_news:
                 startActivity(new Intent(getApplicationContext(), StockNewsActivity.class));
