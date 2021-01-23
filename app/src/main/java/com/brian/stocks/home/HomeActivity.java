@@ -173,7 +173,19 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                 startActivity(new Intent(getApplicationContext(), CoinWithdrawActivity.class));
                 break;
             case R.id.nav_coin_trade:
-                
+                String base = "https://checkout.xanpool.com/";
+                String apikey = "?apiKey=eabb1302285be54dc57476a31f24bb95";
+                String wallet = "";
+                String cryptoCurrency = "";
+                String transactionType = "";
+                String isWebview = "&isWebview=true";
+                String partnerData = "&partnerData=88824d8683434f4e";
+
+                String url = base + apikey + wallet + cryptoCurrency + transactionType + isWebview + partnerData;
+                Log.d("xanpool url:", url);
+                Intent browserIntent = new Intent(HomeActivity.this, WebViewActivity.class);
+                browserIntent.putExtra("uri", url);
+                startActivity(browserIntent);
                 break;
 
             case R.id.nav_stock_news:
