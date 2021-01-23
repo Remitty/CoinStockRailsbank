@@ -76,6 +76,8 @@ public class StocksOrderActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!loading)
                 onEditOrder();
+                else
+                    Toast.makeText(getBaseContext(), "Please wait for loading", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -162,8 +164,8 @@ public class StocksOrderActivity extends AppCompatActivity {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Toast.makeText(getBaseContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }

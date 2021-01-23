@@ -9,12 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.anychart.enums.Layout;
 import com.brian.stocks.R;
 import com.brian.stocks.stock.stocktrade.StocksOrderActivity;
 import com.brian.stocks.helper.SharedHelper;
@@ -36,6 +38,7 @@ public class OrderStockFragment extends Fragment {
     private StockOrderAdapter mAdapter;
     private List<StocksInfo> stocksList = new ArrayList<>();
     private RecyclerView stocksListView;
+    LinearLayout emptyLayout;
 
     public OrderStockFragment() {
         // Required empty public constructor
@@ -59,6 +62,7 @@ public class OrderStockFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_order_stock, container, false);
         stocksListView = (RecyclerView) rootView.findViewById(R.id.list_stocks_view);
+        emptyLayout = rootView.findViewById(R.id.empty_layout);
 
         mAdapter = new StockOrderAdapter(stocksList, false);
 
@@ -107,6 +111,8 @@ public class OrderStockFragment extends Fragment {
                             if(getContext() != null)
                             SharedHelper.putKey(getContext(), "stock_balance", response.optString("stock_balance"));
                             mAdapter.notifyDataSetChanged();
+                            if(stocksList.size() > 0)
+                                emptyLayout.setVisibility(View.GONE);
                         }
 
                         @Override

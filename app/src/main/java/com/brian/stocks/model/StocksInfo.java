@@ -158,6 +158,14 @@ public class StocksInfo {
         }
     }
 
+    public String getStockOrderCost(){
+        try {
+            return data.getString("est_cost");
+        } catch (JSONException e) {
+            return  "";
+        }
+    }
+
     public String getStockOrderDate(){
         try {
             return data.getString("created_at").split(" ")[0];
