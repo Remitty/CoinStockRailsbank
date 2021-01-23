@@ -102,6 +102,7 @@ public class StocksFragment extends Fragment {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     getAllStocks(false);
                     aggregates=new JSONArray();
+                    stocksList.clear();
                     getAggregate();
                     return true;
                 }
