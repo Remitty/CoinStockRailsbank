@@ -58,6 +58,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="35dp"
                                     android:paddingHorizontal="10dp"
+                                    android:inputType="text"
+                                    android:maxLines="1"
                                     android:editable="false"
                                     android:background="@drawable/rounded_corners_edittext_dark"/>
                                 <ImageButton
@@ -91,6 +93,8 @@
                                     android:layout_height="35dp"
                                     android:paddingHorizontal="10dp"
                                     android:editable="false"
+                                    android:inputType="text"
+                                    android:maxLines="1"
                                     android:background="@drawable/rounded_corners_edittext_dark"/>
                                 <ImageButton
                                     android:id="@+id/btn_copy_usd_account_no"
@@ -122,6 +126,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="35dp"
                                     android:paddingHorizontal="10dp"
+                                    android:inputType="text"
+                                    android:maxLines="1"
                                     android:editable="false"
                                     android:background="@drawable/rounded_corners_edittext_dark"/>
                                 <ImageButton
@@ -181,6 +187,8 @@
                                     android:layout_height="35dp"
                                     android:layout_weight="1"
                                     android:paddingHorizontal="10dp"
+                                    android:inputType="text"
+                                    android:maxLines="1"
                                     android:editable="false"
                                     android:background="@drawable/rounded_corners_edittext_dark"/>
                                 <ImageButton
@@ -227,6 +235,8 @@
                                     android:layout_height="35dp"
                                     android:layout_weight="1"
                                     android:paddingHorizontal="10dp"
+                                    android:inputType="text"
+                                    android:maxLines="1"
                                     android:editable="false"
                                     android:background="@drawable/rounded_corners_edittext_dark"/>
                                 <ImageButton
@@ -259,6 +269,8 @@
                                     android:layout_height="35dp"
                                     android:layout_weight="1"
                                     android:paddingHorizontal="10dp"
+                                    android:inputType="text"
+                                    android:maxLines="1"
                                     android:editable="false"
                                     android:background="@drawable/rounded_corners_edittext_dark"/>
                                 <ImageButton
@@ -317,6 +329,8 @@
                                     android:layout_height="35dp"
                                     android:layout_weight="1"
                                     android:paddingHorizontal="10dp"
+                                    android:inputType="text"
+                                    android:maxLines="1"
                                     android:editable="false"
                                     android:background="@drawable/rounded_corners_edittext_dark"/>
                                 <ImageButton
@@ -349,6 +363,8 @@
                                     android:layout_height="35dp"
                                     android:layout_weight="1"
                                     android:paddingHorizontal="10dp"
+                                    android:inputType="text"
+                                    android:maxLines="1"
                                     android:editable="false"
                                     android:background="@drawable/rounded_corners_edittext_dark"/>
                                 <ImageButton
@@ -381,6 +397,8 @@
                                     android:layout_height="35dp"
                                     android:layout_weight="1"
                                     android:paddingHorizontal="10dp"
+                                    android:inputType="text"
+                                    android:maxLines="1"
                                     android:editable="false"
                                     android:background="@drawable/rounded_corners_edittext_dark"/>
                                 <ImageButton
