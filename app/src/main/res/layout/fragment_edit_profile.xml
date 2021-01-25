@@ -186,6 +186,8 @@
                                 android:background="@drawable/rounded_corners_edittext_dark"
                                 android:gravity="center_vertical"
                                 android:hint=""
+                                android:inputType="text"
+                                android:maxLines="1"
                                 android:padding="10dp"
                                 android:textSize="14sp" />
 
@@ -221,6 +223,8 @@
                                 android:background="@drawable/rounded_corners_edittext_dark"
                                 android:gravity="center_vertical"
                                 android:hint=""
+                                android:inputType="text"
+                                android:maxLines="1"
                                 android:padding="10dp"
                                 android:textSize="14sp" />
 
@@ -256,6 +260,8 @@
                                 android:background="@drawable/rounded_corners_edittext_dark"
                                 android:gravity="center_vertical"
                                 android:hint=""
+                                android:inputType="text"
+                                android:maxLines="1"
                                 android:padding="10dp"
                                 android:textSize="14sp" />
 
@@ -335,6 +341,7 @@
                                     android:importantForAutofill="no"
                                     android:layout_toRightOf="@+id/ll_cc"
                                     android:inputType="number"
+                                    android:maxLines="1"
                                     android:background="@drawable/rounded_corners_edittext_dark"
                                     />
 
@@ -449,6 +456,8 @@
                                 android:gravity="center_vertical"
                                 android:padding="10dp"
                                 android:hint=""
+                                android:inputType="text"
+                                android:maxLines="1"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -484,6 +493,8 @@
                                 android:gravity="center_vertical"
                                 android:padding="10dp"
                                 android:hint=""
+                                android:inputType="text"
+                                android:maxLines="1"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -520,6 +531,8 @@
                                 android:gravity="center_vertical"
                                 android:padding="10dp"
                                 android:hint=""
+                                android:inputType="text"
+                                android:maxLines="1"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -554,6 +567,8 @@
                                 android:gravity="center_vertical"
                                 android:padding="10dp"
                                 android:hint=""
+                                android:inputType="text"
+                                android:maxLines="1"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -588,6 +603,8 @@
                                 android:gravity="center_vertical"
                                 android:padding="10dp"
                                 android:hint=""
+                                android:inputType="text"
+                                android:maxLines="1"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -621,8 +638,9 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/rounded_corners_edittext_dark"
                                 android:gravity="center_vertical"
-                                android:inputType="number"
                                 android:padding="10dp"
+                                android:inputType="text"
+                                android:maxLines="1"
                                 android:textSize="14sp" />
 
                         </LinearLayout>

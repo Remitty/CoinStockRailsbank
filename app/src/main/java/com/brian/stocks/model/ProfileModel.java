@@ -34,7 +34,9 @@ public class ProfileModel {
 
     public String getMobile(){
         try {
-            return data.getString("mobile");
+            String str = data.getJSONObject("profile").getString("mobile");
+            if(str.equals("null")) str = "";
+            return str;
         } catch (JSONException e) {
             return "";
         }
@@ -42,7 +44,9 @@ public class ProfileModel {
 
     public String getCountryCode(){
         try {
-            return data.getString("country_code");
+            String str = data.getJSONObject("profile").getString("country_code");
+            if(str.equals("null")) str = "";
+            return str;
         } catch (JSONException e) {
             return "+1";
         }
@@ -50,7 +54,9 @@ public class ProfileModel {
 
     public String getPostalCode(){
         try {
-            return data.getJSONObject("profile").getString("postalcode");
+            String postalcode = data.getJSONObject("profile").getString("postalcode");
+            if(postalcode.equals("null")) postalcode = "";
+            return postalcode;
         } catch (JSONException e) {
             return "";
         }
@@ -58,7 +64,9 @@ public class ProfileModel {
 
     public String getFirstAddress(){
         try {
-            return data.getJSONObject("profile").getString("address");
+            String address = data.getJSONObject("profile").getString("address");
+            if(address.equals("null")) address = "";
+            return address;
         } catch (JSONException e) {
             return "";
         }
@@ -66,7 +74,9 @@ public class ProfileModel {
 
     public String getSecondAddress(){
         try {
-            return data.getJSONObject("profile").getString("address2");
+            String address = data.getJSONObject("profile").getString("address2");
+            if(address.equals("null")) address = "";
+            return address;
         } catch (JSONException e) {
             return "";
         }
@@ -74,7 +84,9 @@ public class ProfileModel {
 
     public String getCountry(){
         try {
-            return data.getJSONObject("profile").getString("country");
+            String str = data.getJSONObject("profile").getString("country");
+            if(str.equals("null")) str = "";
+            return str;
         } catch (JSONException e) {
             return "";
         }
@@ -82,7 +94,9 @@ public class ProfileModel {
 
     public String getCity(){
         try {
-            return data.getJSONObject("profile").getString("city");
+            String str = data.getJSONObject("profile").getString("city");
+            if(str.equals("null")) str = "";
+            return str;
         } catch (JSONException e) {
             return "";
         }
@@ -90,7 +104,9 @@ public class ProfileModel {
 
     public String getDOB(){
         try {
-            return data.getJSONObject("profile").getString("dob");
+            String str = data.getJSONObject("profile").getString("dob");
+            if(str.equals("null")) str = "";
+            return str;
         } catch (JSONException e) {
             return "";
         }
@@ -98,7 +114,9 @@ public class ProfileModel {
 
     public String getRegion(){
         try {
-            return data.getJSONObject("profile").getString("region");
+            String str = data.getJSONObject("profile").getString("region");
+            if(str.equals("null")) str = "";
+            return str;
         } catch (JSONException e) {
             return "";
         }

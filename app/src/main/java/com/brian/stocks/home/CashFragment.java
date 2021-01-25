@@ -110,7 +110,7 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
 
         getBankData();
 
-        showAlert();
+//        showAlert();
 
         return mView;
 
@@ -334,8 +334,8 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }
