@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:id="@+id/viewBar1"
-                android:background="@color/colorNavAccentSelected" />
+                android:background="@color/colorBackground" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="25dp"
@@ -63,7 +63,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/colorNavAccentSelected"
+                android:background="@color/colorBackground"
                 android:id="@+id/viewBar2"
                 android:visibility="invisible"/>
 
@@ -98,7 +98,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/colorNavAccentSelected"
+                android:background="@color/colorBackground"
                 android:id="@+id/viewBar3"
                 android:visibility="invisible"/>
 
@@ -133,7 +133,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/colorNavAccentSelected"
+                android:background="@color/colorBackground"
                 android:id="@+id/viewBar4"
                 android:visibility="invisible"/>
 
@@ -168,7 +168,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/colorNavAccentSelected"
+                android:background="@color/colorBackground"
                 android:id="@+id/viewBar5"
                 android:visibility="invisible"/>
 

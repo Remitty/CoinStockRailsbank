@@ -24,7 +24,7 @@
                     android:id="@+id/stocks_trade_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="@color/colorRedCrayon"
+                    android:background="@color/colorPrimary"
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             </com.google.android.material.appbar.AppBarLayout>
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/stock_name"
+                    android:id="@+id/stock_symbol"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -44,7 +44,7 @@
                     android:textColor="@color/colorPrimary"
                     />
                 <TextView
-                    android:id="@+id/stock_symbol"
+                    android:id="@+id/stock_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

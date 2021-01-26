@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brian.stocks.R;
@@ -84,7 +85,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
             userName.setText(SharedHelper.getKey(getBaseContext(), "fullName"));
             TextView userEmail = header.findViewById(R.id.user_email);
             userEmail.setText(SharedHelper.getKey(getBaseContext(), "email"));
-            TextView viewProfile = header.findViewById(R.id.view_profile);
+            ImageView viewProfile = header.findViewById(R.id.view_profile);
             viewProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

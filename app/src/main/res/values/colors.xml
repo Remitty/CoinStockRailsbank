@@ -10,8 +10,9 @@
     <color name="colorRedCrayonGray">#ff4f6d</color>
     <color name="colorBlue">#00BCD4</color>
     <color name="colorBlue1">#3498db</color>
-    <color name="colorPurple">#9C27B0</color>
+    <color name="colorPurple">#A100FE</color>
     <color name="white">#ffffff</color>
+    <color name="white_opacity">#B8FFFFFF</color>
     <color name="white_greyish">#a0a0a0</color>
     <color name="black">#a0a0a0</color>
     <color name="green">#66BB6A</color>
@@ -22,6 +23,7 @@
     <color name="tab4">#F25E5E</color>
 
     <color name="darkBlue">#313E7E</color>
+    <color name="transparent">#00FFFF00</color>
 
     <color name="layoutBackgroundLight">#e0e0e0</color>
 </resources>

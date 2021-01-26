@@ -59,7 +59,7 @@ public class StockSellActivity extends AppCompatActivity {
         mStockSymbol = getIntent().getStringExtra("stock_symbol");
 
         Toolbar toolbar = findViewById(R.id.stocks_trade_toolbar);
-        toolbar.setTitle(mStockName);
+        toolbar.setTitle(mStockSymbol);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -214,7 +214,7 @@ public class StockSellActivity extends AppCompatActivity {
         loadToast.show();
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("ticker", mStockName);
+            jsonObject.put("ticker", mStockSymbol);
             jsonObject.put("shares", mStockShares);
             jsonObject.put("limit_price", mStockPrice);
             jsonObject.put("type", mStockTradeType);

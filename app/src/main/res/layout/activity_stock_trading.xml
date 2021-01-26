@@ -17,7 +17,7 @@
             android:id="@+id/stocks_trade_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorRedCrayon"
+            android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -29,140 +29,158 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/stock_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:gravity="center_horizontal"
-                android:text="@string/app_name"
-                android:textSize="25dp"
-                android:textColor="@color/colorPrimary"
-                />
-            <TextView
-                android:id="@+id/stock_symbol"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:text=""
-                android:textSize="15dp"
-                android:textColor="@color/colorBlack"
-                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal">
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@drawable/bg_half">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="4dp"
-                    android:gravity="bottom"
-                    android:text="$ "
-                    android:textColor="@color/colorBlack"
-                    android:textSize="30dp"/>
-                <TextView
-                    android:id="@+id/stock_price_integer"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/stock_symbol"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="0"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="50dp"/>
-                <TextView
-                    android:id="@+id/stock_price_float"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:gravity="bottom"
-                    android:text=".000 "
-                    android:textColor="@color/colorBlack"
-                    android:textSize="30dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/stock_today_change"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13dp"
-                    android:textColor="@color/colorRedCrayon"
-                    android:text="+$ 0.00"/>
-                <TextView
-                    android:id="@+id/stock_today_change_perc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13dp"
-                    android:textColor="@color/colorRedCrayon"
-                    android:text="(+% 0.00)"/>
-                <TextView
-                    android:id="@+id/trade_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13dp"
-                    android:textColor="@color/colorBlack"
-                    android:text="Today"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
                     />
-            </LinearLayout>
-            <LinearLayout
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/stock_chart_view_pager"
+                <TextView
+                    android:id="@+id/stock_name"
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"/>
-                <com.google.android.material.tabs.TabLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:id="@+id/stock_chart_tab_bar"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:textSize="12dp"
+                    android:textColor="@color/white"
                     />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_corner_white_rectangle">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="4dp"
+                            android:gravity="bottom"
+                            android:text="$ "
+                            android:textColor="@color/colorBlack"
+                            android:textSize="30dp"/>
+                        <TextView
+                            android:id="@+id/stock_price_integer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="0"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="50dp"/>
+                        <TextView
+                            android:id="@+id/stock_price_float"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:gravity="bottom"
+                            android:text=".000 "
+                            android:textColor="@color/colorBlack"
+                            android:textSize="30dp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/stock_today_change"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:textColor="@color/colorRedCrayon"
+                            android:text="+$ 0.00"/>
+                        <TextView
+                            android:id="@+id/stock_today_change_perc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:textColor="@color/colorRedCrayon"
+                            android:text="(+% 0.00)"/>
+                        <TextView
+                            android:id="@+id/trade_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:textColor="@color/colorBlack"
+                            android:text="Today"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/stock_chart_view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"/>
+                    <com.google.android.material.tabs.TabLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:id="@+id/stock_chart_tab_bar"
+                        app:tabTextColor="@color/white_opacity"
+                        android:backgroundTint="@color/transparent"
+                        app:tabSelectedTextColor="@color/white"
+                        app:tabIndicatorColor="@color/transparent"
+                        />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_stock_buy"
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp"
+                        android:backgroundTint="@color/colorPurple"
+                        app:strokeColor="@color/white"
+                        app:strokeWidth="2dp"
+                        app:cornerRadius="20dp"
+                        android:text="buy"
+                        android:textColor="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_stock_sell"
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp"
+                        app:strokeColor="@color/white"
+                        app:strokeWidth="2dp"
+                        app:cornerRadius="20dp"
+                        android:textColor="@android:color/white"
+                        android:text="sell"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-                <Button
-                    android:id="@+id/btn_stock_buy"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/green"
-                    android:layout_marginHorizontal="10dp"
-                    android:text="buy"
-                    android:textColor="@android:color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <Button
-                    android:id="@+id/btn_stock_sell"
-                    android:layout_weight="1"
-                    android:layout_marginHorizontal="10dp"
-                    android:textColor="@android:color/white"
-                    android:text="sell"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_stocks_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:orientation="vertical">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/colorBlack"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -180,13 +198,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorBlack"
-                            android:textSize="20dp"
+                            android:textSize="16dp"
                             android:text="0"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorBlack"
-                            android:textSize="14dp"
+                            android:textSize="12dp"
                             android:text="Your shares"/>
                     </LinearLayout>
                     <LinearLayout
@@ -199,13 +217,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorBlack"
-                            android:textSize="20dp"
+                            android:textSize="16dp"
                             android:text="0"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorBlack"
-                            android:textSize="14dp"
+                            android:textSize="12dp"
                             android:text="Equity Value"/>
                     </LinearLayout>
                     <LinearLayout
@@ -218,13 +236,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorBlack"
-                            android:textSize="20dp"
+                            android:textSize="16dp"
                             android:text="0"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorBlack"
-                            android:textSize="14dp"
+                            android:textSize="12dp"
                             android:text="Avg.Cost"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -240,7 +258,7 @@
                     android:layout_height="wrap_content"
                     android:text="Company Profile"
                     android:textColor="@color/colorBlack"
-                    android:textSize="17dp"/>
+                    android:textSize="16dp"/>
 
                 <TextView
                     android:id="@+id/company_summary"

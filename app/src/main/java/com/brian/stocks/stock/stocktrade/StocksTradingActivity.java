@@ -63,6 +63,7 @@ public class StocksTradingActivity extends AppCompatActivity {
         mIntent = getIntent();
 
         mStockName.setText(mIntent.getStringExtra("stock_name"));
+        mStockSymbol.setText(mIntent.getStringExtra("stock_symbol"));
         String price = mIntent.getStringExtra("stock_price");
         String[] separatedPrice = price.split("\\.");
         StockPrice = Double.parseDouble(price);
@@ -137,7 +138,7 @@ public class StocksTradingActivity extends AppCompatActivity {
     private void onSellStack() {
         Intent intent = new Intent(this, StockSellActivity.class);
         intent.putExtra("stock_price", mIntent.getStringExtra("stock_price"));
-        intent.putExtra("stock_name", mIntent.getStringExtra("stock_name"));
+        intent.putExtra("stock_name", mStockName.getText());
         intent.putExtra("stock_symbol", mStockSymbol.getText());
         intent.putExtra("stock_balance", StockBalance);
         intent.putExtra("stock_shares", mIntent.getStringExtra("stock_shares"));
@@ -147,7 +148,7 @@ public class StocksTradingActivity extends AppCompatActivity {
     private void onBuyStack() {
         Intent intent = new Intent(this, StockBuyActivity.class);
         intent.putExtra("stock_price", mIntent.getStringExtra("stock_price"));
-        intent.putExtra("stock_name", mIntent.getStringExtra("stock_name"));
+        intent.putExtra("stock_name", mStockName.getText());
         intent.putExtra("stock_symbol", mStockSymbol.getText());
         intent.putExtra("stock_balance", StockBalance);
         intent.putExtra("stock_shares", mIntent.getStringExtra("stock_shares"));
@@ -161,7 +162,7 @@ public class StocksTradingActivity extends AppCompatActivity {
         loadToast.show();
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("ticker", mStockName.getText());
+            jsonObject.put("ticker", mStockSymbol.getText());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -230,7 +231,6 @@ public class StocksTradingActivity extends AppCompatActivity {
 
                                 JSONObject company = response.getJSONObject("company");
                                 if(company != null) {
-                                    mStockSymbol.setText(company.optString("name"));
                                     companysummary = company.optString("description");
                                     companyindustry = company.optString("industry");
                                     companyweb = company.optString("url");

@@ -92,6 +92,7 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/ll_send_usdc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -128,17 +129,17 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:layout_gravity="center_vertical">
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_usdc_send"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        app:cornerRadius="15dp"
-                        android:text="send"/>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_arrow_right"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/ll_add_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -175,13 +176,11 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:layout_gravity="center_vertical">
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_add_contact"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        app:cornerRadius="15dp"
-                        android:backgroundTint="@color/colorBlue"
-                        android:text="Add"/>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_arrow_right"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

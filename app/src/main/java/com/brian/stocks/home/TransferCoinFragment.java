@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,11 +48,10 @@ public class TransferCoinFragment extends Fragment {
     TextView tvBalance;
 
     RecyclerView payHistoryView;
-    Button btnSend;
-    Button btnAddContact;
 
     EditText editName, editEmail;
     Button btnAddContact1;
+    LinearLayout sendingLayout, addLayout;
 
     ArrayList<JSONObject> payHistory = new ArrayList();
     TransferCoinHistoryAdapter historyAdapter;
@@ -87,8 +87,10 @@ public class TransferCoinFragment extends Fragment {
         tvBalance = view.findViewById(R.id.usdc_balance);
 
         payHistoryView = view.findViewById(R.id.pay_history_view);
-        btnSend = view.findViewById(R.id.btn_usdc_send);
-        btnAddContact = view.findViewById(R.id.btn_add_contact);
+
+        sendingLayout = view.findViewById(R.id.ll_send_usdc);
+        addLayout = view.findViewById(R.id.ll_add_contact);
+
         mtvUserName = view.findViewById(R.id.user_name);
         mtvUserName.setText(SharedHelper.getKey(getContext(), "fullName"));
 
@@ -96,14 +98,14 @@ public class TransferCoinFragment extends Fragment {
         payHistoryView.setAdapter(historyAdapter);
         payHistoryView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        sendingLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), SendUsdcActivity.class));
             }
         });
 
-        btnAddContact.setOnClickListener(new View.OnClickListener() {
+        addLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                if(addContactView.getParent() != null) {

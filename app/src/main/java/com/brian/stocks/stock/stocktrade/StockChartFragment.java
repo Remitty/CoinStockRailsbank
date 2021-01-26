@@ -1,5 +1,6 @@
 package com.brian.stocks.stock.stocktrade;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -82,6 +83,9 @@ public class StockChartFragment extends Fragment {
             series1.color("#ee204d");
             series1.stroke("3 #ee204d");
             mStocksChartView.setChart(cartesian);
+            mStocksChartView.setBackgroundColor(getResources().getColor(R.color.colorPurple));
+            mStocksChartView.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPurple)));
+            mStocksChartView.setForegroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPurple)));
         }
     }
 
