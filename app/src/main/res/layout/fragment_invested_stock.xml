@@ -7,19 +7,18 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="3dp">
+        app:cardElevation="5dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_portfolio"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_gravity="center_horizontal"
                 android:minHeight="70dp"
@@ -29,115 +28,117 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:textStyle="bold"
-                            android:textSize="11dp"
-                            android:textColor="@color/colorBlack"
-                            android:text="BALANCE: "/>
+                            android:textSize="10dp"
+                            android:textColor="@color/white"
+                            android:text="BALANCE"/>
 
                         <TextView
                             android:id="@+id/stock_balance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="$ 0.0"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/rounded_corner_white_rectangle"
                             android:inputType="text"
                             android:maxLines="1"
+                            android:text="$ 0.0"
                             android:textColor="@color/green"
-                            android:textSize="17dp" />
+                            android:textSize="13dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:textStyle="bold"
                             android:textSize="10dp"
-                            android:textColor="@color/colorBlack"
+                            android:textColor="@color/white"
                             android:text="PROFIT / LOSS: "/>
                         <TextView
                             android:id="@+id/stock_profit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/rounded_corner_white_rectangle"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:textSize="17dp"
+                            android:text="$ 0.0"
                             android:textColor="@color/green"
-                            android:text="$ 0.0"/>
+                            android:textSize="13dp" />
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
+                    android:gravity="left"
+                    android:layout_marginLeft="20dp"
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
                         <TextView
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:textStyle="bold"
-                            android:textSize="11dp"
-                            android:gravity="right"
-                            android:textColor="@color/colorBlack"
+                            android:textSize="10dp"
+                            android:textColor="@color/white"
                             android:text="PORTFOLIO:  "/>
                         <TextView
-                            android:layout_weight="1"
                             android:id="@+id/total_balance"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/rounded_corner_white_rectangle"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:textSize="17dp"
-                            android:textColor="@color/colorBlue"
-                            android:text="$ 0.0"/>
+                            android:text="$ 0.0"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="13dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
                         <TextView
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="11dp"
-                            android:gravity="right"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="10dp"
                             android:textStyle="bold"
-                            android:textColor="@color/colorBlack"
+                            android:textColor="@color/white"
                             android:text="MARGIN:  "/>
                         <TextView
-                            android:layout_weight="1"
                             android:id="@+id/margin_balance"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/rounded_corner_white_rectangle"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:textSize="17dp"
-                            android:textColor="@color/colorBlue"
-                            android:text="$ 0.0"/>
+                            android:text="$ 0.0"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="13dp" />
                     </LinearLayout>
-
-
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -158,7 +159,9 @@
                         android:id="@+id/btn_invest"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
-                        android:backgroundTint="@color/colorBlue"
+                        android:backgroundTint="@color/colorPurple"
+                        app:strokeColor="@color/white"
+                        app:strokeWidth="2dp"
                         android:textSize="10dp"
                         android:text="Trade"/>
                     <com.google.android.material.button.MaterialButton
@@ -166,15 +169,19 @@
                         android:layout_width="100dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
-                        android:backgroundTint="@color/colorPurple"
+                        android:backgroundTint="@color/green"
+                        app:strokeColor="@color/white"
+                        app:strokeWidth="2dp"
                         android:textSize="10dp"
                         android:text="Deposit"/>
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_withdraw"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
-                        android:backgroundTint="@color/black"
+                        android:backgroundTint="@color/colorRedCrayon"
                         android:layout_marginLeft="10dp"
+                        app:strokeColor="@color/white"
+                        app:strokeWidth="2dp"
                         android:textSize="10dp"
                         android:text="withdraw"/>
                 </LinearLayout>
@@ -191,14 +198,14 @@
                     android:layout_height="wrap_content"
                     android:text="Market Status: "
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/white"/>
                 <TextView
                     android:id="@+id/market_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="loading... "
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/colorRedCrayon"/>
             </LinearLayout>
         </LinearLayout>
 

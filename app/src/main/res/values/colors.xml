@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ee204d</color>
-    <color name="colorPrimaryDark">#ff4f6d</color>
-    <color name="colorAccent">#ff4f6d</color>
+    <color name="colorPrimary">#0066FF</color>
+    <color name="colorPrimaryDark">#0066FF</color>
+    <color name="colorAccent">#0066FF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGray">#cccccc</color>
     <color name="colorDivider">#eeeeee</color>
@@ -20,6 +20,8 @@
     <color name="tab2">#3498db</color>
     <color name="tab3">#e8ce4d</color>
     <color name="tab4">#F25E5E</color>
+
+    <color name="darkBlue">#313E7E</color>
 
     <color name="layoutBackgroundLight">#e0e0e0</color>
 </resources>
