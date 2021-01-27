@@ -19,11 +19,10 @@
                 android:id="@+id/stock_symbol"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:textSize="15dp"
                 android:gravity="center_vertical"
-                android:textColor="@color/colorBlack"
                 android:layout_marginLeft="10dp"
-                android:maxLines="1"
+                android:textSize="12dp"
+                android:textColor="@color/darkBlue"
                 android:text="AAPL"/>
             <LinearLayout
                 android:layout_weight="1"
@@ -75,7 +74,7 @@
                 android:gravity="center_vertical"
                 android:textSize="13dp"
                 android:maxLines="1"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/green"
                 android:text="$ 2456.23"/>
 
 
@@ -119,8 +118,7 @@
                 android:textSize="13dp"
                 android:gravity="center"
                 android:maxLines="1"
-                android:background="@drawable/feather_green_button"
-                android:textColor="@android:color/white"
+                android:textColor="@color/green"
                 android:layout_marginHorizontal="10dp"
                 android:text="AAPL"/>
             <TextView
@@ -140,7 +138,10 @@
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorBlue"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textColor="@color/darkBlue"
+        android:textSize="16dp"
         android:text="stock name"/>
     <View
         android:layout_width="match_parent"

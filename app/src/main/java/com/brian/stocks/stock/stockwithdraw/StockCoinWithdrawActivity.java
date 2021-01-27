@@ -150,7 +150,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                                 mAdapter.notifyDataSetChanged();
 //                                StockBalance = new DecimalFormat("####.####").format(StockBalance).toString();
                                 mStockBalance.setText("$ "+StockBalance);
-                                mUSDCRate.setText("(" + USDCRate+" USDC" + ")");
+                                mUSDCRate.setText(USDCRate+" USDC");
                                 
                                 mPageAdapter.add(StockWithdrawFragment.newInstance(StockBalance, USDCRate));
 //                                mPageAdapter.add(StockWithdrawHistoryFragment.newInstance(history));

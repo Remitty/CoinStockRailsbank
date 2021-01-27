@@ -65,9 +65,11 @@ public class OpenPositionAdapter extends RecyclerView.Adapter<OpenPositionAdapte
         holder.tvStockProfit.setText("$ "+item.getProfit());
 
         if(Double.parseDouble(item.getProfit()) > 0){
-            holder.tvStockProfit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.feather_green_button));
+//            holder.tvStockProfit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.feather_green_button));
+            holder.tvStockProfit.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
         }
-        else holder.tvStockProfit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.feather_red_button));
+//        else holder.tvStockProfit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.feather_red_button));
+        else holder.tvStockProfit.setTextColor(mContext.getResources().getColor(R.color.colorRedCrayon));
 
         if(Double.parseDouble(item.getChangePrice()) > 0){
             holder.tvStockChangePrice.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
