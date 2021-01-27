@@ -15,6 +15,11 @@
             android:title="Trade cryptos"/>
 
         <item
+            android:id="@+id/nav_coin_trade"
+            android:icon="@drawable/ic_trade"
+            android:title="Buy/Sell cryptos"/>
+
+        <item
             android:id="@+id/nav_mtn"
             android:icon="@drawable/ic_mtn"
             android:title="MTN Service"/>
