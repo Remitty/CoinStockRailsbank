@@ -21,7 +21,7 @@
                 android:background="@drawable/rounded_corner_white_rectangle"
                 android:orientation="horizontal">
                 <LinearLayout
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -31,62 +31,87 @@
                         android:layout_height="wrap_content"
                         android:text="You Send"
                         android:textSize="13dp"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/grayBlue"
                         android:layout_marginTop="0dp"
                         android:gravity="center_horizontal"/>
                     <EditText
                         android:id="@+id/edit_selling_amount"
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:textStyle="bold"
-                        android:textSize="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="5dp"
+                        android:textSize="21dp"
+                        android:textColor="@color/darkBlue"
                         android:inputType="numberDecimal"
                         android:hint="0.00"
                         android:background="@null"/>
                 </LinearLayout>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/grayBlue"/>
                 <LinearLayout
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:background="@color/colorGray"
+                    android:paddingVertical="10dp"
+                    android:paddingLeft="10dp"
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/selling_coin_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="select coin"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/grayBlue"
                         android:gravity="center_horizontal"/>
-                    <TextView
-                        android:id="@+id/edit_selling_coin"
+                    <LinearLayout
+                        android:id="@+id/layout_send"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
-                        android:layout_gravity="center_horizontal"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="17dp"
-                        />
-                    <TextView
-                        android:id="@+id/tv_sell_avail_qty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:maxLines="1"
-                        android:paddingTop="0dp"
-                        android:textColor="@color/colorBlack"
-                        android:text=""/>
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/edit_selling_coin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text=""
+                            android:textColor="@color/darkBlue"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/tv_sell_avail_qty"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:maxLines="1"
+                            android:inputType="text"
+                            android:paddingTop="2dp"
+                            android:textColor="@color/darkBlue"
+                            android:textSize="13dp"
+                            android:text=""/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_gravity="center"
                 android:gravity="center"
+                android:layout_marginLeft="20dp"
                 android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_unlock"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,19 +123,23 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:textColor="@color/white"
+                        android:textSize="14dp"
                         android:text="1.00"/>
                     <TextView
                         android:id="@+id/tv_sell_rate_coin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
+                        android:textSize="14dp"
                         android:text=" BTC"/>
                 </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                    android:text=" ~ "/>
+                    android:layout_marginHorizontal="15dp"
+                    android:textSize="14dp"
+                    android:text="~"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -123,14 +152,21 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:layout_gravity="center_horizontal"
+                        android:textSize="14dp"
                         android:text="1.00"/>
                     <TextView
                         android:id="@+id/tv_buy_rate_coin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
+                        android:textSize="14dp"
                         android:text=" BTC"/>
                 </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:src="@drawable/ic_exchange"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,7 +174,7 @@
                 android:background="@drawable/rounded_corner_white_rectangle"
                 android:orientation="horizontal">
                 <LinearLayout
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -148,55 +184,74 @@
                         android:layout_height="wrap_content"
                         android:text="You get approximately"
                         android:textSize="13dp"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/grayBlue"
                         android:layout_marginTop="0dp"
                         android:gravity="center_horizontal"/>
                     <TextView
                         android:id="@+id/tv_buy_est_qty"
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:gravity="center_vertical"
-                        android:textSize="25dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorBlack"
+                        android:textSize="21dp"
+                        android:textColor="@color/darkBlue"
                         android:text="0.00"/>
                 </LinearLayout>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/grayBlue"/>
                 <LinearLayout
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:background="@color/colorGray"
+                    android:paddingVertical="10dp"
+                    android:paddingLeft="10dp"
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/buying_coin_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="select coin"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/grayBlue"
                         android:gravity="center_horizontal"/>
-                    <TextView
-                        android:id="@+id/edit_buying_coin"
+                    <LinearLayout
+                        android:id="@+id/layout_get"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
-                        android:layout_gravity="center_horizontal"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="17dp"
-                        />
-                    <TextView
-                        android:id="@+id/tv_buy_avail_qty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:maxLines="1"
-                        android:visibility="visible"
-                        android:paddingTop="5dp"
-                        android:textColor="@color/colorBlack"
-                        android:text=""/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/edit_buying_coin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text=""
+                            android:textColor="@color/darkBlue"
+                            android:textSize="14dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_buy_avail_qty"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:maxLines="1"
+                            android:visibility="visible"
+                            android:paddingTop="5dp"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="13dp"
+                            android:text=""/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
             <com.google.android.material.button.MaterialButton
@@ -229,7 +284,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
                 android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/grayBlue"
                 android:text="Send"/>
             <TextView
                 android:layout_weight="1"
@@ -237,7 +292,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
                 android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/grayBlue"
                 android:text="Get"/>
             <TextView
                 android:layout_weight="1"
@@ -246,7 +301,7 @@
                 android:textSize="14dp"
                 android:visibility="visible"
                 android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/grayBlue"
                 android:text="Amount"/>
             <TextView
                 android:layout_weight="1"
@@ -254,7 +309,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
                 android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/grayBlue"
                 android:text="Date"/>
         </LinearLayout>
         <View

@@ -63,7 +63,7 @@ public class CoinInfo {
     public String getCoinBalance() {
 
         try {
-            return String.format("%.6f", Double.parseDouble(data.getString("balance")));
+            return String.format("%.5f", Double.parseDouble(data.getString("balance")));
         } catch (JSONException e) {
             return "0.0";
         }

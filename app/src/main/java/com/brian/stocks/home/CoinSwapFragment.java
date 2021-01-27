@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ import java.util.List;
 public class CoinSwapFragment extends Fragment {
     private Button mBtnExchange;
     private EditText mEditSellingAmount;
+    private LinearLayout sendLayout, getLayout;
     private TextView mEditBuyingCoin, mEditSellingCoin,
             mtvSellAvailabelQty, mtvBuyingEstQty,
             mtvSellRateCoin, mtvBuyRateCoin, mtvBuyRateQty, mtvBuyingCoinName, mtvSellingCoinName;
@@ -149,6 +151,9 @@ public class CoinSwapFragment extends Fragment {
         mEditSellingAmount = mView.findViewById(R.id.edit_selling_amount);
         mEditSellingCoin = mView.findViewById(R.id.edit_selling_coin);
 
+        getLayout = mView.findViewById(R.id.layout_get);
+        sendLayout = mView.findViewById(R.id.layout_send);
+
         mtvSellAvailabelQty = mView.findViewById(R.id.tv_sell_avail_qty);
         mtvBuyingEstQty = mView.findViewById(R.id.tv_buy_est_qty);
 
@@ -183,7 +188,7 @@ public class CoinSwapFragment extends Fragment {
                     mEditSellingCoin.setText(coin.getCoinSymbol());
                     mtvSellingCoinName.setText(coin.getCoinName());
                     mtvSellRateCoin.setText(coin.getCoinSymbol());
-                    mtvSellAvailabelQty.setText(coin.getCoinBalance());
+                    mtvSellAvailabelQty.setText("("+coin.getCoinBalance()+")");
 //                    sellCoinPrice = coin.getCoinRate();
                     sellCoinId = coin.getCoinId();
 
@@ -232,7 +237,7 @@ public class CoinSwapFragment extends Fragment {
             }
         });
 
-        mEditBuyingCoin.setOnClickListener(new View.OnClickListener() {
+        getLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 select= 2;
@@ -251,7 +256,7 @@ public class CoinSwapFragment extends Fragment {
             }
         });
 
-        mEditSellingCoin.setOnClickListener(new View.OnClickListener() {
+        sendLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 select= 1;
@@ -330,7 +335,7 @@ public class CoinSwapFragment extends Fragment {
                         loadToast.success();
                         if(response.optBoolean("success")) {
                             Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
-                            mtvSellAvailabelQty.setText(response.optString("result"));
+                            mtvSellAvailabelQty.setText("("+response.optString("result")+")");
                             conversionList.clear();
 
                             JSONArray history = null;
