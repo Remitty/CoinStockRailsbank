@@ -15,6 +15,7 @@ import com.brian.stocks.cash.CollectCashActivity;
 import com.brian.stocks.cash.SendTargetActivity;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
+import com.brian.stocks.home.adapters.CashBalancePagerAdapter;
 import com.brian.stocks.model.BankInfo;
 import com.brian.stocks.model.BankTransaction;
 import com.google.android.material.button.MaterialButton;
@@ -22,22 +23,26 @@ import com.google.android.material.button.MaterialButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brian.stocks.R;
+import com.kassisdion.library.ViewPagerWithIndicator;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -50,12 +55,14 @@ import java.util.ArrayList;
 public class CashFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
     View mView;
-    MaterialButton btnSend, btnAdd, btnAddBank, btnConvert;
-    ImageButton btnInfo;
-    RecyclerView transactionsView;
-    Spinner currencySpinner, addCurrencySpinner;
-    TextView tvBalance;
 
+    LinearLayout addLayout, sendLayout, bankLayout, convertLayout;
+
+    RecyclerView transactionsView;
+
+    Spinner addCurrencySpinner;
+
+    CashBalancePagerAdapter cashAdapter;
     ArrayList<BankInfo> currencies = new ArrayList<>();
     ArrayList<BankTransaction> transactions = new ArrayList<>();
 
@@ -65,6 +72,9 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
     BankTransactionAdapter transactionAdapter;
 
     AlertDialog alertDialog;
+
+    private ViewPager mViewPager;
+    private ViewPagerWithIndicator mViewPagerWithIndicator;
 
     private LoadToast loadToast;
 
@@ -91,20 +101,24 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
 
         initComponents();
 
-        String[] ADD_CURRENCIES = {"Add currency", "USD", "EUR", "GBP"};
+        String[] ADD_CURRENCIES = {"", "USD", "EUR", "GBP", "SGD"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.item_add_currency_popup, ADD_CURRENCIES);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         addCurrencySpinner.setAdapter(adapter);
+
         addCurrencySpinner.setOnItemSelectedListener(this);
 
-        currencyAdapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, CURRENCIES);
-        currencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        currencySpinner.setAdapter(currencyAdapter);
-        currencySpinner.setOnItemSelectedListener(this);
+//        addCurrencySpinner.setSelection(Adapter.NO_SELECTION, false);
 
         transactionAdapter = new BankTransactionAdapter(transactions);
         transactionsView.setLayoutManager(new LinearLayoutManager(getContext()));
         transactionsView.setAdapter(transactionAdapter);
+
+        mViewPager = (ViewPager) mView.findViewById(R.id.viewPager);
+        mViewPagerWithIndicator = (ViewPagerWithIndicator) mView.findViewById(R.id.viewPagerWithIndicator);
+        cashAdapter = new CashBalancePagerAdapter(getActivity(), currencies);
+        mViewPager.setAdapter(cashAdapter);
+        mViewPagerWithIndicator.setViewPager(mViewPager);
 
         initListeners();
 
@@ -145,20 +159,14 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                         public void onResponse(JSONObject response) {
                             Log.d("info Edit ProfileGet", "" + response);
                             loadToast.success();
-
                             currencies.clear();
-                            transactions.clear();
-                            CURRENCIES.clear();
-
                             JSONArray currencies_array = response.optJSONArray("currencies");
                             for(int i = 0; i < currencies_array.length(); i ++) {
                                 BankInfo bankInfo = new BankInfo();
                                 bankInfo.setData(currencies_array.optJSONObject(i));
                                 currencies.add(bankInfo);
-                                CURRENCIES.add(bankInfo.getCurrency());
                             }
-
-                            currencyAdapter.notifyDataSetChanged();
+                            cashAdapter.notifyDataSetChanged();
 
                             JSONArray transactions_array = response.optJSONArray("transactions");
 
@@ -170,10 +178,6 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
 
                             transactionAdapter.notifyDataSetChanged();
 
-                            if(currencies.size() > 0) {
-                                currencySpinner.setSelection(0);
-                                tvBalance.setText(currencies.get(0).getCurrencySymbol() + " "+currencies.get(0).getBalance());
-                            }
                         }
 
                         @Override
@@ -187,54 +191,65 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     private void initComponents() {
-        btnAdd = mView.findViewById(R.id.add_money);
-        btnSend = mView.findViewById(R.id.send_money);
-        btnConvert = mView.findViewById(R.id.convert_money);
-        btnInfo = mView.findViewById(R.id.btn_info);
-        currencySpinner = mView.findViewById(R.id.currency_spinner);
+        addLayout = mView.findViewById(R.id.layout_add);
+        sendLayout = mView.findViewById(R.id.layout_send);
+        bankLayout = mView.findViewById(R.id.layout_bank);
+        convertLayout = mView.findViewById(R.id.layout_convert);
+
         addCurrencySpinner = mView.findViewById(R.id.add_currency_spinner);
-        tvBalance = mView.findViewById(R.id.balance);
 
         transactionsView = mView.findViewById(R.id.money_transaction);
     }
 
     private void initListeners() {
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        sendLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currencySpinner.getCount() == 0){
-                    Toast.makeText(getContext(), "Please add currency", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if(currencySpinner.getCount() == 0){
+//                    Toast.makeText(getContext(), "Please add currency", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 Intent intent = new Intent(getActivity(), SendTargetActivity.class);
-                intent.putExtra("currency", currencySpinner.getSelectedItem().toString());
-                intent.putExtra("currency_id", currencies.get(currencySpinner.getSelectedItemPosition()).getCurrencyID());
+                intent.putExtra("currency", currencies.get(mViewPager.getCurrentItem()).getCurrency());
+                intent.putExtra("currency_id", currencies.get(mViewPager.getCurrentItem()).getCurrencyID());
                 startActivity(intent);
             }
         });
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(currencySpinner.getCount() == 0){
-                    Toast.makeText(getContext(), "Please add currency", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Intent intent = new Intent(getActivity(), CollectCashActivity.class);
-                intent.putExtra("currency", currencySpinner.getSelectedItem().toString());
-                intent.putExtra("currency_id", currencies.get(currencySpinner.getSelectedItemPosition()).getCurrencyID());
-                startActivity(intent);
-            }
-        });
-
-        btnConvert.setOnClickListener(new View.OnClickListener() {
+        addLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                addCurrencySpinner.performClick();
+//                TextView first = (TextView)addCurrencySpinner.getChildAt(0);
+//        first.setHeight(0);
+//                first.setVisibility(View.GONE);
+                addCurrencySpinner.setSelection(0, false);
             }
         });
 
-        btnInfo.setOnClickListener(new View.OnClickListener() {
+//        btnAdd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(currencySpinner.getCount() == 0){
+//                    Toast.makeText(getContext(), "Please add currency", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                Intent intent = new Intent(getActivity(), CollectCashActivity.class);
+//                intent.putExtra("currency", currencySpinner.getSelectedItem().toString());
+//                intent.putExtra("currency_id", currencies.get(currencySpinner.getSelectedItemPosition()).getCurrencyID());
+//                startActivity(intent);
+//            }
+//        });
+
+        convertLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        bankLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), InfoActivity.class));
@@ -250,38 +265,6 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
 //                        .show();
 //            }
 //        });
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
-        if (parent.getId() == R.id.add_currency_spinner) {
-            String currency="";
-            if(position == 1) { //USD
-                currency = "USD";
-            }
-            if(position == 2) { //EUR
-                currency = "EUR";
-            }
-            if(position == 3) { //GBP
-                currency = "GBP";
-            }
-            if(position != 0) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Add currency")
-                        .setIcon(R.mipmap.ic_launcher_round)
-                        .setMessage("Are you sure you want to add " + currency +"?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        sendAddCurrency(position);
-                    }
-                });
-                builder.show();
-                addCurrencySpinner.setSelection(0);
-            }
-        }else{
-            tvBalance.setText(currencies.get(position).getCurrencySymbol() + " "+currencies.get(position).getBalance());
-        }
     }
 
     private void sendAddCurrency(int currency) {
@@ -308,22 +291,15 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                             loadToast.success();
 
                             if(response.optBoolean("success")){
-                                CURRENCIES.clear();
-                                currencies.clear();
 
+                                currencies.clear();
                                 JSONArray currencies_array = response.optJSONArray("currencies");
                                 for(int i = 0; i < currencies_array.length(); i ++) {
                                     BankInfo bankInfo = new BankInfo();
                                     bankInfo.setData(currencies_array.optJSONObject(i));
                                     currencies.add(bankInfo);
-                                    CURRENCIES.add(bankInfo.getCurrency());
                                 }
-
-                                currencyAdapter.notifyDataSetChanged();
-//                                if(currencies.size() == 1) {
-//                                    currencySpinner.setSelection(0);
-//                                    tvBalance.setText(currencies.get(0).getCurrencySymbol() + " " + currencies.get(0).getBalance());
-//                                }
+                                cashAdapter.notifyDataSetChanged();
                             }
 
                             Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
@@ -338,6 +314,40 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                             Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
+        if (parent.getId() == R.id.add_currency_spinner) {
+            String currency="";
+
+            if(position == 1) { //USD
+                currency = "USD";
+            }
+            if(position == 2) { //EUR
+                currency = "EUR";
+            }
+            if(position == 3) { //GBP
+                currency = "GBP";
+            }
+            if(position == 4) { //SGD
+                currency = "SGD";
+            }
+            if(position != 0) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Add currency")
+                        .setIcon(R.mipmap.ic_launcher_round)
+                        .setMessage("Are you sure you want to add " + currency +"?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                sendAddCurrency(position+1);
+                            }
+                        });
+                builder.show();
+//                addCurrencySpinner.setSelection(0);
+            }
+        }
     }
 
     @Override
