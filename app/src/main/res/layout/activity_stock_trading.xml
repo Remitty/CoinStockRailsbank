@@ -168,6 +168,7 @@
                         app:strokeColor="@color/white"
                         app:strokeWidth="2dp"
                         app:cornerRadius="20dp"
+                        android:backgroundTint="@color/colorRedCrayon"
                         android:textColor="@android:color/white"
                         android:text="sell"
                         android:layout_width="match_parent"
