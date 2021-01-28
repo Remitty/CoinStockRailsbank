@@ -187,7 +187,8 @@ public class StocksFragment extends Fragment {
     private void GoToTrade(int position) {
         StocksInfo stock = stocksList.get(position);
         Intent intent = new Intent(getActivity(), StocksTradingActivity.class);
-        intent.putExtra("stock_name", stock.getStocksName());
+        intent.putExtra("stock_symbol", stock.getStockSymbol());
+        intent.putExtra("stock_name", stock.getStockName());
         intent.putExtra("stock_price", stock.getStocksPrice());
         intent.putExtra("stock_shares", stock.getStocksShares());
         intent.putExtra("stock_avg_price", stock.getStockAvgPrice());

@@ -50,7 +50,7 @@ public class StockOrderAdapter extends RecyclerView.Adapter<StockOrderAdapter.Or
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
         StocksInfo item = arrItems.get(position);
 
-        holder.tvStocksName.setText(item.getStocksOrderName());
+        holder.tvStocksName.setText(item.getStockSymbol());
         holder.tvStocksShared.setText(item.getStocksOrderShares());
 
         holder.tvStocksOrderSide.setText(item.getStockOrderSide());

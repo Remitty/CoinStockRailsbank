@@ -31,7 +31,7 @@ public class NewsStockAdapter extends RecyclerView.Adapter<NewsStockAdapter.Orde
     public void onBindViewHolder(@NonNull OrderViewHolder holder, final int i) {
         StocksInfo item = arrItems.get(i);
 
-        holder.mStockName.setText(item.getStocksTickerOther() + " - "+item.getStocksNameOther());
+        holder.mStockName.setText(item.getStocksTickerOther() + " - "+item.getStockName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

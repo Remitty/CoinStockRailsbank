@@ -22,7 +22,7 @@ public class StocksInfo {
         return data;
     }
 
-    public String getStocksName() {
+    public String getStockSymbol() {
         try {
             return data.getString("symbol");
         } catch (JSONException e) {
@@ -31,7 +31,7 @@ public class StocksInfo {
         }
     }
 
-    public String getStocksNameOther() {
+    public String getStockName() {
         try {
             String name = data.getString("name");
             if(name.equals("null")) name="";
@@ -57,15 +57,6 @@ public class StocksInfo {
             return data.getString("shares");
         } catch (JSONException e) {
             return "0";
-        }
-    }
-
-    public String getStocksOrderName() {
-        try {
-            return data.getString("symbol");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return "";
         }
     }
 

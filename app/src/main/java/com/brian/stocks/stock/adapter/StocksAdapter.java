@@ -74,8 +74,8 @@ public class StocksAdapter extends RecyclerView.Adapter<StocksAdapter.OrderViewH
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
         StocksInfo item = arrItems.get(position);
 
-        holder.tvStocksName.setText(item.getStocksNameOther());
-        holder.tvStocksSymbol.setText(item.getStocksName());
+        holder.tvStocksName.setText(item.getStockName());
+        holder.tvStocksSymbol.setText(item.getStockSymbol());
         holder.tvStocksShared.setText(item.getStocksShares());
         holder.tvStocksChangeGreen.setText(item.getStockTodayChangePercent() + "%");
         holder.tvStocksChangeRed.setText(item.getStockTodayChangePercent() + "%");
