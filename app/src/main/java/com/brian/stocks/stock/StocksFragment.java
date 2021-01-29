@@ -159,7 +159,7 @@ public class StocksFragment extends Fragment {
                         try {
                             aggregates = response.getJSONArray("aggregates");
 
-                            if(stocksList.size() > 0) {
+                            if(stocksList.size() > 0 && aggregates.length() == stocksList.size()) {
                                 for (int i = 0; i < aggregates.length(); i++) {
                                     StocksInfo stock = stocksList.get(i);
                                     stock.setStockAggregate(aggregates.optJSONArray(i));
@@ -237,7 +237,7 @@ public class StocksFragment extends Fragment {
                             for(int i = 0; i < stocks.length(); i ++) {
                                 try {
                                     StocksInfo stock = new StocksInfo((JSONObject) stocks.get(i));
-                                    if(aggregates.length() > 0)
+                                    if(aggregates.length() > 0 && aggregates.length() == stocks.length())
                                         stock.setStockAggregate(aggregates.optJSONArray(i));
                                     stocksList.add(stock);
                                 } catch (JSONException e) {
