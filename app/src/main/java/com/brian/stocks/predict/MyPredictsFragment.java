@@ -65,6 +65,7 @@ public class MyPredictsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        dataList.clear();
         for (int i = 0; i < data.length(); i ++) {
             try {
                 dataList.add(data.getJSONObject(i));

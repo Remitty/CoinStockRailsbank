@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -31,7 +33,7 @@ public class PredictActivity extends AppCompatActivity {
     private String usdcBalance="0";
     TabLayout tab;
     ViewPager pager;
-    FloatingActionButton btnAdd;
+    TextView predictNow;
     PredictPageAdapter mAdapter;
     LoadToast loadToast;
     @Override
@@ -49,11 +51,11 @@ public class PredictActivity extends AppCompatActivity {
 
         tab = findViewById(R.id.tab);
         pager = findViewById(R.id.view_pager);
-        btnAdd = findViewById(R.id.btn_post_predict);
+        predictNow = findViewById(R.id.btn_post_predict);
 
         mAdapter = new PredictPageAdapter(getSupportFragmentManager());
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
+        predictNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PredictActivity.this, PredictableListActivity.class);
