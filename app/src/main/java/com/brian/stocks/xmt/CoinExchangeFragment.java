@@ -1,5 +1,7 @@
 package com.brian.stocks.xmt;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -118,6 +120,7 @@ public class CoinExchangeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_coin_exchange, container, false);
+
 
         tabLayout = mView.findViewById(R.id.tabLayout);
         TabLayout.Tab tabsel = tabLayout.getTabAt(0);
@@ -308,20 +311,21 @@ public class CoinExchangeFragment extends Fragment {
     }
     private void getPairs() {
 
-        if(getContext() != null)
+        if(getContext() != null) {
+            loadToast.show();
             AndroidNetworking.get(URLHelper.COIN_REALEXCHANGE_LIST)
-                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
+                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(), "access_token"))
                     .setPriority(Priority.MEDIUM)
                     .build()
                     .getAsJSONArray(new JSONArrayRequestListener() {
                         @Override
                         public void onResponse(JSONArray response) {
                             //Log.d("pairs list response", "" + response.toString());
-
+                            loadToast.hide();
                             pairList.clear();
 
 
-                            if(response != null && response.length() > 0) {
+                            if (response != null && response.length() > 0) {
                                 for (int i = 0; i < response.length(); i++) {
                                     try {
                                         pairList.add(response.getJSONObject(i));
@@ -338,10 +342,11 @@ public class CoinExchangeFragment extends Fragment {
                         @Override
                         public void onError(ANError error) {
                             // handle error
-
-                            Log.d("errorpairlist", "" + error.getMessage()+" responde: "+error.getResponse());
+                            loadToast.hide();
+                            Log.d("errorpairlist", "" + error.getMessage() + " responde: " + error.getResponse());
                         }
                     });
+        }
     }
 
     private void getData() {
@@ -522,7 +527,8 @@ public class CoinExchangeFragment extends Fragment {
             e.printStackTrace();
         }
 
-        if(getContext() != null)
+        if(getContext() != null) {
+            loadToast.show();
             AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
@@ -534,6 +540,7 @@ public class CoinExchangeFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("xmt trading response", "" + response.toString());
+                            loadToast.hide();
                             if (!response.has("success")) {
                                 /*
                                 try {
@@ -561,10 +568,12 @@ public class CoinExchangeFragment extends Fragment {
                         @Override
                         public void onError(ANError error) {
                             // handle error
-
+                            loadToast.hide();
                             Log.d("errorpost", "" + error.getMessage()+" responde: "+error.getResponse());
+                            Toast.makeText(getActivity(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
                         }
                     });
+        }
     }
 
     private void updateComponents() {
@@ -639,33 +648,31 @@ public class CoinExchangeFragment extends Fragment {
 
     }
 
-
-
     private void initListeners() {
 
         mBtnTrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validate())
-                sendData();
-                /*
-                if(mEditSellingAmount.getText().toString().equals("")||
-                        mEditBuyingCoin.getText().toString().equals("") || mEditSellingCoin.getText().toString().equals("")) {
-                    Toast.makeText(getContext(), "Please fillout all inputs", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                    alert.setIcon(R.mipmap.ic_launcher_round)
-                            .setTitle("Confirm Exchange")
-                            .setMessage("Please confirm your transaction? Exchange fees is 0.50%. If you hold 200XMT fees is 0.25%.")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                if(validate()) {
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
+                    alertBuilder.setIcon(R.mipmap.ic_launcher_round)
+                            .setTitle("Confirm trade")
+                            .setMessage("Are you sure you want to " + selType + " " + mEditQuantity.getText().toString() + "XMT? Price is $" + mEditPrice.getText().toString() + ".")
+                            .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    doExchange();
+                                    sendData();
                                 }
-                            }).show();
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .show();
                 }
-                */
+
 
             }
         });

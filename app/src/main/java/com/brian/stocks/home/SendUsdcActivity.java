@@ -55,7 +55,7 @@ public class SendUsdcActivity extends AppCompatActivity {
     ArrayList<ContactUser> usersTemp = new ArrayList();
     ArrayList<JSONObject> payHistory = new ArrayList();
 
-    String selectedUserID, usdcBalance="0.0", amount;
+    String selectedUserEmail, usdcBalance="0.0", amount;
 
     AutoUserAdapter userAdapter;
     UserContactAdapter userContactAdapter;
@@ -95,7 +95,7 @@ public class SendUsdcActivity extends AppCompatActivity {
             @Override
             public void onSelect(int position) {
                 dialog.hide();
-                selectedUserID = users.get(position).getEmail();
+                selectedUserEmail = users.get(position).getEmail();
                 tvTo.setText(users.get(position).getName());
             }
         });
@@ -180,7 +180,6 @@ public class SendUsdcActivity extends AppCompatActivity {
                 try {
                     ContactUser user = new ContactUser();
                     user.setData(userarray.getJSONObject(i));
-                    user.setData(userarray.getJSONObject(i));
                     users.add(user);
                     usersTemp.add(user);
                 } catch (JSONException e) {
@@ -231,7 +230,7 @@ public class SendUsdcActivity extends AppCompatActivity {
         loadToast.show();
         JSONObject param = new JSONObject();
         try {
-            param.put("user", selectedUserID);
+            param.put("user", selectedUserEmail);
             param.put("amount", amount);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -250,7 +249,7 @@ public class SendUsdcActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
                             loadToast.success();
-
+                            Toast.makeText(getBaseContext(), "Sent successfully.", Toast.LENGTH_SHORT).show();
                             setData(response);
 
                         }
@@ -259,8 +258,8 @@ public class SendUsdcActivity extends AppCompatActivity {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Toast.makeText(getBaseContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }

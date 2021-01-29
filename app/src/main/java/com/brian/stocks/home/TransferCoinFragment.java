@@ -112,7 +112,9 @@ public class TransferCoinFragment extends Fragment {
         sendingLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SendUsdcActivity.class));
+                if(Double.parseDouble(usdcBalance) > 0)
+                    startActivity(new Intent(getActivity(), SendUsdcActivity.class));
+                else Toast.makeText(getContext(), "No balance", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -175,7 +177,7 @@ public class TransferCoinFragment extends Fragment {
     private void getData() {
         loadToast.show();
         if(getContext() != null)
-            AndroidNetworking.get(URLHelper.TRANSFER_COIN)
+            AndroidNetworking.get(URLHelper.GET_USDC_BALANCE)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
                     .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
@@ -195,8 +197,8 @@ public class TransferCoinFragment extends Fragment {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }
@@ -237,8 +239,8 @@ public class TransferCoinFragment extends Fragment {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }

@@ -57,7 +57,7 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
     View mView;
 
     LinearLayout addLayout, sendLayout, bankLayout, convertLayout;
-
+    TextView tvNoWallet;
     RecyclerView transactionsView;
 
     Spinner addCurrencySpinner;
@@ -168,6 +168,11 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                             }
                             cashAdapter.notifyDataSetChanged();
 
+                            if(currencies.size() > 0 )
+                                mViewPagerWithIndicator.setVisibility(View.VISIBLE);
+                            else
+                                tvNoWallet.setVisibility(View.VISIBLE);
+
                             JSONArray transactions_array = response.optJSONArray("transactions");
 
                             for(int i = 0; i < transactions_array.length(); i ++) {
@@ -196,6 +201,8 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
         bankLayout = mView.findViewById(R.id.layout_bank);
         convertLayout = mView.findViewById(R.id.layout_convert);
 
+        tvNoWallet = mView.findViewById(R.id.no_wallet);
+
         addCurrencySpinner = mView.findViewById(R.id.add_currency_spinner);
 
         transactionsView = mView.findViewById(R.id.money_transaction);
@@ -205,10 +212,10 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
         sendLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if(currencySpinner.getCount() == 0){
-//                    Toast.makeText(getContext(), "Please add currency", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                if(currencies.size() == 0){
+                    Toast.makeText(getContext(), "Please add currency", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), SendTargetActivity.class);
                 intent.putExtra("currency", currencies.get(mViewPager.getCurrentItem()).getCurrency());
                 intent.putExtra("currency_id", currencies.get(mViewPager.getCurrentItem()).getCurrencyID());
@@ -300,6 +307,13 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                                     currencies.add(bankInfo);
                                 }
                                 cashAdapter.notifyDataSetChanged();
+
+                                if(currencies.size() > 0 ) {
+                                    mViewPagerWithIndicator.setVisibility(View.VISIBLE);
+                                    tvNoWallet.setVisibility(View.GONE);
+                                }
+                                else
+                                    tvNoWallet.setVisibility(View.VISIBLE);
                             }
 
                             Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
@@ -341,7 +355,7 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                sendAddCurrency(position+1);
+                                sendAddCurrency(position);
                             }
                         });
                 builder.show();
