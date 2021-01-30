@@ -115,7 +115,8 @@
         android:layout_height="wrap_content"
         android:text="Add"
         android:layout_marginTop="30dp"
-
+        android:backgroundTint="@color/colorRedCrayon"
+        app:cornerRadius="20dp"
         android:layout_gravity="center_horizontal"
         android:paddingHorizontal="80dp"/>
 

@@ -48,7 +48,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/colorBlack"
         android:visibility="gone"
         android:text="Add contact"/>
 </LinearLayout>

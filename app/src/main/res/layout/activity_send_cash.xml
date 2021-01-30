@@ -68,7 +68,7 @@
                         android:layout_marginTop="10dp"
                         android:text=""
                         android:textSize="15dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/colorBlack"/>
                     <Spinner
                         android:id="@+id/spin_send_currency"
                         android:layout_width="100dp"
@@ -105,7 +105,7 @@
                         android:layout_marginTop="10dp"
                         android:text=""
                         android:textSize="15dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/colorBlack"/>
                     <Spinner
                         android:id="@+id/spin_get_currency"
                         android:layout_width="100dp"

@@ -45,7 +45,7 @@ public class CashBalancePagerAdapter extends PagerAdapter {
         textView.setText(balance + " " + currency);
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(18);
-        textView.setTextColor(mContext.getColor(R.color.darkBlue));
+        textView.setTextColor(mContext.getColor(R.color.green));
         container.addView(textView);
 
         return textView;

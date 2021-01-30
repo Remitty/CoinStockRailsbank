@@ -9,6 +9,8 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.brian.stocks.cash.AddBankActivity;
+import com.brian.stocks.cash.AddFriendActivity;
 import com.brian.stocks.cash.InfoActivity;
 import com.brian.stocks.home.adapters.BankTransactionAdapter;
 import com.brian.stocks.cash.CollectCashActivity;
@@ -56,7 +58,7 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
 
     View mView;
 
-    LinearLayout addLayout, sendLayout, bankLayout, convertLayout;
+    LinearLayout addLayout, sendLayout, bankLayout, contactLayout, accountLayout;
     TextView tvNoWallet;
     RecyclerView transactionsView;
 
@@ -108,8 +110,6 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
 
         addCurrencySpinner.setOnItemSelectedListener(this);
 
-//        addCurrencySpinner.setSelection(Adapter.NO_SELECTION, false);
-
         transactionAdapter = new BankTransactionAdapter(transactions);
         transactionsView.setLayoutManager(new LinearLayoutManager(getContext()));
         transactionsView.setAdapter(transactionAdapter);
@@ -142,6 +142,67 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                     }
                 })
                 .show();
+    }
+
+    private void initComponents() {
+        addLayout = mView.findViewById(R.id.layout_add);
+        sendLayout = mView.findViewById(R.id.layout_send);
+        bankLayout = mView.findViewById(R.id.layout_bank);
+        contactLayout = mView.findViewById(R.id.layout_contact);
+        accountLayout = mView.findViewById(R.id.layout_account);
+
+        tvNoWallet = mView.findViewById(R.id.no_wallet);
+
+        addCurrencySpinner = mView.findViewById(R.id.add_currency_spinner);
+
+        transactionsView = mView.findViewById(R.id.money_transaction);
+    }
+
+    private void initListeners() {
+        sendLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currencies.size() == 0){
+                    Toast.makeText(getContext(), "Please add currency", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(getActivity(), SendTargetActivity.class);
+                intent.putExtra("currency", currencies.get(mViewPager.getCurrentItem()).getCurrency());
+                intent.putExtra("currency_id", currencies.get(mViewPager.getCurrentItem()).getCurrencyID());
+                startActivity(intent);
+            }
+        });
+
+        addLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                addCurrencySpinner.performClick();
+                addCurrencySpinner.setSelection(0, false);
+            }
+        });
+
+        contactLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AddFriendActivity.class));
+            }
+        });
+
+        bankLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AddBankActivity.class));
+            }
+        });
+
+        accountLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), InfoActivity.class));
+            }
+        });
+
     }
 
     private void getBankData() {
@@ -193,85 +254,6 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                             Log.d("errorm", "" + error.getMessage());
                         }
                     });
-    }
-
-    private void initComponents() {
-        addLayout = mView.findViewById(R.id.layout_add);
-        sendLayout = mView.findViewById(R.id.layout_send);
-        bankLayout = mView.findViewById(R.id.layout_bank);
-        convertLayout = mView.findViewById(R.id.layout_convert);
-
-        tvNoWallet = mView.findViewById(R.id.no_wallet);
-
-        addCurrencySpinner = mView.findViewById(R.id.add_currency_spinner);
-
-        transactionsView = mView.findViewById(R.id.money_transaction);
-    }
-
-    private void initListeners() {
-        sendLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(currencies.size() == 0){
-                    Toast.makeText(getContext(), "Please add currency", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Intent intent = new Intent(getActivity(), SendTargetActivity.class);
-                intent.putExtra("currency", currencies.get(mViewPager.getCurrentItem()).getCurrency());
-                intent.putExtra("currency_id", currencies.get(mViewPager.getCurrentItem()).getCurrencyID());
-                startActivity(intent);
-            }
-        });
-
-        addLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                addCurrencySpinner.performClick();
-//                TextView first = (TextView)addCurrencySpinner.getChildAt(0);
-//        first.setHeight(0);
-//                first.setVisibility(View.GONE);
-                addCurrencySpinner.setSelection(0, false);
-            }
-        });
-
-//        btnAdd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(currencySpinner.getCount() == 0){
-//                    Toast.makeText(getContext(), "Please add currency", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                Intent intent = new Intent(getActivity(), CollectCashActivity.class);
-//                intent.putExtra("currency", currencySpinner.getSelectedItem().toString());
-//                intent.putExtra("currency_id", currencies.get(currencySpinner.getSelectedItemPosition()).getCurrencyID());
-//                startActivity(intent);
-//            }
-//        });
-
-        convertLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        bankLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), InfoActivity.class));
-            }
-        });
-
-//        fabAddCurrency.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                View view = getLayoutInflater().inflate(R.layout.add_currency_dialog, null);
-//                new AlertDialog.Builder(getActivity())
-//                        .setView(view)
-//                        .show();
-//            }
-//        });
     }
 
     private void sendAddCurrency(int currency) {

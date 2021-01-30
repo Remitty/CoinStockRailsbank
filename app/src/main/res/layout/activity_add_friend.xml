@@ -43,6 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:backgroundTint="@color/colorRedCrayon"
+                app:cornerRadius="20dp"
                 android:paddingHorizontal="50dp"
                 android:layout_gravity="center_horizontal"
                 android:text="add"/>

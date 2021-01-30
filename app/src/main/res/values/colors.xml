@@ -15,7 +15,7 @@
     <color name="white">#ffffff</color>
     <color name="white_opacity">#F9F9FA</color>
     <color name="white_greyish">#a0a0a0</color>
-    <color name="black">#a0a0a0</color>
+    <color name="gray_text">#8D8D8D</color>
     <color name="green">#3AE57F</color>
 
     <color name="tab1">#a0d468</color>
