@@ -40,6 +40,7 @@ public class SupportActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         imgEmail = (ImageView) findViewById(R.id.img_mail);
         imgPhone = (ImageView) findViewById(R.id.img_phone);

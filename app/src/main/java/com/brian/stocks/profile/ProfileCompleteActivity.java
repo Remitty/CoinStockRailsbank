@@ -67,6 +67,8 @@ public class ProfileCompleteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_complete);
 
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
+
         initComponents();
         initListeners();
         setPhoneUI();

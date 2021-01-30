@@ -45,6 +45,7 @@ public class CoinStakeActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         mtvBalance = findViewById(R.id.xmt_balance);
         mtvYearlyFee = findViewById(R.id.yearly_fee);

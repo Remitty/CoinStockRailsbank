@@ -14,7 +14,7 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:visibility="gone"
-        app:srcCompat="@drawable/splash" />
+         />
 
     <Button
         android:id="@+id/getstarted"

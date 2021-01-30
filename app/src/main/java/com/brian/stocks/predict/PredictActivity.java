@@ -48,6 +48,7 @@ public class PredictActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         tab = findViewById(R.id.tab);
         pager = findViewById(R.id.view_pager);

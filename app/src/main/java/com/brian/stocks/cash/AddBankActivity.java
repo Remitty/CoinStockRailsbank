@@ -49,6 +49,7 @@ public class AddBankActivity extends AppCompatActivity implements AdapterView.On
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         mAlias = findViewById(R.id.edit_bank_alias);
         mAddress1 = findViewById(R.id.edit_address1);

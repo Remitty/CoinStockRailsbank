@@ -33,6 +33,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reset_password);
 
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         if(getIntent() != null){
             otp = getIntent().getStringExtra("otp");

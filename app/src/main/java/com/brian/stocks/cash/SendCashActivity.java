@@ -61,6 +61,7 @@ public class SendCashActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         tvBankCurrency = findViewById(R.id.bank_currency);
         tvBankName = findViewById(R.id.bank_name);

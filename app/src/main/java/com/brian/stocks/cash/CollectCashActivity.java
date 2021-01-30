@@ -44,6 +44,7 @@ public class CollectCashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_collet_cash);
 
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         if(getIntent() != null) {
             currency = getIntent().getStringExtra("currency");

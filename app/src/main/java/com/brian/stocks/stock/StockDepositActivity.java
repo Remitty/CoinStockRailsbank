@@ -55,6 +55,7 @@ public class StockDepositActivity extends AppCompatActivity {
 ////        fragmentTransaction.replace(me.riddhimanadib.library.R.id.frameLayout, Coin2StockFragment.newInstance());
 ////        fragmentTransaction.commit();
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         tab = findViewById(R.id.tab);
         mViewPager = findViewById(R.id.pager);

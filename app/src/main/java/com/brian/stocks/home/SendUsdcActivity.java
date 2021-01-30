@@ -75,6 +75,7 @@ public class SendUsdcActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         tvBalance = findViewById(R.id.usdc_balance);
 

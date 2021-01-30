@@ -53,6 +53,7 @@ public class StockSellActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stock_sell);
 
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         mStockName = getIntent().getStringExtra("stock_name");
         mStockPrice = getIntent().getStringExtra("stock_price");

@@ -1,6 +1,8 @@
 package com.brian.stocks.stock.stocktrade;
 
 import android.content.Intent;
+
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +35,7 @@ public class StocksTradingActivity extends AppCompatActivity {
     private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc;
     private TextView mStockShares, mStockQuantity, mStockAvgCost;
     private String companysummary, companyindustry, companyweb;
-    private Button mBtnBuy, mBtnSell;
+    private MaterialButton mBtnBuy, mBtnSell;
     private Intent mIntent;
     private LinearLayout mStocksContent;
     private String StockBalance="0.0";
@@ -50,6 +52,7 @@ public class StocksTradingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_trading);
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         Toolbar toolbar = findViewById(R.id.stocks_trade_toolbar);
         toolbar.setTitle("Stocks Trade");
@@ -102,6 +105,8 @@ public class StocksTradingActivity extends AppCompatActivity {
         if(mIntent.getStringExtra("stock_shares").equalsIgnoreCase("0")) {
             mStocksContent.setVisibility(View.GONE);
             mBtnSell.setVisibility(View.GONE);
+            mBtnBuy.setText("Buy Now");
+            mBtnBuy.setCornerRadius(20);
         }
 
         mPageAdapter=new StockChartTabAdapter(getSupportFragmentManager());

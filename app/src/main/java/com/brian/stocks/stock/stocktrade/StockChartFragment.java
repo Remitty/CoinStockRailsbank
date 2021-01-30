@@ -80,8 +80,8 @@ public class StockChartFragment extends Fragment {
             Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
 
             Line series1 = cartesian.line(series1Mapping);
-            series1.color("#ee204d");
-            series1.stroke("3 #ee204d");
+            series1.color("#3AE57F");
+            series1.stroke("3 #3AE57F");
             mStocksChartView.setChart(cartesian);
             mStocksChartView.setBackgroundColor(getResources().getColor(R.color.colorPurple));
             mStocksChartView.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPurple)));

@@ -44,6 +44,7 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_info);
 
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         if(getSupportActionBar() != null)
         {

@@ -35,6 +35,7 @@ public class TransferFundsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transfer_funds);
 
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Transfer Funds");

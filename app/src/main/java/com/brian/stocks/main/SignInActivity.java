@@ -67,6 +67,7 @@ public class SignInActivity extends AppCompatActivity {
 
         Button mSigninButton = findViewById(R.id.loginBtn);
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         sharedPrefs = new SharedPrefs(getApplicationContext());
         mSigninButton.setOnClickListener(new View.OnClickListener() {

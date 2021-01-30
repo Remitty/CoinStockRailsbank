@@ -66,6 +66,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stock_coin_withdraw);
 
         loadToast = new LoadToast(this);
+        loadToast.setBackgroundColor(R.color.colorBlack);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("STOCK2COIN WITHDRAW");
