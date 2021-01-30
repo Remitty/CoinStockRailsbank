@@ -1,4 +1,4 @@
-package com.brian.stocks.home.adapters;
+package com.brian.stocks.xmt.adapters;
 
 
 import android.annotation.SuppressLint;

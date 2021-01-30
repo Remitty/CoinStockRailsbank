@@ -34,10 +34,10 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
-import com.brian.stocks.home.adapters.OrderAdapter;
-import com.brian.stocks.home.adapters.OrderHistoryAdapter;
-import com.brian.stocks.home.adapters.OrderBookAsksAdapter;
-import com.brian.stocks.home.adapters.OrderBookBidsAdapter;
+import com.brian.stocks.xmt.adapters.OrderAdapter;
+import com.brian.stocks.xmt.adapters.OrderHistoryAdapter;
+import com.brian.stocks.xmt.adapters.OrderBookAsksAdapter;
+import com.brian.stocks.xmt.adapters.OrderBookBidsAdapter;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -134,11 +134,11 @@ public class CoinExchangeFragment extends Fragment {
                 if (tab.getPosition() > 0) {
                     selType = "sell";
                     mBtnTrade.setText("Sell");
-                    mBtnTrade.setBackgroundColor(getResources().getColor(R.color.green));
+                    mBtnTrade.setBackgroundColor(getResources().getColor(R.color.colorRedCrayon));
                 } else {
                     selType = "buy";
                     mBtnTrade.setText("Buy");
-                    mBtnTrade.setBackgroundColor(getResources().getColor(R.color.colorRedCrayon));
+                    mBtnTrade.setBackgroundColor(getResources().getColor(R.color.green));
                 }
                 focusedPrice = false;
                 changedPrice = false;
@@ -600,7 +600,6 @@ public class CoinExchangeFragment extends Fragment {
     private void initComponents() {
         mBtnTrade = mView.findViewById(R.id.btn_coin_trade);
         mBtnTrade.setText("Buy");
-        mBtnTrade.setBackgroundColor(getResources().getColor(R.color.colorRedCrayon));
         mTextPriceUSD = mView.findViewById(R.id.price_usd);
         mEditQuantity = mView.findViewById(R.id.edit_quantity);
         mEditPrice = mView.findViewById(R.id.edit_price);

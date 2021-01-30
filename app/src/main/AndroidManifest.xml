@@ -16,30 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".home.WebViewActivity"></activity>
-        <activity android:name=".home.SendUsdcActivity" />
-        <activity android:name=".mtn.MtnTransactionActivity" />
-        <activity android:name=".mtn.MTNActivity" />
-        <activity android:name=".xmt.XMTTradingActivity" />
-        <activity android:name=".coins.CoinStakeActivity" />
-        <activity android:name=".predict.AddPredictActivity" />
-        <activity android:name=".predict.PredictableListActivity" />
-        <activity android:name=".predict.PredictActivity" />
-        <activity android:name=".profile.ProfileCompleteActivity" />
-        <activity android:name=".cash.InfoActivity" />
-        <activity android:name=".cash.AddFriendActivity" />
-        <activity android:name=".stock.StocksActivity" />
-        <activity android:name=".cash.AddBankActivity" />
-        <activity android:name=".profile.ProfileActivity" />
-        <activity android:name=".cash.CollectCashActivity" />
-        <activity android:name=".cash.SendCashActivity" />
-        <activity android:name=".cash.SendTargetActivity" />
-        <activity android:name=".main.SupportActivity" />
-        <activity android:name=".main.ChangePasswordActivity" />
-        <activity android:name=".main.ResetPasswordActivity" />
-        <activity android:name=".main.ForgotPasswordActivity" />
-        <activity android:name=".stock.stockorder.StockOrderHistoryActivity" />
-        <activity android:name=".chat.SocialGroupActivity" />
+
         <activity
             android:name=".main.SplashActivity"
             android:screenOrientation="portrait"
@@ -126,7 +103,32 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:launchMode="singleTask"
             android:theme="@style/RampInstant.NoActionBar"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".home.WebViewActivity" />
+        <activity android:name=".home.SendUsdcActivity" />
+        <activity android:name=".mtn.MtnTransactionActivity" />
+        <activity android:name=".mtn.MTNActivity" />
+        <activity android:name=".xmt.XMTTradingActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".coins.CoinStakeActivity" />
+        <activity android:name=".predict.AddPredictActivity" />
+        <activity android:name=".predict.PredictableListActivity" />
+        <activity android:name=".predict.PredictActivity" />
+        <activity android:name=".profile.ProfileCompleteActivity" />
+        <activity android:name=".cash.InfoActivity" />
+        <activity android:name=".cash.AddFriendActivity" />
+        <activity android:name=".stock.StocksActivity" />
+        <activity android:name=".cash.AddBankActivity" />
+        <activity android:name=".profile.ProfileActivity" />
+        <activity android:name=".cash.CollectCashActivity" />
+        <activity android:name=".cash.SendCashActivity" />
+        <activity android:name=".cash.SendTargetActivity" />
+        <activity android:name=".main.SupportActivity" />
+        <activity android:name=".main.ChangePasswordActivity" />
+        <activity android:name=".main.ResetPasswordActivity" />
+        <activity android:name=".main.ForgotPasswordActivity" />
+        <activity android:name=".stock.stockorder.StockOrderHistoryActivity" />
+        <activity android:name=".chat.SocialGroupActivity" />
     </application>
 
 </manifest>

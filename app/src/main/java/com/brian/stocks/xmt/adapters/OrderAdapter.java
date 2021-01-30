@@ -1,4 +1,4 @@
-package com.brian.stocks.home.adapters;
+package com.brian.stocks.xmt.adapters;
 
 
 import android.annotation.SuppressLint;
@@ -33,7 +33,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     ArrayList<JSONObject> orders;
     Context thiscontext;
-    private Button mBtnTrade;
+    private TextView mBtnTrade;
     private DecimalFormat df = new DecimalFormat("#.########");
     public OrderAdapter(ArrayList orders) {
         this.orders = orders;
@@ -110,7 +110,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.tvType.setText(item.optString("type"));
         holder.tvQuantity.setText(df.format(Float.parseFloat(item.optString("quantity"))));
         holder.tvValue.setText(df.format(Float.parseFloat(item.optString("price"))));
-        holder.tvDate.setText(item.optString("created_at"));
+        holder.tvDate.setText(item.optString("created_at").substring(0, 10));
 
         mBtnTrade.setOnClickListener(new View.OnClickListener() {
             @Override

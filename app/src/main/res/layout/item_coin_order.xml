@@ -14,35 +14,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/type"
-            android:gravity="center"/>
+            />
         <TextView
             android:id="@+id/quantity"
             android:layout_weight="1"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/value"
             android:layout_weight="1"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/date"
             android:layout_weight="1"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <Button
-            android:minHeight="0dp" android:minWidth="0dp"
+        <TextView
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
-            android:text="Cancel"
-            android:textColor="@android:color/white"
+            android:text="X"
+            android:textColor="@color/colorRedCrayon"
             android:layout_gravity="right"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
     </LinearLayout>
 </LinearLayout>
