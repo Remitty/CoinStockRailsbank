@@ -4,10 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="5dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,13 +32,12 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:textStyle="bold"
-                            android:textSize="10dp"
-                            android:textColor="@color/white"
-                            android:text="BALANCE"/>
+                            android:textSize="16dp"
+                            android:textColor="@color/colorBlack"
+                            android:text="Balance"/>
 
                         <TextView
                             android:id="@+id/stock_balance"
@@ -53,8 +48,8 @@
                             android:inputType="text"
                             android:maxLines="1"
                             android:text="$ 0.0"
-                            android:textColor="@color/green"
-                            android:textSize="13dp" />
+                            android:textColor="@color/colorBlack"
+                            android:textSize="16dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_weight="1"
@@ -64,13 +59,12 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:textStyle="bold"
-                            android:textSize="10dp"
-                            android:textColor="@color/white"
-                            android:text="PROFIT / LOSS: "/>
+                            android:textSize="16dp"
+                            android:textColor="@color/colorBlack"
+                            android:text="Profit/Loss"/>
 
                         <TextView
                             android:id="@+id/stock_profit"
@@ -82,7 +76,7 @@
                             android:maxLines="1"
                             android:text="$ 0.0"
                             android:textColor="@color/green"
-                            android:textSize="13dp" />
+                            android:textSize="16dp" />
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -101,10 +95,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:textStyle="bold"
-                            android:textSize="10dp"
-                            android:textColor="@color/white"
-                            android:text="PORTFOLIO:  "/>
+                            android:textSize="16dp"
+                            android:textColor="@color/colorBlack"
+                            android:text="Portfolio"/>
                         <TextView
                             android:id="@+id/total_balance"
                             android:layout_width="match_parent"
@@ -114,8 +107,8 @@
                             android:inputType="text"
                             android:maxLines="1"
                             android:text="$ 0.0"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="13dp" />
+                            android:textColor="@color/green"
+                            android:textSize="16dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_weight="1"
@@ -127,10 +120,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:textSize="10dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/white"
-                            android:text="MARGIN:  "/>
+                            android:textSize="16dp"
+                            android:textColor="@color/colorBlack"
+                            android:text="Margin"/>
                         <TextView
                             android:id="@+id/margin_balance"
                             android:layout_width="match_parent"
@@ -141,7 +133,7 @@
                             android:maxLines="1"
                             android:text="$ 0.0"
                             android:textColor="@color/colorBlack"
-                            android:textSize="13dp" />
+                            android:textSize="16dp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -157,11 +149,9 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:backgroundTint="@color/colorPurple"
+                        android:backgroundTint="@color/colorBlue"
                         android:layout_marginRight="20dp"
-                        app:cornerRadius="20dp"
-                        app:strokeColor="@color/white"
-                        app:strokeWidth="2dp"
+                        app:cornerRadius="5dp"
                         android:textSize="10dp"
                         android:text="Trade"/>
                     <com.google.android.material.button.MaterialButton
@@ -171,9 +161,7 @@
                         android:layout_height="40dp"
                         android:layout_marginHorizontal="10dp"
                         android:backgroundTint="@color/green"
-                        app:cornerRadius="20dp"
-                        app:strokeColor="@color/white"
-                        app:strokeWidth="2dp"
+                        app:cornerRadius="5dp"
                         android:textSize="10dp"
                         android:text="Deposit"/>
                     <com.google.android.material.button.MaterialButton
@@ -182,10 +170,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:backgroundTint="@color/colorRedCrayon"
-                        app:cornerRadius="20dp"
+                        app:cornerRadius="5dp"
                         android:layout_marginLeft="20dp"
-                        app:strokeColor="@color/white"
-                        app:strokeWidth="2dp"
                         android:textSize="10dp"
                         android:text="withdraw"/>
             </LinearLayout>
@@ -200,32 +186,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Market Status: "
-                    android:textStyle="bold"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/colorBlack"/>
                 <TextView
                     android:id="@+id/market_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="loading... "
-                    android:textStyle="bold"
                     android:textColor="@color/colorRedCrayon"/>
             </LinearLayout>
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardUseCompatPadding="true"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="3dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -233,26 +211,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="SYMBOL"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/colorPurple"
+                    android:text="Symbol"
+                    android:textColor="@color/colorBlack"
                     android:textSize="12dp" />
                 <TextView
                     android:layout_weight="1"
                     android:textSize="12dp"
-                    android:textColor="@color/colorPurple"
-                    android:text="PRICE / SHARE"
-                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    android:text="Price/Share"
                     android:layout_marginLeft="0dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:layout_weight="1"
                     android:textSize="12dp"
-                    android:textColor="@color/colorPurple"
-                    android:text="HOLDINGS"
-                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    android:text="Holdings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -261,16 +235,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="0dp"
                     android:layout_weight="1"
-                    android:text="PROFIT / LOSS"
-                    android:textColor="@color/colorPurple"
+                    android:gravity="right"
+                    android:text="Profit/Loss"
+                    android:textColor="@color/colorBlack"
                     android:textSize="12dp"
-                    android:textStyle="bold" />
+                    />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/colorBlack"/>
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/grayBlue"/>
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_refresh_layout"
                 android:layout_width="match_parent"
@@ -288,6 +264,5 @@
             </androidx.core.widget.NestedScrollView>
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
             </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
