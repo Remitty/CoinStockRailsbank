@@ -1,12 +1,17 @@
 package com.brian.stocks.predict.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.anychart.graphics.vector.Image;
 import com.brian.stocks.R;
 import com.brian.stocks.adapters.DepositAdapter;
+import com.brian.stocks.helper.URLHelper;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,9 +24,11 @@ public class PredictableStockAdapter extends RecyclerView.Adapter<PredictableSto
     JSONArray data = new JSONArray();
 
     Listener listener;
+    Context mContext;
 
-    public PredictableStockAdapter(JSONArray data) {
+    public PredictableStockAdapter(Context context, JSONArray data) {
         this.data = data;
+        mContext = context;
     }
 
     @NonNull
@@ -40,7 +47,15 @@ public class PredictableStockAdapter extends RecyclerView.Adapter<PredictableSto
             holder.mtvSymbol.setText(item.getString("symbol"));
             holder.mtvName.setText(item.getString("name"));
             holder.mtvPrice.setText(item.getString("price"));
-            holder.mtvChange.setText(item.getString("change") + "% 24hrs");
+            holder.mtvChange.setText(item.getString("change"));
+            String icon = item.getString("icon");
+            if(!icon.startsWith("http"))
+                icon = URLHelper.base + icon;
+            Picasso.with(mContext)
+                    .load(icon)
+                    .placeholder(R.drawable.coin_bitcoin)
+                    .error(R.drawable.coin_bitcoin)
+                    .into(holder.icon);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -63,6 +78,7 @@ public class PredictableStockAdapter extends RecyclerView.Adapter<PredictableSto
     public class CustomerViewHolder extends RecyclerView.ViewHolder {
 
         TextView mtvSymbol, mtvName, mtvPrice, mtvChange;
+        ImageView icon;
 
         public CustomerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +87,7 @@ public class PredictableStockAdapter extends RecyclerView.Adapter<PredictableSto
             mtvName = itemView.findViewById(R.id.name);
             mtvPrice = itemView.findViewById(R.id.price);
             mtvChange = itemView.findViewById(R.id.change);
+            icon = itemView.findViewById(R.id.predict_icon);
         }
     }
 

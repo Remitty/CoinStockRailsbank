@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ public class PredictableListActivity extends AppCompatActivity {
     JSONArray data = new JSONArray();
     private LoadToast loadToast;
     private String usdcBalance;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class PredictableListActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        mContext = getBaseContext();
 
         loadToast = new LoadToast(this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
@@ -66,7 +70,7 @@ public class PredictableListActivity extends AppCompatActivity {
                             try {
                                 data = response.getJSONArray("data");
                                 usdcBalance = response.getString("usdc_balance");
-                                mAdapter = new PredictableStockAdapter(data);
+                                mAdapter = new PredictableStockAdapter(mContext, data);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(PredictableListActivity.this));
                                 recyclerView.setAdapter(mAdapter);
                                 mAdapter.setListener(new PredictableStockAdapter.Listener() {
@@ -74,10 +78,11 @@ public class PredictableListActivity extends AppCompatActivity {
                                     public void onSelect(int position) {
                                         try {
                                             Intent intent = new Intent(PredictableListActivity.this, AddPredictActivity.class);
-                                            intent.putExtra("symbol", data.getJSONObject(position).getString("symbol"));
-                                            intent.putExtra("symbol_id", data.getJSONObject(position).getString("id"));
-                                            intent.putExtra("name", data.getJSONObject(position).getString("name"));
-                                            intent.putExtra("price", data.getJSONObject(position).getString("price"));
+                                            JSONObject item = data.getJSONObject(position);
+                                            intent.putExtra("symbol", item.getString("symbol"));
+                                            intent.putExtra("symbol_id", item.getString("id"));
+                                            intent.putExtra("name", item.getString("name"));
+                                            intent.putExtra("price", item.getString("price"));
                                             intent.putExtra("usdc_balance", usdcBalance);
                                             startActivity(intent);
                                         } catch (JSONException e) {
