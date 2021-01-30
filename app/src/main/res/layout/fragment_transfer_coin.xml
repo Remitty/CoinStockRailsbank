@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hello, "
-                android:textColor="@color/grayPurple"
+                android:textColor="@color/white_greyish"
                 android:textSize="28dp"
                 android:textStyle="bold"
                 />
@@ -37,13 +37,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
+            android:outlineProvider="background"
+            app:cardUseCompatPadding="true"
             android:layout_marginTop="40dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/bg_home"
                 android:paddingVertical="20dp"
                 android:paddingHorizontal="20dp"
                 >
@@ -51,11 +53,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:text="Your balance"
-                    android:textSize="14dp"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:text="0.0"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/colorBlack"
                         android:textSize="24dp"
                         />
                     <TextView
@@ -75,7 +75,7 @@
                         android:text=" usdc"
                         android:textAllCaps="true"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/colorBlack"
                         android:textSize="16dp"
                         />
                 </LinearLayout>
@@ -127,7 +127,7 @@
                     android:layout_marginLeft="10dp"
                     android:textSize="20dp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/darkBlue"
+                    android:textColor="@color/colorBlack"
                     android:text="Sending USDC"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -175,7 +175,7 @@
                     android:layout_marginLeft="10dp"
                     android:textSize="20dp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/darkBlue"
+                    android:textColor="@color/colorBlack"
                     android:text="Add Contact"/>
                 <LinearLayout
                     android:layout_width="match_parent"

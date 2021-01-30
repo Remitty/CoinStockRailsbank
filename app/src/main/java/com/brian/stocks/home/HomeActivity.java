@@ -95,11 +95,11 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
             });
         }
 
-        NavigationPage page1 = new NavigationPage("Pay", ContextCompat.getDrawable(this, R.drawable.ic_home_black_24dp), TransferCoinFragment.newInstance());
-        NavigationPage page2 = new NavigationPage("Coins", ContextCompat.getDrawable(this, R.drawable.coin), CoinsFragment.newInstance());
-        NavigationPage page3 = new NavigationPage("Swap", ContextCompat.getDrawable(this, R.drawable.swap_24), CoinSwapFragment.newInstance());
-        NavigationPage page4 = new NavigationPage("Cash", ContextCompat.getDrawable(this, R.drawable.currency_icon), CashFragment.newInstance());
-        NavigationPage page5 = new NavigationPage("Stocks", ContextCompat.getDrawable(this, R.drawable.ic_assessment_black_24dp), InvestedStockFragment.newInstance());
+        NavigationPage page1 = new NavigationPage("Pay", ContextCompat.getDrawable(this, R.drawable.ic_home), TransferCoinFragment.newInstance());
+        NavigationPage page2 = new NavigationPage("Coins", ContextCompat.getDrawable(this, R.drawable.ic_coin), CoinsFragment.newInstance());
+        NavigationPage page3 = new NavigationPage("Swap", ContextCompat.getDrawable(this, R.drawable.ic_swap), CoinSwapFragment.newInstance());
+        NavigationPage page4 = new NavigationPage("Cash", ContextCompat.getDrawable(this, R.drawable.ic_cash), CashFragment.newInstance());
+        NavigationPage page5 = new NavigationPage("Stocks", ContextCompat.getDrawable(this, R.drawable.ic_stock), InvestedStockFragment.newInstance());
 
         List<NavigationPage> navigationPages = new ArrayList<>();
         navigationPages.add(page1);
