@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingVertical="5dp"
-    android:paddingHorizontal="10dp"
+    android:paddingHorizontal="15dp"
+    android:background="@color/white_opacity"
+    android:layout_marginVertical="2dp"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:textSize="11dp"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/green"
                         android:text="$ 1234.23"/>
                     <TextView
                         android:id="@+id/coin_balance"
@@ -144,7 +146,7 @@
                 android:backgroundTint="@color/colorRedCrayon"
                 android:text="Buy now"
                 android:textSize="11dp"
-                app:cornerRadius="15dp" />
+                app:cornerRadius="5dp" />
 
         </LinearLayout>
         <LinearLayout
@@ -155,16 +157,11 @@
                 android:id="@+id/btn_deposit"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:backgroundTint="@color/colorBlue1"
+                android:backgroundTint="@color/green"
                 android:text="Deposit"
                 android:textSize="11dp"
-                app:cornerRadius="15dp" />
+                app:cornerRadius="5dp" />
 
         </LinearLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorDivider"/>
 </LinearLayout>

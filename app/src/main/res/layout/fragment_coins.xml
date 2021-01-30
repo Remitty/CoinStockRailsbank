@@ -7,14 +7,15 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         app:cardUseCompatPadding="true"
+        app:cardElevation="10dp"
         app:cardCornerRadius="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="30dp"
             android:paddingVertical="10dp"
-            android:background="@drawable/bg_coins"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_weight="1"
@@ -46,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorBlack"
                     android:text="Total Balance"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -62,7 +63,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="32dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/green"
                             android:textStyle="bold"
                             android:text="$ 0.0"/>
                         <TextView
