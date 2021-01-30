@@ -32,7 +32,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         emailId = findViewById(R.id.registered_emailid);
         submit = findViewById(R.id.forgot_button);

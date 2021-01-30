@@ -54,7 +54,7 @@ public class SendTargetActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         mBankAdapter = new BankAdapter(bankList);
         mBankAdapter.setListener(new BankAdapter.Listener() {

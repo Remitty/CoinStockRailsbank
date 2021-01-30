@@ -14,20 +14,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay"
-                tools:ignore="MissingConstraints">
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/stocks_trade_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@color/colorPrimary"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-            </com.google.android.material.appbar.AppBarLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -43,7 +43,7 @@ public class PredictableListActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         recyclerView = findViewById(R.id.recyclerView);
 

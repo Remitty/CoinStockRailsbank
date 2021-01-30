@@ -43,7 +43,7 @@ public class AddFriendActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         editName = findViewById(R.id.edit_name);
         editAccountId = findViewById(R.id.edit_id);

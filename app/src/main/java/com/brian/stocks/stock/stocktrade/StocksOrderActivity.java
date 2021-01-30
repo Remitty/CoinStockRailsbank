@@ -54,14 +54,11 @@ public class StocksOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stocks_order);
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
-
-        Toolbar toolbar = findViewById(R.id.stocks_trade_toolbar);
-        toolbar.setTitle("Stocks Order");
-        setSupportActionBar(toolbar);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Stocks Order");
 
         initComponents();
 

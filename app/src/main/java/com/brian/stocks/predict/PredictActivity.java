@@ -36,6 +36,8 @@ public class PredictActivity extends AppCompatActivity {
     TextView predictNow;
     PredictPageAdapter mAdapter;
     LoadToast loadToast;
+    private JSONArray all = new JSONArray(), incoming = new JSONArray(), my_post = new JSONArray();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +50,18 @@ public class PredictActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         tab = findViewById(R.id.tab);
         pager = findViewById(R.id.view_pager);
         predictNow = findViewById(R.id.btn_post_predict);
 
         mAdapter = new PredictPageAdapter(getSupportFragmentManager());
+        mAdapter.add(new NewPredictsFragment(all));
+        mAdapter.add(new IncomingPredictsFragment(incoming));
+        mAdapter.add(new MyPredictsFragment(my_post));
+        pager.setAdapter(mAdapter);
+        tab.setupWithViewPager(pager);
 
         predictNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,14 +89,11 @@ public class PredictActivity extends AppCompatActivity {
                         loadToast.success();
                             try {
 
-                                JSONArray all = response.getJSONArray("new_predict");
-                                JSONArray incoming = response.getJSONArray("incoming");
-                                JSONArray my_post = response.getJSONArray("my_post");
-                                mAdapter.add(new NewPredictsFragment(all));
-                                mAdapter.add(new IncomingPredictsFragment(incoming));
-                                mAdapter.add(new MyPredictsFragment(my_post));
-                                pager.setAdapter(mAdapter);
-                                tab.setupWithViewPager(pager);
+                                all = response.getJSONArray("new_predict");
+                                incoming = response.getJSONArray("incoming");
+                                my_post = response.getJSONArray("my_post");
+                                mAdapter.notifyDataSetChanged();
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

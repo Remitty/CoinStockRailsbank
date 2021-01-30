@@ -67,34 +67,34 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".stock.stocktrade.StocksTradingActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".stock.stocktrade.StockBuyActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".stock.stocktrade.StockSellActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".stock.stocktrade.StocksOrderActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".stock.NewsListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".stock.NewsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".coins.TransferFundsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".stock.stockwithdraw.StockCoinWithdrawActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".stock.stocktrade.StockReplaceActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".stock.StockDepositActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".coins.CoinWithdrawActivity"
             android:theme="@style/AppTheme.NoActionBar" />

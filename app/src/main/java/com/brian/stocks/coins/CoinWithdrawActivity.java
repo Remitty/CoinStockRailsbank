@@ -64,7 +64,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_withdraw);
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Coin Withdraw");

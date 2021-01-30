@@ -41,16 +41,13 @@ public class NewsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news_list);
 
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         mSearch = getIntent().getStringExtra("symbol");
 
-        Toolbar toolbar = findViewById(R.id.stocks_trade_toolbar);
-        toolbar.setTitle(mSearch);
-        setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(mSearch);
 
         mNewsListView = findViewById(R.id.news_list);
 

@@ -36,7 +36,7 @@ public class StockDepositActivity extends AppCompatActivity {
     private StockDepositPageAdapter mPageAdapter;
     private ViewPager mViewPager;
 
-    String mCoinBalance, mStockBalance, mUSDBalance;
+    String mCoinBalance="0", mStockBalance="0", mUSDBalance="0", coinUSD ="0";
     private List<TransferInfo> coinStocksList = new ArrayList<>();
 
     @Override
@@ -44,23 +44,24 @@ public class StockDepositActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_deposit);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Deposit Stock");
-        setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Deposit Stock");
 
 //        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 ////        fragmentTransaction.replace(me.riddhimanadib.library.R.id.frameLayout, Coin2StockFragment.newInstance());
 ////        fragmentTransaction.commit();
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         tab = findViewById(R.id.tab);
         mViewPager = findViewById(R.id.pager);
 
         mPageAdapter=new StockDepositPageAdapter(this.getSupportFragmentManager());
+        mPageAdapter.add(Coin2StockFragment.newInstance(mStockBalance, mCoinBalance, coinUSD, coinStocksList));
+        mPageAdapter.add(Bank2StockFragment.newInstance(mStockBalance, mUSDBalance));
+        mViewPager.setAdapter(mPageAdapter);
+        tab.setupWithViewPager(mViewPager);
 
         getBalances();
 
@@ -83,7 +84,7 @@ public class StockDepositActivity extends AppCompatActivity {
                             Log.d("user balances", response.toString());
                             mStockBalance = response.optString("stock_balance");
                             mCoinBalance = response.optString("usdc_balance");
-                            String coinUSD = response.optString("usdc_est_usd");
+                            coinUSD = response.optString("usdc_est_usd");
                             mUSDBalance = response.optString("bank_usd_balance");
 
                             coinStocksList.clear();
@@ -96,11 +97,8 @@ public class StockDepositActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
+                            mPageAdapter.notifyDataSetChanged();
 
-                            mPageAdapter.add(Coin2StockFragment.newInstance(mStockBalance, mCoinBalance, coinUSD, coinStocksList));
-                            mPageAdapter.add(Bank2StockFragment.newInstance(mStockBalance, mUSDBalance));
-                            mViewPager.setAdapter(mPageAdapter);
-                            tab.setupWithViewPager(mViewPager);
                         }
 
                         @Override

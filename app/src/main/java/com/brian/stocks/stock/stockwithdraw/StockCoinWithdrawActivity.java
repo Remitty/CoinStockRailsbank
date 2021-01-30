@@ -66,15 +66,11 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stock_coin_withdraw);
 
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("STOCK2COIN WITHDRAW");
-        setSupportActionBar(toolbar);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        getSupportActionBar().setTitle("STOCK WITHDRAW");
         tab = findViewById(R.id.tab);
         mViewPager = findViewById(R.id.pager);
 
@@ -151,7 +147,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                                 mAdapter.notifyDataSetChanged();
 //                                StockBalance = new DecimalFormat("####.####").format(StockBalance).toString();
                                 mStockBalance.setText("$ "+StockBalance);
-                                mUSDCRate.setText(USDCRate+" USDC");
+                                mUSDCRate.setText(USDCRate);
                                 
                                 mPageAdapter.add(StockWithdrawFragment.newInstance(StockBalance, USDCRate));
 //                                mPageAdapter.add(StockWithdrawHistoryFragment.newInstance(history));

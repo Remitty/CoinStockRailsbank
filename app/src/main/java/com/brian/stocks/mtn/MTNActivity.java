@@ -63,7 +63,7 @@ public class MTNActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
         initComponents();
         initListeners();
         alert = new AlertDialog.Builder(MTNActivity.this);

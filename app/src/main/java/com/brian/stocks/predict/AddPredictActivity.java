@@ -57,7 +57,7 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
         initComponents();
         initListeners();
         if(getIntent() != null) {

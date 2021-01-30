@@ -55,18 +55,15 @@ public class StockBuyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stock_buy);
 
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         mStockName = getIntent().getStringExtra("stock_name");
         mStockPrice = getIntent().getStringExtra("stock_price");
         mStockSymbol = getIntent().getStringExtra("stock_symbol");
 
-        Toolbar toolbar = findViewById(R.id.stocks_trade_toolbar);
-        toolbar.setTitle(mStockSymbol);
-        setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(mStockSymbol);
 
         initComponents();
 

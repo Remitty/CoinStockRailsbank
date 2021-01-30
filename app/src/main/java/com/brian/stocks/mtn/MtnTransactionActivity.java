@@ -49,7 +49,7 @@ public class MtnTransactionActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
-        loadToast.setBackgroundColor(R.color.colorBlack);
+        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         emptyText = findViewById(R.id.mtn_no_transaction);
 

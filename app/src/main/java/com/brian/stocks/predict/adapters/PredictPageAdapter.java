@@ -6,9 +6,10 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class PredictPageAdapter extends FragmentPagerAdapter {
-    private String[] items={"Predict", "Results", "My posts"};
+public class PredictPageAdapter extends FragmentStatePagerAdapter {
+    private String[] items={"  Predict  ", "  Results  ", "  My posts  "};
     private List<Fragment> fragments = new ArrayList<>();
     public PredictPageAdapter(FragmentManager fm) {
         super(fm);
