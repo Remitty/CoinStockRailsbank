@@ -26,6 +26,8 @@ import net.steamcrafted.loadtoast.LoadToast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+
 public class CoinStakeActivity extends AppCompatActivity {
     Button btnStake, btnRelease;
     TextView mtvYearlyFee, mtvBalance, mtvStakingBalance, mtvDailyReward;
@@ -88,8 +90,8 @@ public class CoinStakeActivity extends AppCompatActivity {
                             try {
                                 mBalance = response.getString("xmt_balance");
                                 mStakingBalance = response.getString("stake_balance");
-                                mtvBalance.setText(String.format("%.2f", Double.parseDouble(mBalance)));
-                                mtvStakingBalance.setText(String.format("%.2f", Double.parseDouble(mStakingBalance)));
+                                mtvBalance.setText(new DecimalFormat("#,###.##").format(Double.parseDouble(mBalance)));
+                                mtvStakingBalance.setText(new DecimalFormat("#,###.##").format(Double.parseDouble(mStakingBalance)));
                                 mtvDailyReward.setText(String.format("+ %.4f", Double.parseDouble(response.optString("daily_reward"))));
                                 mtvYearlyFee.setText(String.format("+ %.2f", Double.parseDouble(response.optString("yearly_fee"))) + " %");
                             } catch (JSONException e) {
@@ -114,10 +116,16 @@ public class CoinStakeActivity extends AppCompatActivity {
         alert.setIcon(R.mipmap.ic_launcher_round)
                 .setTitle("Confirm stake release")
                 .setMessage("Are you sure you want to release " + editAmount.getText().toString() + "XMT?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         sendStakeRelease();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
                     }
                 })
                 .show();
@@ -128,10 +136,16 @@ public class CoinStakeActivity extends AppCompatActivity {
         alert.setIcon(R.mipmap.ic_launcher_round)
                 .setTitle("Confirm stake")
                 .setMessage("Are you sure you want to stake " + editAmount.getText().toString() + "XMT?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         sendStake();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
                     }
                 })
                 .show();
