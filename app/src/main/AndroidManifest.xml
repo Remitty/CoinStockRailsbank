@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".usdc.PaymentUserActivity"></activity>
         <activity
             android:name=".main.SplashActivity"
             android:screenOrientation="portrait"
@@ -42,36 +42,20 @@
             android:name=".home.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".stock.stocktrade.StocksTradingActivity"
-             />
-        <activity
-            android:name=".stock.stocktrade.StockBuyActivity"
-             />
-        <activity
-            android:name=".stock.stocktrade.StockSellActivity"
-             />
-        <activity
-            android:name=".stock.stocktrade.StocksOrderActivity"
-             />
-        <activity
-            android:name=".stock.NewsListActivity"
-             />
-        <activity
-            android:name=".stock.NewsActivity"
-             />
+        <activity android:name=".stock.stocktrade.StocksTradingActivity" />
+        <activity android:name=".stock.stocktrade.StockBuyActivity" />
+        <activity android:name=".stock.stocktrade.StockSellActivity" />
+        <activity android:name=".stock.stocktrade.StocksOrderActivity" />
+        <activity android:name=".stock.NewsListActivity" />
+        <activity android:name=".stock.NewsActivity" />
         <activity
             android:name=".coins.TransferFundsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".stock.stockwithdraw.StockCoinWithdrawActivity"
-             />
+        <activity android:name=".stock.stockwithdraw.StockCoinWithdrawActivity" />
         <activity
             android:name=".stock.stocktrade.StockReplaceActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".stock.StockDepositActivity"
-             />
+        <activity android:name=".stock.StockDepositActivity" />
         <activity
             android:name=".coins.CoinWithdrawActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -105,11 +89,12 @@
             android:theme="@style/RampInstant.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".home.WebViewActivity" />
-        <activity android:name=".home.SendUsdcActivity" />
+        <activity android:name=".usdc.SendUsdcActivity" />
         <activity android:name=".mtn.MtnTransactionActivity" />
         <activity android:name=".mtn.MTNActivity" />
-        <activity android:name=".xmt.XMTTradingActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".xmt.XMTTradingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".coins.CoinStakeActivity" />
         <activity android:name=".predict.AddPredictActivity" />
         <activity android:name=".predict.PredictableListActivity" />

@@ -34,6 +34,7 @@ public class URLHelper {
     public static final String TRANSFER_COIN = REDIRECT_URL + "coin/transfer";
     public static final String GET_USDC_BALANCE = REDIRECT_URL + "usdc/balance";
     public static final String ADD_TRANSFER_COIN_CONTACT = REDIRECT_URL + "coin/transfer/contact/add";
+    public static final String REMOVE_TRANSFER_COIN_CONTACT = REDIRECT_URL + "coin/transfer/contact/remove";
 
     public static final String GET_ALL_STOCKS = REDIRECT_URL + "stocks";
     public static final String GET_ALL_STOCKS_DAILY = REDIRECT_URL + "stocks/daily";

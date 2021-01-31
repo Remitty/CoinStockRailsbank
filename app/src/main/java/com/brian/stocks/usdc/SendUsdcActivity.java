@@ -1,4 +1,4 @@
-package com.brian.stocks.home;
+package com.brian.stocks.usdc;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,11 +23,11 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
+import com.brian.stocks.home.HomeActivity;
 import com.brian.stocks.home.adapters.AutoUserAdapter;
-import com.brian.stocks.home.adapters.TransferCoinHistoryAdapter;
-import com.brian.stocks.home.adapters.UserContactAdapter;
+import com.brian.stocks.usdc.adapters.TransferCoinHistoryAdapter;
+import com.brian.stocks.usdc.adapters.UserContactAdapter;
 import com.brian.stocks.model.ContactUser;
-import com.brian.stocks.mtn.MTNActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import net.steamcrafted.loadtoast.LoadToast;
@@ -36,9 +36,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SendUsdcActivity extends AppCompatActivity {
     TextView tvBalance;
@@ -88,8 +87,9 @@ public class SendUsdcActivity extends AppCompatActivity {
         View dialogView = getLayoutInflater().inflate(R.layout.coins_bottom_sheet, null);
         dialog = new BottomSheetDialog(this);
         dialog.setContentView(dialogView);
+
         contactListView = dialogView.findViewById(R.id.bottom_coins_list);
-        userContactAdapter  = new UserContactAdapter(users);
+        userContactAdapter  = new UserContactAdapter(users, false);
         contactListView.setLayoutManager(new LinearLayoutManager(this));
         contactListView.setAdapter(userContactAdapter);
         userContactAdapter.setListener(new UserContactAdapter.Listener() {
@@ -98,6 +98,11 @@ public class SendUsdcActivity extends AppCompatActivity {
                 dialog.hide();
                 selectedUserEmail = users.get(position).getEmail();
                 tvTo.setText(users.get(position).getName());
+            }
+
+            @Override
+            public void onDelete(int position) {
+
             }
         });
 
@@ -201,7 +206,7 @@ public class SendUsdcActivity extends AppCompatActivity {
             historyAdapter.notifyDataSetChanged();
 
             usdcBalance = String.format("%.4f", Double.parseDouble(response.getString("usdc_balance")));
-            tvBalance.setText(usdcBalance);
+            tvBalance.setText(new DecimalFormat("###,###.####").format(Double.parseDouble(response.getString("usdc_balance"))));
         } catch (JSONException e) {
             e.printStackTrace();
         }catch (NullPointerException e) {

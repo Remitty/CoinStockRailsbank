@@ -1,9 +1,10 @@
-package com.brian.stocks.home.adapters;
+package com.brian.stocks.usdc.adapters;
 
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.brian.stocks.R;
@@ -17,14 +18,17 @@ import androidx.recyclerview.widget.RecyclerView;
 public class UserContactAdapter extends RecyclerView.Adapter<UserContactAdapter.OrderViewHolder> {
     private List<ContactUser> arrItems;
     private Listener listener;
+    private boolean flagDelete = false;
 
-    public UserContactAdapter(List<ContactUser> arrItems) {
+    public UserContactAdapter(List<ContactUser> arrItems, boolean delete) {
         this.arrItems = arrItems;
+        flagDelete = delete;
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvContactName, tvContactEmail;
+        ImageButton btnDelete;
 
 
         public OrderViewHolder(View view) {
@@ -32,6 +36,7 @@ public class UserContactAdapter extends RecyclerView.Adapter<UserContactAdapter.
 
             tvContactName = view.findViewById(R.id.contact_name);
             tvContactEmail = view.findViewById(R.id.contact_email);
+            btnDelete = view.findViewById(R.id.btn_delete);
 
         }
     }
@@ -58,6 +63,16 @@ public class UserContactAdapter extends RecyclerView.Adapter<UserContactAdapter.
             }
         });
 
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onDelete(position);
+            }
+        });
+
+        if(!flagDelete)
+            holder.btnDelete.setVisibility(View.GONE);
+
     }
 
     public void setListener(UserContactAdapter.Listener listener) {
@@ -78,6 +93,7 @@ public class UserContactAdapter extends RecyclerView.Adapter<UserContactAdapter.
          * @param position
          */
         void onSelect(int position);
+        void onDelete(int position);
     }
 }
 
