@@ -60,6 +60,12 @@ public class SignInActivity extends AppCompatActivity {
             }
         }
 
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor("#3AE57F"));
+        }
+
         mUserNameEditText = findViewById(R.id.login_emailid);
         mPasswordEditText = findViewById(R.id.login_password);
         mSignupButton = findViewById(R.id.createAccount);

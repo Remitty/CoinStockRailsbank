@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorRedCrayon"
+    android:background="@color/green"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     xmlns:facebook="http://schemas.android.com/tools">
@@ -50,7 +50,7 @@
                         android:layout_gravity="center"
                         android:textStyle="bold"
                         android:padding="10dp"
-                        android:textColor="@color/colorRedCrayon"
+                        android:textColor="@color/green"
                         android:textSize="30dp" />
 
                     <EditText
@@ -66,7 +66,8 @@
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:padding="10dp"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textColor="@color/colorBlack"/>
 
                     <EditText
                         android:id="@+id/login_password"
@@ -81,7 +82,8 @@
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:padding="10dp"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textColor="@color/colorBlack"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -99,7 +101,7 @@
                             android:text="Forgot Password"
                             android:visibility="visible"
                             android:padding="5dp"
-                            android:textColor="@color/colorRedCrayon"
+                            android:textColor="@color/green"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -109,6 +111,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:layout_marginHorizontal="20dp"
+                        android:backgroundTint="@color/green"
                         android:text="Log In"
                         android:textColor="@color/white" />
                 </LinearLayout>
@@ -132,7 +135,7 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="Sign up"
-                        android:textColor="@color/colorRedCrayon"
+                        android:textColor="@color/green"
                         android:textSize="20dp" />
 
                 </LinearLayout>
