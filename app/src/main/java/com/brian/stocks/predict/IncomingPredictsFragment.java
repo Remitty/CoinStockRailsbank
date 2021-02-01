@@ -27,12 +27,12 @@ public class IncomingPredictsFragment extends Fragment {
     PredictAdapter mAdapter;
     LinearLayout emptyLayout;
 
-    public IncomingPredictsFragment(JSONArray my_answer) {
+    public IncomingPredictsFragment(ArrayList my_answer) {
         // Required empty public constructor
-        this.data = my_answer;
+        this.dataList = my_answer;
     }
 
-    public static IncomingPredictsFragment newInstance(JSONArray my_answer) {
+    public static IncomingPredictsFragment newInstance(ArrayList my_answer) {
         IncomingPredictsFragment fragment = new IncomingPredictsFragment(my_answer);
         return fragment;
     }
@@ -49,13 +49,7 @@ public class IncomingPredictsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_predict_answer, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        for (int i = 0; i < data.length(); i ++) {
-            try {
-                dataList.add(data.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+
         mAdapter = new PredictAdapter(dataList, 1);
         recyclerView.setAdapter(mAdapter);
         mAdapter.seListener(new PredictAdapter.Listener() {
@@ -76,7 +70,7 @@ public class IncomingPredictsFragment extends Fragment {
         });
 
         emptyLayout = view.findViewById(R.id.empty_layout);
-        if(data.length() > 0)
+        if(dataList.size() > 0)
             emptyLayout.setVisibility(View.GONE);
 
         return view;

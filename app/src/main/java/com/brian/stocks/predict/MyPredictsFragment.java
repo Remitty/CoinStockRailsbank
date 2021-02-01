@@ -40,12 +40,12 @@ public class MyPredictsFragment extends Fragment {
     LinearLayout emptyLayout;
     private LoadToast loadToast;
 
-    public MyPredictsFragment(JSONArray my_post) {
+    public MyPredictsFragment(ArrayList my_post) {
         // Required empty public constructor
-        this.data = my_post;
+        this.dataList = my_post;
     }
 
-    public static MyPredictsFragment newInstance(JSONArray my_post) {
+    public static MyPredictsFragment newInstance(ArrayList my_post) {
         MyPredictsFragment fragment = new MyPredictsFragment(my_post);
         return fragment;
     }
@@ -65,14 +65,7 @@ public class MyPredictsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        dataList.clear();
-        for (int i = 0; i < data.length(); i ++) {
-            try {
-                dataList.add(data.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+
         mAdapter = new PredictAdapter(dataList, 2);
         recyclerView.setAdapter(mAdapter);
         mAdapter.seListener(new PredictAdapter.Listener() {
@@ -104,7 +97,7 @@ public class MyPredictsFragment extends Fragment {
         });
 
         emptyLayout = view.findViewById(R.id.empty_layout);
-        if(data.length() > 0)
+        if(dataList.size() > 0)
             emptyLayout.setVisibility(View.GONE);
 
         return view;
@@ -114,7 +107,7 @@ public class MyPredictsFragment extends Fragment {
         loadToast.show();
         JSONObject object = new JSONObject();
         try {
-            object.put("id", data.getJSONObject(idx).getString("id"));
+            object.put("id", dataList.get(idx).getString("id"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -132,7 +125,8 @@ public class MyPredictsFragment extends Fragment {
                         loadToast.success();
                         if(response.optBoolean("success")) {
                             Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
-                            data.remove(idx);
+                            dataList.remove(idx);
+                            mAdapter.notifyDataSetChanged();
                         }
                         else
                             Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();

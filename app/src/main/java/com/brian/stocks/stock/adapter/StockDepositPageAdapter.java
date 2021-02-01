@@ -9,8 +9,9 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class StockDepositPageAdapter extends FragmentPagerAdapter {
+public class StockDepositPageAdapter extends FragmentStatePagerAdapter {
     private String[] items={"Coin", "Bank"};
     private List<Fragment> fragments = new ArrayList<>();
     public StockDepositPageAdapter(FragmentManager fm) {

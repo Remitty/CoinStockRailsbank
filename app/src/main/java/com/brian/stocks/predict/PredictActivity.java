@@ -29,6 +29,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class PredictActivity extends AppCompatActivity {
     private String usdcBalance="0";
     TabLayout tab;
@@ -36,7 +38,7 @@ public class PredictActivity extends AppCompatActivity {
     TextView predictNow;
     PredictPageAdapter mAdapter;
     LoadToast loadToast;
-    private JSONArray all = new JSONArray(), incoming = new JSONArray(), my_post = new JSONArray();
+    private ArrayList all = new ArrayList(), incoming = new ArrayList(), my_post = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +58,10 @@ public class PredictActivity extends AppCompatActivity {
         pager = findViewById(R.id.view_pager);
         predictNow = findViewById(R.id.btn_post_predict);
 
-        mAdapter = new PredictPageAdapter(getSupportFragmentManager());
-        mAdapter.add(new NewPredictsFragment(all));
-        mAdapter.add(new IncomingPredictsFragment(incoming));
-        mAdapter.add(new MyPredictsFragment(my_post));
+        mAdapter = new PredictPageAdapter(getSupportFragmentManager(), all, incoming, my_post);
+//        mAdapter.add(new NewPredictsFragment(all));
+//        mAdapter.add(new IncomingPredictsFragment(incoming));
+//        mAdapter.add(new MyPredictsFragment(my_post));
         pager.setAdapter(mAdapter);
         tab.setupWithViewPager(pager);
 
@@ -89,9 +91,34 @@ public class PredictActivity extends AppCompatActivity {
                         loadToast.success();
                             try {
 
-                                all = response.getJSONArray("new_predict");
-                                incoming = response.getJSONArray("incoming");
-                                my_post = response.getJSONArray("my_post");
+                                JSONArray all_temp = response.getJSONArray("new_predict");
+                                JSONArray incoming_temp = response.getJSONArray("incoming");
+                                JSONArray my_post_temp = response.getJSONArray("my_post");
+
+                                for (int i = 0; i < all_temp.length(); i ++) {
+                                    try {
+                                        all.add(all_temp.getJSONObject(i));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                for (int i = 0; i < incoming_temp.length(); i ++) {
+                                    try {
+                                        incoming.add(incoming_temp.getJSONObject(i));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                for (int i = 0; i < my_post_temp.length(); i ++) {
+                                    try {
+                                        my_post.add(my_post_temp.getJSONObject(i));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
                                 mAdapter.notifyDataSetChanged();
 
                             } catch (JSONException e) {

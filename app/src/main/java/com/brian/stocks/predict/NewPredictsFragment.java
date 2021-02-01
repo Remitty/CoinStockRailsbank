@@ -2,7 +2,6 @@ package com.brian.stocks.predict;
 
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -42,12 +41,12 @@ public class NewPredictsFragment extends Fragment {
     private String answer, bet_currency;
     private LoadToast loadToast;
 
-    public NewPredictsFragment(JSONArray all) {
+    public NewPredictsFragment(ArrayList all) {
         // Required empty public constructor
-        this.data = all;
+        this.dataList = all;
     }
 
-    public static NewPredictsFragment newInstance(JSONArray all) {
+    public static NewPredictsFragment newInstance(ArrayList all) {
         NewPredictsFragment fragment = new NewPredictsFragment(all);
         return fragment;
     }
@@ -67,13 +66,7 @@ public class NewPredictsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        for (int i = 0; i < data.length(); i ++) {
-            try {
-                dataList.add(data.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+
         mAdapter = new PredictAdapter(dataList, 0);
         recyclerView.setAdapter(mAdapter);
         mAdapter.seListener(new PredictAdapter.Listener() {
@@ -110,7 +103,7 @@ public class NewPredictsFragment extends Fragment {
             }
         });
         emptyLayout = view.findViewById(R.id.empty_layout);
-        if(data.length() > 0)
+        if(dataList.size() > 0)
             emptyLayout.setVisibility(View.GONE);
 
         return view;
@@ -133,7 +126,7 @@ public class NewPredictsFragment extends Fragment {
         loadToast.show();
         JSONObject object = new JSONObject();
         try {
-            object.put("id", data.getJSONObject(idx).getString("id"));
+            object.put("id", dataList.get(idx).getString("id"));
             object.put("answer", answer);
         } catch (JSONException e) {
             e.printStackTrace();
