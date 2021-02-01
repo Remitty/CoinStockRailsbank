@@ -62,6 +62,7 @@ public class StockChartFragment extends Fragment {
                 .xAxis(false)
                 .yAxis(false)
                 .background(false);
+        cartesian.yGrid(3, true);
         List<DataEntry> seriesData = new ArrayList<>();
         if(aggregate != null) {
             for (int i = 0; i < aggregate.length(); i++) {

@@ -15,41 +15,42 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="445dp"
                 android:orientation="vertical"
-                android:padding="20dp"
-                >
+                android:padding="10dp">
+
                 <TextView
                     android:id="@+id/stock_symbol"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
                     android:textColor="@color/colorBlack"
-                    />
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/stock_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:textSize="12dp"
                     android:textColor="@color/colorBlack"
-                    />
+                    android:textSize="12dp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="20dp"
-                    >
+                    android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
+                        android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -58,7 +59,8 @@
                             android:gravity="bottom"
                             android:text="$ "
                             android:textColor="@color/colorBlack"
-                            android:textSize="30dp"/>
+                            android:textSize="14dp" />
+
                         <TextView
                             android:id="@+id/stock_price_integer"
                             android:layout_width="wrap_content"
@@ -66,7 +68,8 @@
                             android:layout_marginTop="10dp"
                             android:text="0"
                             android:textColor="@color/colorBlack"
-                            android:textSize="50dp"/>
+                            android:textSize="22dp" />
+
                         <TextView
                             android:id="@+id/stock_price_float"
                             android:layout_width="wrap_content"
@@ -75,56 +78,61 @@
                             android:gravity="bottom"
                             android:text=".000 "
                             android:textColor="@color/colorBlack"
-                            android:textSize="30dp"/>
+                            android:textSize="14dp" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/stock_today_change"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="13dp"
+                            android:text="+$ 0.00"
                             android:textColor="@color/colorRedCrayon"
-                            android:text="+$ 0.00"/>
+                            android:textSize="12dp" />
+
                         <TextView
                             android:id="@+id/stock_today_change_perc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="13dp"
+                            android:text="(+% 0.00)"
                             android:textColor="@color/colorRedCrayon"
-                            android:text="(+% 0.00)"/>
+                            android:textSize="12dp" />
+
                         <TextView
                             android:id="@+id/trade_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textSize="13dp"
-                            android:textColor="@color/colorBlue"
                             android:text="Today"
-                            />
+                            android:textColor="@color/colorBlue"
+                            android:textSize="12dp" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/stock_chart_view_pager"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"/>
+                        android:layout_height="200dp" />
+
                     <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/stock_chart_tab_bar"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:id="@+id/stock_chart_tab_bar"
-                        app:tabTextColor="@color/green"
-                        app:tabSelectedTextColor="@color/colorRedCrayon"
-                        app:tabRippleColor="@color/green"
                         app:tabIndicatorColor="@color/transparent"
-                        />
+                        app:tabRippleColor="@color/green"
+                        app:tabSelectedTextColor="@color/colorRedCrayon"
+                        app:tabTextColor="@color/green" />
 
                 </LinearLayout>
 
@@ -134,24 +142,26 @@
                     android:layout_marginHorizontal="40dp"
                     android:layout_marginTop="20dp"
                     android:orientation="horizontal">
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_stock_buy"
-                        android:layout_weight="1"
-                        android:layout_marginHorizontal="10dp"
-                        android:backgroundTint="@color/green"
-                        app:cornerRadius="5dp"
-                        android:text="buy"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/green"
+                        android:text="buy"
+                        app:cornerRadius="5dp" />
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_stock_sell"
-                        android:layout_weight="1"
-                        android:layout_marginHorizontal="10dp"
-                        android:backgroundTint="@color/colorRedCrayon"
-                        app:cornerRadius="5dp"
-                        android:text="sell"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/colorRedCrayon"
+                        android:text="sell"
+                        app:cornerRadius="5dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -160,7 +170,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
+                android:layout_marginHorizontal="10dp"
                 android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/darkBlue"
+                    android:layout_marginBottom="10dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

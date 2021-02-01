@@ -137,18 +137,21 @@ public class BottomNavigationBar implements View.OnClickListener {
         mViewBar2.setVisibility(View.INVISIBLE);
         mViewBar3.setVisibility(View.INVISIBLE);
         mViewBar4.setVisibility(View.INVISIBLE);
+        mViewBar5.setVisibility(View.INVISIBLE);
 
         // resetting colors of all icons
         mImageViewBar1.setColorFilter(ContextCompat.getColor(mContext, R.color.colorNavAccentUnselected));
         mImageViewBar2.setColorFilter(ContextCompat.getColor(mContext, R.color.colorNavAccentUnselected));
         mImageViewBar3.setColorFilter(ContextCompat.getColor(mContext, R.color.colorNavAccentUnselected));
         mImageViewBar4.setColorFilter(ContextCompat.getColor(mContext, R.color.colorNavAccentUnselected));
+        mImageViewBar5.setColorFilter(ContextCompat.getColor(mContext, R.color.colorNavAccentUnselected));
 
         // resetting colors of all titles
         mTextViewBar1.setTextColor(ContextCompat.getColor(mContext, R.color.colorNavAccentUnselected));
         mTextViewBar2.setTextColor(ContextCompat.getColor(mContext, R.color.colorNavAccentUnselected));
         mTextViewBar3.setTextColor(ContextCompat.getColor(mContext, R.color.colorNavAccentUnselected));
         mTextViewBar4.setTextColor(ContextCompat.getColor(mContext, R.color.colorNavAccentUnselected));
+        mTextViewBar5.setTextColor(ContextCompat.getColor(mContext, R.color.colorNavAccentUnselected));
 
         // selectively colorizing the marked view
         if (view.getId() == R.id.linearLayoutBar1) {
@@ -170,6 +173,11 @@ public class BottomNavigationBar implements View.OnClickListener {
             mViewBar4.setVisibility(View.VISIBLE);
             mImageViewBar4.setColorFilter(ContextCompat.getColor(mContext, R.color.colorNavAccentSelected));
             mTextViewBar4.setTextColor(ContextCompat.getColor(mContext, R.color.colorNavAccentSelected));
+            return;
+        } else if (view.getId() == R.id.linearLayoutBar5) {
+            mViewBar5.setVisibility(View.VISIBLE);
+            mImageViewBar5.setColorFilter(ContextCompat.getColor(mContext, R.color.colorNavAccentSelected));
+            mTextViewBar5.setTextColor(ContextCompat.getColor(mContext, R.color.colorNavAccentSelected));
             return;
         } else {
             return;

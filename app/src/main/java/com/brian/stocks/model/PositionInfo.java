@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class PositionInfo {
     private JSONObject data;
@@ -56,7 +57,8 @@ public class PositionInfo {
     public String getEquity(){
         BigDecimal amount3 = new BigDecimal(getCurrentPrice());
         BigDecimal amount4 = new BigDecimal(getQty());
-        return DoubleFormat(""+amount3.multiply(amount4));
+//        return DoubleFormat(""+amount3.multiply(amount4));
+        return new DecimalFormat("#,###.####").format(amount3.multiply(amount4).doubleValue());
     }
 
     public String getLastDayPrice(){

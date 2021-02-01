@@ -38,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,8 +155,8 @@ public class InvestedStockFragment extends Fragment {
                             stocksList.clear();
                             try {
                                 Log.d("invested stocks response", response.toString());
-                                mTotalBalance.setText("$ " + response.getString("total_balance"));
-                                mStockBalance.setText("$ " + response.getString("stock_balance"));
+                                mTotalBalance.setText("$ " + new DecimalFormat("#,###.####").format(response.getDouble("total_balance")));
+                                mStockBalance.setText("$ " + new DecimalFormat("#,###.####").format(response.getDouble("stock_balance")));
                                 mTextStockProfit.setText("$ " + response.getString("stock_profit"));
                                 mTextStockMargin.setText("$ " + response.getString("margin_balance"));
                                 marketStatus.setText(response.getString("market_status"));

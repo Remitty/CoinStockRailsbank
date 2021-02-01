@@ -52,7 +52,6 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_predict);
         if(getSupportActionBar() != null){
-            getSupportActionBar().setTitle("Post Prediction");
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

@@ -57,6 +57,7 @@ import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -339,9 +340,9 @@ public class CoinsFragment extends Fragment {
                         coinList.clear();
 
                         try {
-                            mTotalBalance.setText("$ " + response.getString("total_balance"));
+                            mTotalBalance.setText("$ " +new DecimalFormat("#,###.####").format(response.getDouble("total_balance")));
                             mTotalEffect.setText(response.getString("total_effect")+" %");
-                            mUSDBalance.setText(response.getString("usd_balance"));
+                            mUSDBalance.setText(new DecimalFormat("#,###.####").format(response.getDouble("usd_balance")));
                             mOnramperApikey = response.getString("onramper_api_key");
                             if(response.getString("total_effect").startsWith("-"))
                                 mTotalEffect.setTextColor(RED);

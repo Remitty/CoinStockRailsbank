@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class CoinInfo {
     private JSONObject data;
@@ -63,7 +64,7 @@ public class CoinInfo {
     public String getCoinBalance() {
 
         try {
-            return String.format("%.5f", Double.parseDouble(data.getString("balance")));
+            return new DecimalFormat("#,###.####").format(data.getDouble("balance"));
         } catch (JSONException e) {
             return "0.0";
         }
@@ -87,13 +88,12 @@ public class CoinInfo {
     }
 
     public String getCoinUsdc() {
-        BigDecimal balance = null;
+        String balance = "0.0";
         try {
-            balance = new BigDecimal(data.getString("est_usdc")).setScale(4, BigDecimal.ROUND_HALF_UP);
+            balance = new DecimalFormat("#,###.####").format(data.getDouble("est_usdc"));
         } catch (JSONException e) {
-            return "0.0";
         }
-        return balance.toString();
+        return balance;
     }
 
     public String getWithdrawalFee() {

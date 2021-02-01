@@ -2,6 +2,8 @@ package com.brian.stocks.model;
 
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+
 public class BankInfo {
     JSONObject data;
 
@@ -13,7 +15,7 @@ public class BankInfo {
     public String getBankId(){return data.optString("bank_id");}
     public String getBankAlias(){return data.optString("alias");}
     public String getBankType(){return data.optString("type");}
-    public String getBalance(){return data.optString("balance");}
+    public String getBalance(){return new DecimalFormat("#,###.####").format(data.optDouble("balance"));}
     public String getUSAccountNo(){return data.optString("us_account_number");}
     public String getUSRoutingNo(){return data.optString("us_routing_number");}
     public String getUKAccount(){return data.optString("uk_account_number");}
