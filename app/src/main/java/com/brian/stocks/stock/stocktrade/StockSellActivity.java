@@ -61,7 +61,7 @@ public class StockSellActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(mStockSymbol);
+        // getSupportActionBar().setTitle(mStockSymbol);
 
         initComponents();
 

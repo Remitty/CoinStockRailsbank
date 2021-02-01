@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
-        app:cornerRadius="15dp"
+        android:backgroundTint="@color/green"
+        app:cornerRadius="20dp"
         android:text="OK"/>
 </LinearLayout>

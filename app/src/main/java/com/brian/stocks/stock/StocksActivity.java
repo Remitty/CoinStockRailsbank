@@ -15,7 +15,7 @@ public class StocksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stocks);
 
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Stocks");
+            // getSupportActionBar().setTitle("Stocks");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }

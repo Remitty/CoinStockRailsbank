@@ -66,10 +66,6 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         loadToast = new LoadToast(this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Coin Withdraw");
-        setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

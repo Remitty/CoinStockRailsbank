@@ -85,13 +85,13 @@ public class CountryCodeActivity extends AppCompatActivity {
         if(getIntent().hasExtra("TITLE")&&getIntent().getStringExtra("TITLE")!=null&& !getIntent().getStringExtra("TITLE").equalsIgnoreCase(""))
         {
             title = getIntent().getStringExtra("TITLE");
-            getSupportActionBar().setTitle(title);
+            // getSupportActionBar().setTitle(title);
 
         }
         else
 
         {
-            getSupportActionBar().setTitle("Select Country");
+            // getSupportActionBar().setTitle("Select Country");
 
         }
     }

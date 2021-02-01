@@ -46,7 +46,7 @@ public class SendCashActivity extends AppCompatActivity {
 
         if(getSupportActionBar() != null)
         {
-            getSupportActionBar().setTitle("Send money");
+            // getSupportActionBar().setTitle("Send money");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }

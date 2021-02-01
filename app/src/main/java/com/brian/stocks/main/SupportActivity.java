@@ -35,7 +35,7 @@ public class SupportActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_support);
 
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Support");
+            // getSupportActionBar().setTitle("Support");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 

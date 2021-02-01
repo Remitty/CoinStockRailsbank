@@ -51,7 +51,7 @@ public class PaymentUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment_user);
 
         if(getSupportActionBar() != null){
-            getSupportActionBar().setTitle("Payment User");
+            // getSupportActionBar().setTitle("Payment User");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }

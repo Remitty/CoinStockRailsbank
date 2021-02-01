@@ -48,7 +48,7 @@ public class SendTargetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Find target");
+            // getSupportActionBar().setTitle("Find target");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }

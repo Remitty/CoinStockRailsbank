@@ -58,7 +58,7 @@
         <activity android:name=".stock.StockDepositActivity" />
         <activity
             android:name=".coins.CoinWithdrawActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            />
         <activity
             android:name=".stock.StockNewsActivity"
             android:theme="@style/AppTheme.NoActionBar" />

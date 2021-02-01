@@ -146,12 +146,12 @@ public class PhoneNumberActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         if (getIntent().hasExtra("TITLE") && getIntent().getStringExtra("TITLE") != null && !getIntent().getStringExtra("TITLE").equalsIgnoreCase("")) {
             title = getIntent().getStringExtra("TITLE");
-            getSupportActionBar().setTitle(title);
+            // getSupportActionBar().setTitle(title);
 
         } else
 
         {
-            getSupportActionBar().setTitle("Enter your Phone Number");
+            // getSupportActionBar().setTitle("Enter your Phone Number");
 
         }
     }

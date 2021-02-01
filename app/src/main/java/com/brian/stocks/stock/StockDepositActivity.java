@@ -46,7 +46,7 @@ public class StockDepositActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Deposit Stock");
+        // getSupportActionBar().setTitle("Deposit Stock");
 
 //        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 ////        fragmentTransaction.replace(me.riddhimanadib.library.R.id.frameLayout, Coin2StockFragment.newInstance());

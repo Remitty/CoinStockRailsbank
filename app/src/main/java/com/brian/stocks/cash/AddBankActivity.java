@@ -44,7 +44,7 @@ public class AddBankActivity extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_add_friend_bank);
 
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Add Bank");
+            // getSupportActionBar().setTitle("Add Bank");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }

@@ -68,7 +68,7 @@ public class SendUsdcActivity extends AppCompatActivity {
         setContentView(R.layout.activity_send_usdc);
 
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Pay USDC");
+            // getSupportActionBar().setTitle("Pay USDC");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }

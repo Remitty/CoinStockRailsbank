@@ -41,7 +41,7 @@ public class CoinStakeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_coin_stake);
 
         if(getSupportActionBar() != null){
-            getSupportActionBar().setTitle("Stake XMT");
+            // getSupportActionBar().setTitle("Stake XMT");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }

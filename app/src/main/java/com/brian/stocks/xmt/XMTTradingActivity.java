@@ -16,7 +16,7 @@ public class XMTTradingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_x_m_t_trading);
 
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("XMT Trading");
+            // getSupportActionBar().setTitle("XMT Trading");
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

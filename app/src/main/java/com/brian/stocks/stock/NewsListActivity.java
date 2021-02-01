@@ -47,7 +47,7 @@ public class NewsListActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(mSearch);
+        // getSupportActionBar().setTitle(mSearch);
 
         mNewsListView = findViewById(R.id.news_list);
 

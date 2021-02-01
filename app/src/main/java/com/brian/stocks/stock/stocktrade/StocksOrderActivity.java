@@ -58,7 +58,7 @@ public class StocksOrderActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Stocks Order");
+        // getSupportActionBar().setTitle("Stocks Order");
 
         initComponents();
 

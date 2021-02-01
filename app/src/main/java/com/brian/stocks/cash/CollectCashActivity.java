@@ -53,7 +53,7 @@ public class CollectCashActivity extends AppCompatActivity {
 
         if(getSupportActionBar() != null)
         {
-            getSupportActionBar().setTitle("Add money");
+            // getSupportActionBar().setTitle("Add money");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
