@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -33,15 +35,12 @@ public class CoinDepositHistoryActivity extends AppCompatActivity {
     private DepositAdapter mAdapter;
     private List<DepositInfo> depositList = new ArrayList<>();
     private LoadToast loadToast;
+    private TextView noHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_deposit_history);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Coin Activity");
-        setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -59,6 +58,7 @@ public class CoinDepositHistoryActivity extends AppCompatActivity {
         mAdapter = new DepositAdapter(depositList, getBaseContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         recyclerView.setAdapter(mAdapter);
+        noHistory = findViewById(R.id.no_activity);
     }
 
     private void getDepositHistory() {
@@ -88,6 +88,9 @@ public class CoinDepositHistoryActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
+
+                            if(depositList.size() != 0)
+                                noHistory.setVisibility(View.GONE);
 
                             mAdapter.notifyDataSetChanged();
                         }

@@ -1,6 +1,6 @@
 package com.brian.stocks.stock;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -38,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,9 +112,9 @@ public class Coin2StockFragment extends Fragment {
 //                .error(R.drawable.coin_bitcoin)
 //                .into(mCoinIcon);
 
-        mCoinBalance.setText(coinBalance);
+        mCoinBalance.setText(new DecimalFormat("#,###.##").format(Double.parseDouble(coinBalance)));
         mCoinUsdc.setText("($ " + coinUSD+")");
-        mStockBalance.setText("$ "+stockBalance);
+        mStockBalance.setText("$ "+new DecimalFormat("#,###.##").format(Double.parseDouble(stockBalance)));
 
         mTransferAdapter = new StockTransferAdapter(stocksList, true);
         mTransferListView.setLayoutManager(new LinearLayoutManager(getContext()));

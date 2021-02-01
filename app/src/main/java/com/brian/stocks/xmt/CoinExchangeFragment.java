@@ -1,6 +1,6 @@
 package com.brian.stocks.xmt;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -795,6 +795,8 @@ public class CoinExchangeFragment extends Fragment {
     public void onPause() {
 
         super.onPause();
-        mHandler.removeCallbacksAndMessages(null);
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+        }
     }
 }

@@ -14,12 +14,11 @@
         android:id="@+id/tab_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabBackground="@color/colorPrimary"
-        app:tabIndicatorColor="@color/colorAccent"
-        app:tabIndicatorHeight="3dp"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="#b0ffffff" />
+        app:tabTextColor="@color/textColorPrimary"
+        app:tabIndicatorColor="@color/textColorPrimary"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicator="@drawable/rounded_corner_white_rectangle"
+        app:tabIndicatorHeight="5dp" />
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/ta_view_pager"
         android:layout_width="match_parent"

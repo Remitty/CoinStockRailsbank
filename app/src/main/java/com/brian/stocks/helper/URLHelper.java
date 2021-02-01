@@ -14,7 +14,7 @@ public class URLHelper {
     public static final String CHANGE_PASSWORD = api_url + "change/password";
     public static final String FORGOT_PASSWORD = api_url + "forgot/password";
     public static final String LOGOUT = api_url + "logout";
-    public static final String HELP = api_url + "help";
+    public static final String HELP = REDIRECT_URL + "help";
 
     public static final String UserProfile = REDIRECT_URL+"profile";
     public static final String UseProfileUpdate = REDIRECT_URL+"profile/update";

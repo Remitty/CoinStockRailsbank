@@ -92,7 +92,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="+$ 0.00"
-                            android:textColor="@color/colorRedCrayon"
+                            android:textColor="@color/green"
                             android:textSize="12dp" />
 
                         <TextView
@@ -100,7 +100,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="(+% 0.00)"
-                            android:textColor="@color/colorRedCrayon"
+                            android:textColor="@color/green"
                             android:textSize="12dp" />
 
                         <TextView

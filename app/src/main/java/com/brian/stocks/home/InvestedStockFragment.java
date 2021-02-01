@@ -1,6 +1,6 @@
 package com.brian.stocks.home;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,6 +41,9 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.graphics.Color.GREEN;
+import static android.graphics.Color.RED;
 
 public class InvestedStockFragment extends Fragment {
     private LoadToast loadToast;
@@ -162,8 +165,8 @@ public class InvestedStockFragment extends Fragment {
                                 marketStatus.setText(response.getString("market_status"));
     
                                 if(Double.parseDouble(response.getString("stock_profit"))>0)
-                                    mTextStockProfit.setTextColor(getResources().getColor(R.color.green));
-                                else mTextStockProfit.setTextColor(getResources().getColor(R.color.colorRedCrayon));
+                                    mTextStockProfit.setTextColor(GREEN);
+                                else mTextStockProfit.setTextColor(RED);
     
                                 if(response.getInt("stock_auto_sell") == 1){
                                     showStockAutoSellAlarm();

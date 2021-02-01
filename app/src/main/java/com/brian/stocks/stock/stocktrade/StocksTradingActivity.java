@@ -30,6 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static android.graphics.Color.RED;
+
 public class StocksTradingActivity extends AppCompatActivity {
     private LoadToast loadToast;
     private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc;
@@ -77,6 +79,10 @@ public class StocksTradingActivity extends AppCompatActivity {
         mStockQuantity.setText("$ "+ mIntent.getStringExtra("stock_equity"));
 
         mStockTodayChange.setText("$ "+mIntent.getStringExtra("stock_today_change"));
+        if(mIntent.getStringExtra("stock_today_change").startsWith("-")) {
+            mStockTodayChange.setTextColor(RED);
+            mStockTodayChangePerc.setTextColor(RED);
+        }
         mStockTodayChangePerc.setText("( % "+mIntent.getStringExtra("stock_today_change_perc")+" )");
 
         mBtnBuy.setOnClickListener(new View.OnClickListener() {

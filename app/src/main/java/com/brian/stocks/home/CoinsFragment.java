@@ -1,6 +1,6 @@
 package com.brian.stocks.home;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -24,28 +23,14 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
-import com.brian.stocks.SendData;
-import com.brian.stocks.home.DepositERC20Dialog;
 import com.brian.stocks.home.adapters.CoinAdapter;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
-import com.brian.stocks.main.MainActivity;
 import com.brian.stocks.model.CoinInfo;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.github.nkzawa.socketio.client.IO.Options;
-import com.xuhao.didi.core.iocore.interfaces.IPulseSendable;
-import com.xuhao.didi.core.iocore.interfaces.ISendable;
-import com.xuhao.didi.core.pojo.OriginalData;
-import com.xuhao.didi.core.protocol.IReaderProtocol;
-import com.xuhao.didi.socket.client.impl.client.action.ActionDispatcher;
-import com.xuhao.didi.socket.client.sdk.OkSocket;
-import com.xuhao.didi.socket.client.sdk.client.ConnectionInfo;
-import com.xuhao.didi.socket.client.sdk.client.OkSocketOptions;
-import com.xuhao.didi.socket.client.sdk.client.action.SocketActionAdapter;
-import com.xuhao.didi.socket.client.sdk.client.connection.IConnectionManager;
-import com.xuhao.didi.socket.client.sdk.client.connection.NoneReconnect;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -54,15 +39,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import network.ramp.instantsdk.events.model.RampInstantEvent;
 import network.ramp.instantsdk.facade.RampInstantSDK;
 
 import static android.graphics.Color.GREEN;
@@ -225,11 +205,12 @@ public class CoinsFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
-                        });
+                        })
+        .show();
 
         // create an alert dialog
-        AlertDialog alert = alertDialogBuilder.create();
-        alert.show();
+//        AlertDialog alert = alertDialogBuilder.create();
+//        alert.show();
     }
 
     private void showWalletAddressDialog(JSONObject data) {

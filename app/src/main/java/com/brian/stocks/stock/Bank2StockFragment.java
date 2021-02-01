@@ -1,6 +1,6 @@
 package com.brian.stocks.stock;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -38,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Bank2StockFragment extends Fragment {
@@ -80,8 +81,8 @@ public class Bank2StockFragment extends Fragment {
         initComponents();
         initListeners();
 
-        mStockBalance.setText("$ " + stockBalance);
-        mBankBalance.setText(bankBalance);
+        mStockBalance.setText("$ " + new DecimalFormat("#,###.##").format(Double.parseDouble(stockBalance)));
+        mBankBalance.setText(new DecimalFormat("#,###.##").format(Double.parseDouble(bankBalance)));
 
         return mView;
     }

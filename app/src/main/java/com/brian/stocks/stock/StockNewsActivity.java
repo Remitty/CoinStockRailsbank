@@ -15,10 +15,6 @@ public class StockNewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_news);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Stock News");
-        setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

@@ -1,6 +1,6 @@
 package com.brian.stocks.home;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -147,14 +147,21 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     }
 
     private void confirmLogout() {
-        android.app.AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-        builder.setTitle(getString(R.string.app_name))
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.mipmap.ic_launcher_round)
+                .setTitle(getString(R.string.app_name))
                 .setMessage("Are you sure you want to logout?")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         sharedPrefs.clearLogin();
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
                     }
                 })
                 .show();

@@ -61,10 +61,10 @@
             />
         <activity
             android:name=".stock.StockNewsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".coins.CoinDepositHistoryActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name="network.ramp.instantsdk.ui.bank.BankActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"

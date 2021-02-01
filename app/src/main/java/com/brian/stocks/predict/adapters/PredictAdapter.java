@@ -1,6 +1,6 @@
 package com.brian.stocks.predict.adapters;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;

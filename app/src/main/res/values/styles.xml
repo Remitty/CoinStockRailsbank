@@ -11,7 +11,7 @@
         <item name="android:statusBarColor">@color/colorPrimary</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-        <item name="actionBarTheme">@style/MyTheme</item>
+        <item name="actionBarTheme">@style/ActionBarCustom</item>
         <item name="alertDialogTheme">@style/AlertDialogCustom</item>
     </style>
 
@@ -29,7 +29,7 @@
         <item name="android:textColor">@color/colorRedCrayon</item>
     </style>
 
-    <style name="MyTheme" parent="@android:style/Theme.Holo.Light">
+    <style name="ActionBarCustom" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/AppTheme.ActionBarStyle</item>
     </style>
 
