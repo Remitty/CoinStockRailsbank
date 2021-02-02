@@ -113,24 +113,42 @@
                     android:layout_height="wrap_content"
                     android:text="Enter deposit amount"
                     android:textColor="@color/colorBlack"/>
-                <EditText
-                    android:id="@+id/edit_transfer_amount"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_corner_white_rectangle"
                     android:layout_marginTop="10dp"
-                    android:padding="15dp"
-                    android:inputType="numberDecimal"
-                    android:textSize="16dp"
-                    android:textColor="@color/colorRedCrayon"
-                    android:hint="$0.00"/>
+                    android:padding="10dp"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/edit_transfer_amount"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:background="@null"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorRedCrayon"
+                        android:hint="0.00"/>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="10dp"
+                        android:background="@color/green"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorBlack"/>
+                </LinearLayout>
             </LinearLayout>
 
             <CheckBox
                 android:id="@+id/chk_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:paddingLeft="10dp"
                 android:textStyle="bold"
                 android:textSize="16dp"

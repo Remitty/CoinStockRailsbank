@@ -82,7 +82,10 @@ public class Bank2StockFragment extends Fragment {
         initListeners();
 
         mStockBalance.setText("$ " + new DecimalFormat("#,###.##").format(Double.parseDouble(stockBalance)));
-        mBankBalance.setText(new DecimalFormat("#,###.##").format(Double.parseDouble(bankBalance)));
+        if(bankBalance.equals("No wallet"))
+            mBankBalance.setText(bankBalance);
+        else
+            mBankBalance.setText(new DecimalFormat("#,###.##").format(Double.parseDouble(bankBalance)));
 
         return mView;
     }

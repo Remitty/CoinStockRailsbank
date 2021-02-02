@@ -66,15 +66,7 @@ public class Coin2StockFragment extends Fragment {
 
     public Coin2StockFragment() {
     }
-    public static Coin2StockFragment newInstance(String symbol, String balance, String usdc, String rate, String icon) {
-        Coin2StockFragment fragment = new Coin2StockFragment();
-        CoinSymbol = symbol;
-        CoinBalance = balance;
-        CoinUsdc = usdc;
-        CoinRate = rate;
-        CoinIcon = icon;
-        return fragment;
-    }
+
 
     public static Coin2StockFragment newInstance(String stockBalance, String coinBalance, String coinUSD, List<TransferInfo> coinStocksList){
         Coin2StockFragment fragment = new Coin2StockFragment();
@@ -140,10 +132,10 @@ public class Coin2StockFragment extends Fragment {
                     mEditAmount.setError("!");
                     return;
                 }
-                if(Double.parseDouble(mEditAmount.getText().toString()) > Double.parseDouble(coinBalance)) {
-                    Toast.makeText(getContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if(Double.parseDouble(mEditAmount.getText().toString()) > Double.parseDouble(coinBalance)) {
+//                    Toast.makeText(getContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 
                 if(mChkMargin.isChecked())
                     showMarginConfirmAlertDialog();

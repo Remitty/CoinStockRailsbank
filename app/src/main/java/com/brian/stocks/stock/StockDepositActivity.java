@@ -57,10 +57,8 @@ public class StockDepositActivity extends AppCompatActivity {
         tab = findViewById(R.id.tab);
         mViewPager = findViewById(R.id.pager);
 
-        mPageAdapter=new StockDepositPageAdapter(this.getSupportFragmentManager());
-        mPageAdapter.add(Coin2StockFragment.newInstance(mStockBalance, mCoinBalance, coinUSD, coinStocksList));
-        mPageAdapter.add(Bank2StockFragment.newInstance(mStockBalance, mUSDBalance));
-        mViewPager.setAdapter(mPageAdapter);
+        mPageAdapter=new StockDepositPageAdapter(this.getSupportFragmentManager(), mStockBalance, mCoinBalance, coinUSD, mUSDBalance,  coinStocksList);
+
         tab.setupWithViewPager(mViewPager);
 
         getBalances();
@@ -97,6 +95,10 @@ public class StockDepositActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
+
+                            mPageAdapter.add(Coin2StockFragment.newInstance(mStockBalance, mCoinBalance, coinUSD, coinStocksList));
+                            mPageAdapter.add(Bank2StockFragment.newInstance(mStockBalance, mUSDBalance));
+                            mViewPager.setAdapter(mPageAdapter);
                             mPageAdapter.notifyDataSetChanged();
 
                         }
