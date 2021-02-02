@@ -66,16 +66,16 @@ public class CoinInfo {
         try {
             return new DecimalFormat("#,###.####").format(data.getDouble("balance"));
         } catch (JSONException e) {
-            return "0.0";
+            return "0.00";
         }
     }
 
-    public String getCoinRate() {
+    public Double getCoinRate() {
         try {
-            return data.getString("coin_rate");
+            return data.getDouble("coin_rate");
         } catch (JSONException e) {
             e.printStackTrace();
-            return "0.00";
+            return 0.0;
         }
     }
 
@@ -90,7 +90,7 @@ public class CoinInfo {
     public String getCoinUsdc() {
         String balance = "0.0";
         try {
-            balance = new DecimalFormat("#,###.####").format(data.getDouble("est_usdc"));
+            balance = new DecimalFormat("#,###.##").format(data.getDouble("est_usdc"));
         } catch (JSONException e) {
         }
         return balance;

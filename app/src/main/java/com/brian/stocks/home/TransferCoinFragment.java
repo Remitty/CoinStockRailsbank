@@ -46,7 +46,7 @@ public class TransferCoinFragment extends Fragment {
 
     LinearLayout sendingLayout, addLayout;
 
-    String usdcBalance="0.0";
+    Double usdcBalance= 0.0;
 
     private LoadToast loadToast;
     private TextView mtvUserName;
@@ -84,7 +84,7 @@ public class TransferCoinFragment extends Fragment {
         sendingLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Double.parseDouble(usdcBalance) > 0)
+                if(usdcBalance > 0)
                     startActivity(new Intent(getActivity(), SendUsdcActivity.class));
                 else Toast.makeText(getContext(), "No balance", Toast.LENGTH_SHORT).show();
             }
@@ -118,8 +118,8 @@ public class TransferCoinFragment extends Fragment {
                             loadToast.success();
 
                             try {
-                                usdcBalance = String.format("%.4f", Double.parseDouble(response.getString("usdc_balance")));
-                                tvBalance.setText(new DecimalFormat("###,###.####").format(Double.parseDouble(response.getString("usdc_balance"))));
+                                usdcBalance = Double.parseDouble(response.getString("usdc_balance"));
+                                tvBalance.setText(new DecimalFormat("###,###.##").format(usdcBalance));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

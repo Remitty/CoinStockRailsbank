@@ -54,7 +54,8 @@ public class SendUsdcActivity extends AppCompatActivity {
     ArrayList<ContactUser> usersTemp = new ArrayList();
     ArrayList<JSONObject> payHistory = new ArrayList();
 
-    String selectedUserEmail, usdcBalance="0.0", amount;
+    String selectedUserEmail, amount;
+    Double usdcBalance =0.0;
 
     AutoUserAdapter userAdapter;
     UserContactAdapter userContactAdapter;
@@ -205,8 +206,8 @@ public class SendUsdcActivity extends AppCompatActivity {
             userContactAdapter.notifyDataSetChanged();
             historyAdapter.notifyDataSetChanged();
 
-            usdcBalance = String.format("%.4f", Double.parseDouble(response.getString("usdc_balance")));
-            tvBalance.setText(new DecimalFormat("###,###.####").format(Double.parseDouble(response.getString("usdc_balance"))));
+            usdcBalance = Double.parseDouble(response.getString("usdc_balance"));
+            tvBalance.setText(new DecimalFormat("###,###.##").format(usdcBalance));
         } catch (JSONException e) {
             e.printStackTrace();
         }catch (NullPointerException e) {
@@ -216,7 +217,7 @@ public class SendUsdcActivity extends AppCompatActivity {
 
     private boolean validate() {
         boolean validate = true;
-        if(!TextUtils.isEmpty(editAmount.getText().toString()) && Double.parseDouble(usdcBalance) < Double.parseDouble(editAmount.getText().toString())){
+        if(!TextUtils.isEmpty(editAmount.getText().toString()) && usdcBalance < Double.parseDouble(editAmount.getText().toString())){
             Toast.makeText(getBaseContext(), "Insufficient funds", Toast.LENGTH_SHORT).show();
             validate = false;
         }

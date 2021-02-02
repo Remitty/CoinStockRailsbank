@@ -271,7 +271,7 @@ public class CoinsFragment extends Fragment {
                             coinList.clear();
 
                             try {
-                                mTotalBalance.setText("$ " + response.getString("total_balance"));
+                                mTotalBalance.setText("$ " +new DecimalFormat("#,###.##").format(response.getDouble("total_balance")));
                                 JSONArray coins = response.optJSONArray("coins");
                                 if(coins != null)
                                     for(int i = 0; i < coins.length(); i ++) {
@@ -321,9 +321,9 @@ public class CoinsFragment extends Fragment {
                         coinList.clear();
 
                         try {
-                            mTotalBalance.setText("$ " +new DecimalFormat("#,###.####").format(response.getDouble("total_balance")));
+                            mTotalBalance.setText("$ " +new DecimalFormat("#,###.##").format(response.getDouble("total_balance")));
                             mTotalEffect.setText(response.getString("total_effect")+" %");
-                            mUSDBalance.setText(new DecimalFormat("#,###.####").format(response.getDouble("usd_balance")));
+                            mUSDBalance.setText(new DecimalFormat("#,###.##").format(response.getDouble("usd_balance")));
                             mOnramperApikey = response.getString("onramper_api_key");
                             if(response.getString("total_effect").startsWith("-"))
                                 mTotalEffect.setTextColor(RED);

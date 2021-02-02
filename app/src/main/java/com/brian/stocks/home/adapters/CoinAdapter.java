@@ -68,29 +68,23 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
     @Override
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
         CoinInfo item = arrItems.get(position);
-        DecimalFormat df = new DecimalFormat();
-        df.setMaximumFractionDigits(4);
 
         holder.tvCoinName.setText(item.getCoinName());
-//        if(item.getCoinWallet() != null && item.getCoinWallet().length() > 0) {
-//        holder.tvCoinRate.setVisibility(View.VISIBLE);
-//        holder.tvCoinRate.setText("$ " + item.getCoinRate());
-        holder.tvCoinRate.setText("$ " + df.format(Double.parseDouble(item.getCoinRate())));
-//        holder.tvCoinRate.setText("$ " + String.format("%.4f",item.getCoinRate()));
+        holder.tvCoinRate.setText("$ " + new DecimalFormat("#,###.##").format(item.getCoinRate()));
         holder.tvCoinEffect.setText(item.getCoinEffect() + "%");
 
         if(item.getCoinEffect().startsWith("-")){
             holder.tvCoinEffect.setTextColor(RED);
         }else holder.tvCoinEffect.setTextColor(GREEN);
 
-        if(Double.parseDouble(item.getCoinBalance()) == 0) {
-//            holder.tvCoinBalance.setVisibility(View.GONE);
-            holder.tvCoinBalance.setText("0.00"+ " " + item.getCoinSymbol());
-        }
-        else {
+//        if(Double.parseDouble(item.getCoinBalance()) == 0) {
+////            holder.tvCoinBalance.setVisibility(View.GONE);
+//            holder.tvCoinBalance.setText("0.00"+ " " + item.getCoinSymbol());
+//        }
+//        else {
             holder.tvCoinBalance.setText(item.getCoinBalance() + " " + item.getCoinSymbol());
             holder.tvCoinBalance.setVisibility(View.VISIBLE);
-        }
+//        }
             holder.tvCoinEstAmount.setText("$ " + item.getCoinUsdc());
 //        if(!item.getCoinSymbol().equals("DAI"))
             Picasso.with(mContext)
