@@ -245,6 +245,8 @@
                     android:layout_width="150dp"
                     android:visibility="visible"
                     android:layout_height="match_parent"
+                    app:cornerRadius="10dp"
+                    android:backgroundTint="@color/colorRedCrayon"
                     android:text="I Disagree"/>
                 <TextView
                     android:id="@+id/total_payout"

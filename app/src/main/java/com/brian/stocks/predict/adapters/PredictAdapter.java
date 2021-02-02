@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import cn.iwgang.countdownview.CountdownView;
@@ -47,9 +48,9 @@ public class PredictAdapter extends RecyclerView.Adapter<PredictAdapter.Customer
 
             holder.mtvSymbol.setText("");
             holder.mtvName.setText(item.getJSONObject("item").optString("name"));
-            holder.mtvPrice.setText("$"+item.optString("cu_price"));
+            holder.mtvPrice.setText("$"+ new DecimalFormat("#,###.##").format(item.optDouble("cu_price")));
             holder.mtvBettingPrice.setText(item.optString("bet_price") + " " + item.getJSONObject("coin").optString("coin_symbol"));
-            holder.mtvContent.setText(item.getJSONObject("item").optString("symbol") + " will be "+getEstType(item.optInt("type")) +" $"+item.optString("est_price"));
+            holder.mtvContent.setText(item.getJSONObject("item").optString("symbol") + " will be "+getEstType(item.optInt("type")) +" $"+ new DecimalFormat("#,###.##").format(item.optDouble("est_price")));
             holder.mtvCreatedDate.setText(item.optString("created_at").substring(0, 10));
             holder.timer.start(Long.parseLong(item.getString("day_left"))*1000);
 

@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
+
 public class PredictableStockAdapter extends RecyclerView.Adapter<PredictableStockAdapter.CustomerViewHolder> {
     JSONArray data = new JSONArray();
 
@@ -46,8 +48,8 @@ public class PredictableStockAdapter extends RecyclerView.Adapter<PredictableSto
 
             holder.mtvSymbol.setText(item.getString("symbol"));
             holder.mtvName.setText(item.getString("name"));
-            holder.mtvPrice.setText(item.getString("price"));
-            holder.mtvChange.setText(item.getString("change"));
+            holder.mtvPrice.setText("$" + new DecimalFormat("#,###.##").format(item.getDouble("price")));
+            holder.mtvChange.setText(item.getString("change") + "%");
             String icon = item.getString("icon");
             if(!icon.startsWith("http"))
                 icon = URLHelper.base + icon;
