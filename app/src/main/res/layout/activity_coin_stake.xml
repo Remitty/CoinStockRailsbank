@@ -221,5 +221,9 @@
                android:layout_height="1dp"
                android:layout_marginVertical="10dp"
                android:background="@color/darkBlue"/>
+           <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/stake_history"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
        </LinearLayout>
 </LinearLayout>
