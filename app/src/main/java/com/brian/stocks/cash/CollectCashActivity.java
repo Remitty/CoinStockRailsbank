@@ -56,6 +56,7 @@ public class CollectCashActivity extends AppCompatActivity {
             // getSupportActionBar().setTitle("Add money");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         tvCurrency = findViewById(R.id.selected_currency);

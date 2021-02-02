@@ -51,6 +51,7 @@ public class SendTargetActivity extends AppCompatActivity {
             // getSupportActionBar().setTitle("Find target");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         loadToast = new LoadToast(this);

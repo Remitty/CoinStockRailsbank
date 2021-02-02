@@ -61,6 +61,7 @@ public class MTNActivity extends AppCompatActivity {
             // getSupportActionBar().setTitle("MTN Service");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
         loadToast = new LoadToast(this);
         //loadToast.setBackgroundColor(R.color.colorBlack);

@@ -46,6 +46,7 @@ public class MtnTransactionActivity extends AppCompatActivity {
             // getSupportActionBar().setTitle("MTN Transaction");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         loadToast = new LoadToast(this);

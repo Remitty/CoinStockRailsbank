@@ -49,6 +49,7 @@ public class PredictActivity extends AppCompatActivity {
             // getSupportActionBar().setTitle("Predict");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         loadToast = new LoadToast(this);

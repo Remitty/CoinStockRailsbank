@@ -82,6 +82,7 @@ public class CountryCodeActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         if(getIntent().hasExtra("TITLE")&&getIntent().getStringExtra("TITLE")!=null&& !getIntent().getStringExtra("TITLE").equalsIgnoreCase(""))
         {
             title = getIntent().getStringExtra("TITLE");

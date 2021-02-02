@@ -21,6 +21,7 @@ public class NewsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         // getSupportActionBar().setTitle("News");
 
         mNewsTitle = findViewById(R.id.title);

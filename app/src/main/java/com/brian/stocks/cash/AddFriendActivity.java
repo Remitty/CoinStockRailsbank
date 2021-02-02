@@ -40,6 +40,7 @@ public class AddFriendActivity extends AppCompatActivity {
             // getSupportActionBar().setTitle("Add Friend");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         loadToast = new LoadToast(this);

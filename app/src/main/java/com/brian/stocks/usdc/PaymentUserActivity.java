@@ -54,6 +54,7 @@ public class PaymentUserActivity extends AppCompatActivity {
             // getSupportActionBar().setTitle("Payment User");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         loadToast = new LoadToast(this);

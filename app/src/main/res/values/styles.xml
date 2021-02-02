@@ -18,6 +18,8 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="actionBarTheme">@style/ActionBarCustom</item>
         <item name="alertDialogTheme">@style/AlertDialogCustom</item>
+        <item name="elevation">0dp</item>
+        <item name="android:elevation">0dp</item>
     </style>
 
     <style name="AlertDialogCustom" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
@@ -36,6 +38,7 @@
 
     <style name="ActionBarCustom" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="elevation">0dp</item>
     </style>
 
 

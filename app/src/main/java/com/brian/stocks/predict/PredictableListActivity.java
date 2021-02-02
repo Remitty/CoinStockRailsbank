@@ -42,6 +42,7 @@ public class PredictableListActivity extends AppCompatActivity {
             // getSupportActionBar().setTitle("Select to predict");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         mContext = getBaseContext();

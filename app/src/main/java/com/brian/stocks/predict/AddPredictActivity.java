@@ -53,6 +53,7 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_add_predict);
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         loadToast = new LoadToast(this);

@@ -53,6 +53,7 @@ public class CoinStakeActivity extends AppCompatActivity {
             // getSupportActionBar().setTitle("Stake XMT");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         loadToast = new LoadToast(this);

@@ -47,6 +47,7 @@ public class AddBankActivity extends AppCompatActivity implements AdapterView.On
             // getSupportActionBar().setTitle("Add Bank");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
         loadToast = new LoadToast(this);
         //loadToast.setBackgroundColor(R.color.colorBlack);

@@ -22,6 +22,7 @@ public class ProfileActivity extends AppCompatActivity {
             // getSupportActionBar().setTitle("Profile");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         Fragment fragment = new ProfileFragment();

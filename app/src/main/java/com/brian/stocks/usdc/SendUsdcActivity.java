@@ -72,6 +72,7 @@ public class SendUsdcActivity extends AppCompatActivity {
             // getSupportActionBar().setTitle("Pay USDC");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         loadToast = new LoadToast(this);

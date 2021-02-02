@@ -46,6 +46,7 @@ public class StockDepositActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         // getSupportActionBar().setTitle("Deposit Stock");
 
 //        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

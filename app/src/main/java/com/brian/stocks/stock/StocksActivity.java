@@ -18,6 +18,7 @@ public class StocksActivity extends AppCompatActivity {
             // getSupportActionBar().setTitle("Stocks");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         Fragment fragment = new StocksFragment();

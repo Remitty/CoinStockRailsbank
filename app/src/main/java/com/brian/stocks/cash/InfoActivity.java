@@ -51,6 +51,7 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
             // getSupportActionBar().setTitle("Info");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         initComponents();
