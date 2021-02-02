@@ -145,9 +145,16 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:text="Amount"
                     android:textColor="@color/darkBlue"/>
-
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="Date"
+                    android:textColor="@color/darkBlue"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

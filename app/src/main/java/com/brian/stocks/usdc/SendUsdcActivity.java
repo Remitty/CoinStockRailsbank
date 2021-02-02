@@ -123,11 +123,17 @@ public class SendUsdcActivity extends AppCompatActivity {
                     alert1.setTitle("Confirm Pay")
                             .setIcon(R.mipmap.ic_launcher_round)
                             .setMessage("Are you sure you want to pay " + editAmount.getText().toString() + "usdc to " + tvTo.getText().toString())
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     amount = editAmount.getText().toString();
                                     sendCoin();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
                                 }
                             })
                             .show();

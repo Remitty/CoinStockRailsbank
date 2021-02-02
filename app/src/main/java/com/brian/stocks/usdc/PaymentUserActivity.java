@@ -82,7 +82,7 @@ public class PaymentUserActivity extends AppCompatActivity {
             @Override
             public void onDelete(int position) {
                 final ContactUser user = users.get(position);
-                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(PaymentUserActivity.this);
                 builder.setIcon(R.mipmap.ic_launcher_round)
                         .setTitle("Delete user")
                         .setMessage("Are you sure you want to delete " + user.getName() + " ?")
