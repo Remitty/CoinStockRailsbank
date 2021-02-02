@@ -19,10 +19,20 @@
         android:layout_marginTop="10dp"
         >
         <RadioButton
+            android:id="@+id/coin_rdb_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="BUY / SELL(INR, MYR, HKD, PHP, TBH, VND, SGD, Rp )\nPowered by xanpool"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColorHint="@color/colorBlack"/>
+        <RadioButton
             android:id="@+id/coin_rdb_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="USA, EUROPE"
+            android:layout_marginTop="15dp"
+            android:text="BUY ONLY ( USD, EUR) \nPowered by Ramp"
             android:textSize="15dp"
             android:textStyle="bold"
             android:textColorHint="@color/colorBlack"/>
@@ -30,9 +40,11 @@
             android:id="@+id/coin_rdb_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ASIA, EUROPE, AFRICA, AUSTRALIA, SOUTH AMERICA"
+            android:layout_marginTop="15dp"
+            android:text="BUY ONLY( GLOBAL) \nPowered by onramper"
             android:textSize="15dp"
             android:textStyle="bold"
             android:textColorHint="@color/colorBlack"/>
+
     </RadioGroup>
 </LinearLayout>

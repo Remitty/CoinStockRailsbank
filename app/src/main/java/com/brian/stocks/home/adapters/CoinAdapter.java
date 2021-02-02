@@ -117,12 +117,12 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
         holder.btnRamp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.OnRamp(position);
+                listener.OnBuyNow(position);
             }
         });
         String coins = "BTC ETH DAI XDAI USDC DOT";
 //        if(coins.contains(item.getCoinSymbol())) {
-        if(item.getBuyNowOption() != 0 && item.getBuyNowOption() != 3) {
+        if(item.getBuyNowOption() != 0 && item.getBuyNowOption() != 100) {
             holder.btnRamp.setVisibility(View.VISIBLE);
         }
         else {
@@ -149,6 +149,6 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
          * @param position
          */
         void OnDeposit(int position);
-        void OnRamp(int position);
+        void OnBuyNow(int position);
     }
 }
