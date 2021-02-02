@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brian.stocks.R;
@@ -29,6 +30,7 @@ public class OpenPositionAdapter extends RecyclerView.Adapter<OpenPositionAdapte
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvStockName, tvStockSymbol, tvStockShared, tvStockPrice, tvStockChangePrice, tvStockHoldingPrice, tvStockProfit;
+        ImageView icArrow;
 
         @SuppressLint("ResourceAsColor")
         public OrderViewHolder(View view) {
@@ -41,6 +43,7 @@ public class OpenPositionAdapter extends RecyclerView.Adapter<OpenPositionAdapte
             tvStockChangePrice = view.findViewById(R.id.stocks_change);
             tvStockHoldingPrice = view.findViewById(R.id.stocks_holding_price);
             tvStockProfit = view.findViewById(R.id.stocks_profit);
+            icArrow = view.findViewById(R.id.ic_arrow);
 
         }
     }
@@ -71,7 +74,7 @@ public class OpenPositionAdapter extends RecyclerView.Adapter<OpenPositionAdapte
         }
         else {
             holder.tvStockProfit.setTextColor(mContext.getResources().getColor(R.color.colorRedCrayon));
-            Picasso.with(mContext).load(R.drawable.ic_down);
+            Picasso.with(mContext).load(R.drawable.ic_down).into(holder.icArrow);
         }
 
         if(Double.parseDouble(item.getChangePrice()) >= 0){

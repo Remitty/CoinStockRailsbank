@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ public class InvestedStockFragment extends Fragment {
     private List<PositionInfo> stocksList = new ArrayList<>();
     private RecyclerView stocksListView;
     private TextView mTotalBalance, mStockBalance, mTextStockProfit, mTextStockMargin, marketStatus;
+    private ImageView icArrow;
     Button btnInvest, btnDeposit, btnWithdraw;
     private SwipeRefreshLayout refreshLayout;
     public InvestedStockFragment() {
@@ -81,6 +83,8 @@ public class InvestedStockFragment extends Fragment {
         mTextStockProfit = rootView.findViewById(R.id.stock_profit);
         mTextStockMargin = rootView.findViewById(R.id.margin_balance);
         marketStatus = rootView.findViewById(R.id.market_status);
+
+        icArrow = rootView.findViewById(R.id.ic_arrow);
 
         btnInvest = rootView.findViewById(R.id.btn_invest);
         btnDeposit = rootView.findViewById(R.id.btn_deposit);
@@ -169,7 +173,7 @@ public class InvestedStockFragment extends Fragment {
                                     mTextStockProfit.setTextColor(GREEN);
                                 else {
                                     mTextStockProfit.setTextColor(RED);
-                                    Picasso.with(getActivity()).load(R.drawable.ic_down);
+                                    Picasso.with(getActivity()).load(R.drawable.ic_down).into(icArrow);
                                 }
     
                                 if(response.getInt("stock_auto_sell") == 1){
