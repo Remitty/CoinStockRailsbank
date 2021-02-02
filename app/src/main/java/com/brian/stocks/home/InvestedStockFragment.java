@@ -31,6 +31,7 @@ import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
 import com.brian.stocks.model.PositionInfo;
 import com.brian.stocks.stock.stockwithdraw.StockCoinWithdrawActivity;
+import com.squareup.picasso.Picasso;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -166,7 +167,10 @@ public class InvestedStockFragment extends Fragment {
     
                                 if(Double.parseDouble(response.getString("stock_profit"))>0)
                                     mTextStockProfit.setTextColor(GREEN);
-                                else mTextStockProfit.setTextColor(RED);
+                                else {
+                                    mTextStockProfit.setTextColor(RED);
+                                    Picasso.with(getActivity()).load(R.drawable.ic_down);
+                                }
     
                                 if(response.getInt("stock_auto_sell") == 1){
                                     showStockAutoSellAlarm();

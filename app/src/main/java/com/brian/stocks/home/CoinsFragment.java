@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.github.nkzawa.socketio.client.IO.Options;
+import com.squareup.picasso.Picasso;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -63,6 +65,7 @@ public class CoinsFragment extends Fragment {
     private Socket mSocket;
     private String mOnramperApikey;
     private String onRamperCoins="";
+    private ImageView icArrow;
 
     {
         try {
@@ -104,6 +107,7 @@ public class CoinsFragment extends Fragment {
         mUSDBalance = rootView.findViewById(R.id.usd_balance);
         mtvUserName = rootView.findViewById(R.id.user_name);
         mtvUserName.setText(SharedHelper.getKey(getContext(), "fullName"));
+        icArrow = rootView.findViewById(R.id.ic_arrow);
 
         refreshLayout = rootView.findViewById(R.id.swipe_refresh_layout);
 
@@ -325,8 +329,11 @@ public class CoinsFragment extends Fragment {
                             mTotalEffect.setText(response.getString("total_effect")+" %");
                             mUSDBalance.setText(new DecimalFormat("#,###.##").format(response.getDouble("usd_balance")));
                             mOnramperApikey = response.getString("onramper_api_key");
-                            if(response.getString("total_effect").startsWith("-"))
+                            icArrow.setVisibility(View.VISIBLE);
+                            if(response.getString("total_effect").startsWith("-")) {
+                                Picasso.with(getActivity()).load(R.drawable.ic_down);
                                 mTotalEffect.setTextColor(RED);
+                            }
                             else mTotalEffect.setTextColor(GREEN);
 
                             JSONArray coins = response.getJSONArray("coins");

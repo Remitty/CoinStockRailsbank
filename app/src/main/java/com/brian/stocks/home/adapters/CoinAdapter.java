@@ -38,7 +38,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvCoinName, tvCoinRate, tvCoinEstAmount, tvCoinBalance, tvCoinEffect;
-        ImageView coinIcon;
+        ImageView coinIcon, arrowIcon;
         LinearLayout llCoinBalance;
         Button btnDeposit, btnRamp;
 
@@ -54,6 +54,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
             llCoinBalance = view.findViewById(R.id.ll_coin_balance);
             btnDeposit = view.findViewById(R.id.btn_deposit);
             btnRamp = view.findViewById(R.id.btn_ramp);
+            arrowIcon = view.findViewById(R.id.ic_arrow);
         }
     }
 
@@ -75,6 +76,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
 
         if(item.getCoinEffect().startsWith("-")){
             holder.tvCoinEffect.setTextColor(RED);
+            Picasso.with(mContext).load(R.drawable.ic_down);
         }else holder.tvCoinEffect.setTextColor(GREEN);
 
 //        if(Double.parseDouble(item.getCoinBalance()) == 0) {

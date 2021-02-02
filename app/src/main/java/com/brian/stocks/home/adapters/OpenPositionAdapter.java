@@ -64,7 +64,7 @@ public class OpenPositionAdapter extends RecyclerView.Adapter<OpenPositionAdapte
         holder.tvStockHoldingPrice.setText("$ "+item.getEquity());
         holder.tvStockProfit.setText("$ "+item.getProfit());
 
-        if(Double.parseDouble(item.getProfit()) > 0){
+        if(Double.parseDouble(item.getProfit()) >= 0){
 //            holder.tvStockProfit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.feather_green_button));
             holder.tvStockProfit.setText("$ +"+item.getProfit());
             holder.tvStockProfit.setTextColor(mContext.getResources().getColor(R.color.green));
@@ -72,7 +72,7 @@ public class OpenPositionAdapter extends RecyclerView.Adapter<OpenPositionAdapte
 //        else holder.tvStockProfit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.feather_red_button));
         else holder.tvStockProfit.setTextColor(mContext.getResources().getColor(R.color.colorRedCrayon));
 
-        if(Double.parseDouble(item.getChangePrice()) > 0){
+        if(Double.parseDouble(item.getChangePrice()) >= 0){
             holder.tvStockChangePrice.setText("$ +"+item.getChangePrice());
             holder.tvStockChangePrice.setTextColor(mContext.getResources().getColor(R.color.green));
         }

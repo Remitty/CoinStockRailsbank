@@ -116,10 +116,17 @@
                             android:text="$ 0.00"/>
                         <TextView
                             android:layout_width="wrap_content"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:text=" 24hrs"
                             android:textColor="@color/colorGray"/>
+                        <ImageView
+                            android:id="@+id/ic_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_up"/>
 
                     </LinearLayout>
                 </LinearLayout>
