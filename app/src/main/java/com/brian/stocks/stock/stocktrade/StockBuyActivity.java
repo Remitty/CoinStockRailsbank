@@ -36,10 +36,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class StockBuyActivity extends AppCompatActivity {
     LoadToast loadToast;
-    private String mStockPrice="0", mStockName, mStockSymbol, mEstCost, mStockBalance, mStockShares="0", mStockTradeType="market";
+    private String mStockPrice="0", mStockName, mStockSymbol, mEstCost, mStockShares="0", mStockTradeType="market";
+    private Double mStockBalance = 0.0;
     EditText mEditShares, mEditStockLimitPrice;
     TextView mTextMktPrice, mTextShareEstCost, mTextStockName, mTextStockSymbol, mTextStockBalance, mTextStockShares;
     LinearLayout llMktPrice, llLimitPrice, llMktPriceLabel, llLimitPriceLabel;
@@ -76,10 +78,10 @@ public class StockBuyActivity extends AppCompatActivity {
         mTextStockName.setText(mStockName);
         mTextStockSymbol.setText(mStockSymbol);
 //        if(getIntent().getStringExtra("stock_balance").equals(""))
-            mStockBalance = SharedHelper.getKey(getBaseContext(), "stock_balance");
+            mStockBalance = Double.parseDouble(SharedHelper.getKey(getBaseContext(), "stock_balance"));
 //            else
 //                mStockBalance = getIntent().getStringExtra("stock_balance");
-        mTextStockBalance.setText("$ "+mStockBalance);
+        mTextStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(mStockBalance));
         mTextStockShares.setText(getIntent().getStringExtra("stock_shares"));
         mStockShares = getIntent().getStringExtra("stock_shares");
 
@@ -146,7 +148,7 @@ public class StockBuyActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Please input shares", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(Double.parseDouble(mEstCost) > Double.parseDouble(mStockBalance)){
+                if(Double.parseDouble(mEstCost) > mStockBalance){
                     Toast.makeText(getBaseContext(), "Insufficient Funds", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -252,9 +254,9 @@ public class StockBuyActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
                             loadToast.success();
-                            mStockBalance = response.optString("stock_balance");
-                            mTextStockBalance.setText("$ "+mStockBalance);
-                            SharedHelper.putKey(getBaseContext(), "stock_balance", mStockBalance);
+                            mStockBalance = response.optDouble("stock_balance");
+                            mTextStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(mStockBalance));
+                            SharedHelper.putKey(getBaseContext(), "stock_balance", mStockBalance+"");
 
                             Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                         }

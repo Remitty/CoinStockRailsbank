@@ -58,7 +58,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
     TextView mStockBalance, mUSDCRate;
     RadioGroup radioGroup;
     AppCompatRadioButton radioButton;
-    String StockBalance = "0", USDCRate="0", DAIRate="0", WithdrawFee="0";
+    Double StockBalance = 0.0, USDCRate = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                     mEditAmount.setError("!");
                     return;
                 }
-                if(Double.parseDouble(mEditAmount.getText().toString()) > Double.parseDouble(USDCRate)){
+                if(Double.parseDouble(mEditAmount.getText().toString()) > USDCRate){
                     Toast.makeText(getBaseContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -133,8 +133,8 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                             loadToast.success();
 
                             try {
-                                StockBalance = response.getString("stock_balance");
-                                USDCRate = response.getString("stock2usdc");
+                                StockBalance = response.getDouble("stock_balance");
+                                USDCRate = response.getDouble("stock2usdc");
                                 history.clear();
                                 JSONArray temp = response.getJSONArray("history");
                                 for(int i = 0; i < temp.length(); i ++) {
@@ -146,13 +146,13 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                                 }
                                 mAdapter.notifyDataSetChanged();
 //                                StockBalance = new DecimalFormat("####.####").format(StockBalance).toString();
-                                mStockBalance.setText("$ "+StockBalance);
-                                mUSDCRate.setText(USDCRate);
+                                mStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(StockBalance));
+                                mUSDCRate.setText(new DecimalFormat("#,###.##").format(USDCRate));
                                 
-                                mPageAdapter.add(StockWithdrawFragment.newInstance(StockBalance, USDCRate));
-//                                mPageAdapter.add(StockWithdrawHistoryFragment.newInstance(history));
-                                mViewPager.setAdapter(mPageAdapter);
-                                tab.setupWithViewPager(mViewPager);
+//                                mPageAdapter.add(StockWithdrawFragment.newInstance(StockBalance, USDCRate));
+////                                mPageAdapter.add(StockWithdrawHistoryFragment.newInstance(history));
+//                                mViewPager.setAdapter(mPageAdapter);
+//                                tab.setupWithViewPager(mViewPager);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -258,10 +258,10 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                         loadToast.success();
                         if(response.optBoolean("success")) {
                             try {
-                                StockBalance = response.getString("stock_balance");
-                                mStockBalance.setText("$ "+StockBalance);
-                                USDCRate = response.getString("usdc_balance");
-                                mUSDCRate.setText("(" + USDCRate+" USDC" + ")");
+                                StockBalance = response.getDouble("stock_balance");
+                                mStockBalance.setText("$ " + new DecimalFormat("#,###.##").format(StockBalance));
+                                USDCRate = response.getDouble("usdc_balance");
+                                mUSDCRate.setText(new DecimalFormat("#,###.##").format(USDCRate));
                                 history.clear();
                                 JSONArray temp = response.getJSONArray("history");
                                 for(int i = 0; i < temp.length(); i ++) {

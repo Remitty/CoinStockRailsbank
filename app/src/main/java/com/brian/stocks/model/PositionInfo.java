@@ -40,7 +40,7 @@ public class PositionInfo {
 
     public String getAvgPrice() {
         try {
-            return DoubleFormat(data.getString("avg_entry_price"));
+            return new DecimalFormat("#.##").format(data.getDouble("avg_entry_price"));
         } catch (JSONException e) {
             return "0.0";
         }
@@ -48,7 +48,7 @@ public class PositionInfo {
 
     public String getCurrentPrice(){
         try {
-            return DoubleFormat(data.getString("current_price"));
+            return new DecimalFormat("#.##").format(data.getDouble("current_price"));
         } catch (JSONException e) {
             return "0.0";
         }
@@ -58,7 +58,7 @@ public class PositionInfo {
         BigDecimal amount3 = new BigDecimal(getCurrentPrice());
         BigDecimal amount4 = new BigDecimal(getQty());
 //        return DoubleFormat(""+amount3.multiply(amount4));
-        return new DecimalFormat("#,###.####").format(amount3.multiply(amount4).doubleValue());
+        return new DecimalFormat("#,###.##").format(amount3.multiply(amount4).doubleValue());
     }
 
     public String getLastDayPrice(){
@@ -84,14 +84,14 @@ public class PositionInfo {
 
     public String getChangePricePercent(){
         try {
-            return DoubleFormat(data.getString("change_today"));
+            return new DecimalFormat("#.##").format(data.getDouble("change_today"));
         } catch (JSONException e) {
             return "0.0";
         }
     }
 
     private String DoubleFormat(String number){
-        return String.format("%.4f", Double.parseDouble(number));
+        return String.format("%.2f", Double.parseDouble(number));
     }
 
 }

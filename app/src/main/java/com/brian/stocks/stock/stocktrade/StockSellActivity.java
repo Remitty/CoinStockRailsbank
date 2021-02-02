@@ -36,10 +36,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class StockSellActivity extends AppCompatActivity {
     LoadToast loadToast;
-    private String mStockPrice="0", mStockName, mStockSymbol, mEstCost, mStockBalance, mStockShares="0", mStockTradeType="market";
+    private String mStockPrice="0", mStockName, mStockSymbol, mEstCost, mStockShares="0", mStockTradeType="market";
+    private Double mStockBalance = 0.0;
     EditText mEditShares, mEditStockLimitPrice;
     TextView mTextMktPrice, mTextShareEstCost, mTextStockName, mTextStockSymbol, mTextStockBalance, mTextStockShares;
     LinearLayout llMktPrice, llLimitPrice, llMktPriceLabel, llLimitPriceLabel;
@@ -74,10 +76,10 @@ public class StockSellActivity extends AppCompatActivity {
         mTextStockName.setText(mStockName);
         mTextStockSymbol.setText(mStockSymbol);
 //        if(getIntent().getStringExtra("stock_balance").equals(""))
-            mStockBalance = SharedHelper.getKey(getBaseContext(), "stock_balance");
+            mStockBalance = Double.parseDouble(SharedHelper.getKey(getBaseContext(), "stock_balance"));
 //        else
 //            mStockBalance = getIntent().getStringExtra("stock_balance");
-        mTextStockBalance.setText("$ "+mStockBalance);
+        mTextStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(mStockBalance));
         mTextStockShares.setText(getIntent().getStringExtra("stock_shares"));
 
         mEditShares.addTextChangedListener(new TextWatcher() {
@@ -234,8 +236,8 @@ public class StockSellActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
                             loadToast.success();
-                            mStockBalance = response.optString("stock_balance");
-                            mTextStockBalance.setText("$ "+mStockBalance);
+                            mStockBalance = response.optDouble("stock_balance");
+                            mTextStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(mStockBalance));
                             mStockShares =  response.optString("shares");
                             mTextStockShares.setText(mStockShares);
                             Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();

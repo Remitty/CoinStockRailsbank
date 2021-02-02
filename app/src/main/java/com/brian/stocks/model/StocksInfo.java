@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+
 public class StocksInfo {
     private JSONObject data;
     private String StocksName;
@@ -54,7 +56,7 @@ public class StocksInfo {
 
     public String getStocksShares() {
         try {
-            return data.getString("shares");
+            return new DecimalFormat("#,###").format(data.getDouble("shares"));
         } catch (JSONException e) {
             return "0";
         }
@@ -62,7 +64,7 @@ public class StocksInfo {
 
     public String getStocksOrderShares(){
         try {
-            return data.getString("qty");
+            return new DecimalFormat("#,###").format(data.getDouble("qty"));
         } catch (JSONException e) {
             return "0";
         }
@@ -70,7 +72,7 @@ public class StocksInfo {
 
     public String getStockAvgPrice(){
         try {
-            return data.getString("filled_avg_price");
+            return new DecimalFormat("#.##").format(data.getDouble("filled_avg_price"));
         } catch (JSONException e) {
             return "0.0";
         }
@@ -78,7 +80,7 @@ public class StocksInfo {
 
     public String getStocksPrice() {
         try {
-            return String.format("%.2f", Double.parseDouble(data.getString("vw")));
+            return new DecimalFormat("#,###.##").format(data.getDouble("vw"));
         } catch (JSONException e) {
             e.printStackTrace();
             return "0.0";
@@ -95,7 +97,7 @@ public class StocksInfo {
 
     public String getStockTodayChange() {
         try {
-            return String.format("%.4f", Double.parseDouble(data.getString("todaysChange")));
+            return String.format("%.2f", Double.parseDouble(data.getString("todaysChange")));
         } catch (JSONException e) {
             e.printStackTrace();
             return "0.0";
@@ -120,7 +122,7 @@ public class StocksInfo {
     }
     public String getStockOrderLimitPrice() {
         try {
-            return data.getString("limit_price");
+            return String.format("%.2f", Double.parseDouble(data.getString("limit_price")));
         } catch (JSONException e) {
             return "0.0";
         }
@@ -151,7 +153,7 @@ public class StocksInfo {
 
     public String getStockOrderCost(){
         try {
-            return data.getString("est_cost");
+            return new DecimalFormat("#,###.##").format(data.getDouble("est_cost"));
         } catch (JSONException e) {
             return  "";
         }
