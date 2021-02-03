@@ -749,20 +749,24 @@ public class CoinExchangeFragment extends Fragment {
     }
 
     private double getPrice() throws JSONException {
-        if(selType.equalsIgnoreCase("buy")) {
-            if (asksList.isEmpty()) {
-                return 0.00000001;
+        try {
+            if (selType.equalsIgnoreCase("buy")) {
+                if (asksList.isEmpty()) {
+                    return 0.00000001;
+                } else {
+                    JSONObject item = asksList.get(0);
+                    return Float.parseFloat(df.format(Float.parseFloat(item.optString("price"))));
+                }
             } else {
-                JSONObject item = asksList.get(0);
-                return Float.parseFloat(df.format(Float.parseFloat(item.optString("price"))));
+                if (bidsList.isEmpty()) {
+                    return 0.00000001;
+                } else {
+                    JSONObject item = bidsList.get(0);
+                    return Float.parseFloat(df.format(Float.parseFloat(item.optString("price"))));
+                }
             }
-        } else {
-            if (bidsList.isEmpty()) {
-                return 0.00000001;
-            } else {
-                JSONObject item = bidsList.get(0);
-                return Float.parseFloat(df.format(Float.parseFloat(item.optString("price"))));
-            }
+        } catch () {
+            return 0.00000001;
         }
     }
 
