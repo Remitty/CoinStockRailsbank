@@ -258,7 +258,7 @@ public class CoinsFragment extends Fragment {
 //                mContentDialog.dismiss();
                 }
             });
-            mContentDialog.show(this.getActivity().getSupportFragmentManager(), "deposit");
+            mContentDialog.show(getActivity().getSupportFragmentManager(), "deposit");
         }
     }
 
