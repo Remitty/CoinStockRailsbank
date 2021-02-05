@@ -25,6 +25,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -50,6 +51,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import com.brian.stocks.xmt.adapters.XMTChartTabAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class CoinExchangeFragment extends Fragment {
@@ -92,6 +95,11 @@ public class CoinExchangeFragment extends Fragment {
 
         }
     };
+
+    private JSONArray mAggregateDay = new JSONArray(), mAggregateWeek = new JSONArray(), mAggregateMonth = new JSONArray(), mAggregate6Month = new JSONArray(), mAggregateYear = new JSONArray(), mAggregateAll = new JSONArray();
+    private ViewPager mXMTChartViewPager;
+    private TabLayout mXMTTabBar;
+    XMTChartTabAdapter mPageAdapter;
 
     public CoinExchangeFragment() {
         // Required empty public constructor
@@ -165,12 +173,30 @@ public class CoinExchangeFragment extends Fragment {
 
         initListeners();
 
+        initGraph();
+
+
+
         i = 0;
         mHandler = new Handler();
         mHandler.post(mUpdate);
 
         getPairs();
         return mView;
+    }
+
+    private void initGraph() {
+        mXMTTabBar= mView.findViewById(R.id.xmt_chart_tab_bar);
+        mXMTChartViewPager = mView.findViewById(R.id.xmt_chart_view_pager);
+        mPageAdapter = new XMTChartTabAdapter(getFragmentManager());
+        mPageAdapter.addCharData(mAggregateDay);
+        mPageAdapter.addCharData(mAggregateWeek);
+        mPageAdapter.addCharData(mAggregateMonth);
+        mPageAdapter.addCharData(mAggregate6Month);
+        mPageAdapter.addCharData(mAggregateYear);
+        mPageAdapter.addCharData(mAggregateAll);
+        mXMTChartViewPager.setAdapter(mPageAdapter);
+        mXMTTabBar.setupWithViewPager(mXMTChartViewPager);
     }
 
     private class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {

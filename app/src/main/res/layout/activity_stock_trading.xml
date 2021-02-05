@@ -129,6 +129,7 @@
                         android:id="@+id/stock_chart_tab_bar"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
+
                         app:tabIndicatorColor="@color/transparent"
                         app:tabRippleColor="@color/green"
                         app:tabSelectedTextColor="@color/colorRedCrayon"

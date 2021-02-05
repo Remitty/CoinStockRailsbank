@@ -269,6 +269,28 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                            <androidx.viewpager.widget.ViewPager
+                                android:id="@+id/xmt_chart_view_pager"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp" />
+
+                            <com.google.android.material.tabs.TabLayout
+                                android:id="@+id/xmt_chart_tab_bar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/MyTabLayoutStyle"
+                                app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+                                app:tabIndicatorColor="@color/transparent"
+                                app:tabSelectedTextColor="@color/colorRedCrayon"
+                                app:tabTextColor="@color/colorBlack" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:background="@drawable/rounded_corner_white_rectangle"
                             android:padding="10dp"
