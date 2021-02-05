@@ -745,7 +745,7 @@ public class CoinExchangeFragment extends Fragment {
                     return Float.parseFloat(df.format(Float.parseFloat(item.optString("price"))));
                 }
             }
-        } catch () {
+        } catch (Exception e) {
             return 0.00000001;
         }
     }
