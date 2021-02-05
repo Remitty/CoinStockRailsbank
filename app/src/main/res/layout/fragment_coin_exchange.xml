@@ -222,7 +222,50 @@
                             android:text="Trade"
                             android:textColor="@android:color/white"
                             app:cornerRadius="20dp" />
-
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_horizontal">
+                                <View
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/green_circle"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/darkBlue"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="Bid"
+                                    android:textSize="11dp"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:orientation="horizontal">
+                                <View
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/red_circle"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/darkBlue"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="Ask"
+                                    android:textSize="11dp"/>
+                            </LinearLayout>
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -560,7 +603,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     android:gravity="center_horizontal"
                     android:textColor="@color/colorAccent"
                     android:text="Orders history"/>
@@ -568,7 +611,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
