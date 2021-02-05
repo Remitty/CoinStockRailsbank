@@ -11,6 +11,7 @@ import com.brian.stocks.mtn.MTNActivity;
 import com.brian.stocks.predict.PredictActivity;
 import com.brian.stocks.profile.ProfileActivity;
 import com.brian.stocks.xmt.XMTTradingActivity;
+import com.brian.stocks.zabo.ZaboActivity;
 import com.google.android.material.navigation.NavigationView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -181,21 +182,8 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                 startActivity(new Intent(getApplicationContext(), CoinWithdrawActivity.class));
                 break;
             case R.id.nav_coin_trade:
-                String base = "https://checkout.xanpool.com/";
-                String apikey = "?apiKey=eabb1302285be54dc57476a31f24bb95";
-                String wallet = "";
-                String cryptoCurrency = "";
-                String transactionType = "";
-                String isWebview = "&isWebview=true";
-                String partnerData = "&partnerData=88824d8683434f4e";
-
-                String url = base + apikey + wallet + cryptoCurrency + transactionType + isWebview + partnerData;
-                Log.d("xanpool url:", url);
-                Intent browserIntent = new Intent(HomeActivity.this, WebViewActivity.class);
-                browserIntent.putExtra("uri", url);
-                startActivity(browserIntent);
+                startActivity(new Intent(getApplicationContext(), ZaboActivity.class));
                 break;
-
             case R.id.nav_stock_news:
                 startActivity(new Intent(getApplicationContext(), StockNewsActivity.class));
                 break;

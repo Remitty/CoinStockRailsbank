@@ -74,4 +74,10 @@ public class URLHelper {
     public static final String REQUEST_MTN_PAY = REDIRECT_URL + "mtn/pay";
     public static final String REQUEST_MTN_TOPUP = REDIRECT_URL + "mtn/topup";
     public static final String REQUEST_MTN_CONVERT = REDIRECT_URL + "mtn/convert";
+
+    public static final String ZABO_REDIRECT = REDIRECT_URL + "zaho/webhook";
+    public static final String GET_ZABO_ACCOUNTS = REDIRECT_URL + "zaho/accounts";
+    public static final String REQUEST_ZABO_ACCOUNTS = REDIRECT_URL + "zaho/accounts";
+    public static final String GET_ZABO_ACCOUNT = REDIRECT_URL + "zaho/account/";
+    public static final String REQUEST_ZABO_DEPOSIT = REDIRECT_URL + "zaho/deposit";
 }

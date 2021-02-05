@@ -16,7 +16,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".usdc.PaymentUserActivity"></activity>
+        <activity android:name=".zabo.ZaboAccountActivity"></activity>
+        <activity android:name=".zabo.ZaboActivity" >
+            <intent-filter android:label="Zaho connect account">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="https"
+                    android:host="www.joiintapp.com"
+                     />
+            </intent-filter>
+        </activity>
+        <activity android:name=".usdc.PaymentUserActivity" />
         <activity
             android:name=".main.SplashActivity"
             android:screenOrientation="portrait"
@@ -56,15 +68,9 @@
             android:name=".stock.stocktrade.StockReplaceActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".stock.StockDepositActivity" />
-        <activity
-            android:name=".coins.CoinWithdrawActivity"
-            />
-        <activity
-            android:name=".stock.StockNewsActivity"
-             />
-        <activity
-            android:name=".coins.CoinDepositHistoryActivity"
-             />
+        <activity android:name=".coins.CoinWithdrawActivity" />
+        <activity android:name=".stock.StockNewsActivity" />
+        <activity android:name=".coins.CoinDepositHistoryActivity" />
         <activity
             android:name="network.ramp.instantsdk.ui.bank.BankActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
@@ -88,7 +94,9 @@
             android:launchMode="singleTask"
             android:theme="@style/RampInstant.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".home.WebViewActivity" />
+        <activity android:name=".home.WebViewActivity" >
+
+        </activity>
         <activity android:name=".usdc.SendUsdcActivity" />
         <activity android:name=".mtn.MtnTransactionActivity" />
         <activity android:name=".mtn.MTNActivity" />

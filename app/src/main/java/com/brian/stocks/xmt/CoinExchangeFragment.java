@@ -56,7 +56,7 @@ public class CoinExchangeFragment extends Fragment {
     private Button mBtnTrade;
     private TabLayout tabLayout;
     private EditText mEditQuantity, mEditPrice;
-    private TextView mTextChangeVolume, mTextChangeRate, mTextChangeLow, mTextChangeHigh, mTextCoinBuy2, mTextCoinSell2, mTextCoinBuyBalance, mTextCoinSellBalance, mTextOutputTrade, mTextAsksTotalUSD, mTextBidsTotalUSD, mTextPriceUSD;
+    private TextView mTextChangeVolume, mTextChangeRate, mTextChangeLow, mTextChangeHigh, mTextCoinBuy, mTextCoinSell, mTextCoinSell1,  mTextCoinBuyBalance, mTextCoinSellBalance, mTextCoinSellBalance1, mTextOutputTrade, mTextAsksTotalUSD, mTextBidsTotalUSD, mTextPriceUSD;
     private static String CoinSymbol;
     private View mView;
     private DecimalFormat df = new DecimalFormat("#.########");
@@ -378,15 +378,7 @@ public class CoinExchangeFragment extends Fragment {
                                     ordersHistoryList.clear();
                                     bidsList.clear();
                                     asksList.clear();
-                                    mTextPriceUSD.setText("$0");
-                                    mTextAsksTotalUSD.setText("Asks ($0");
-                                    mTextBidsTotalUSD.setText("Bids ($0)");
-                                    mTextCoinBuyBalance.setText(df.format(0.0));
-                                    mTextCoinSellBalance.setText(df.format(0.0));
-                                    mTextChangeVolume.setText("Volume 24h: "+df.format(0.0)+" USD");
-                                    mTextChangeRate.setText("Rate 24h: "+df.format(0.0)+" USD");
-                                    mTextChangeHigh.setText("High: "+df.format(0.0)+" XMT");
-                                    mTextChangeLow.setText("Low: "+df.format(0.0)+" XMT");
+
                                     updateComponents();
                                     return;
                                 }
@@ -402,13 +394,14 @@ public class CoinExchangeFragment extends Fragment {
 
                             JSONObject responseObj = null;
                             try {
-                                mTextChangeVolume.setText("Volume 24h: "+df.format(Float.parseFloat(response.getString("change_volume")))+" USD");
-                                mTextChangeRate.setText("Rate 24h: "+df.format(Float.parseFloat(response.getString("change_rate")))+" USD");
-                                mTextChangeHigh.setText("High: "+df.format(Float.parseFloat(response.getString("last_high")))+" XMT");
-                                mTextChangeLow.setText("Low: "+df.format(Float.parseFloat(response.getString("last_low")))+" XMT");
+                                mTextChangeVolume.setText("$ "+df.format(Float.parseFloat(response.getString("change_volume"))));
+                                mTextChangeRate.setText("$ "+df.format(Float.parseFloat(response.getString("change_rate"))));
+                                mTextChangeHigh.setText(df.format(Float.parseFloat(response.getString("last_high")))+" XMT");
+                                mTextChangeLow.setText(df.format(Float.parseFloat(response.getString("last_low")))+" XMT");
 
                                 mTextCoinBuyBalance.setText(df.format(Float.parseFloat(response.getString("coin2_balance"))));
                                 mTextCoinSellBalance.setText(df.format(Float.parseFloat(response.getString("coin1_balance"))));
+                                mTextCoinSellBalance1.setText(df.format(Float.parseFloat(response.getString("coin1_balance"))));
                                 responseObj = response.getJSONObject("orders");
                                 if(responseObj != null) {
                                     JSONArray orders = responseObj.getJSONArray("active");
@@ -494,21 +487,6 @@ public class CoinExchangeFragment extends Fragment {
                         @Override
                         public void onError(ANError error) {
                             // handle error
-                            ordersList.clear();
-                            ordersHistoryList.clear();
-                            bidsList.clear();
-                            asksList.clear();
-                            mTextPriceUSD.setText("$0");
-                            mTextAsksTotalUSD.setText("Asks ($0");
-                            mTextBidsTotalUSD.setText("Bids ($0)");
-                            mTextChangeVolume.setText("Volume 24h: "+df.format(0.0)+" USD");
-                            mTextChangeRate.setText("Rate 24h: "+df.format(0.0)+" USD");
-                            mTextChangeHigh.setText("High: "+df.format(0.0)+" XMT");
-                            mTextChangeLow.setText("Low: "+df.format(0.0)+" XMT");
-                            mTextCoinBuyBalance.setText(df.format(0.0));
-                            mTextCoinSellBalance.setText(df.format(0.0));
-                            updateComponents();
-                            Log.d("errorm", "" + error.getMessage()+" responde: "+error.getResponse());
                         }
                     });
     }
@@ -611,11 +589,13 @@ public class CoinExchangeFragment extends Fragment {
             e.printStackTrace();
         }
         mTextOutputTrade = mView.findViewById(R.id.output_trade);
-        mTextCoinBuy2 = mView.findViewById(R.id.coin_buyy);
-        mTextCoinSell2 = mView.findViewById(R.id.coin_selll);
+        mTextCoinBuy = mView.findViewById(R.id.coin_buyy);
+        mTextCoinSell = mView.findViewById(R.id.coin_selll);
+        mTextCoinSell1 = mView.findViewById(R.id.coin_selll1);
 
         mTextCoinBuyBalance = mView.findViewById(R.id.coin_buy_balance);
         mTextCoinSellBalance = mView.findViewById(R.id.coin_sell_balance);
+        mTextCoinSellBalance1 = mView.findViewById(R.id.coin_sell_balance1);
 
 
         mTextChangeLow = mView.findViewById(R.id.coin_low);
@@ -784,9 +764,9 @@ public class CoinExchangeFragment extends Fragment {
         Float calc = Float.parseFloat(fixval1) * Float.parseFloat(fixval2);
     //Buying "+df.format(Float.parseFloat(fixval1))+" XMT, s
         if(selType.equalsIgnoreCase("buy")) {
-            mTextOutputTrade.setText("Spending "+df.format(calc)+" BTC ($"+df.format(calc * mBTCUSD_rate)+")");
+            mTextOutputTrade.setText(df.format(calc)+" BTC");
         } else {
-            mTextOutputTrade.setText("Getting "+df.format(calc)+" BTC ($"+df.format(calc * mBTCUSD_rate)+")");
+            mTextOutputTrade.setText(df.format(calc)+" BTC");
         }
     }
 
