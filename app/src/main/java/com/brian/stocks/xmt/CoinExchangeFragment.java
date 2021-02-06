@@ -121,6 +121,7 @@ public class CoinExchangeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadToast = new LoadToast(getActivity());
+        loadToast.setProgressColor(R.color.green);
     }
 
 
@@ -288,7 +289,7 @@ public class CoinExchangeFragment extends Fragment {
 
 //                    TextView vscoin = mView.findViewById(R.id.coin_buyy);
 //                    vscoin.setText(" "+mPair.split("-")[0]);
-                    CoinSymbol = mPair.split("-")[0];
+                    CoinSymbol = " "+mPair.split("-")[0];
 
                     getData();
 
@@ -384,7 +385,8 @@ public class CoinExchangeFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //Log.d("exchange param", jsonObject.toString()+" -> "+URLHelper.COIN_REALEXCHANGE_DATA);
+
+        Log.d("exchange param", jsonObject.toString()+" -> "+URLHelper.COIN_REALEXCHANGE_DATA);
         //Log.d("token",SharedHelper.getKey(getContext(),"access_token"));
         if(getContext() != null)
             AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE_DATA)
@@ -509,6 +511,7 @@ public class CoinExchangeFragment extends Fragment {
                         @Override
                         public void onError(ANError error) {
                             // handle error
+                            Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
                         }
                     });
     }
@@ -526,7 +529,7 @@ public class CoinExchangeFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        Log.d("xmt exchange params", jsonObject.toString());
         if(getContext() != null) {
             loadToast.show();
             AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE)
