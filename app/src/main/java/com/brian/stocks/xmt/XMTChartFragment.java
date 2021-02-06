@@ -59,7 +59,7 @@ public class XMTChartFragment extends Fragment {
         areaChart.animation(false)
                 .tooltip(false)
                 .xAxis(false)
-                .yAxis(true)
+                .yAxis(false)
 //                .yGrid(5, true)
                 .background(false);
 //        areaChart.yScale().stackMode(ScaleStackMode.VALUE);

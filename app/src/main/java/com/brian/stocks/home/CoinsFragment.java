@@ -53,6 +53,8 @@ import static android.graphics.Color.RED;
 
 public class CoinsFragment extends Fragment {
 
+    private static final int REQUEST_ONRAMPER = 100;
+    private static final int REQUEST_XANPOOL = 200;
     private LoadToast loadToast;
     private View rootView;
     private CoinAdapter mAdapter;
@@ -349,12 +351,15 @@ public class CoinsFragment extends Fragment {
                                 try {
                                     CoinInfo coin = new CoinInfo((JSONObject) coins.get(i));
                                     coinList.add(coin);
-                                    onRamperCoins = onRamperCoins+coin.getCoinSymbol()+",";
+                                    if(coin.getBuyNowOption() >= 2)
+                                        onRamperCoins = onRamperCoins+coin.getCoinSymbol()+",";
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
-
+                            if(onRamperCoins.length() > 2)
+                                onRamperCoins = onRamperCoins.substring(0, onRamperCoins.length() - 1);
                             mAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -420,12 +425,15 @@ public class CoinsFragment extends Fragment {
                                     );
                                     rampInstantSDK.show();
                                 } else if(type == 2){
-                                    String coin_address = CoinSymbol+":["+address+"]";
+                                    String coin_address = "&wallets="+CoinSymbol+":"+address;
+//                                    String coin_address = "";
                                     String excludeCryptos = "&excludeCryptos=EOS,USDT,XLM,BUSD,GUSD,HUSD,PAX,USDS";
-                                    String url = "https://widget.onramper.dev?color=1d2d50&apiKey="+mOnramperApikey+"&defaultCrypto="+CoinSymbol+excludeCryptos+"&defaultAddrs="+coin_address+"&onlyCryptos="+onRamperCoins;
+                                    String url = "https://widget.onramper.com?color=1d2d50&apiKey="+mOnramperApikey+"&defaultCrypto="
+                                                +CoinSymbol+excludeCryptos+coin_address+"&onlyCryptos="+onRamperCoins
+                                                +"isAddressEditable=false";
                                     Intent browserIntent = new Intent(getActivity(), WebViewActivity.class);
                                     browserIntent.putExtra("uri", url);
-                                    startActivity(browserIntent);
+                                    startActivityForResult(browserIntent, REQUEST_ONRAMPER);
                                 }
                                 else if(type == 3){ //xanpool
                                     String base = "https://checkout.xanpool.com/";
@@ -440,7 +448,7 @@ public class CoinsFragment extends Fragment {
                                     Log.d("xanpool url:", url);
                                     Intent browserIntent = new Intent(getActivity(), WebViewActivity.class);
                                     browserIntent.putExtra("uri", url);
-                                    startActivity(browserIntent);
+                                    startActivityForResult(browserIntent, REQUEST_XANPOOL);
                                 }
                             }
                             else

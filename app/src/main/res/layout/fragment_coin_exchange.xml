@@ -95,10 +95,10 @@
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="11dp"
+                                android:layout_height="match_parent"
+                                android:text="Avbl:"
                                 android:textColor="@color/colorBlue"
-                                android:text="Avbl:" />
+                                android:textSize="11dp" />
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@null"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="10dp"
                                 android:hint="0.00"
                                 android:inputType="numberDecimal"
                                 android:textSize="11dp"
@@ -187,6 +187,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@null"
+                                android:layout_marginTop="10dp"
                                 android:hint="0.00"
                                 android:inputType="numberDecimal"
                                 android:textSize="11dp"
@@ -485,7 +486,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="0dp"
+                            android:layout_marginBottom="10dp"
                             android:orientation="horizontal">
                             <TextView
                                 android:layout_weight="1"
@@ -493,7 +494,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="11dp"
                                 android:textColor="@color/colorBlack"
-                                android:text="Quantity(XMT)"/>
+                                android:text="Qty(XMT)"/>
                             <TextView
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"

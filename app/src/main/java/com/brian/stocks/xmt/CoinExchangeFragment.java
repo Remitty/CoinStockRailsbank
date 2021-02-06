@@ -63,7 +63,7 @@ public class CoinExchangeFragment extends Fragment {
     private TextView mTextChangeVolume, mTextChangeRate, mTextChangeLow, mTextChangeHigh, mTextCoinBuy, mTextCoinSell, mTextCoinSell1,  mTextCoinBuyBalance, mTextCoinSellBalance, mTextCoinSellBalance1, mTextOutputTrade, mTextAsksTotalUSD, mTextBidsTotalUSD, mTextPriceUSD;
     private String CoinSymbol;
     private View mView;
-    private DecimalFormat df = new DecimalFormat("#.########");
+    private DecimalFormat df = new DecimalFormat("#.####");
     private LoadToast loadToast;
     private RecyclerView orderView, orderHistoryView, orderbookAsksView, orderbookBidsView;
     OrderAdapter orderAdapter;
@@ -413,8 +413,8 @@ public class CoinExchangeFragment extends Fragment {
                                     JSONObject responseObj = null;
                                         mTextChangeVolume.setText("$ "+df.format(response.getDouble("change_volume")));
                                         mTextChangeRate.setText("$ "+df.format(response.getDouble("change_rate")));
-                                        mTextChangeHigh.setText(df.format(response.getDouble("last_high"))+CoinSymbol);
-                                        mTextChangeLow.setText(df.format(response.getDouble("last_low"))+CoinSymbol);
+                                        mTextChangeHigh.setText(String.format("%.8f", response.getDouble("last_high"))+CoinSymbol);
+                                        mTextChangeLow.setText(String.format("%.8f", response.getDouble("last_low"))+CoinSymbol);
 
                                         mTextCoinBuyBalance.setText(df.format(response.getDouble("coin2_balance")));
                                         mTextCoinSellBalance.setText(df.format(response.getDouble("coin1_balance")));
