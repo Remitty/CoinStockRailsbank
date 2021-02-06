@@ -60,7 +60,7 @@ public class XMTChartFragment extends Fragment {
                 .tooltip(false)
                 .xAxis(false)
                 .yAxis(true)
-                .yGrid(5, true)
+//                .yGrid(5, true)
                 .background(false);
 //        areaChart.yScale().stackMode(ScaleStackMode.VALUE);
         List<DataEntry> seriesData = new ArrayList<>();

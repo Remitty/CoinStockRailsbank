@@ -35,6 +35,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
+import com.brian.stocks.model.CoinInfo;
 import com.brian.stocks.xmt.adapters.OrderAdapter;
 import com.brian.stocks.xmt.adapters.OrderHistoryAdapter;
 import com.brian.stocks.xmt.adapters.OrderBookAsksAdapter;
@@ -60,7 +61,7 @@ public class CoinExchangeFragment extends Fragment {
     private TabLayout tabLayout;
     private EditText mEditQuantity, mEditPrice;
     private TextView mTextChangeVolume, mTextChangeRate, mTextChangeLow, mTextChangeHigh, mTextCoinBuy, mTextCoinSell, mTextCoinSell1,  mTextCoinBuyBalance, mTextCoinSellBalance, mTextCoinSellBalance1, mTextOutputTrade, mTextAsksTotalUSD, mTextBidsTotalUSD, mTextPriceUSD;
-    private static String CoinSymbol;
+    private String CoinSymbol;
     private View mView;
     private DecimalFormat df = new DecimalFormat("#.########");
     private LoadToast loadToast;
@@ -77,7 +78,7 @@ public class CoinExchangeFragment extends Fragment {
     private ArrayList<JSONObject> ordersList = new ArrayList<>();
     private ArrayList<JSONObject> ordersHistoryList = new ArrayList<>();
     private String mPair, selType;
-    private Float mBTCUSD_rate, mBTCXMT_rate;
+    private Double mBTCUSD_rate, mBTCXMT_rate;
     double buyCoinPrice=0, sellCoinPrice=0;
     private JSONArray bids = null;
     private JSONArray asks = null;
@@ -107,7 +108,7 @@ public class CoinExchangeFragment extends Fragment {
 
     public static CoinExchangeFragment newInstance(String symbol) {
         CoinExchangeFragment fragment = new CoinExchangeFragment();
-        CoinSymbol = symbol;
+        fragment.CoinSymbol = symbol;
         return fragment;
     }
 
@@ -285,11 +286,10 @@ public class CoinExchangeFragment extends Fragment {
                     mPair = (String) pairList.get(arg2).get("symbol");
                     //Log.d("pairs list response", "got pair " + mPair);
 
-                    TextView vscoin = mView.findViewById(R.id.coin_buyy);
-                    vscoin.setText(" "+mPair.split("-")[0]);
+//                    TextView vscoin = mView.findViewById(R.id.coin_buyy);
+//                    vscoin.setText(" "+mPair.split("-")[0]);
+                    CoinSymbol = mPair.split("-")[0];
 
-                    focusedPrice = false;
-                    changedPrice = false;
                     getData();
 
 
@@ -399,114 +399,110 @@ public class CoinExchangeFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             Log.d("coin assets response", "" + response.toString());
                             try {
-                                if (!response.has("success") || response.getBoolean("success") == false) {
+                                if (response.getBoolean("success") == true) {
+                                    mTextCoinBuy.setText(CoinSymbol);
+                                    focusedPrice = false;
+                                    changedPrice = false;
                                     ordersList.clear();
                                     ordersHistoryList.clear();
                                     bidsList.clear();
                                     asksList.clear();
 
+                                    JSONObject responseObj = null;
+                                        mTextChangeVolume.setText("$ "+df.format(response.getDouble("change_volume")));
+                                        mTextChangeRate.setText("$ "+df.format(response.getDouble("change_rate")));
+                                        mTextChangeHigh.setText(df.format(response.getDouble("last_high"))+CoinSymbol);
+                                        mTextChangeLow.setText(df.format(response.getDouble("last_low"))+CoinSymbol);
+
+                                        mTextCoinBuyBalance.setText(df.format(response.getDouble("coin2_balance")));
+                                        mTextCoinSellBalance.setText(df.format(response.getDouble("coin1_balance")));
+                                        mTextCoinSellBalance1.setText(df.format(response.getDouble("coin1_balance")));
+                                        responseObj = response.getJSONObject("orders");
+                                        if(responseObj != null) {
+                                            JSONArray orders = responseObj.getJSONArray("active");
+                                            JSONArray ordersHistory = responseObj.getJSONArray("history");
+                                            for (int i = 0; i < orders.length(); i++) {
+                                                try {
+                                                    ordersList.add(orders.getJSONObject(i));
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                            for (int i = 0; i < ordersHistory.length(); i++) {
+                                                try {
+                                                    ordersHistoryList.add(ordersHistory.getJSONObject(i));
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+
+                                            orderHistoryAdapter.notifyDataSetChanged();
+                                            orderAdapter.notifyDataSetChanged();
+                                        }
+
+
+                                    try {
+                                        bids = response.getJSONArray("bids");
+                                        if(bids != null) {
+                                            for (int i = 0; i < bids.length(); i++) {
+                                                try {
+                                                    bidsList.add(bids.getJSONObject(i));
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+
+                                            orderBookBidsAdapter2.notifyDataSetChanged();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    try {
+                                        asks = response.getJSONArray("asks");
+                                        if(asks != null) {
+                                            for (int i = 0; i < asks.length(); i++) {
+                                                try {
+                                                    asksList.add(asks.getJSONObject(i));
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+
+                                            orderbookAsksAdapter.notifyDataSetChanged();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                                    try {
+                                        mBTCUSD_rate = response.getDouble("btc_rate");
+                                        mBTCXMT_rate = mBTCUSD_rate * getPrice();
+                                        mTextPriceUSD.setText("$"+df.format(mBTCXMT_rate));
+                                        mTextAsksTotalUSD.setText("Asks ($"+df.format(response.getDouble("asks_total"))+")");
+                                        mTextBidsTotalUSD.setText("Bids ($"+df.format(response.getDouble("bids_total"))+")");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    try {
+                                        if (!changedPrice && !focusedPrice)
+                                            mEditPrice.setText(df.format(getPrice()));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
                                     updateComponents();
-                                    return;
+                                }else {
+                                    Toast.makeText(getContext(), response.getString("msg"), Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 
 
-                            ordersList.clear();
-                            ordersHistoryList.clear();
-                            bidsList.clear();
-                            asksList.clear();
 
-                            JSONObject responseObj = null;
-                            try {
-                                mTextChangeVolume.setText("$ "+df.format(Float.parseFloat(response.getString("change_volume"))));
-                                mTextChangeRate.setText("$ "+df.format(Float.parseFloat(response.getString("change_rate"))));
-                                mTextChangeHigh.setText(df.format(Float.parseFloat(response.getString("last_high")))+" XMT");
-                                mTextChangeLow.setText(df.format(Float.parseFloat(response.getString("last_low")))+" XMT");
-
-                                mTextCoinBuyBalance.setText(df.format(Float.parseFloat(response.getString("coin2_balance"))));
-                                mTextCoinSellBalance.setText(df.format(Float.parseFloat(response.getString("coin1_balance"))));
-                                mTextCoinSellBalance1.setText(df.format(Float.parseFloat(response.getString("coin1_balance"))));
-                                responseObj = response.getJSONObject("orders");
-                                if(responseObj != null) {
-                                    JSONArray orders = responseObj.getJSONArray("active");
-                                    JSONArray ordersHistory = responseObj.getJSONArray("history");
-                                    for (int i = 0; i < orders.length(); i++) {
-                                        try {
-                                            ordersList.add(orders.getJSONObject(i));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                    for (int i = 0; i < ordersHistory.length(); i++) {
-                                        try {
-                                            ordersHistoryList.add(ordersHistory.getJSONObject(i));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    orderHistoryAdapter.notifyDataSetChanged();
-                                    orderAdapter.notifyDataSetChanged();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-                                bids = response.getJSONArray("bids");
-                                if(bids != null) {
-                                    for (int i = 0; i < bids.length(); i++) {
-                                        try {
-                                            bidsList.add(bids.getJSONObject(i));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    orderBookBidsAdapter2.notifyDataSetChanged();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-                                asks = response.getJSONArray("asks");
-                                if(asks != null) {
-                                    for (int i = 0; i < asks.length(); i++) {
-                                        try {
-                                            asksList.add(asks.getJSONObject(i));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    orderbookAsksAdapter.notifyDataSetChanged();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-
-                            try {
-                                mBTCUSD_rate = Float.parseFloat(response.getString("btc_rate"));
-                                mBTCXMT_rate = mBTCUSD_rate * Float.parseFloat(String.valueOf(getPrice()));
-                                mTextPriceUSD.setText("$"+df.format(mBTCXMT_rate));
-                                mTextAsksTotalUSD.setText("Asks ($"+df.format(Float.parseFloat(response.getString("asks_total")))+")");
-                                mTextBidsTotalUSD.setText("Bids ($"+df.format(Float.parseFloat(response.getString("bids_total")))+")");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-                                if (!changedPrice && !focusedPrice)
-                                    mEditPrice.setText(df.format(getPrice()));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            updateComponents();
                         }
 
 
@@ -662,7 +658,7 @@ public class CoinExchangeFragment extends Fragment {
                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
                     alertBuilder.setIcon(R.mipmap.ic_launcher_round)
                             .setTitle("Confirm trade")
-                            .setMessage("Are you sure you want to " + selType + " " + mEditQuantity.getText().toString() + "XMT? Price is $" + mEditPrice.getText().toString() + ".")
+                            .setMessage("Are you sure you want to " + selType + " " + mEditQuantity.getText().toString() + CoinSymbol +"? Price is $" + mEditPrice.getText().toString() + ".")
                             .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -754,21 +750,21 @@ public class CoinExchangeFragment extends Fragment {
         return validation;
     }
 
-    private double getPrice() throws JSONException {
+    private Double getPrice() throws JSONException {
         try {
             if (selType.equalsIgnoreCase("buy")) {
                 if (asksList.isEmpty()) {
                     return 0.00000001;
                 } else {
                     JSONObject item = asksList.get(0);
-                    return Float.parseFloat(df.format(Float.parseFloat(item.optString("price"))));
+                    return item.optDouble("price");
                 }
             } else {
                 if (bidsList.isEmpty()) {
                     return 0.00000001;
                 } else {
                     JSONObject item = bidsList.get(0);
-                    return Float.parseFloat(df.format(Float.parseFloat(item.optString("price"))));
+                    return item.optDouble("price");
                 }
             }
         } catch (Exception e) {
