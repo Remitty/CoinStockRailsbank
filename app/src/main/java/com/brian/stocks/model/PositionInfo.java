@@ -40,7 +40,7 @@ public class PositionInfo {
 
     public String getAvgPrice() {
         try {
-            return new DecimalFormat("#.##").format(data.getDouble("avg_entry_price"));
+            return doubleFormat(data.getString("avg_entry_price"));
         } catch (JSONException e) {
             return "0.0";
         }
@@ -48,22 +48,22 @@ public class PositionInfo {
 
     public String getCurrentPrice(){
         try {
-            return new DecimalFormat("#.##").format(data.getDouble("current_price"));
+            return doubleFormat(data.getString("current_price"));
         } catch (JSONException e) {
             return "0.0";
         }
     }
 
-    public String getEquity(){
+    public String getEquity(){//holding
         BigDecimal amount3 = new BigDecimal(getCurrentPrice());
         BigDecimal amount4 = new BigDecimal(getQty());
-//        return DoubleFormat(""+amount3.multiply(amount4));
+//        return doubleFormat(""+amount3.multiply(amount4));
         return new DecimalFormat("#,###.##").format(amount3.multiply(amount4).doubleValue());
     }
 
     public String getLastDayPrice(){
         try {
-            return DoubleFormat(data.getString("lastday_price"));
+            return doubleFormat(data.getString("lastday_price"));
         } catch (JSONException e) {
             return "0.0";
         }
@@ -73,25 +73,28 @@ public class PositionInfo {
 
         BigDecimal amount3 = new BigDecimal(getCurrentPrice());
         BigDecimal amount4 = new BigDecimal(getLastDayPrice());
-        return DoubleFormat(""+amount3.subtract(amount4));
+        return doubleFormat(""+amount3.subtract(amount4));
     }
 
     public String getProfit(){
         BigDecimal amount3 = new BigDecimal(getChangePrice());
         BigDecimal amount4 = new BigDecimal(getQty());
-        return DoubleFormat(""+amount3.multiply(amount4));
+        return doubleFormat(""+amount3.multiply(amount4));
     }
 
     public String getChangePricePercent(){
         try {
-            return new DecimalFormat("#.##").format(data.getDouble("change_today"));
+            return doubleFormat(data.getString("change_today"));
         } catch (JSONException e) {
             return "0.0";
         }
     }
 
-    private String DoubleFormat(String number){
-        return String.format("%.2f", Double.parseDouble(number));
+    private String doubleFormat(String number){
+        String str = String.format("%.2f", Double.parseDouble(number));
+        if(str.equals(""))
+            str = "0.00";
+        return str;
     }
 
 }
