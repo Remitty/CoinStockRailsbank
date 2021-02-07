@@ -13,7 +13,7 @@
         <TextView
             android:id="@+id/quantity"
             android:layout_weight="1"
-            android:textColor="@color/colorRedCrayon"
+            android:textColor="@color/colorBlue"
             android:textSize="11dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -23,8 +23,7 @@
             android:gravity="right"
             android:padding="2dp"
             android:textSize="11dp"
-            android:textColor="@color/colorBlue"
-            android:background="@color/colorRedCrayonGray"
+            android:textColor="@color/colorRedCrayon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
