@@ -61,6 +61,7 @@ public class CoinExchangeFragment extends Fragment {
     private TabLayout tabLayout;
     private EditText mEditQuantity, mEditPrice;
     private TextView mTextChangeVolume, mTextChangeRate, mTextChangeLow, mTextChangeHigh, mTextCoinBuy, mTextCoinSell, mTextCoinSell1,  mTextCoinBuyBalance, mTextCoinSellBalance, mTextCoinSellBalance1, mTextOutputTrade, mTextAsksTotalUSD, mTextBidsTotalUSD, mTextPriceUSD;
+    private TextView mtvOrderSymbol;
     private String CoinSymbol;
     private View mView;
     private DecimalFormat df = new DecimalFormat("#.####");
@@ -153,7 +154,7 @@ public class CoinExchangeFragment extends Fragment {
                 focusedPrice = false;
                 changedPrice = false;
                 try {
-                    mEditPrice.setText(df.format(getPrice()));
+                    mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -290,7 +291,8 @@ public class CoinExchangeFragment extends Fragment {
 //                    TextView vscoin = mView.findViewById(R.id.coin_buyy);
 //                    vscoin.setText(" "+mPair.split("-")[0]);
                     CoinSymbol = " "+mPair.split("-")[0];
-
+                    focusedPrice = false;
+                    changedPrice = false;
                     getData();
 
 
@@ -403,8 +405,7 @@ public class CoinExchangeFragment extends Fragment {
                             try {
                                 if (response.getBoolean("success") == true) {
                                     mTextCoinBuy.setText(CoinSymbol);
-                                    focusedPrice = false;
-                                    changedPrice = false;
+
                                     ordersList.clear();
                                     ordersHistoryList.clear();
                                     bidsList.clear();
@@ -413,9 +414,9 @@ public class CoinExchangeFragment extends Fragment {
                                     JSONObject responseObj = null;
                                         mTextChangeVolume.setText("$ "+df.format(response.getDouble("change_volume")));
                                         mTextChangeRate.setText("$ "+df.format(response.getDouble("change_rate")));
-                                        mTextChangeHigh.setText(String.format("%.8f", response.getDouble("last_high"))+CoinSymbol);
-                                        mTextChangeLow.setText(String.format("%.8f", response.getDouble("last_low"))+CoinSymbol);
-
+                                        mTextChangeHigh.setText(new DecimalFormat("#.########").format(response.getDouble("last_high")) +CoinSymbol);
+                                        mTextChangeLow.setText(new DecimalFormat("#.########").format(response.getDouble("last_low")) +CoinSymbol);
+                                        mtvOrderSymbol.setText("("+CoinSymbol+")");
                                         mTextCoinBuyBalance.setText(df.format(response.getDouble("coin2_balance")));
                                         mTextCoinSellBalance.setText(df.format(response.getDouble("coin1_balance")));
                                         mTextCoinSellBalance1.setText(df.format(response.getDouble("coin1_balance")));
@@ -488,12 +489,8 @@ public class CoinExchangeFragment extends Fragment {
                                         e.printStackTrace();
                                     }
 
-                                    try {
-                                        if (!changedPrice && !focusedPrice)
-                                            mEditPrice.setText(df.format(getPrice()));
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
+                                     if (!changedPrice && !focusedPrice)
+                                         mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
 
                                     updateComponents();
                                 }else {
@@ -502,9 +499,6 @@ public class CoinExchangeFragment extends Fragment {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-
-
                         }
 
 
@@ -524,8 +518,8 @@ public class CoinExchangeFragment extends Fragment {
         try {
             jsonObject.put("pair", mPair);
             jsonObject.put("type", selType);
-            jsonObject.put("quantity", df.format(Float.parseFloat(mEditQuantity.getText().toString())));
-            jsonObject.put("price", df.format(Float.parseFloat(mEditPrice.getText().toString())));
+            jsonObject.put("quantity", mEditQuantity.getText().toString());
+            jsonObject.put("price", mEditPrice.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -609,7 +603,7 @@ public class CoinExchangeFragment extends Fragment {
         mTextAsksTotalUSD = mView.findViewById(R.id.asks_total_usd);
         mTextBidsTotalUSD = mView.findViewById(R.id.bids_total_usd);
         try {
-            mEditPrice.setText(df.format(getPrice()));
+            mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -617,6 +611,8 @@ public class CoinExchangeFragment extends Fragment {
         mTextCoinBuy = mView.findViewById(R.id.coin_buyy);
         mTextCoinSell = mView.findViewById(R.id.coin_selll);
         mTextCoinSell1 = mView.findViewById(R.id.coin_selll1);
+
+        mtvOrderSymbol = mView.findViewById(R.id.orders_symbol);
 
         mTextCoinBuyBalance = mView.findViewById(R.id.coin_buy_balance);
         mTextCoinSellBalance = mView.findViewById(R.id.coin_sell_balance);
@@ -699,12 +695,12 @@ public class CoinExchangeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String price=charSequence.toString();
-                if(!price.equalsIgnoreCase(".")) {
-                    //            if (!price.equalsIgnoreCase("")) {
-                    //                mtvBuyingEstQty.setText(BigDecimalDouble.newInstance().multify(price, buyCoinPrice));
-                    //            } else mtvBuyingEstQty.setText("0.00");
-                }
-                calculate();
+//                if(!price.equalsIgnoreCase(".")) {
+//                    //            if (!price.equalsIgnoreCase("")) {
+//                    //                mtvBuyingEstQty.setText(BigDecimalDouble.newInstance().multify(price, buyCoinPrice));
+//                    //            } else mtvBuyingEstQty.setText("0.00");
+//                }
+//                calculate();
             }
 
             @Override
@@ -788,11 +784,12 @@ public class CoinExchangeFragment extends Fragment {
         }
         Float calc = Float.parseFloat(fixval1) * Float.parseFloat(fixval2);
     //Buying "+df.format(Float.parseFloat(fixval1))+" XMT, s
-        if(selType.equalsIgnoreCase("buy")) {
-            mTextOutputTrade.setText(df.format(calc)+" BTC");
-        } else {
-            mTextOutputTrade.setText(df.format(calc)+" BTC");
-        }
+//        if(selType.equalsIgnoreCase("buy")) {
+//            mTextOutputTrade.setText(df.format(calc)+" BTC");
+//        } else {
+//            mTextOutputTrade.setText(df.format(calc)+" BTC");
+//        }
+        mTextOutputTrade.setText(new DecimalFormat("#.########").format(calc)+" BTC");
     }
 
     @Override

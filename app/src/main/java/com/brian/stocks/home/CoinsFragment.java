@@ -430,7 +430,7 @@ public class CoinsFragment extends Fragment {
                                     String excludeCryptos = "&excludeCryptos=EOS,USDT,XLM,BUSD,GUSD,HUSD,PAX,USDS";
                                     String url = "https://widget.onramper.com?color=1d2d50&apiKey="+mOnramperApikey+"&defaultCrypto="
                                                 +CoinSymbol+excludeCryptos+coin_address+"&onlyCryptos="+onRamperCoins
-                                                +"isAddressEditable=false";
+                                                +"&isAddressEditable=false";
                                     Intent browserIntent = new Intent(getActivity(), WebViewActivity.class);
                                     browserIntent.putExtra("uri", url);
                                     startActivityForResult(browserIntent, REQUEST_ONRAMPER);

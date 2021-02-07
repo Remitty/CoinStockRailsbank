@@ -10,10 +10,16 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/type"
+            />
+        <TextView
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/type"
+            android:textSize="12dp"
+            android:id="@+id/symbol"
             />
         <TextView
             android:id="@+id/quantity"
@@ -34,6 +40,7 @@
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="X"
             android:textColor="@color/colorRedCrayon"
             android:layout_gravity="right"

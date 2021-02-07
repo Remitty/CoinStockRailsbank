@@ -41,12 +41,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvType, tvQuantity, tvValue, tvDate;
+        TextView tvType, tvQuantity, tvValue, tvDate, tvSymbol;
 
         @SuppressLint("ResourceAsColor")
         public OrderViewHolder(View view) {
             super(view);
             tvType = view.findViewById(R.id.type);
+            tvSymbol = view.findViewById(R.id.symbol);
             tvQuantity = view.findViewById(R.id.quantity);
             mBtnTrade = view.findViewById(R.id.btn_cancel);
             tvValue = view.findViewById(R.id.value);
@@ -108,6 +109,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
 
         holder.tvType.setText(item.optString("type"));
+        holder.tvSymbol.setText(item.optString("pair"));
         holder.tvQuantity.setText(df.format(Float.parseFloat(item.optString("quantity"))));
         holder.tvValue.setText(df.format(Float.parseFloat(item.optString("price"))));
         holder.tvDate.setText(item.optString("created_at").substring(0, 10));

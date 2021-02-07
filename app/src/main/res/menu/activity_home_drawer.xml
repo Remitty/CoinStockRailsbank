@@ -13,7 +13,10 @@
             android:id="@+id/nav_exchange"
             android:icon="@drawable/nav_trade"
             android:title="Trade cryptos"/>
-
+        <item
+            android:id="@+id/nav_coin_trade"
+            android:icon="@drawable/nav_trading"
+            android:title="Link wallet"/>
         <item
             android:id="@+id/nav_mtn"
             android:icon="@drawable/nav_smartphone"
@@ -48,13 +51,6 @@
             android:icon="@drawable/nav_news"
             android:visible="false"
             android:title="Group Chat" />
-
-
-        <item
-            android:id="@+id/nav_coin_trade"
-            android:icon="@drawable/nav_trading"
-            android:title="Pay cryptos"/>
-
 
     </group>
    <group android:checkableBehavior="none"
