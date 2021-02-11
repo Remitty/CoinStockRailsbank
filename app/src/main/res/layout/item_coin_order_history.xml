@@ -9,27 +9,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:id="@+id/type"
-            android:gravity="center"/>
+            />
         <TextView
             android:id="@+id/quantity"
             android:layout_weight="1"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/value"
             android:layout_weight="1"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/date"
             android:layout_weight="1"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>

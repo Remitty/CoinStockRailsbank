@@ -16,16 +16,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".zabo.ZaboAccountActivity"></activity>
-        <activity android:name=".zabo.ZaboActivity" >
+        <activity android:name=".xmt.XMTTradeHistoryActivity"></activity>
+        <activity android:name=".zabo.ZaboAccountActivity" />
+        <activity android:name=".zabo.ZaboActivity">
             <intent-filter android:label="Zaho connect account">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
-                    android:scheme="https"
                     android:host="www.joiintapp.com"
-                     />
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity android:name=".usdc.PaymentUserActivity" />
@@ -94,9 +96,7 @@
             android:launchMode="singleTask"
             android:theme="@style/RampInstant.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".home.WebViewActivity" >
-
-        </activity>
+        <activity android:name=".home.WebViewActivity"></activity>
         <activity android:name=".usdc.SendUsdcActivity" />
         <activity android:name=".mtn.MtnTransactionActivity" />
         <activity android:name=".mtn.MTNActivity" />

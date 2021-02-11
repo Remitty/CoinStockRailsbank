@@ -26,20 +26,22 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvQuantity, tvValue;
+        TextView tvQuantity, tvValue, tvType, tvDate;
 
         @SuppressLint("ResourceAsColor")
         public OrderViewHolder(View view) {
             super(view);
             tvQuantity = view.findViewById(R.id.quantity);
             tvValue = view.findViewById(R.id.value);
+            tvType = view.findViewById(R.id.type);
+            tvDate = view.findViewById(R.id.date);
         }
     }
 
     @NonNull
     @Override
     public OrderHistoryAdapter.OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_coin_orderbook_bids, parent, false);
+        View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_coin_order_history, parent, false);
         OrderHistoryAdapter.OrderViewHolder vh = new OrderHistoryAdapter.OrderViewHolder(mView);
         return vh;
     }
@@ -49,7 +51,9 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         JSONObject item = orders.get(position);
 
         holder.tvQuantity.setText(item.optString("quantity"));
-        holder.tvValue.setText(item.optString("value"));
+        holder.tvValue.setText(item.optString("price"));
+        holder.tvType.setText(item.optString("type"));
+        holder.tvDate.setText(item.optString("updated_at").substring(0, 10));
 
     }
 

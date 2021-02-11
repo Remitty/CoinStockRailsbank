@@ -2,6 +2,7 @@ package com.brian.stocks.xmt;
 
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -60,15 +61,17 @@ public class CoinExchangeFragment extends Fragment {
     private Button mBtnTrade;
     private TabLayout tabLayout;
     private EditText mEditQuantity, mEditPrice;
-    private TextView mTextChangeVolume, mTextChangeRate, mTextChangeLow, mTextChangeHigh, mTextCoinBuy, mTextCoinSell, mTextCoinSell1,  mTextCoinBuyBalance, mTextCoinSellBalance, mTextCoinSellBalance1, mTextOutputTrade, mTextAsksTotalUSD, mTextBidsTotalUSD, mTextPriceUSD;
+    private TextView mTextChangeVolume, mTextChangeRate, mTextChangeLow, mTextChangeHigh, mTextCoinBuy, mTextCoinBuyBalance, mTextCoinSellBalance, mTextCoinSellBalance1, mTextOutputTrade, mTextAsksTotalUSD, mTextBidsTotalUSD, mTextPriceUSD;
     private TextView mtvOrderSymbol;
+    private TextView mtvMaxBidQty, mtvMaxBidValue;
+    private TextView mtvTradeHistory;
     private String CoinSymbol;
     private View mView;
     private DecimalFormat df = new DecimalFormat("#.####");
     private LoadToast loadToast;
     private RecyclerView orderView, orderHistoryView, orderbookAsksView, orderbookBidsView;
     OrderAdapter orderAdapter;
-    OrderHistoryAdapter orderHistoryAdapter;
+
     OrderBookBidsAdapter orderBookBidsAdapter2;
     OrderBookAsksAdapter orderbookAsksAdapter;
     private boolean changedPrice = false;
@@ -77,7 +80,7 @@ public class CoinExchangeFragment extends Fragment {
     private ArrayList<JSONObject> bidsList = new ArrayList<>();
     private ArrayList<JSONObject> asksList = new ArrayList<>();
     private ArrayList<JSONObject> ordersList = new ArrayList<>();
-    private ArrayList<JSONObject> ordersHistoryList = new ArrayList<>();
+
     private String mPair, selType;
     private Double mBTCUSD_rate, mBTCXMT_rate;
     double buyCoinPrice=0, sellCoinPrice=0;
@@ -88,6 +91,7 @@ public class CoinExchangeFragment extends Fragment {
     int select = 0;
     private Handler mHandler;
     private int i;
+    private boolean graph_flag = false;
     private Runnable mUpdate = new Runnable() {
         public void run() {
 
@@ -98,7 +102,7 @@ public class CoinExchangeFragment extends Fragment {
         }
     };
 
-    private JSONArray mAggregateDay = new JSONArray(), mAggregateWeek = new JSONArray(), mAggregateMonth = new JSONArray(), mAggregate6Month = new JSONArray(), mAggregateYear = new JSONArray(), mAggregateAll = new JSONArray();
+    private JSONObject mAggregateDay, mAggregateWeek, mAggregateMonth, mAggregate6Month, mAggregateYear, mAggregateAll;
     private ViewPager mXMTChartViewPager;
     private TabLayout mXMTTabBar;
     XMTChartTabAdapter mPageAdapter;
@@ -176,30 +180,12 @@ public class CoinExchangeFragment extends Fragment {
 
         initListeners();
 
-        initGraph();
-
-
-
         i = 0;
         mHandler = new Handler();
         mHandler.post(mUpdate);
 
         getPairs();
         return mView;
-    }
-
-    private void initGraph() {
-        mXMTTabBar= mView.findViewById(R.id.xmt_chart_tab_bar);
-        mXMTChartViewPager = mView.findViewById(R.id.xmt_chart_view_pager);
-        mPageAdapter = new XMTChartTabAdapter(getFragmentManager());
-        mPageAdapter.addCharData(mAggregateDay);
-        mPageAdapter.addCharData(mAggregateWeek);
-        mPageAdapter.addCharData(mAggregateMonth);
-        mPageAdapter.addCharData(mAggregate6Month);
-        mPageAdapter.addCharData(mAggregateYear);
-        mPageAdapter.addCharData(mAggregateAll);
-        mXMTChartViewPager.setAdapter(mPageAdapter);
-        mXMTTabBar.setupWithViewPager(mXMTChartViewPager);
     }
 
     private class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
@@ -406,43 +392,40 @@ public class CoinExchangeFragment extends Fragment {
                                 if (response.getBoolean("success") == true) {
                                     mTextCoinBuy.setText(CoinSymbol);
 
+                                    initGraph(response);
+
                                     ordersList.clear();
-                                    ordersHistoryList.clear();
                                     bidsList.clear();
                                     asksList.clear();
 
                                     JSONObject responseObj = null;
-                                        mTextChangeVolume.setText("$ "+df.format(response.getDouble("change_volume")));
-                                        mTextChangeRate.setText("$ "+df.format(response.getDouble("change_rate")));
-                                        mTextChangeHigh.setText(new DecimalFormat("#.########").format(response.getDouble("last_high")) +CoinSymbol);
-                                        mTextChangeLow.setText(new DecimalFormat("#.########").format(response.getDouble("last_low")) +CoinSymbol);
-                                        mtvOrderSymbol.setText("("+CoinSymbol+")");
-                                        mTextCoinBuyBalance.setText(df.format(response.getDouble("coin2_balance")));
-                                        mTextCoinSellBalance.setText(df.format(response.getDouble("coin1_balance")));
-                                        mTextCoinSellBalance1.setText(df.format(response.getDouble("coin1_balance")));
-                                        responseObj = response.getJSONObject("orders");
-                                        if(responseObj != null) {
-                                            JSONArray orders = responseObj.getJSONArray("active");
-                                            JSONArray ordersHistory = responseObj.getJSONArray("history");
-                                            for (int i = 0; i < orders.length(); i++) {
-                                                try {
-                                                    ordersList.add(orders.getJSONObject(i));
-                                                } catch (JSONException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                            for (int i = 0; i < ordersHistory.length(); i++) {
-                                                try {
-                                                    ordersHistoryList.add(ordersHistory.getJSONObject(i));
-                                                } catch (JSONException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
+                                    mTextChangeVolume.setText("$ "+new DecimalFormat("#,###.##").format(response.getDouble("change_volume")));
+                                    mTextChangeRate.setText("$ "+df.format(response.getDouble("change_rate")));
+                                    mTextChangeHigh.setText(new DecimalFormat("#.########").format(response.getDouble("last_high")) +CoinSymbol);
+                                    mTextChangeLow.setText(new DecimalFormat("#.########").format(response.getDouble("last_low")) +CoinSymbol);
+                                    mtvOrderSymbol.setText("("+CoinSymbol+")");
 
-                                            orderHistoryAdapter.notifyDataSetChanged();
-                                            orderAdapter.notifyDataSetChanged();
+                                    JSONObject maxBid = response.getJSONObject("max_bid");
+                                    mtvMaxBidQty.setText(new DecimalFormat("#.########").format(maxBid.getDouble("quantity")));
+                                    mtvMaxBidValue.setText(new DecimalFormat("#.########").format(maxBid.getDouble("price")));
+
+                                    mTextCoinBuyBalance.setText(new DecimalFormat("#,###.####").format(response.getDouble("coin2_balance")));
+                                    mTextCoinSellBalance.setText(df.format(response.getDouble("coin1_balance")));
+                                    mTextCoinSellBalance1.setText(df.format(response.getDouble("coin1_balance")));
+
+                                    try {
+                                        JSONArray orders = response.getJSONArray("orders");
+                                        for (int i = 0; i < orders.length(); i++) {
+                                            try {
+                                                ordersList.add(orders.getJSONObject(i));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
-
+                                        orderAdapter.notifyDataSetChanged();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
 
                                     try {
                                         bids = response.getJSONArray("bids");
@@ -478,13 +461,12 @@ public class CoinExchangeFragment extends Fragment {
                                         e.printStackTrace();
                                     }
 
-
                                     try {
                                         mBTCUSD_rate = response.getDouble("btc_rate");
                                         mBTCXMT_rate = mBTCUSD_rate * getPrice();
-                                        mTextPriceUSD.setText("$"+df.format(mBTCXMT_rate));
-                                        mTextAsksTotalUSD.setText("Asks ($"+df.format(response.getDouble("asks_total"))+")");
-                                        mTextBidsTotalUSD.setText("Bids ($"+df.format(response.getDouble("bids_total"))+")");
+                                        mTextPriceUSD.setText("$"+new DecimalFormat("#,###.##").format(mBTCXMT_rate));
+                                        mTextAsksTotalUSD.setText("$ "+new DecimalFormat("#,###.##").format(response.getDouble("asks_total")));
+                                        mTextBidsTotalUSD.setText("$ "+new DecimalFormat("#,###.##").format(response.getDouble("bids_total")));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -492,7 +474,6 @@ public class CoinExchangeFragment extends Fragment {
                                      if (!changedPrice && !focusedPrice)
                                          mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
 
-                                    updateComponents();
                                 }else {
                                     Toast.makeText(getContext(), response.getString("msg"), Toast.LENGTH_SHORT).show();
                                 }
@@ -509,7 +490,6 @@ public class CoinExchangeFragment extends Fragment {
                         }
                     });
     }
-
 
     private void sendData() {
 
@@ -573,25 +553,45 @@ public class CoinExchangeFragment extends Fragment {
         }
     }
 
-    private void updateComponents() {
-        orderAdapter = new OrderAdapter(ordersList);
-        orderView.setLayoutManager(new LinearLayoutManager(getContext()));
-        orderView.setAdapter(orderAdapter);
+    private void cancelOrder1(String orderid) {
+        JSONObject jsonObject = new JSONObject();
 
-        orderHistoryView = mView.findViewById(R.id.orders_history_view);
-        orderHistoryAdapter = new OrderHistoryAdapter(ordersHistoryList);
-        orderHistoryView.setLayoutManager(new LinearLayoutManager(getContext()));
-        orderHistoryView.setAdapter(orderHistoryAdapter);
+        try {
+            jsonObject.put("orderid", orderid);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        orderbookAsksView = mView.findViewById(R.id.orderbook_asks_view);
-        orderbookAsksAdapter = new OrderBookAsksAdapter(asksList);
-        orderbookAsksView.setLayoutManager(new LinearLayoutManager(getContext()));
-        orderbookAsksView.setAdapter(orderbookAsksAdapter);
+        if (getContext() != null) {
+            loadToast.show();
+            AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE_CANCEL)
+                    .addHeaders("Content-Type", "application/json")
+                    .addHeaders("accept", "application/json")
+                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(), "access_token"))
+                    .addJSONObjectBody(jsonObject)
+                    .setPriority(Priority.MEDIUM)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            loadToast.hide();
+                            Log.d("coin post response", "" + response.toString());
 
-        orderbookBidsView = mView.findViewById(R.id.orderbook_bids_view);
-        orderBookBidsAdapter2 = new OrderBookBidsAdapter(bidsList);
-        orderbookBidsView.setLayoutManager(new LinearLayoutManager(getContext()));
-        orderbookBidsView.setAdapter(orderBookBidsAdapter2);
+                            if (!response.has("success")) {
+                                Toast.makeText(getContext(), "Order Cancelled.", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onError(ANError error) {
+                            // handle error
+                            loadToast.hide();
+                            Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            Log.d("errorpost", "" + error.getErrorBody() + " responde: " + error.getResponse());
+                        }
+                    });
+        }
     }
 
     private void initComponents() {
@@ -602,6 +602,12 @@ public class CoinExchangeFragment extends Fragment {
         mEditPrice = mView.findViewById(R.id.edit_price);
         mTextAsksTotalUSD = mView.findViewById(R.id.asks_total_usd);
         mTextBidsTotalUSD = mView.findViewById(R.id.bids_total_usd);
+
+        mtvTradeHistory = mView.findViewById(R.id.tv_trade_history);
+
+        mtvMaxBidQty = mView.findViewById(R.id.max_bid_quantity);
+        mtvMaxBidValue = mView.findViewById(R.id.max_bid_value);
+
         try {
             mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
         } catch (JSONException e) {
@@ -609,8 +615,6 @@ public class CoinExchangeFragment extends Fragment {
         }
         mTextOutputTrade = mView.findViewById(R.id.output_trade);
         mTextCoinBuy = mView.findViewById(R.id.coin_buyy);
-        mTextCoinSell = mView.findViewById(R.id.coin_selll);
-        mTextCoinSell1 = mView.findViewById(R.id.coin_selll1);
 
         mtvOrderSymbol = mView.findViewById(R.id.orders_symbol);
 
@@ -628,23 +632,70 @@ public class CoinExchangeFragment extends Fragment {
         orderView = mView.findViewById(R.id.orders_view);
         orderAdapter = new OrderAdapter(ordersList);
         orderView.setLayoutManager(new LinearLayoutManager(getContext()));
-        orderView.setAdapter(orderAdapter);
+        orderAdapter.setListener(new OrderAdapter.Listener() {
+            @Override
+            public void cancelOrder(final int position) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setIcon(R.mipmap.ic_launcher_round)
+                        .setTitle("Confirm cancel")
+                        .setMessage("Are you sure you want to cancel this order?")
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-        orderHistoryView = mView.findViewById(R.id.orders_history_view);
-        orderHistoryAdapter = new OrderHistoryAdapter(ordersHistoryList);
-        orderHistoryView.setLayoutManager(new LinearLayoutManager(getContext()));
-        orderHistoryView.setAdapter(orderHistoryAdapter);
+                            }
+                        })
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                cancelOrder1(ordersList.get(position).optString("id"));
+                            }
+                        })
+                        .show();
+
+            }
+        });
+        orderView.setAdapter(orderAdapter);
 
         orderbookAsksView = mView.findViewById(R.id.orderbook_asks_view);
         orderbookAsksAdapter = new OrderBookAsksAdapter(asksList);
+        orderbookAsksAdapter.setListener(new OrderBookAsksAdapter.Listener() {
+            @Override
+            public void OnClickQty(int position) {
+                JSONObject object = asksList.get(position);
+                Double qty = object.optDouble("quantity");
+                mEditQuantity.setText(new DecimalFormat("#.########").format(qty));
+            }
+
+            @Override
+            public void OnClickValue(int position) {
+                JSONObject object = asksList.get(position);
+                Double price = object.optDouble("price");
+                mEditPrice.setText(new DecimalFormat("#.########").format(price));
+            }
+        });
         orderbookAsksView.setLayoutManager(new LinearLayoutManager(getContext()));
         orderbookAsksView.setAdapter(orderbookAsksAdapter);
 
         orderbookBidsView = mView.findViewById(R.id.orderbook_bids_view);
         orderBookBidsAdapter2 = new OrderBookBidsAdapter(bidsList);
+        orderBookBidsAdapter2.setListener(new OrderBookBidsAdapter.Listener() {
+            @Override
+            public void OnClickQty(int position) {
+                JSONObject object = bidsList.get(position);
+                Double qty = object.optDouble("quantity");
+                mEditQuantity.setText(new DecimalFormat("#.########").format(qty));
+            }
+
+            @Override
+            public void OnClickValue(int position) {
+                JSONObject object = bidsList.get(position);
+                Double price = object.optDouble("price");
+                mEditPrice.setText(new DecimalFormat("#.########").format(price));
+            }
+        });
         orderbookBidsView.setLayoutManager(new LinearLayoutManager(getContext()));
         orderbookBidsView.setAdapter(orderBookBidsAdapter2);
-
 
     }
 
@@ -723,15 +774,30 @@ public class CoinExchangeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 changedPrice = true;
+                if (!mEditPrice.getText().toString().equalsIgnoreCase("")) {
+                    mBTCXMT_rate = mBTCUSD_rate * Double.parseDouble(charSequence.toString());
+                    mTextPriceUSD.setText("$" + new DecimalFormat("#,###.##").format(mBTCXMT_rate));
+                }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+
                 if (mEditPrice.getText().toString().equalsIgnoreCase("")) {
+                    mTextPriceUSD.setText("$" + new DecimalFormat("#,###.##").format(0.0));
                     return;
                 }
                 calculate();
                 changedPrice = true;
+            }
+        });
+
+        mtvTradeHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), XMTTradeHistoryActivity.class);
+                intent.putExtra("pair", mPair);
+                startActivity(intent);
             }
         });
     }
@@ -790,6 +856,34 @@ public class CoinExchangeFragment extends Fragment {
 //            mTextOutputTrade.setText(df.format(calc)+" BTC");
 //        }
         mTextOutputTrade.setText(new DecimalFormat("#.########").format(calc)+" BTC");
+
+    }
+
+    private void initGraph(JSONObject response) {
+        if(graph_flag == false) {
+            graph_flag = true;
+            try {
+                mAggregateDay = response.getJSONObject("aggregates");
+                mAggregateWeek = response.getJSONObject("aggregates");
+                mAggregateMonth = response.getJSONObject("aggregates");
+                mAggregate6Month = response.getJSONObject("aggregates");
+                mAggregateYear = response.getJSONObject("aggregates");
+                mAggregateAll = response.getJSONObject("aggregates");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            mXMTTabBar = mView.findViewById(R.id.xmt_chart_tab_bar);
+            mXMTChartViewPager = mView.findViewById(R.id.xmt_chart_view_pager);
+            mPageAdapter = new XMTChartTabAdapter(getFragmentManager());
+            mPageAdapter.addCharData(mAggregateDay);
+            mPageAdapter.addCharData(mAggregateWeek);
+            mPageAdapter.addCharData(mAggregateMonth);
+            mPageAdapter.addCharData(mAggregate6Month);
+            mPageAdapter.addCharData(mAggregateYear);
+            mPageAdapter.addCharData(mAggregateAll);
+            mXMTChartViewPager.setAdapter(mPageAdapter);
+            mXMTTabBar.setupWithViewPager(mXMTChartViewPager);
+        }
     }
 
     @Override

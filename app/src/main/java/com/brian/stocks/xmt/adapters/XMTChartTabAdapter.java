@@ -4,24 +4,23 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.brian.stocks.stock.stocktrade.StockChartFragment;
 import com.brian.stocks.xmt.XMTChartFragment;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class XMTChartTabAdapter extends FragmentPagerAdapter {
     private String[] items={"1H","6H", "7D", "All"};
-    private List<JSONArray> chartData = new ArrayList<>();
     public XMTChartTabAdapter(FragmentManager fm) {
         super(fm);
     }
-
+    private JSONObject data;
     @Override
     public Fragment getItem(int i) {
-        XMTChartFragment fragment = XMTChartFragment.newInstance(chartData.get(i));
+        XMTChartFragment fragment = XMTChartFragment.newInstance(this.data);
         return fragment;
     }
 
@@ -35,7 +34,7 @@ public class XMTChartTabAdapter extends FragmentPagerAdapter {
         return items[position];
     }
 
-    public void addCharData(JSONArray data){
-        chartData.add(data);
+    public void addCharData(JSONObject data){
+        this.data = data;
     }
 }

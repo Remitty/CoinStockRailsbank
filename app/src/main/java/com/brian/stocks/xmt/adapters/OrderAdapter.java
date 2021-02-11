@@ -2,7 +2,9 @@ package com.brian.stocks.xmt.adapters;
 
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +35,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     ArrayList<JSONObject> orders;
     Context thiscontext;
-    private TextView mBtnTrade;
+    Listener listener;
+    private TextView mbtnCancel;
     private DecimalFormat df = new DecimalFormat("#.########");
     public OrderAdapter(ArrayList orders) {
         this.orders = orders;
@@ -49,50 +52,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             tvType = view.findViewById(R.id.type);
             tvSymbol = view.findViewById(R.id.symbol);
             tvQuantity = view.findViewById(R.id.quantity);
-            mBtnTrade = view.findViewById(R.id.btn_cancel);
+            mbtnCancel = view.findViewById(R.id.btn_cancel);
             tvValue = view.findViewById(R.id.value);
             tvDate = view.findViewById(R.id.date);
             thiscontext = view.getContext();
         }
-    }
-
-    private void cancelOrder(int orderid) {
-
-        JSONObject jsonObject = new JSONObject();
-
-        try {
-            jsonObject.put("orderid", orderid);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        if (thiscontext != null)
-            AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE_CANCEL)
-                    .addHeaders("Content-Type", "application/json")
-                    .addHeaders("accept", "application/json")
-                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(thiscontext,"access_token"))
-                    .addJSONObjectBody(jsonObject)
-                    .setPriority(Priority.MEDIUM)
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-
-                            Log.d("coin post response", "" + response.toString());
-
-                            if (!response.has("success")) {
-                                Toast.makeText(thiscontext, "Order Cancelled.", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-
-                        @Override
-                        public void onError(ANError error) {
-                            // handle error
-
-                            Log.d("errorpost", "" + error.getMessage()+" responde: "+error.getResponse());
-                        }
-                    });
     }
 
     @NonNull
@@ -112,12 +76,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.tvSymbol.setText(item.optString("pair"));
         holder.tvQuantity.setText(df.format(Float.parseFloat(item.optString("quantity"))));
         holder.tvValue.setText(df.format(Float.parseFloat(item.optString("price"))));
-        holder.tvDate.setText(item.optString("created_at").substring(0, 10));
+        holder.tvDate.setText(item.optString("updated_at").substring(0, 10));
 
-        mBtnTrade.setOnClickListener(new View.OnClickListener() {
+        mbtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cancelOrder(orders.get(position).optInt("id"));
+                listener.cancelOrder(position);
+
             }
         });
 
@@ -128,5 +93,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         return orders != null ? orders.size(): 0;
     }
 
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
+    public interface Listener {
+        /**
+         * @param position
+         */
+        void cancelOrder(int position);
+    }
 }
 

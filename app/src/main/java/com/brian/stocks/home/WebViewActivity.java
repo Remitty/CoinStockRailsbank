@@ -49,6 +49,7 @@ public class WebViewActivity extends Activity {
         loadToast.show();
         Bundle bundle = getIntent().getExtras();
         String uri = bundle.getString("uri");
+        Log.d("webview url", uri);
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);

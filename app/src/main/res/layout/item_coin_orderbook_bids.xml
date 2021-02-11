@@ -13,8 +13,9 @@
         <TextView
             android:id="@+id/quantity"
             android:layout_weight="1"
-            android:textColor="@color/colorBlue"
+            android:textColor="#00008b"
             android:textSize="11dp"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
@@ -22,8 +23,9 @@
             android:layout_weight="1"
             android:gravity="right"
             android:padding="2dp"
-            android:textColor="@color/greenGray"
+            android:textColor="#006400"
             android:textSize="11dp"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>

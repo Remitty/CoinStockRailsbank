@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class OrderBookAsksAdapter extends RecyclerView.Adapter<OrderBookAsksAdapter.OrderViewHolder> {
 
     ArrayList<JSONObject> orders;
+    private Listener listener;
 
     private DecimalFormat df = new DecimalFormat("#.########");
     public OrderBookAsksAdapter(ArrayList orders) {
@@ -53,11 +54,37 @@ public class OrderBookAsksAdapter extends RecyclerView.Adapter<OrderBookAsksAdap
         holder.tvQuantity.setText(df.format(Float.parseFloat(item.optString("quantity"))));
         holder.tvValue.setText(df.format(Float.parseFloat(item.optString("price"))));
 
+        holder.tvQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.OnClickQty(position);
+            }
+        });
+
+        holder.tvValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.OnClickValue(position);
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return orders != null ? orders.size(): 0;
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
+    public interface Listener {
+        /**
+         * @param position
+         */
+        void OnClickQty(int position);
+        void OnClickValue(int position);
     }
 
 }
