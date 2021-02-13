@@ -129,6 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Coins"
+        android:textStyle="bold"
         android:textColor="@color/colorBlack"
         android:textSize="18dp"
         android:layout_marginLeft="20dp"/>

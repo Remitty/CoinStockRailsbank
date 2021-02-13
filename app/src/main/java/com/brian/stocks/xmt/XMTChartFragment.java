@@ -83,9 +83,17 @@ public class XMTChartFragment extends Fragment {
              size = chartBidData.length();
          else size = chartAskData.length();
 
-        for (int i = 0; i < size; i ++) {
+        for (int i = 0; i < chartAskData.length(); i ++) {
             try {
-                seriesData.add(new CustomDataEntry("Q"+i, chartAskData.getJSONObject(i).getDouble("price"), chartBidData.getJSONObject(i).getDouble("price") ));
+                seriesData.add(new CustomDataEntry("Q"+i, chartAskData.getJSONObject(i).getDouble("price") ));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        for (int i = 0; i < chartBidData.length(); i ++) {
+            try {
+                seriesData.add(new CustomDataEntry2("Q"+i, chartBidData.getJSONObject(i).getDouble("price") ));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -121,9 +129,15 @@ public class XMTChartFragment extends Fragment {
     }
 
     private class CustomDataEntry extends ValueDataEntry {
-        CustomDataEntry(String x, Number value, Number value2) {
+        CustomDataEntry(String x, Number value) {
             super(x, value);
-            setValue("value2", value2);
+        }
+    }
+
+    private class CustomDataEntry2 extends ValueDataEntry {
+        CustomDataEntry2(String x, Number value) {
+            super(x, value);
+            setValue("value2", value);
         }
     }
 }

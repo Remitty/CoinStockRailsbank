@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:visibility="visible"
             android:text="X"
+            android:textStyle="bold"
             android:textColor="@color/colorRedCrayon"
             android:layout_gravity="right"
             android:textSize="15dp" />

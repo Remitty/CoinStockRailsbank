@@ -335,7 +335,6 @@ public class CoinSwapFragment extends Fragment {
                         loadToast.success();
                         if(response.optBoolean("success")) {
                             Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
-                            mtvSellAvailabelQty.setText("("+response.optString("result")+")");
                             conversionList.clear();
 
                             JSONArray history = null;

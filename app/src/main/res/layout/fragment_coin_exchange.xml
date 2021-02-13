@@ -665,19 +665,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
                     <TextView
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="visible"
-                        android:gravity="center_horizontal"
-                        android:textSize="18dp"
+                        android:gravity="left"
+                        android:textSize="14dp"
                         android:textColor="@color/colorBlack"
-                        android:text="My active orders"/>
+                        android:text="View my active orders"/>
                     <TextView
                         android:id="@+id/tv_trade_history"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:textSize="11dp"
@@ -737,7 +737,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/orders_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="5dp" />
 
             </LinearLayout>

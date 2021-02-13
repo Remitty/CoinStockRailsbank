@@ -358,7 +358,7 @@ public class CoinExchangeFragment extends Fragment {
                         public void onError(ANError error) {
                             // handle error
                             loadToast.hide();
-                            Log.d("errorpairlist", "" + error.getMessage() + " responde: " + error.getResponse());
+                            Log.d("errorpairlist", "" + error.getErrorBody() + " responde: " + error.getResponse());
                         }
                     });
         }
@@ -392,9 +392,6 @@ public class CoinExchangeFragment extends Fragment {
                                 if (response.getBoolean("success") == true) {
                                     mTextCoinBuy.setText(CoinSymbol);
 
-                                    initGraph(response);
-
-                                    ordersList.clear();
                                     bidsList.clear();
                                     asksList.clear();
 
@@ -412,21 +409,22 @@ public class CoinExchangeFragment extends Fragment {
                                     mTextCoinBuyBalance.setText(new DecimalFormat("#,###.####").format(response.getDouble("coin2_balance")));
                                     mTextCoinSellBalance.setText(df.format(response.getDouble("coin1_balance")));
                                     mTextCoinSellBalance1.setText(df.format(response.getDouble("coin1_balance")));
-
-                                    try {
-                                        JSONArray orders = response.getJSONArray("orders");
-                                        for (int i = 0; i < orders.length(); i++) {
-                                            try {
-                                                ordersList.add(orders.getJSONObject(i));
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
+                                    if(graph_flag == false) {
+                                        ordersList.clear();
+                                        try {
+                                            JSONArray orders = response.getJSONArray("orders");
+                                            for (int i = 0; i < orders.length(); i++) {
+                                                try {
+                                                    ordersList.add(orders.getJSONObject(i));
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
                                             }
+                                            orderAdapter.notifyDataSetChanged();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
-                                        orderAdapter.notifyDataSetChanged();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
                                     }
-
                                     try {
                                         bids = response.getJSONArray("bids");
                                         if(bids != null) {
@@ -460,7 +458,7 @@ public class CoinExchangeFragment extends Fragment {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-
+                                    initGraph(response);
                                     try {
                                         mBTCUSD_rate = response.getDouble("btc_rate");
                                         mBTCXMT_rate = mBTCUSD_rate * getPrice();
@@ -528,6 +526,7 @@ public class CoinExchangeFragment extends Fragment {
 
                                  */
                                 Toast.makeText(getContext(), "Order failed.", Toast.LENGTH_SHORT).show();
+
                                 return;
                             }
 
@@ -535,6 +534,21 @@ public class CoinExchangeFragment extends Fragment {
                                 Toast.makeText(getContext(), "Order filled.", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getContext(), "Order created, waiting to be filled.", Toast.LENGTH_SHORT).show();
+                            }
+
+                            ordersList.clear();
+                            try {
+                                JSONArray orders = response.getJSONArray("orders");
+                                for (int i = 0; i < orders.length(); i++) {
+                                    try {
+                                        ordersList.add(orders.getJSONObject(i));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                orderAdapter.notifyDataSetChanged();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
 
                             changedPrice = false;
@@ -553,45 +567,49 @@ public class CoinExchangeFragment extends Fragment {
         }
     }
 
-    private void cancelOrder1(String orderid) {
+    private void cancelOrder1(final int position) {
         JSONObject jsonObject = new JSONObject();
-
+        String orderid = null;
         try {
+            orderid = ordersList.get(position).getString("id");
             jsonObject.put("orderid", orderid);
+            Log.d("cancel xmt orderid", orderid);
+            if (getContext() != null) {
+                loadToast.show();
+                AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE_CANCEL)
+                        .addHeaders("Content-Type", "application/json")
+                        .addHeaders("accept", "application/json")
+                        .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(), "access_token"))
+                        .addJSONObjectBody(jsonObject)
+                        .setPriority(Priority.MEDIUM)
+                        .build()
+                        .getAsJSONObject(new JSONObjectRequestListener() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                loadToast.hide();
+                                Log.d("coin post response", "" + response.toString());
+
+                                if (response.optBoolean("success")) {
+                                    Toast.makeText(getContext(), "Order Cancelled.", Toast.LENGTH_SHORT).show();
+                                    ordersList.remove(position);
+                                    orderAdapter.notifyDataSetChanged();
+                                }
+
+                            }
+
+                            @Override
+                            public void onError(ANError error) {
+                                // handle error
+                                loadToast.hide();
+                                Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                                Log.d("errorpost", "" + error.getErrorBody() + " responde: " + error.getResponse());
+                            }
+                        });
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if (getContext() != null) {
-            loadToast.show();
-            AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE_CANCEL)
-                    .addHeaders("Content-Type", "application/json")
-                    .addHeaders("accept", "application/json")
-                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(), "access_token"))
-                    .addJSONObjectBody(jsonObject)
-                    .setPriority(Priority.MEDIUM)
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            loadToast.hide();
-                            Log.d("coin post response", "" + response.toString());
-
-                            if (!response.has("success")) {
-                                Toast.makeText(getContext(), "Order Cancelled.", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-
-                        @Override
-                        public void onError(ANError error) {
-                            // handle error
-                            loadToast.hide();
-                            Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
-                            Log.d("errorpost", "" + error.getErrorBody() + " responde: " + error.getResponse());
-                        }
-                    });
-        }
     }
 
     private void initComponents() {
@@ -648,7 +666,7 @@ public class CoinExchangeFragment extends Fragment {
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                cancelOrder1(ordersList.get(position).optString("id"));
+                                cancelOrder1(position);
                             }
                         })
                         .show();

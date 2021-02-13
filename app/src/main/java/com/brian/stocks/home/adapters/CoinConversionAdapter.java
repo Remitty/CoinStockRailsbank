@@ -26,7 +26,7 @@ public class CoinConversionAdapter extends RecyclerView.Adapter<CoinConversionAd
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvSendAsset, tvGetAsset, tvSendAmount, tvItemDate;
+        TextView tvSendAsset, tvGetAsset, tvItemDate, tvStatus;
 
         @SuppressLint("ResourceAsColor")
         public OrderViewHolder(View view) {
@@ -34,7 +34,7 @@ public class CoinConversionAdapter extends RecyclerView.Adapter<CoinConversionAd
 
             tvSendAsset = view.findViewById(R.id.send_asset);
             tvGetAsset = view.findViewById(R.id.get_asset);
-            tvSendAmount = view.findViewById(R.id.send_amount);
+            tvStatus = view.findViewById(R.id.status);
             tvItemDate = view.findViewById(R.id.item_date);
 
         }
@@ -52,9 +52,11 @@ public class CoinConversionAdapter extends RecyclerView.Adapter<CoinConversionAd
     public void onBindViewHolder(@NonNull final CoinConversionAdapter.OrderViewHolder holder, final int position) {
         JSONObject item = history.get(position);
 
-        holder.tvSendAsset.setText(item.optString("from"));
-        holder.tvGetAsset.setText(item.optString("to"));
-        holder.tvSendAmount.setText(item.optString("amount"));
+        holder.tvSendAsset.setText(item.optString("amount") + " " + item.optString("from"));
+        holder.tvStatus.setText(item.optString("status_text"));
+        String received = item.optString("received");
+        if(received.equals("null")) received = "";
+        holder.tvGetAsset.setText(received+" "+item.optString("to"));
         holder.tvItemDate.setText(item.optString("updated_at").substring(0, 10));
 
     }
