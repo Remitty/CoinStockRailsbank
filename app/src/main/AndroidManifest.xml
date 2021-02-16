@@ -68,7 +68,7 @@
         <activity android:name=".stock.stockwithdraw.StockCoinWithdrawActivity" />
         <activity
             android:name=".stock.stocktrade.StockReplaceActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity android:name=".stock.StockDepositActivity" />
         <activity android:name=".coins.CoinWithdrawActivity" />
         <activity android:name=".stock.StockNewsActivity" />

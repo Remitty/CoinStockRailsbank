@@ -231,7 +231,8 @@ public class StocksOrderActivity extends AppCompatActivity {
                                 price = stock.getStocksPrice();
                                 String[] separatedPrice = price.split("\\.");
                                 mStockPriceInteger.setText(separatedPrice[0].trim());
-                                mStockPriceFloat.setText("."+separatedPrice[1].trim());
+                                if(separatedPrice.length > 1)
+                                    mStockPriceFloat.setText("."+separatedPrice[1].trim());
                                 mStockTodayChange.setText("$ "+stock.getStockTodayChange());
                                 mStockTodayChangePerc.setText("( % "+ stock.getStockTodayChangePercent() + " )");
                                 shares = stock.getStocksShares();

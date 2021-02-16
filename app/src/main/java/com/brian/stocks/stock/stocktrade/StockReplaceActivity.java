@@ -60,11 +60,6 @@ public class StockReplaceActivity extends AppCompatActivity {
         StockSide = getIntent().getStringExtra("stock_side");
         mStockLimitPrice = getIntent().getStringExtra("stock_limit_price");
 
-
-        Toolbar toolbar = findViewById(R.id.stocks_trade_toolbar);
-        toolbar.setTitle(mStockName+" "+StockSide);
-        setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
