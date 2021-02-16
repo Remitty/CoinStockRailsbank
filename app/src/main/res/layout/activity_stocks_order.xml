@@ -75,7 +75,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginTop="10dp"
                             android:gravity="bottom"
-                            android:text=".000 "
+                            android:text=".00"
                             android:textColor="@color/colorBlack"
                             android:textSize="14dp" />
                     </LinearLayout>
@@ -89,7 +89,7 @@
                         <TextView
                             android:id="@+id/stock_today_change"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="+$ 0.00"
                             android:textColor="@color/green"
                             android:textSize="12dp" />

@@ -34,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class StockReplaceActivity extends AppCompatActivity {
     LoadToast loadToast;
@@ -75,7 +76,7 @@ public class StockReplaceActivity extends AppCompatActivity {
         mTextStockName.setText(mStockName);
         mTextStockSymbol.setText(mStockSymbol);
 
-        mStockBalance = SharedHelper.getKey(getBaseContext(), "stock_balance");
+        mStockBalance = new DecimalFormat("#,###.##").format(Double.parseDouble(SharedHelper.getKey(getBaseContext(), "stock_balance")));
         mTextStockBalance.setText("$ "+mStockBalance);
 
         mTextStockShares.setText(getIntent().getStringExtra("stock_shares"));
@@ -255,7 +256,7 @@ public class StockReplaceActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
                             loadToast.success();
-                            mStockBalance = response.optString("stock_balance");
+                            mStockBalance = new DecimalFormat("#,###.##").format(response.optDouble("stock_balance"));
                             mTextStockBalance.setText("$ "+mStockBalance);
                             SharedHelper.putKey(getBaseContext(), "stock_balance", mStockBalance);
                             Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
