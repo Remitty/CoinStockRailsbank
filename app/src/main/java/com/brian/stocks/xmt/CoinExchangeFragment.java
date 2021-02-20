@@ -531,7 +531,7 @@ public class CoinExchangeFragment extends Fragment {
                             }
 
                             if (response.has("filled")) {
-                                Toast.makeText(getContext(), "Order filled.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Order placed successfully.", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getContext(), "Order created, waiting to be filled.", Toast.LENGTH_SHORT).show();
                             }

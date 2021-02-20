@@ -118,7 +118,7 @@ public class TransferCoinFragment extends Fragment {
                             loadToast.success();
 
                             try {
-                                usdcBalance = Double.parseDouble(response.getString("usdc_balance"));
+                                usdcBalance = response.getDouble("usdc_balance");
                                 tvBalance.setText(new DecimalFormat("###,###.##").format(usdcBalance));
                             } catch (JSONException e) {
                                 e.printStackTrace();

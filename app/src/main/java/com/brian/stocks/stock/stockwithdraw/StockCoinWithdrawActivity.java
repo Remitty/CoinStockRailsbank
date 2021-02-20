@@ -149,7 +149,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
 //                                StockBalance = new DecimalFormat("####.####").format(StockBalance).toString();
                                 mStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(StockBalance));
                                 mUSDCRate.setText(new DecimalFormat("#,###.##").format(USDCRate));
-                                
+
 //                                mPageAdapter.add(StockWithdrawFragment.newInstance(StockBalance, USDCRate));
 ////                                mPageAdapter.add(StockWithdrawHistoryFragment.newInstance(history));
 //                                mViewPager.setAdapter(mPageAdapter);
@@ -285,7 +285,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                         loadToast.error();
                         // handle error
                         Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }
