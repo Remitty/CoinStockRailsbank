@@ -77,7 +77,10 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
         if(item.getCoinEffect().startsWith("-")){
             holder.tvCoinEffect.setTextColor(RED);
             Picasso.with(mContext).load(R.drawable.ic_down).into(holder.arrowIcon);
-        }else holder.tvCoinEffect.setTextColor(GREEN);
+        }else {
+            holder.tvCoinEffect.setTextColor(GREEN);
+            Picasso.with(mContext).load(R.drawable.ic_up).into(holder.arrowIcon);
+        }
 
 //        if(Double.parseDouble(item.getCoinBalance()) == 0) {
 ////            holder.tvCoinBalance.setVisibility(View.GONE);
