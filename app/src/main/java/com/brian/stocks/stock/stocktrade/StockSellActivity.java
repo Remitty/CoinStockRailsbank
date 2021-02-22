@@ -239,8 +239,7 @@ public class StockSellActivity extends AppCompatActivity {
                             loadToast.success();
                             mStockBalance = response.optDouble("stock_balance");
                             mTextStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(mStockBalance));
-                            mStockShares =  response.optString("shares");
-                            mTextStockShares.setText(mStockShares);
+                            mTextStockShares.setText(response.optString("shares"));
                             Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                         }
 
