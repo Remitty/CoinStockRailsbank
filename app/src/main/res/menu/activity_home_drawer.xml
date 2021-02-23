@@ -7,16 +7,16 @@
         <item
             android:id="@+id/nav_coin_stake"
             android:icon="@drawable/xmt"
-            android:title="Stake XMT" />
+            android:title="Stake Coin" />
 
         <item
             android:id="@+id/nav_exchange"
             android:icon="@drawable/nav_trade"
-            android:title="Trade cryptos"/>
+            android:title="Trade Cryptos"/>
         <item
             android:id="@+id/nav_coin_trade"
             android:icon="@drawable/nav_trading"
-            android:title="Link wallet"/>
+            android:title="Link Wallet"/>
         <item
             android:id="@+id/nav_mtn"
             android:icon="@drawable/nav_smartphone"

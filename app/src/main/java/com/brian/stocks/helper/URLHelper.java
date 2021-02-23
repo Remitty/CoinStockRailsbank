@@ -67,6 +67,7 @@ public class URLHelper {
     public static final String REQUEST_PREDICT_CANCEL = REDIRECT_URL + "predict/cancel";
 
     public static final String GET_STAKE_BALANCE = REDIRECT_URL + "stake/balance";
+    public static final String GET_STAKE_LIST = REDIRECT_URL + "stake/list";
     public static final String REQUEST_STAKE = REDIRECT_URL + "stake";
     public static final String REQUEST_STAKE_RELEASE = REDIRECT_URL + "stake/release";
 

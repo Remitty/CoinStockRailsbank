@@ -71,7 +71,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
         CoinInfo item = arrItems.get(position);
 
         holder.tvCoinName.setText(item.getCoinName());
-        holder.tvCoinRate.setText("$ " + String.format("%.2f", item.getCoinRate()));
+        holder.tvCoinRate.setText("$ " + new DecimalFormat("#,###.##").format(item.getCoinRate()));
         holder.tvCoinEffect.setText(item.getCoinEffect() + "%");
 
         if(item.getCoinEffect().startsWith("-")){

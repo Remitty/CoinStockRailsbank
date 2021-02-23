@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".xmt.XMTTradeHistoryActivity"></activity>
+        <activity android:name=".coins.CoinStakeListActivity"></activity>
+        <activity android:name=".xmt.XMTTradeHistoryActivity" />
         <activity android:name=".zabo.ZaboAccountActivity" />
         <activity android:name=".zabo.ZaboActivity">
             <intent-filter android:label="Zaho connect account">
@@ -66,9 +67,7 @@
             android:name=".coins.TransferFundsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".stock.stockwithdraw.StockCoinWithdrawActivity" />
-        <activity
-            android:name=".stock.stocktrade.StockReplaceActivity"
-             />
+        <activity android:name=".stock.stocktrade.StockReplaceActivity" />
         <activity android:name=".stock.StockDepositActivity" />
         <activity android:name=".coins.CoinWithdrawActivity" />
         <activity android:name=".stock.StockNewsActivity" />
@@ -96,7 +95,7 @@
             android:launchMode="singleTask"
             android:theme="@style/RampInstant.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".home.WebViewActivity"></activity>
+        <activity android:name=".home.WebViewActivity" />
         <activity android:name=".usdc.SendUsdcActivity" />
         <activity android:name=".mtn.MtnTransactionActivity" />
         <activity android:name=".mtn.MTNActivity" />

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.brian.stocks.coins.adapter.StakeAdapter;
 import com.brian.stocks.helper.BigDecimalDouble;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
+import com.brian.stocks.home.HomeActivity;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -34,8 +36,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CoinStakeActivity extends AppCompatActivity {
+    private String symbol, id;
+    private Double balance = 0.0, amount = 0.0, dailyReward=0.0, rewardPercent = 0.0;
     Button btnStake, btnRelease;
-    TextView mtvYearlyFee, mtvBalance, mtvStakingBalance, mtvDailyReward;
+    TextView mtvYearlyFee, mtvBalance, mtvStakingBalance, mtvDailyReward, mtvSymbol, mtVSymbolInput;
     EditText editAmount;
     private LoadToast loadToast;
     private Double mBalance = 0.0, mStakingBalance = 0.0;
@@ -58,6 +62,9 @@ public class CoinStakeActivity extends AppCompatActivity {
 
         loadToast = new LoadToast(this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
+
+        mtvSymbol = findViewById(R.id.symbol);
+        mtVSymbolInput = findViewById(R.id.symbol_input);
 
         mtvBalance = findViewById(R.id.xmt_balance);
         mtvYearlyFee = findViewById(R.id.yearly_fee);
@@ -85,12 +92,29 @@ public class CoinStakeActivity extends AppCompatActivity {
         stakeAdapter = new StakeAdapter(stakeList);
         stakeHistoryView.setAdapter(stakeAdapter);
 
-        getData();
+        if(getIntent() != null) {
+            symbol = getIntent().getStringExtra("symbol");
+            id = getIntent().getStringExtra("id");
+            rewardPercent = getIntent().getDoubleExtra("stake_reward_yearly_percent", 5);
+            mBalance = getIntent().getDoubleExtra("balance", 0);
+            mStakingBalance = getIntent().getDoubleExtra("amount", 0);
+            dailyReward = getIntent().getDoubleExtra("dailyReward", 0);
+
+            mtvSymbol.setText(symbol);
+            mtVSymbolInput.setText(symbol);
+
+            mtvBalance.setText(new DecimalFormat("#,###.##").format(mBalance));
+            mtvStakingBalance.setText(new DecimalFormat("#,###.##").format(mStakingBalance));
+            mtvDailyReward.setText(String.format("+ %.4f", dailyReward));
+            mtvYearlyFee.setText(String.format("+ %.2f", rewardPercent) + " %");
+        }
+
+//        getData();
     }
 
     private void getData() {
         loadToast.show();
-        AndroidNetworking.get(URLHelper.GET_STAKE_BALANCE)
+        AndroidNetworking.get(URLHelper.GET_STAKE_BALANCE + "/" + "0")
                 .addHeaders("Content-Type", "application/json")
                 .addHeaders("accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))
@@ -103,7 +127,7 @@ public class CoinStakeActivity extends AppCompatActivity {
                         loadToast.success();
                         if(response.optBoolean("success")){
                             try {
-                                mBalance = response.getDouble("xmt_balance");
+                                mBalance = response.getDouble("coin_balance");
                                 mStakingBalance = response.getDouble("stake_balance");
                                 mtvBalance.setText(new DecimalFormat("#,###.##").format(mBalance));
                                 mtvStakingBalance.setText(new DecimalFormat("#,###.##").format(mStakingBalance));
@@ -111,7 +135,7 @@ public class CoinStakeActivity extends AppCompatActivity {
                                 mtvYearlyFee.setText(String.format("+ %.2f", response.optDouble("yearly_fee")) + " %");
 
                                 stakeList.clear();
-                                JSONArray stakes = response.getJSONArray("stakes");
+                                JSONArray stakes = response.getJSONArray("stake_histories");
                                 for (int i = 0; i < stakes.length(); i ++) {
                                     stakeList.add(stakes.getJSONObject(i));
                                 }
@@ -137,7 +161,7 @@ public class CoinStakeActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setIcon(R.mipmap.ic_launcher_round)
                 .setTitle("Confirm stake release")
-                .setMessage("Are you sure you want to release " + editAmount.getText().toString() + "XMT?")
+                .setMessage("Are you sure you want to release " + editAmount.getText().toString() + symbol + "?")
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -157,7 +181,7 @@ public class CoinStakeActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setIcon(R.mipmap.ic_launcher_round)
                 .setTitle("Confirm stake")
-                .setMessage("Are you sure you want to stake " + editAmount.getText().toString() + "XMT?")
+                .setMessage("Are you sure you want to stake " + editAmount.getText().toString() + symbol + "?")
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -178,6 +202,7 @@ public class CoinStakeActivity extends AppCompatActivity {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("amount", editAmount.getText().toString());
+            jsonObject.put("id", id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -195,7 +220,7 @@ public class CoinStakeActivity extends AppCompatActivity {
                         loadToast.success();
                         if(response.optBoolean("success")){
                             try {
-                                mBalance = response.getDouble("xmt_balance");
+                                mBalance = response.getDouble("coin_balance");
                                 mStakingBalance = response.getDouble("stake_balance");
                                 mtvBalance.setText(new DecimalFormat("#,###.##").format(mBalance));
                                 mtvStakingBalance.setText(new DecimalFormat("#,###.##").format(mStakingBalance));
@@ -203,7 +228,7 @@ public class CoinStakeActivity extends AppCompatActivity {
                                 mtvYearlyFee.setText(String.format("+ %.2f", response.optDouble("yearly_fee")) + " %");
 
                                 stakeList.clear();
-                                JSONArray stakes = response.getJSONArray("stakes");
+                                JSONArray stakes = response.getJSONArray("stake_histories");
                                 for (int i = 0; i < stakes.length(); i ++) {
                                     stakeList.add(stakes.getJSONObject(i));
                                 }
@@ -230,6 +255,7 @@ public class CoinStakeActivity extends AppCompatActivity {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("amount", editAmount.getText().toString());
+            jsonObject.put("id", id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -247,7 +273,7 @@ public class CoinStakeActivity extends AppCompatActivity {
                         loadToast.success();
                         if(response.optBoolean("success")){
                             try {
-                                mBalance = response.getDouble("xmt_balance");
+                                mBalance = response.getDouble("coin_balance");
                                 mStakingBalance = response.getDouble("stake_balance");
                                 mtvBalance.setText(new DecimalFormat("#,###.##").format(mBalance));
                                 mtvStakingBalance.setText(new DecimalFormat("#,###.##").format(mStakingBalance));
@@ -255,7 +281,7 @@ public class CoinStakeActivity extends AppCompatActivity {
                                 mtvYearlyFee.setText(String.format("+ %.2f", response.optDouble("yearly_fee")) + " %");
 
                                 stakeList.clear();
-                                JSONArray stakes = response.getJSONArray("stakes");
+                                JSONArray stakes = response.getJSONArray("stake_histories");
                                 for (int i = 0; i < stakes.length(); i ++) {
                                     stakeList.add(stakes.getJSONObject(i));
                                 }
@@ -279,7 +305,7 @@ public class CoinStakeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        startActivity(new Intent(CoinStakeActivity.this, HomeActivity.class));
     }
 
     @Override
