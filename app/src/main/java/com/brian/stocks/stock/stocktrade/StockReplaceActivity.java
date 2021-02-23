@@ -276,7 +276,7 @@ public class StockReplaceActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         builder.setTitle(getResources().getString(R.string.app_name))
                 .setIcon(R.mipmap.ic_launcher)
-                .setMessage("Are you sure replace " + mEditShares.getText()+" shares ?\n Fee: $ 1.99")
+                .setMessage("Are you sure replace " + mEditShares.getText()+" shares ?")
                 .setCancelable(false);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
