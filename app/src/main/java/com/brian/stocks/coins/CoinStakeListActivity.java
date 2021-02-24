@@ -72,7 +72,7 @@ public class CoinStakeListActivity extends AppCompatActivity {
                 intent.putExtra("balance", item.optDouble("balance"));
                 intent.putExtra("amount", item.optDouble("amount"));
                 intent.putExtra("dailyReward", item.optDouble("daily_reward"));
-                intent.putExtra("stake_reward_yearly_percent", dailyReward);
+                intent.putExtra("stake_reward_yearly_percent", item.optDouble("stake_reward_yearly_percent"));
                 startActivity(intent);
             }
         });
@@ -96,7 +96,7 @@ public class CoinStakeListActivity extends AppCompatActivity {
                         loadToast.success();
                             try {
 
-                                dailyReward = response.getDouble("stake_reward_yearly_percent");
+//                                dailyReward = response.getDouble("stake_reward_yearly_percent");
 
                                 stakeList.clear();
                                 JSONArray stakes = response.getJSONArray("stake_histories");

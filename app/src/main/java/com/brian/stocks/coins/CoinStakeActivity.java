@@ -109,12 +109,12 @@ public class CoinStakeActivity extends AppCompatActivity {
             mtvYearlyFee.setText(String.format("+ %.2f", rewardPercent) + " %");
         }
 
-//        getData();
+        getData();
     }
 
     private void getData() {
         loadToast.show();
-        AndroidNetworking.get(URLHelper.GET_STAKE_BALANCE + "/" + "0")
+        AndroidNetworking.get(URLHelper.GET_STAKE_BALANCE + "/" + id)
                 .addHeaders("Content-Type", "application/json")
                 .addHeaders("accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))
@@ -127,12 +127,12 @@ public class CoinStakeActivity extends AppCompatActivity {
                         loadToast.success();
                         if(response.optBoolean("success")){
                             try {
-                                mBalance = response.getDouble("coin_balance");
-                                mStakingBalance = response.getDouble("stake_balance");
-                                mtvBalance.setText(new DecimalFormat("#,###.##").format(mBalance));
-                                mtvStakingBalance.setText(new DecimalFormat("#,###.##").format(mStakingBalance));
-                                mtvDailyReward.setText(String.format("+ %.4f", response.optDouble("daily_reward")));
-                                mtvYearlyFee.setText(String.format("+ %.2f", response.optDouble("yearly_fee")) + " %");
+//                                mBalance = response.getDouble("coin_balance");
+//                                mStakingBalance = response.getDouble("stake_balance");
+//                                mtvBalance.setText(new DecimalFormat("#,###.##").format(mBalance));
+//                                mtvStakingBalance.setText(new DecimalFormat("#,###.##").format(mStakingBalance));
+//                                mtvDailyReward.setText(String.format("+ %.4f", response.optDouble("daily_reward")));
+//                                mtvYearlyFee.setText(String.format("+ %.2f", response.optDouble("yearly_fee")) + " %");
 
                                 stakeList.clear();
                                 JSONArray stakes = response.getJSONArray("stake_histories");
