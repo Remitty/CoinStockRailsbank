@@ -40,7 +40,7 @@ public class PositionInfo {
 
     public String getAvgPrice() {
         try {
-            return doubleFormat(data.getString("avg_entry_price"));
+            return data.getString("avg_price");
         } catch (JSONException e) {
             return "0.0";
         }
@@ -48,17 +48,22 @@ public class PositionInfo {
 
     public String getCurrentPrice(){
         try {
-            return doubleFormat(data.getString("current_price"));
+            return data.getString("current_price");
         } catch (JSONException e) {
             return "0.0";
         }
     }
 
     public String getEquity(){//holding
-        BigDecimal amount3 = new BigDecimal(getCurrentPrice());
-        BigDecimal amount4 = new BigDecimal(getQty());
-//        return doubleFormat(""+amount3.multiply(amount4));
-        return new DecimalFormat("#,###.##").format(amount3.multiply(amount4).doubleValue());
+//        BigDecimal amount3 = new BigDecimal(getCurrentPrice());
+//        BigDecimal amount4 = new BigDecimal(getQty());
+////        return doubleFormat(""+amount3.multiply(amount4));
+//        return new DecimalFormat("#,###.##").format(amount3.multiply(amount4).doubleValue());
+        try {
+            return data.getString("holding");
+        } catch (JSONException e) {
+            return "0.0";
+        }
     }
 
     public String getLastDayPrice(){
@@ -71,20 +76,30 @@ public class PositionInfo {
 
     public String getChangePrice(){
 
-        BigDecimal amount3 = new BigDecimal(getCurrentPrice());
-        BigDecimal amount4 = new BigDecimal(getLastDayPrice());
-        return doubleFormat(""+amount3.subtract(amount4));
+//        BigDecimal amount3 = new BigDecimal(getCurrentPrice());
+//        BigDecimal amount4 = new BigDecimal(getLastDayPrice());
+//        return doubleFormat(""+amount3.subtract(amount4));
+        try {
+            return data.getString("change");
+        } catch (JSONException e) {
+            return "0.0";
+        }
     }
 
     public String getProfit(){
-        BigDecimal amount3 = new BigDecimal(getChangePrice());
-        BigDecimal amount4 = new BigDecimal(getQty());
-        return doubleFormat(""+amount3.multiply(amount4));
+//        BigDecimal amount3 = new BigDecimal(getChangePrice());
+//        BigDecimal amount4 = new BigDecimal(getQty());
+//        return doubleFormat(""+amount3.multiply(amount4));
+        try {
+            return data.getString("profit");
+        } catch (JSONException e) {
+            return "0.0";
+        }
     }
 
     public String getChangePricePercent(){
         try {
-            return doubleFormat(data.getString("change_today"));
+            return data.getString("change_percent");
         } catch (JSONException e) {
             return "0.0";
         }

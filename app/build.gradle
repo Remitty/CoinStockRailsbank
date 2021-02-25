@@ -7,7 +7,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 29
         multiDexEnabled true
-        versionCode 2
+        versionCode 3
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -63,8 +63,10 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.github.kassisdion:ViewPagerWithIndicator:v1.0'
 
-    implementation 'com.github.nkzawa:socket.io-client:0.6.0'
-    api 'com.tonystark.android:socket:latest.release'
+    implementation ('io.socket:socket.io-client:2.0.0') {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
 
 //    implementation 'org.chat21.android:chat21:1.0.15'
     implementation 'io.michaelrocks:libphonenumber-android:8.4.1'

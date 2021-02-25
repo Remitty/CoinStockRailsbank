@@ -11,6 +11,7 @@ import com.brian.stocks.coins.CoinStakeListActivity;
 import com.brian.stocks.mtn.MTNActivity;
 import com.brian.stocks.predict.PredictActivity;
 import com.brian.stocks.profile.ProfileActivity;
+import com.brian.stocks.stock.NewsListActivity;
 import com.brian.stocks.xmt.XMTTradingActivity;
 import com.brian.stocks.zabo.ZaboActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -186,7 +187,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                 startActivity(new Intent(getApplicationContext(), ZaboActivity.class));
                 break;
             case R.id.nav_stock_news:
-                startActivity(new Intent(getApplicationContext(), StockNewsActivity.class));
+                startActivity(new Intent(getApplicationContext(), NewsListActivity.class));
                 break;
             case R.id.nav_coin_activity:
                 startActivity(new Intent(getApplicationContext(), CoinDepositHistoryActivity.class));

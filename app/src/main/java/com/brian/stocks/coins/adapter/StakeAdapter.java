@@ -25,7 +25,7 @@ public class StakeAdapter extends RecyclerView.Adapter<StakeAdapter.OrderViewHol
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvItemAsset, tvItemAmount, tvItemType, tvItemDate;
+        TextView tvItemAsset, tvItemAmount, tvItemType, tvItemDate, tvItemStatus;
 
         @SuppressLint("ResourceAsColor")
         public OrderViewHolder(View view) {

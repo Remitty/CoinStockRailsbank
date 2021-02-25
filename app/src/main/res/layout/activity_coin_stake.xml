@@ -219,6 +219,7 @@
                    android:layout_height="wrap_content"
                    android:text="Quantity"
                    android:textColor="@color/colorBlack"/>
+
                <TextView
                    android:layout_weight="1"
                    android:layout_width="match_parent"

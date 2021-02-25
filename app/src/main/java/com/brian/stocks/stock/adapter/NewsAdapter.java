@@ -2,20 +2,27 @@ package com.brian.stocks.stock.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brian.stocks.R;
 import com.brian.stocks.model.NewsInfo;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.OrderViewHolder> {
-    private List<NewsInfo> arrItems;
+    private ArrayList<NewsInfo> arrItems;
     private NewsAdapter.Listener listener;
-
-    public NewsAdapter(List<NewsInfo> data, boolean viewType ){
+    private Context mContext;
+    public NewsAdapter(Context context, ArrayList<NewsInfo> data ){
+        mContext = context;
         this.arrItems = data;
     };
 
@@ -32,13 +39,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.OrderViewHolde
         NewsInfo item = arrItems.get(i);
 
         holder.mNewsTitle.setText(item.getNewsTitle());
+        holder.mNewsSummary.setText(item.getSummary());
+        holder.mNewsUrl.setText(item.getURL());
+        holder.mNewsDate.setText(item.getDate());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.OnGoToNewsDetail(i);
-            }
-        });
+        Picasso.with(mContext)
+                .load(item.getImageURL())
+                .into(holder.mNewsImage);
     }
 
     @Override
@@ -48,11 +55,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.OrderViewHolde
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mNewsTitle;
+        TextView mNewsTitle, mNewsSummary, mNewsUrl, mNewsDate;
+        ImageView mNewsImage;
+
         public OrderViewHolder(View view) {
             super(view);
 
-            mNewsTitle = view.findViewById(R.id.news_title);
+            mNewsTitle = view.findViewById(R.id.title);
+            mNewsSummary = view.findViewById(R.id.summary);
+            mNewsDate = view.findViewById(R.id.date);
+            mNewsUrl = view.findViewById(R.id.url);
+            mNewsImage = view.findViewById(R.id.image);
         }
     }
 

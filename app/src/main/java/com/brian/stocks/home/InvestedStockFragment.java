@@ -40,12 +40,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URI;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
+import io.socket.engineio.client.transports.Polling;
+import io.socket.engineio.client.transports.WebSocket;
+
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
+import static java.util.Collections.singletonList;
+import static java.util.Collections.singletonMap;
 
 public class InvestedStockFragment extends Fragment {
     private LoadToast loadToast;
@@ -57,6 +66,9 @@ public class InvestedStockFragment extends Fragment {
     private ImageView icArrow;
     Button btnInvest, btnDeposit, btnWithdraw;
     private SwipeRefreshLayout refreshLayout;
+
+    Socket socket;
+
     public InvestedStockFragment() {
         // Required empty public constructor
     }
@@ -133,7 +145,73 @@ public class InvestedStockFragment extends Fragment {
                 }
         );
 
+        initSocket();
+
         return rootView;
+    }
+
+    private void initSocket() {
+        URI uri = URI.create("https://cloud-sse.iexapis.com/stable/news-stream?token=pk_dbf0fba01029463897491d37e16bb1e5&symbols=spy,ibm,twtr");
+
+        IO.Options options = IO.Options.builder()
+                // IO factory options
+                .setForceNew(false)
+//                .setMultiplex(true)
+//
+//                // low-level engine options
+//                .setTransports(new String[] { Polling.NAME, WebSocket.NAME })
+//                .setUpgrade(true)
+//                .setRememberUpgrade(false)
+//                .setPath("/stable/stocksUS/")
+//                .setQuery("token = pk_dbf0fba01029463897491d37e16bb1e5")
+//                .setQuery("symbols = AAPL")
+//                .setExtraHeaders(singletonMap("Content-Type", singletonList("text/event-stream")))
+//
+//                // Manager options
+//                .setReconnection(true)
+//                .setReconnectionAttempts(Integer.MAX_VALUE)
+//                .setReconnectionDelay(1_000)
+//                .setReconnectionDelayMax(5_000)
+//                .setRandomizationFactor(0.5)
+//                .setTimeout(20_000)
+//
+//                // Socket options
+//                .setAuth(null)
+                .build();
+
+        socket = IO.socket(uri, options);
+
+
+        socket.on("socket", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.d("iex socket", "connected");
+            }
+        });
+
+        socket.on("data", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                System.out.println(args[0]);
+            }
+        });
+
+        socket.on("error", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                System.out.println(args[0]);
+                Log.d("iex socket", "connect error");
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity().getApplicationContext(),
+                                "connect error", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+        socket.connect();
+
     }
 
     private void refresh() {
@@ -162,7 +240,7 @@ public class InvestedStockFragment extends Fragment {
                             refreshLayout.setRefreshing(false);
                             stocksList.clear();
                             try {
-                                Log.d("invested stocks response", response.toString());
+//                                Log.d("invested stocks response", response.toString());
                                 mTotalBalance.setText("$ " + new DecimalFormat("#,###.####").format(response.getDouble("total_balance")));
                                 mStockBalance.setText("$ " + new DecimalFormat("#,###.####").format(response.getDouble("stock_balance")));
                                 mTextStockProfit.setText("$ " + response.getString("stock_profit"));
@@ -194,7 +272,7 @@ public class InvestedStockFragment extends Fragment {
                                 if(stocks != null)
                                     for(int i = 0; i < stocks.length(); i ++) {
                                         try {
-                                            Log.d("stocksinvestitem", stocks.get(i).toString());
+//                                            Log.d("stocksinvestitem", stocks.get(i).toString());
                                             stocksList.add(new PositionInfo((JSONObject) stocks.get(i)));
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -276,5 +354,13 @@ public class InvestedStockFragment extends Fragment {
         super.onResume();
 
 //        getAllStocks();
+    }
+
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+
+        socket.off();
     }
 }

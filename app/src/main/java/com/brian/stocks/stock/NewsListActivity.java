@@ -30,7 +30,7 @@ import java.util.List;
 
 public class NewsListActivity extends AppCompatActivity {
     LoadToast loadToast;
-    private List<NewsInfo> newsList = new ArrayList<>();
+    private ArrayList<NewsInfo> newsList = new ArrayList<>();
     private NewsAdapter mAdapter;
     private RecyclerView mNewsListView;
     private String mSearch;
@@ -43,7 +43,7 @@ public class NewsListActivity extends AppCompatActivity {
         loadToast = new LoadToast(this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
 
-        mSearch = getIntent().getStringExtra("symbol");
+//        mSearch = getIntent().getStringExtra("symbol");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -52,38 +52,19 @@ public class NewsListActivity extends AppCompatActivity {
 
         mNewsListView = findViewById(R.id.news_list);
 
-        mAdapter = new NewsAdapter(newsList, true);
-        mAdapter.setListener(new NewsAdapter.Listener() {
-            @Override
-            public void OnGoToNewsDetail(int position) {
-                GoToNewsDetail(position);
-            }
-        });
+        mAdapter = new NewsAdapter(getBaseContext(), newsList);
         mNewsListView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         mNewsListView.setAdapter(mAdapter);
 
         getAllNews();
     }
 
-    private void GoToNewsDetail(int position) {
-        NewsInfo news = newsList.get(position);
-
-        Intent intent = new Intent(this, NewsActivity.class);
-        intent.putExtra("title", news.getNewsTitle());
-        intent.putExtra("image", news.getImageURL());
-        intent.putExtra("summary", news.getSummary());
-        intent.putExtra("url", news.getURL());
-        intent.putExtra("date", news.getDate());
-        startActivity(intent);
-
-    }
-
     private void getAllNews() {
         loadToast.show();
         JSONObject jsonObject = new JSONObject();
         String url = URLHelper.GET_STOCK_NEWS;
-        if(!mSearch.equalsIgnoreCase(""))
-            url = url + "?search="+mSearch;
+//        if(!mSearch.equalsIgnoreCase(""))
+//            url = url + "?search="+mSearch;
             AndroidNetworking.get(url)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
@@ -113,7 +94,7 @@ public class NewsListActivity extends AppCompatActivity {
                             loadToast.error();
                             // handle error
                             Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }

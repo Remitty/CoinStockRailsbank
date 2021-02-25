@@ -1,7 +1,11 @@
 package com.brian.stocks.model;
 
-import org.json.JSONArray;
+import android.text.format.DateFormat;
+
 import org.json.JSONObject;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 public class NewsInfo {
     private JSONObject data;
@@ -14,11 +18,11 @@ public class NewsInfo {
     }
 
     public String getImageURL(){
-        return data.optString("image");
+        return data.optString("imageUrl");
     }
 
     public String getNewsTitle(){
-        return data.optString("title");
+        return data.optString("headline");
     }
 
     public String getURL(){
@@ -30,7 +34,10 @@ public class NewsInfo {
     }
 
     public String getDate(){
-        String timestamp = data.optString("timestamp");
-        return timestamp.split("T")[0];
+        Long timestamp = data.optLong("datetime");
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(timestamp);
+        String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+        return date;
     }
 }

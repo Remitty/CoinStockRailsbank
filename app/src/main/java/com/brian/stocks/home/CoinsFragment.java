@@ -29,10 +29,7 @@ import com.brian.stocks.home.adapters.CoinAdapter;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
 import com.brian.stocks.model.CoinInfo;
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
-import com.github.nkzawa.socketio.client.IO.Options;
+
 import com.squareup.picasso.Picasso;
 
 import net.steamcrafted.loadtoast.LoadToast;
@@ -65,22 +62,10 @@ public class CoinsFragment extends Fragment {
     private SwipeRefreshLayout refreshLayout;
     private String CoinSymbol, CoinId;
 
-    private Socket mSocket;
     private String mOnramperApikey;
     private String onRamperCoins="";
     private ImageView icArrow;
     private String xanpoolApikey;
-
-    {
-        try {
-            Options option = new IO.Options();
-            option.host="ws.kraken.com";
-            option.port=443;
-            option.forceNew = true;
-//            option.path = "/wss";
-            mSocket = IO.socket("https://ws.kraken.com", option);
-        } catch (URISyntaxException e) {}
-    }
 
     public CoinsFragment() {
         // Required empty public constructor
@@ -466,19 +451,6 @@ public class CoinsFragment extends Fragment {
                     });
     }
 
-    private Emitter.Listener updateValue = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    Log.d("socket connection", data.toString());
-                }
-            });
-        }
-    };
-
     @Override
     public void onResume() {
         super.onResume();
@@ -498,7 +470,6 @@ public class CoinsFragment extends Fragment {
     public void onPause() {
 
         super.onPause();
-        mSocket.off("updatecoins", updateValue);
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }

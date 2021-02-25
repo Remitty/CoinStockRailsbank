@@ -24,13 +24,14 @@ public class StockWithdrawAdapter extends RecyclerView.Adapter<StockWithdrawAdap
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvItemPrice, tvItemStatus, tvItemDate;
+        TextView tvItemPrice, tvItemStatus, tvItemDate, tvItemReceived;
 
         @SuppressLint("ResourceAsColor")
         public OrderViewHolder(View view) {
             super(view);
 
             tvItemPrice = view.findViewById(R.id.item_price);
+            tvItemReceived = view.findViewById(R.id.item_received);
             tvItemStatus = view.findViewById(R.id.item_status);
             tvItemDate = view.findViewById(R.id.item_date);
 
@@ -50,7 +51,8 @@ public class StockWithdrawAdapter extends RecyclerView.Adapter<StockWithdrawAdap
         JSONObject item = history.get(position);
 
         holder.tvItemPrice.setText(item.optString("req_amount"));
-        holder.tvItemStatus.setText(item.optString("payable_amount"));
+        holder.tvItemReceived.setText(item.optString("payable_amount"));
+        holder.tvItemStatus.setText(item.optString("status"));
         holder.tvItemDate.setText(item.optString("updated_at").substring(0, 10));
 
     }

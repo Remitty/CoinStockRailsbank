@@ -177,7 +177,7 @@
                     android:layout_marginTop="30dp"
                     android:textColor="@color/colorRedCrayon"
                     android:textSize="16dp"
-                    android:text="Your withdrawal limit is $5000.00 weekly."/>
+                    android:text="Your withdrawal limit is $2500.00 weekly."/>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_coin_withdraw"
                     android:layout_width="match_parent"

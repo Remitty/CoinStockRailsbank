@@ -40,7 +40,7 @@ public class StocksNewsFragment extends Fragment {
     private String mSearch="";
     private EditText mEditStockSearch;
     private List<StocksInfo> stocksList = new ArrayList<>();
-    private List<NewsInfo> newsList = new ArrayList<>();
+    private ArrayList<NewsInfo> newsList = new ArrayList<>();
     private NewsStockAdapter mAdapter;
     private NewsAdapter mAdapter1;
 
@@ -97,7 +97,7 @@ public class StocksNewsFragment extends Fragment {
         });
         mNewsListView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mAdapter1 = new NewsAdapter(newsList, true);
+        mAdapter1 = new NewsAdapter(getContext(), newsList);
         mAdapter1.setListener(new NewsAdapter.Listener() {
             @Override
             public void OnGoToNewsDetail(int position) {

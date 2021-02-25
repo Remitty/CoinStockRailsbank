@@ -27,17 +27,21 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
+import com.brian.stocks.model.NewsInfo;
+import com.brian.stocks.stock.adapter.NewsAdapter;
 import com.brian.stocks.usdc.PaymentUserActivity;
 import com.brian.stocks.usdc.adapters.TransferCoinHistoryAdapter;
 import com.brian.stocks.usdc.SendUsdcActivity;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,6 +54,10 @@ public class TransferCoinFragment extends Fragment {
 
     private LoadToast loadToast;
     private TextView mtvUserName;
+
+    RecyclerView newsView;
+    private ArrayList<NewsInfo> newsList = new ArrayList<>();
+    NewsAdapter mAdapter;
 
     public TransferCoinFragment() {
         // Required empty public constructor
@@ -97,6 +105,11 @@ public class TransferCoinFragment extends Fragment {
             }
         });
 
+        newsView = view.findViewById(R.id.news_view);
+        mAdapter = new NewsAdapter(getActivity(), newsList);
+        newsView.setLayoutManager(new LinearLayoutManager(getContext()));
+        newsView.setAdapter(mAdapter);
+
         getData();
 
         return view;
@@ -105,7 +118,7 @@ public class TransferCoinFragment extends Fragment {
     private void getData() {
         loadToast.show();
         if(getContext() != null)
-            AndroidNetworking.get(URLHelper.GET_USDC_BALANCE)
+            AndroidNetworking.get(URLHelper.GET_HOME_DATA)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
                     .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
@@ -116,10 +129,17 @@ public class TransferCoinFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
                             loadToast.success();
-
+                            newsList.clear();
                             try {
                                 usdcBalance = response.getDouble("usdc_balance");
                                 tvBalance.setText(new DecimalFormat("###,###.##").format(usdcBalance));
+
+                                JSONArray news = response.getJSONArray("news");
+                                for (int i = 0; i < news.length(); i ++) {
+                                    newsList.add(new NewsInfo(news.getJSONObject(i)));
+                                }
+
+                                mAdapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

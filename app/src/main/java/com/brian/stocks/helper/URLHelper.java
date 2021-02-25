@@ -34,6 +34,7 @@ public class URLHelper {
     public static final String GET_WITHDRAWBLE_COIN_ASSETS = REDIRECT_URL + "coin/withdraw_assets";
     public static final String TRANSFER_COIN = REDIRECT_URL + "coin/transfer";
     public static final String GET_USDC_BALANCE = REDIRECT_URL + "usdc/balance";
+    public static final String GET_HOME_DATA = REDIRECT_URL + "home";
     public static final String ADD_TRANSFER_COIN_CONTACT = REDIRECT_URL + "coin/transfer/contact/add";
     public static final String REMOVE_TRANSFER_COIN_CONTACT = REDIRECT_URL + "coin/transfer/contact/remove";
 
@@ -41,11 +42,11 @@ public class URLHelper {
     public static final String GET_ALL_STOCKS_DAILY = REDIRECT_URL + "stocks/daily";
     public static final String GET_ALL_STOCKS_AGGREGATE = REDIRECT_URL + "stocks/aggregates";
     public static final String GET_STOCK_DETAIL = REDIRECT_URL + "stock/detail";
-    public static final String GET_STOCK_NEWS = REDIRECT_URL + "stock/news";
+    public static final String GET_STOCK_NEWS = REDIRECT_URL + "stock/news/all";
     public static final String REQUEST_STOCK_ORDER_CREATE = REDIRECT_URL + "stock/order/create";
     public static final String REQUEST_STOCK_ORDER_REPLACE = REDIRECT_URL + "stock/order/replace";
     public static final String REQUEST_STOCK_ORDER_CANCEL = REDIRECT_URL + "stock/order/cancel";
-    public static final String GET_STOCK_ORDER_INVESTED = REDIRECT_URL + "stock/order/status/user/invested";
+    public static final String GET_STOCK_ORDER_INVESTED = REDIRECT_URL + "stock/order/status/user/invested/iex";
     public static final String GET_STOCK_ORDER_PENDING = REDIRECT_URL + "stock/order/status/user/pending";
     public static final String GET_STOCK_ORDER = REDIRECT_URL + "stock/order/status/user";
     public static final String STOCK_WITHDRAW = REDIRECT_URL + "stock/withdraw";
