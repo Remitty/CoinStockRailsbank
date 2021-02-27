@@ -12,10 +12,10 @@ public class BigDecimalDouble {
         return fragment;
     }
 
-    public String multify(String num1, String num2){
+    public Double multify(String num1, String num2){
         BigDecimal number1 = new BigDecimal(num1);
         BigDecimal number2 = new BigDecimal(num2);
-        return number1.multiply(number2).toString();
+        return number1.multiply(number2).doubleValue();
     }
 
     public String divide(String num1, String num2){
@@ -24,10 +24,10 @@ public class BigDecimalDouble {
         return number1.divide(number2).toString();
     }
 
-    public String add(String num1, String num2){
+    public Double add(String num1, String num2){
         BigDecimal number1 = new BigDecimal(num1);
         BigDecimal number2 = new BigDecimal(num2);
-        return number1.add(number2).toString();
+        return number1.add(number2).doubleValue();
     }
 
     public String sub(String num1, String num2){

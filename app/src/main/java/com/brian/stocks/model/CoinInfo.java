@@ -79,11 +79,11 @@ public class CoinInfo {
         }
     }
 
-    public String getCoinExchangeRate() {
+    public Double getCoinExchangeRate() {
         try {
-            return data.getString("exchange_rate");
+            return data.getDouble("exchange_rate");
         } catch (JSONException e) {
-            return "0.0";
+            return 0.0;
         }
     }
 

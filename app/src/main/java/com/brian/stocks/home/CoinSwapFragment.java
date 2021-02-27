@@ -38,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class CoinSwapFragment extends Fragment {
     private EditText mEditSellingAmount;
     private LinearLayout sendLayout, getLayout;
     private TextView mEditBuyingCoin, mEditSellingCoin,
-            mtvSellAvailabelQty, mtvBuyingEstQty,
+            mtvSellAvailabelQty, mtvBuyAvailabelQty, mtvBuyingEstQty,
             mtvSellRateCoin, mtvBuyRateCoin, mtvBuyRateQty, mtvBuyingCoinName, mtvSellingCoinName;
     private static String CoinSymbol;
     private View mView;
@@ -57,7 +58,8 @@ public class CoinSwapFragment extends Fragment {
     private List<CoinInfo> coinList = new ArrayList<>();
     CoinConversionAdapter conversionAdapter;
     private ArrayList<JSONObject> conversionList = new ArrayList<>();
-    private String buyCoinId, sellCoinId, buyCoinPrice="0", sellCoinPrice;
+    private String buyCoinId, sellCoinId, sellingCoinBalance="0";
+    private Double buyCoinPrice = 0.0;
     int select = 0;
 
     public CoinSwapFragment() {
@@ -93,6 +95,8 @@ public class CoinSwapFragment extends Fragment {
         initListeners();
 
         getConversionList();
+
+        initFormat();
         return mView;
     }
 
@@ -155,6 +159,7 @@ public class CoinSwapFragment extends Fragment {
         sendLayout = mView.findViewById(R.id.layout_send);
 
         mtvSellAvailabelQty = mView.findViewById(R.id.tv_sell_avail_qty);
+        mtvBuyAvailabelQty = mView.findViewById(R.id.tv_buy_avail_qty);
         mtvBuyingEstQty = mView.findViewById(R.id.tv_buy_est_qty);
 
         mtvBuyingCoinName = mView.findViewById(R.id.buying_coin_name);
@@ -188,9 +193,16 @@ public class CoinSwapFragment extends Fragment {
                     mEditSellingCoin.setText(coin.getCoinSymbol());
                     mtvSellingCoinName.setText(coin.getCoinName());
                     mtvSellRateCoin.setText(coin.getCoinSymbol());
-                    mtvSellAvailabelQty.setText("("+coin.getCoinBalance()+")");
+                    sellingCoinBalance = coin.getCoinBalance();
+                    mtvSellAvailabelQty.setText(sellingCoinBalance);
 //                    sellCoinPrice = coin.getCoinRate();
                     sellCoinId = coin.getCoinId();
+
+//                    if(buyCoinPrice)
+//                    String amount = mEditSellingAmount.getText().toString();
+//                    if(!amount.equalsIgnoreCase("")) {
+//                        mtvBuyingEstQty.setText(new DecimalFormat("#,###.##########").format(BigDecimalDouble.newInstance().multify(amount, buyCoinPrice+"")));
+//                    }
 
                     initFormat();
 
@@ -202,12 +214,13 @@ public class CoinSwapFragment extends Fragment {
                         mEditBuyingCoin.setText(coin.getCoinSymbol());
                         mtvBuyingCoinName.setText(coin.getCoinName());
                         buyCoinId = coin.getCoinId();
-                        String price = mEditSellingAmount.getText().toString();
                         buyCoinPrice = coin.getCoinExchangeRate();
                         mtvBuyRateCoin.setText(coin.getCoinSymbol());
-                        mtvBuyRateQty.setText(buyCoinPrice);
-                        if(!price.equalsIgnoreCase("")) {
-                            mtvBuyingEstQty.setText(BigDecimalDouble.newInstance().multify(price, buyCoinPrice));
+                        mtvBuyAvailabelQty.setText(coin.getCoinBalance());
+                        mtvBuyRateQty.setText(new DecimalFormat("#,###.############").format(buyCoinPrice));
+                        String amount = mEditSellingAmount.getText().toString();
+                        if(!amount.equalsIgnoreCase("")) {
+                            mtvBuyingEstQty.setText(new DecimalFormat("#,###.######").format(BigDecimalDouble.newInstance().multify(amount, buyCoinPrice+"")));
                         }
                     }
                 }//buy coin
@@ -218,11 +231,21 @@ public class CoinSwapFragment extends Fragment {
         mBtnExchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mEditSellingAmount.getText().toString().equals("")||
-                        mEditBuyingCoin.getText().toString().equals("") || mEditSellingCoin.getText().toString().equals("")) {
-                    Toast.makeText(getContext(), "Please fillout all inputs", Toast.LENGTH_SHORT).show();
+                if(mEditSellingAmount.getText().toString().equals("")) {
+                    mEditSellingAmount.setError("!");
+                    return;
                 }
-                else {
+
+                if(buyCoinId == null || sellCoinId == null) {
+                    Toast.makeText(getContext(), "Please select coin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(Double.parseDouble(mEditSellingAmount.getText().toString()) > Double.parseDouble(sellingCoinBalance)) {
+                    Toast.makeText(getContext(), "Insufficient funds", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                     alert.setIcon(R.mipmap.ic_launcher_round)
                             .setTitle("Confirm Exchange")
@@ -233,7 +256,7 @@ public class CoinSwapFragment extends Fragment {
                                     doExchange();
                                 }
                             }).show();
-                }
+
             }
         });
 
@@ -287,7 +310,7 @@ public class CoinSwapFragment extends Fragment {
                 String price=charSequence.toString();
                 if(!price.equalsIgnoreCase(".")) {
                     if (!price.equalsIgnoreCase("")) {
-                        mtvBuyingEstQty.setText(BigDecimalDouble.newInstance().multify(price, buyCoinPrice));
+                        mtvBuyingEstQty.setText(new DecimalFormat("#,###.############").format(BigDecimalDouble.newInstance().multify(price, buyCoinPrice+"")));
                     } else mtvBuyingEstQty.setText("0.00");
                 }
             }
@@ -303,8 +326,9 @@ public class CoinSwapFragment extends Fragment {
         mEditSellingAmount.setText("");
         mtvBuyRateQty.setText("1.00");
         mtvBuyRateCoin.setText("BTC");
-        mEditBuyingCoin.setText("");
+        mEditBuyingCoin.setText("select coin");
         mtvBuyingEstQty.setText("0.00");
+        buyCoinId=null;
     }
 
     private void doExchange() {

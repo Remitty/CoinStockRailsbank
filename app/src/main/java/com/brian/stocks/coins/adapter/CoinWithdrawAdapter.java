@@ -13,6 +13,7 @@ import com.brian.stocks.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CoinWithdrawAdapter extends RecyclerView.Adapter<CoinWithdrawAdapter.OrderViewHolder> {
@@ -53,7 +54,7 @@ public class CoinWithdrawAdapter extends RecyclerView.Adapter<CoinWithdrawAdapte
         JSONObject item = history.get(position);
 
         holder.tvItemAsset.setText(item.optString("currency"));
-        holder.tvItemPrice.setText(item.optString("amount"));
+        holder.tvItemPrice.setText(new DecimalFormat("#,###.######").format(item.optDouble("amount")));
         holder.tvItemStatus.setText(item.optString("status_text"));
         holder.tvItemAddress.setText(item.optString("address"));
         try {

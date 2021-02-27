@@ -38,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
     private BottomSheetDialog dialog;
     private LoadToast loadToast;
 
-    private String CoinId="0", CoinUsdc="0", Fee="0", Coin;
+    private String CoinId="0", CoinUsdc="0", Fee="0", Coin="BTC";
 
     private List<CoinInfo> coinList = new ArrayList<>();
 
@@ -78,6 +79,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
 
     private void initComponents() {
         editWithdrawAmount = findViewById(R.id.edit_withdraw_amount);
+//        editWithdrawAmount.setFocusable(false);
         editAddress = findViewById(R.id.edit_address);
         mtvCoin = findViewById(R.id.tv_coin);
         mtvCoinName = findViewById(R.id.coin_name);
@@ -117,15 +119,20 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         editWithdrawAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+//                if(Coin.equals("")) {
+////                    Toast.makeText(getBaseContext(), "Please select coin.", Toast.LENGTH_SHORT).show();
+//////                    editWithdrawAmount.setText("");
+////                    return;
+////                }
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                 if(!s.toString().equals(".") && !s.toString().equals("")) {
                     BigDecimal amount = new BigDecimal(s.toString());
                     BigDecimal fee = new BigDecimal(Fee);
-                    mtvGetAmount.setText(amount.subtract(fee).toString() + " " + Coin);
+                    mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()) + " " + Coin);
 //                    Double amount = Double.parseDouble(s.toString());
 //                    Double fee = Double.parseDouble(Fee);
 //                    Double get = amount - fee;
@@ -143,12 +150,13 @@ public class CoinWithdrawActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String amount = editWithdrawAmount.getText().toString();
-                if(amount.equals("") || CoinId == null || editAddress.getText().toString().equals("")) {
+                if(amount.equals("") || CoinId.equals("0") || editAddress.getText().toString().equals("")) {
                     if(amount.equals(""))
                         editWithdrawAmount.setError("!");
                     if(editAddress.getText().toString().equals(""))
                         editAddress.setError("!");
-                    Toast.makeText(getBaseContext(), "Please fill in all inputs", Toast.LENGTH_SHORT).show();
+                    if(CoinId.equals("0"))
+                        Toast.makeText(getBaseContext(), "Please select coin", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -157,13 +165,13 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                     return;
                 }
                 if(Double.parseDouble(amount) < Double.parseDouble(Fee)) {
-                    Toast.makeText(getBaseContext(), "You have to request amount than $7.5 at least.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "You have to request amount than " + Fee + " at least.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Double total = Double.parseDouble(amount) - Double.parseDouble(Fee);
                 new AlertDialog.Builder(CoinWithdrawActivity.this)
                         .setTitle(getString(R.string.app_name))
-                        .setMessage("Are you sure you want to withdraw $" + amount + " ? Fee is $" + Fee + ". Total is $" + total + ".")
+                        .setMessage("Are you sure you want to withdraw " + amount + " ? Fee is " + Fee + ". Total is " + total + ".")
                         .setPositiveButton("Yes",
                                 new DialogInterface.OnClickListener() {
                                     @Override
@@ -196,10 +204,18 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                 mtvAvailCoinQty.setText(coin.getCoinBalance());
 //                mtvCoinSymbol.setText(coin.getCoinSymbol() + " available");
                 mTVCoinBalance.setText("$ "+coin.getCoinUsdc());
-                CoinUsdc = coin.getCoinUsdc();
+                CoinUsdc = coin.getCoinBalance();
+//                CoinUsdc = coin.getCoinUsdc();
                 CoinId = coin.getCoinId();
                 Fee = coin.getWithdrawalFee();
                 mtvWithdrawalFee.setText(Fee + " " + coin.getCoinSymbol());
+
+                String withdraw_amount = editWithdrawAmount.getText().toString();
+                if(!withdraw_amount.equals("")) {
+                    BigDecimal amount = new BigDecimal(withdraw_amount);
+                    BigDecimal fee = new BigDecimal(Fee);
+                    mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()) + " " + Coin);
+                }
                 dialog.dismiss();
             }
         });
@@ -268,8 +284,8 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Toast.makeText(getBaseContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }
@@ -289,7 +305,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("coin assets response", "" + response);
                             loadToast.success();
-
+//                            editWithdrawAmount.setFocusable(true);
                             coinList.clear();
 
                             JSONArray coins = null;
