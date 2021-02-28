@@ -71,6 +71,7 @@ public class OpenPositionAdapter extends RecyclerView.Adapter<OpenPositionAdapte
         if(Double.parseDouble(item.getProfit()) >= 0){
             holder.tvStockProfit.setText("$ +"+item.getProfit());
             holder.tvStockProfit.setTextColor(mContext.getResources().getColor(R.color.green));
+            Picasso.with(mContext).load(R.drawable.ic_up).into(holder.icArrow);
         }
         else {
             holder.tvStockProfit.setTextColor(mContext.getResources().getColor(R.color.colorRedCrayon));

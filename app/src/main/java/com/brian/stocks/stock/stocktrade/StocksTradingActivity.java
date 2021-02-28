@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.brian.stocks.R;
 import com.brian.stocks.stock.adapter.StockChartTabAdapter;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
+import com.squareup.picasso.Picasso;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -30,12 +32,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+
 import static android.graphics.Color.RED;
 
 public class StocksTradingActivity extends AppCompatActivity {
     private LoadToast loadToast;
     private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc;
-    private TextView mStockShares, mStockQuantity, mStockAvgCost;
+    private TextView mStockShares, mStockQuantity, mStockAvgCost, mStockProfit;
+    ImageView profitArrow;
     private String companysummary, companyindustry, companyweb;
     private MaterialButton mBtnBuy, mBtnSell;
     private Intent mIntent;
@@ -76,10 +81,18 @@ public class StocksTradingActivity extends AppCompatActivity {
         mStockShares.setText(mIntent.getStringExtra("stock_shares"));
 
         mStockAvgCost.setText("$ "+mIntent.getStringExtra("stock_avg_price"));
-
+        Double shares = Double.parseDouble(mIntent.getStringExtra("stock_shares"));
+        Double change = Double.parseDouble(mIntent.getStringExtra("stock_today_change"));
+        mStockProfit.setText("$ " + new DecimalFormat("#,###.##").format(shares * change));
+        if(change < 0) {
+            mStockProfit.setTextColor(getResources().getColor(R.color.colorRedCrayon));
+            Picasso.with(getBaseContext()).load(R.drawable.ic_down).into(profitArrow);
+        }
         mStockQuantity.setText("$ "+ mIntent.getStringExtra("stock_equity"));
 
         mStockTodayChange.setText("$ "+mIntent.getStringExtra("stock_today_change"));
+
+
         if(mIntent.getStringExtra("stock_today_change").startsWith("-")) {
             mStockTodayChange.setTextColor(RED);
             mStockTodayChangePerc.setTextColor(RED);
@@ -89,9 +102,9 @@ public class StocksTradingActivity extends AppCompatActivity {
         mBtnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(StockPrice == 0)
-                    Toast.makeText(getBaseContext(), "Not working today.", Toast.LENGTH_SHORT).show();
-                else
+//                if(StockPrice == 0)
+//                    Toast.makeText(getBaseContext(), "Not working today.", Toast.LENGTH_SHORT).show();
+//                else
                 onBuyStack();
             }
         });
@@ -99,9 +112,9 @@ public class StocksTradingActivity extends AppCompatActivity {
         mBtnSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(StockPrice == 0)
-                    Toast.makeText(getBaseContext(), "Not working today.", Toast.LENGTH_SHORT).show();
-                else
+//                if(StockPrice == 0)
+//                    Toast.makeText(getBaseContext(), "Not working today.", Toast.LENGTH_SHORT).show();
+//                else
                 onSellStack();
             }
         });
@@ -129,6 +142,8 @@ public class StocksTradingActivity extends AppCompatActivity {
         mStockShares = findViewById(R.id.stock_shares);
         mStockQuantity = findViewById(R.id.stock_equity_values);
         mStockAvgCost = findViewById(R.id.stock_avg_costs);
+        mStockProfit = findViewById(R.id.stock_profit);
+        profitArrow= findViewById(R.id.stock_profit_arrow);
 
         mBtnBuy = findViewById(R.id.btn_stock_buy);
         mBtnSell = findViewById(R.id.btn_stock_sell);

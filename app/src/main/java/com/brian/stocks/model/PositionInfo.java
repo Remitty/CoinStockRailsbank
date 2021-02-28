@@ -40,7 +40,7 @@ public class PositionInfo {
 
     public String getAvgPrice() {
         try {
-            return data.getString("avg_price");
+            return data.getString("avg_entry_price");
         } catch (JSONException e) {
             return "0.0";
         }
