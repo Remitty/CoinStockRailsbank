@@ -3,6 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="3dp"
+    android:background="@color/cardColor"
+    android:padding="3dp"
     android:gravity="center_vertical"
     android:orientation="vertical">
     <LinearLayout
@@ -27,13 +29,7 @@
             android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/item_address"
-            android:layout_weight="1"
-            android:textColor="@color/colorBlack"
-            android:visibility="visible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
         <TextView
             android:id="@+id/item_date"
             android:layout_weight="1"
@@ -41,4 +37,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/item_address"
+        android:layout_weight="1"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/colorBlack"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
