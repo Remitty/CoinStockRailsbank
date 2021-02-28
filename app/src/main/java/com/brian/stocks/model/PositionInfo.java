@@ -55,15 +55,10 @@ public class PositionInfo {
     }
 
     public String getEquity(){//holding
-//        BigDecimal amount3 = new BigDecimal(getCurrentPrice());
-//        BigDecimal amount4 = new BigDecimal(getQty());
-////        return doubleFormat(""+amount3.multiply(amount4));
-//        return new DecimalFormat("#,###.##").format(amount3.multiply(amount4).doubleValue());
-        try {
-            return data.getString("holding");
-        } catch (JSONException e) {
-            return "0.0";
-        }
+        BigDecimal amount3 = new BigDecimal(getCurrentPrice());
+        BigDecimal amount4 = new BigDecimal(getQty());
+//        return doubleFormat(""+amount3.multiply(amount4));
+        return new DecimalFormat("#,###.##").format(amount3.multiply(amount4).doubleValue());
     }
 
     public String getLastDayPrice(){
@@ -76,25 +71,15 @@ public class PositionInfo {
 
     public String getChangePrice(){
 
-//        BigDecimal amount3 = new BigDecimal(getCurrentPrice());
-//        BigDecimal amount4 = new BigDecimal(getLastDayPrice());
-//        return doubleFormat(""+amount3.subtract(amount4));
-        try {
-            return data.getString("change");
-        } catch (JSONException e) {
-            return "0.0";
-        }
+        BigDecimal amount3 = new BigDecimal(getCurrentPrice());
+        BigDecimal amount4 = new BigDecimal(getLastDayPrice());
+        return doubleFormat(""+amount3.subtract(amount4));
     }
 
     public String getProfit(){
-//        BigDecimal amount3 = new BigDecimal(getChangePrice());
-//        BigDecimal amount4 = new BigDecimal(getQty());
-//        return doubleFormat(""+amount3.multiply(amount4));
-        try {
-            return data.getString("profit");
-        } catch (JSONException e) {
-            return "0.0";
-        }
+        BigDecimal amount3 = new BigDecimal(getChangePrice());
+        BigDecimal amount4 = new BigDecimal(getQty());
+        return doubleFormat(""+amount3.multiply(amount4));
     }
 
     public String getChangePricePercent(){

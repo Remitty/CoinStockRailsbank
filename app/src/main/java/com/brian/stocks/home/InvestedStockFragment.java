@@ -240,7 +240,7 @@ public class InvestedStockFragment extends Fragment {
                             refreshLayout.setRefreshing(false);
                             stocksList.clear();
                             try {
-//                                Log.d("invested stocks response", response.toString());
+                                Log.d("invested stocks response", response.toString());
                                 mTotalBalance.setText("$ " + new DecimalFormat("#,###.####").format(response.getDouble("total_balance")));
                                 mStockBalance.setText("$ " + new DecimalFormat("#,###.####").format(response.getDouble("stock_balance")));
                                 mTextStockProfit.setText("$ " + response.getString("stock_profit"));
