@@ -98,6 +98,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         mtvGasFee = findViewById(R.id.gas_fee);
         mtvGasFeeSymbol = findViewById(R.id.gas_fee_symbol);
         mtvGetAmount = findViewById(R.id.receipt_amount);
+        mtvGetAmountSymbol = findViewById(R.id.receipt_amount_symbol);
 
         mtvWeeklyLimit = findViewById(R.id.tv_weekly_limit);
 
@@ -130,11 +131,6 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         editWithdrawAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                if(Coin.equals("")) {
-////                    Toast.makeText(getBaseContext(), "Please select coin.", Toast.LENGTH_SHORT).show();
-//////                    editWithdrawAmount.setText("");
-////                    return;
-////                }
             }
 
             @Override
@@ -143,11 +139,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                 if(!s.toString().equals(".") && !s.toString().equals("")) {
                     BigDecimal amount = new BigDecimal(s.toString());
                     BigDecimal fee = new BigDecimal(Fee);
-                    mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()) + " " + Coin);
-//                    Double amount = Double.parseDouble(s.toString());
-//                    Double fee = Double.parseDouble(Fee);
-//                    Double get = amount - fee;
-//                    mtvGetAmount.setText(get+"");
+                    mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()));
                 }
             }
 
@@ -371,7 +363,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
 
                             mtvWeeklyLimit.setText("Weekly withdrawal limit = $" + response.optString("weekly_withdraw_limit"));
                             GasFee = response.optString("coin_withdraw_gas_fee");
-                            mtvGasFee.setText(GasFee);
+//                            mtvGasFee.setText(GasFee);
                             selectedCoin = new CoinInfo(response.optJSONObject("coin"));
                             mtvAvailCoinQty.setText(selectedCoin.getCoinBalance());
 
