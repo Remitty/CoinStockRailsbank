@@ -1,4 +1,4 @@
-package com.brian.stocks.xmt;
+package com.brian.stocks.token;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,7 +17,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
-import com.brian.stocks.xmt.adapters.OrderHistoryAdapter;
+import com.brian.stocks.token.adapters.OrderHistoryAdapter;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -25,10 +25,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class XMTTradeHistoryActivity extends AppCompatActivity {
+public class TokenTradeHistoryActivity extends AppCompatActivity {
 
     private String mPair;
     TextView noHistory;
@@ -74,8 +73,8 @@ public class XMTTradeHistoryActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         loadToast.show();
-        Log.d("exchange param", jsonObject.toString()+" -> "+ URLHelper.COIN_REALEXCHANGE_HISTORY_DATA);
-            AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE_HISTORY_DATA)
+        Log.d("exchange param", jsonObject.toString()+" -> "+ URLHelper.COIN_TRADE_HISTORY_DATA);
+            AndroidNetworking.post(URLHelper.COIN_TRADE_HISTORY_DATA)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
                     .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(this,"access_token"))

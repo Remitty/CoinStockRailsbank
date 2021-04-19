@@ -12,134 +12,92 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/coin_icon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:adjustViewBounds="true"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/coin_bitcoin" />
         <LinearLayout
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:orientation="vertical">
-
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/coin_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/coin_bitcoin" />
             <TextView
                 android:id="@+id/coin_name"
                 android:layout_width="wrap_content"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
                 android:text="BTC"
                 android:textColor="@color/colorBlack"
                 android:textSize="14dp"
                 android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/coin_rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:text="$ 1234.23"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_weight="2"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/ic_arrow"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_up"/>
+                <TextView
+                    android:id="@+id/coin_effect"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/coin_rate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/green"
-                        android:text="$ 1234.23"/>
-                    <TextView
-                        android:id="@+id/coin_balance"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="left"
-                        android:text="0.0001"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="13dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/ll_coin_balance"
-                    android:layout_weight="3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:id="@+id/ll_coins_chart"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="gone"
-                        android:orientation="horizontal" >
-                        <com.anychart.AnyChartView
-                            android:id="@+id/any_chart_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            />
-
-                        <ProgressBar
-                            android:id="@+id/progress_bar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/coin_est_usdc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:visibility="visible"
-                        android:textColor="@color/colorBlack"
-                        android:text="$ 0.00"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/coin_effect"
-                            android:layout_weight="1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:textSize="14dp"
-                            android:visibility="visible"
-                            android:textColor="@color/colorBlack"
-                            android:text="$ 0.00"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text=" 24hrs"
-                            android:visibility="gone"
-                            android:textColor="@color/colorGray"/>
-                        <ImageView
-                            android:id="@+id/ic_arrow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_up"/>
-
-                    </LinearLayout>
-                </LinearLayout>
+                    android:layout_marginLeft="5dp"
+                    android:textSize="14dp"
+                    android:textColor="@color/green"
+                    android:text="$ 0.00"/>
             </LinearLayout>
 
         </LinearLayout>
-
-
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/coin_est_usdc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="14dp"
+                android:textColor="@color/colorBlack"
+                android:text="$ 0.00"/>
+            <TextView
+                android:id="@+id/coin_balance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="right"
+                android:text="0.0001"
+                android:textColor="@color/colorPurple"
+                android:textSize="13dp" />
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"

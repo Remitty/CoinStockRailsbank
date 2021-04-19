@@ -90,7 +90,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1.5dp"
-                android:background="@color/colorPrimary" />
+                android:background="@color/colorPrimary1" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatEditText

@@ -16,8 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".coins.CoinStakeListActivity"></activity>
-        <activity android:name=".xmt.XMTTradeHistoryActivity" />
+        <activity android:name=".coins.CoinSwapHistoryActivity"></activity>
+        <activity android:name=".token.TokenOrderBookActivity" />
+        <activity android:name=".coins.CoinTradeActivity" />
+        <activity android:name=".coins.CoinStakeListActivity" />
+        <activity android:name=".token.TokenTradeHistoryActivity" />
         <activity android:name=".zabo.ZaboAccountActivity" />
         <activity android:name=".zabo.ZaboActivity">
             <intent-filter android:label="Zaho connect account">
@@ -99,9 +102,7 @@
         <activity android:name=".usdc.SendUsdcActivity" />
         <activity android:name=".mtn.MtnTransactionActivity" />
         <activity android:name=".mtn.MTNActivity" />
-        <activity
-            android:name=".xmt.XMTTradingActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".token.TokenTradingActivity" />
         <activity android:name=".coins.CoinStakeActivity" />
         <activity android:name=".predict.AddPredictActivity" />
         <activity android:name=".predict.PredictableListActivity" />

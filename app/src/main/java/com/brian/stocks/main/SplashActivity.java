@@ -52,9 +52,9 @@ public class SplashActivity extends AppCompatActivity {
 //        actionBar.hide();
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        mGetStartedButton.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom));
-        mWelcomeTextView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom));
-        mAgoraImageView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_from_top));
+//        mGetStartedButton.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom));
+//        mWelcomeTextView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom));
+//        mAgoraImageView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_from_top));
 
         mWaitHandler.postDelayed(new Runnable() {
             @Override
@@ -66,7 +66,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 else {
 //                    Log.d("profile completed", SharedHelper.getKey(this, "is_completed"));
-                    if (SharedHelper.getKey(getBaseContext(), "is_completed").toString().equals("false")) {
+                    if (SharedHelper.getKey(getBaseContext(), "is_completed").equals("false")) {
                         startActivity(new Intent(getApplicationContext(), ProfileCompleteActivity.class));
                         return;
                     }

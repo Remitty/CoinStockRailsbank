@@ -5,15 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green"
+    android:orientation="vertical"
     tools:context="com.brian.stocks.main.SplashActivity">
 
     <ImageView
         android:id="@+id/agora_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:adjustViewBounds="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/pepe"
         android:scaleType="centerCrop"
-        android:visibility="gone"
+        android:visibility="visible"
          />
 
     <Button
@@ -43,6 +47,13 @@
         android:layout_gravity="center"
         android:text="@string/welcome_to_agora_vote"
         android:textColor="@color/white"
-        android:textSize="48dp"
+        android:textSize="28dp"
          />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="30dp"
+        android:text="Powered by PEPPER"
+        android:textColor="@color/white"/>
 </FrameLayout>

@@ -1,38 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.brian.stocks.coins.CoinTradeActivity">
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        tools:ignore="MissingConstraints">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/coin_trade_toolbar"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorRedCrayon"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="20dp"
+            app:tabTextColor="@color/textColorPrimary"
+            app:tabIndicatorColor="@color/textColorPrimary"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicator="@drawable/rounded_corner_white_rectangle"
+            app:tabIndicatorHeight="3dp"/>
 
-    </com.google.android.material.appbar.AppBarLayout>
-<LinearLayout
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <com.whl.handytabbar.HandyTabBar
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:id="@+id/tab_bar"
-        android:background="@color/colorPrimary"
-        />
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/ta_view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tab"
+            />
+
+    </LinearLayout>
+
 </LinearLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -52,7 +52,7 @@ public class IncomingPredictsFragment extends Fragment {
 
         mAdapter = new PredictAdapter(dataList, 1);
         recyclerView.setAdapter(mAdapter);
-        mAdapter.seListener(new PredictAdapter.Listener() {
+        mAdapter.setListener(new PredictAdapter.Listener() {
             @Override
             public void onSelect(int position) {
 

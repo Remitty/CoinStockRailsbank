@@ -58,41 +58,53 @@
                     <LinearLayout
                         android:layout_weight="3"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@drawable/rounded_corner_white_rectangle"
                         android:padding="10dp"
-                        android:orientation="vertical">
-                        <TextView
-                            android:id="@id/coin_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:visibility="gone"
-                            android:text="Select coin"/>
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:id="@+id/imgIcon"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/btc"/>
                         <TextView
                             android:id="@+id/tv_coin"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
-                            android:text="Select coin"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="14dp"
-                            />
-                        <TextView
-                            android:id="@+id/tv_avail_qty"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="BTC"
+                            android:textStyle="bold"
                             android:textColor="@color/colorBlack"
-                            android:textSize="14dp"
-                            android:text="0.00"/>
+                            android:textSize="16dp"
+                            />
+
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Balance: "/>
+                    <TextView
+                        android:id="@+id/tv_avail_qty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="14dp"
+                        android:text="0.00"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
@@ -126,13 +138,14 @@
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16dp"
+                            android:textSize="13dp"
                             android:textColor="@color/colorBlack"
                             android:text="Fees"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" ~ "/>
+<<<<<<< Updated upstream
 
                         <TextView
                             android:id="@+id/withdrawal_fee"
@@ -143,17 +156,85 @@
                             android:text="0.00 BTC"
                             android:textColor="@color/colorBlack"
                             android:textSize="16dp" />
+=======
+                        <LinearLayout
+                                android:layout_weight="1"
+                            android:layout_marginLeft="50dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+                            <TextView
+                                android:id="@+id/withdrawal_fee"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:text="0.00"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="13dp" />
+                            <TextView
+                                android:id="@+id/withdrawal_fee_symbol"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_marginLeft="3dp"
+                                android:text="BTC"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+>>>>>>> Stashed changes
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16dp"
+                            android:textSize="13dp"
+                            android:textColor="@color/colorBlack"
+                            android:text="Gas Fees"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" ~ "/>
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="50dp">
+                            <TextView
+                                android:id="@+id/gas_fee"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:text="0.00"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="13dp" />
+                            <TextView
+                                android:id="@+id/gas_fee_symbol"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_marginLeft="3dp"
+                                android:text="ETH"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
                             android:textColor="@color/colorBlack"
                             android:text="Recipient get"/>
                         <TextView
@@ -165,19 +246,44 @@
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+<<<<<<< Updated upstream
                             android:gravity="center_horizontal"
                             android:textSize="16dp"
                             android:textColor="@color/colorBlack"
                             android:text="0.00 BTC"/>
+=======
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="50dp">
+                            <TextView
+                                android:id="@+id/receipt_amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:text="0.00"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="13dp" />
+                            <TextView
+                                android:id="@+id/receipt_amount_symbol"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:layout_marginLeft="3dp"
+                                android:text="BTC"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+>>>>>>> Stashed changes
                     </LinearLayout>
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/tv_weekly_limit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/colorRedCrayon"
                     android:textSize="16dp"
-                    android:text="Your withdrawal limit is $2500.00 weekly."/>
+                    android:text=""/>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_coin_withdraw"
                     android:layout_width="match_parent"

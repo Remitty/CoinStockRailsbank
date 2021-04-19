@@ -72,7 +72,7 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Remaining time"
+                android:text="Remain time"
                 android:textColor="@color/colorBlack"
                 android:textStyle="bold"/>
             <cn.iwgang.countdownview.CountdownView
@@ -104,14 +104,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="0dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Result"
+                android:text="Status"
                 android:textColor="@color/colorBlack"
                 android:textStyle="bold" />
             <LinearLayout
@@ -230,7 +230,7 @@
             android:id="@+id/layout_question"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="0dp"
             android:orientation="horizontal"
             android:visibility="visible">
 
@@ -277,9 +277,10 @@
                 android:visibility="gone"
                 android:id="@+id/btn_cancel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:backgroundTint="@color/colorGray"
                 android:layout_gravity="right"
+                android:textSize="12dp"
                 android:text="Cancel"/>
         </LinearLayout>
     </LinearLayout>

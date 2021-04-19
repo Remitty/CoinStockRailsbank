@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">?attr/verification_button_color</color>
-    <color name="colorAccent">?attr/verification_button_color</color>
+    <color name="colorPrimary1">#ee204d</color>
+    <color name="colorAccent">#ff4f6d</color>
     <color name="white">#ffffff</color>
 </resources>

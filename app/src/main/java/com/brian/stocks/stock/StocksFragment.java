@@ -27,6 +27,8 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
+import com.brian.stocks.model.PositionInfo;
+import com.brian.stocks.predict.AddPredictActivity;
 import com.brian.stocks.stock.stocktrade.StocksTradingActivity;
 import com.brian.stocks.stock.adapter.StocksAdapter;
 import com.brian.stocks.helper.SharedHelper;
@@ -46,7 +48,7 @@ public class StocksFragment extends Fragment {
     private LoadToast loadToast;
     private View rootView;
     private StocksAdapter mAdapter;
-    private List<StocksInfo> stocksList = new ArrayList<>();
+    private List<PositionInfo> stocksList = new ArrayList<>();
     private RecyclerView stocksListView;
     private Handler handler;
     private EditText mEditStockSearch;
@@ -54,6 +56,7 @@ public class StocksFragment extends Fragment {
     private SwipeRefreshLayout refreshLayout;
     private TextView marketStatus;
     JSONArray aggregates = new JSONArray();
+    private boolean isPredict = false;
 
     public StocksFragment() {
         // Required empty public constructor
@@ -62,6 +65,12 @@ public class StocksFragment extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static StocksFragment newInstance() {
         StocksFragment fragment = new StocksFragment();
+        return fragment;
+    }
+
+    public static StocksFragment newInstance(boolean isPredict) {
+        StocksFragment fragment = new StocksFragment();
+        fragment.isPredict = isPredict;
         return fragment;
     }
 
@@ -92,7 +101,11 @@ public class StocksFragment extends Fragment {
         mAdapter.setListener(new StocksAdapter.Listener() {
             @Override
             public void OnGoToTrade(int position) {
-                GoToTrade(position);
+                if(!isPredict)
+                    GoToTrade(position);
+                else {
+                    GoToAddPredict(position);
+                }
             }
 
         });
@@ -161,8 +174,8 @@ public class StocksFragment extends Fragment {
 
                             if(stocksList.size() > 0 && aggregates.length() == stocksList.size()) {
                                 for (int i = 0; i < aggregates.length(); i++) {
-                                    StocksInfo stock = stocksList.get(i);
-                                    stock.setStockAggregate(aggregates.optJSONArray(i));
+//                                    StocksInfo stock = stocksList.get(i);
+//                                    stock.setStockAggregate(aggregates.optJSONArray(i));
                                 }
 
                                 mAdapter.notifyDataSetChanged();
@@ -185,8 +198,9 @@ public class StocksFragment extends Fragment {
     }
 
     private void GoToTrade(int position) {
-        StocksInfo stock = stocksList.get(position);
+        PositionInfo stock = stocksList.get(position);
         Intent intent = new Intent(getActivity(), StocksTradingActivity.class);
+<<<<<<< Updated upstream
         intent.putExtra("stock_symbol", stock.getStockSymbol());
         intent.putExtra("stock_name", stock.getStockName());
         intent.putExtra("stock_price", stock.getStocksPrice());
@@ -195,7 +209,26 @@ public class StocksFragment extends Fragment {
         intent.putExtra("stock_equity", stock.getStockAvgPrice());
         intent.putExtra("stock_today_change", stock.getStockTodayChange());
         intent.putExtra("stock_today_change_perc", stock.getStockTodayChangePercent());
+=======
+        intent.putExtra("stock_symbol", stock.getSymbol());
+        intent.putExtra("stock_name", stock.getName());
+        intent.putExtra("stock_price", stock.getCurrentPrice());
+        intent.putExtra("stock_shares", stock.getQty());
+        intent.putExtra("stock_avg_price", stock.getAvgPrice());
+        intent.putExtra("stock_equity", stock.getEquity());
+        intent.putExtra("stock_today_change", stock.getChangePrice());
+        intent.putExtra("stock_today_change_perc", stock.getChangePricePercent());
+>>>>>>> Stashed changes
         intent.putExtra("type", "stock");
+        startActivity(intent);
+    }
+
+    private void GoToAddPredict(int position) {
+        PositionInfo stock = stocksList.get(position);
+        Intent intent = new Intent(getActivity(), AddPredictActivity.class);
+        intent.putExtra("symbol", stock.getSymbol());
+        intent.putExtra("name", stock.getName());
+        intent.putExtra("price", stock.getCurrentPrice());
         startActivity(intent);
     }
 
@@ -236,10 +269,20 @@ public class StocksFragment extends Fragment {
                             if(stocks != null)
                             for(int i = 0; i < stocks.length(); i ++) {
                                 try {
+<<<<<<< Updated upstream
                                     StocksInfo stock = new StocksInfo((JSONObject) stocks.get(i));
                                     if(aggregates.length() > 0 && aggregates.length() == stocks.length())
                                         stock.setStockAggregate(aggregates.optJSONArray(i));
                                     stocksList.add(stock);
+=======
+//                                    StocksInfo stock = new StocksInfo((JSONObject) stocks.get(i));
+                                    stocksList.add(new PositionInfo((JSONObject) stocks.get(i)));
+//                                    if(aggregates.length() > 0 && aggregates.length() == stocks.length())
+//                                    aggregates = response.getJSONArray("aggregates");
+//
+//                                    stock.setStockAggregate(aggregates.optJSONArray(i));
+//                                    stocksList.add(stock);
+>>>>>>> Stashed changes
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

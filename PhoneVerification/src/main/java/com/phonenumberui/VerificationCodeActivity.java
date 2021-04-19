@@ -538,10 +538,10 @@ public class VerificationCodeActivity extends AppCompatActivity {
     private void setResendButtonEnableDisable() {
         if (btnResendCode.isEnabled()) {
             rlResend.setBackgroundResource(R.drawable.border_red_dark);
-            btnResendCode.setTextColor(ContextCompat.getColor(mActivity, R.color.colorPrimary));
+            btnResendCode.setTextColor(ContextCompat.getColor(mActivity, R.color.colorPrimary1));
         } else {
             rlResend.setBackgroundResource(R.drawable.border_red_light);
-            btnResendCode.setTextColor(ContextCompat.getColor(mActivity, R.color.colorPrimary));
+            btnResendCode.setTextColor(ContextCompat.getColor(mActivity, R.color.colorPrimary1));
         }
     }
 

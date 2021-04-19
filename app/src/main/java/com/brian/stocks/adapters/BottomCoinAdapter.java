@@ -56,10 +56,10 @@ public class BottomCoinAdapter extends RecyclerView.Adapter<BottomCoinAdapter.Or
 
         holder.tvCoinName.setText(item.getCoinName());
 
-        if(item.getTradable())
-            holder.llTradableTick.setVisibility(View.VISIBLE);
-        else
-            holder.llTradableTick.setVisibility(View.GONE);
+//        if(item.getTradable())
+//            holder.llTradableTick.setVisibility(View.VISIBLE);
+//        else
+//            holder.llTradableTick.setVisibility(View.GONE);
 
 //        if(!item.getCoinSymbol().equalsIgnoreCase("DAI"))
             Picasso.with(mContext)

@@ -5,8 +5,12 @@ import android.content.DialogInterface;
 import com.brian.stocks.coins.adapter.CoinWithdrawAdapter;
 import com.brian.stocks.stock.stockwithdraw.adapters.StockWithdrawAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +35,8 @@ import com.brian.stocks.adapters.BottomCoinAdapter;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
 import com.brian.stocks.model.CoinInfo;
+import com.phonenumberui.PhoneNumberActivity;
+import com.squareup.picasso.Picasso;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -43,18 +50,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CoinWithdrawActivity extends AppCompatActivity {
-    
+    private static final int REQUEST_PHONE_VERIFICATION = 1080;
     EditText editWithdrawAmount, editAddress;
+<<<<<<< Updated upstream
     TextView mtvCoin,mtvCoinName, mtvAvailCoinQty, mtvCoinSymbol, mTVCoinBalance, mtvWithdrawalFee, mtvGetAmount;
+=======
+    TextView mtvCoin,mtvAvailCoinQty, mTVCoinBalance, mtvWithdrawalFee, mtvWithdrawalFeeSymbol, mtvGasFee, mtvGasFeeSymbol, mtvGetAmount, mtvGetAmountSymbol, mtvWeeklyLimit;
+    ImageView imgIcon;
+>>>>>>> Stashed changes
     Button btnWithdraw;
     BottomCoinAdapter mBottomAdapter;
     private RecyclerView recyclerView;
     private BottomSheetDialog dialog;
     private LoadToast loadToast;
 
-    private String CoinId="0", CoinUsdc="0", Fee="0", Coin="BTC";
+    private String CoinId="1", CoinUsdc="0", Fee="0", Coin="BTC";
 
     private List<CoinInfo> coinList = new ArrayList<>();
+    private CoinInfo selectedCoin;
 
     private ArrayList<JSONObject> history = new ArrayList<>();
     RecyclerView historyView;
@@ -65,11 +78,10 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_withdraw);
         loadToast = new LoadToast(this);
-        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setElevation(0);
+        getSupportActionBar().setElevation(0);
 
         initComponents();
         initListeners();
@@ -79,16 +91,22 @@ public class CoinWithdrawActivity extends AppCompatActivity {
 
     private void initComponents() {
         editWithdrawAmount = findViewById(R.id.edit_withdraw_amount);
-//        editWithdrawAmount.setFocusable(false);
         editAddress = findViewById(R.id.edit_address);
         mtvCoin = findViewById(R.id.tv_coin);
-        mtvCoinName = findViewById(R.id.coin_name);
+        imgIcon = findViewById(R.id.imgIcon);
         mtvAvailCoinQty = findViewById(R.id.tv_avail_qty);
-//        mtvCoinSymbol = findViewById(R.id.tv_symbol);
         mTVCoinBalance = findViewById(R.id.tv_balance);
 
         mtvWithdrawalFee = findViewById(R.id.withdrawal_fee);
+<<<<<<< Updated upstream
+=======
+        mtvWithdrawalFeeSymbol = findViewById(R.id.withdrawal_fee_symbol);
+        mtvGasFee = findViewById(R.id.gas_fee);
+        mtvGasFeeSymbol = findViewById(R.id.gas_fee_symbol);
+>>>>>>> Stashed changes
         mtvGetAmount = findViewById(R.id.receipt_amount);
+
+        mtvWeeklyLimit = findViewById(R.id.tv_weekly_limit);
 
         btnWithdraw = findViewById(R.id.btn_coin_withdraw);
 
@@ -149,6 +167,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         btnWithdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                confirmPhoneVerification();
                 String amount = editWithdrawAmount.getText().toString();
                 if(amount.equals("") || CoinId.equals("0") || editAddress.getText().toString().equals("")) {
                     if(amount.equals(""))
@@ -176,7 +195,8 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        submitWitdraw();
+//                                        submitWithdraw();
+                                        confirmPhoneVerification();
                                     }
                                 })
                         .setNegativeButton("No",
@@ -199,13 +219,11 @@ public class CoinWithdrawActivity extends AppCompatActivity {
             public void onSelectCoin(int position) {
                 CoinInfo coin = coinList.get(position);
                 mtvCoin.setText(coin.getCoinSymbol());
+                Picasso.with(getBaseContext()).load(coin.getCoinIcon()).into(imgIcon);
                 Coin = coin.getCoinSymbol();
-                mtvCoinName.setText(coin.getCoinName());
                 mtvAvailCoinQty.setText(coin.getCoinBalance());
-//                mtvCoinSymbol.setText(coin.getCoinSymbol() + " available");
                 mTVCoinBalance.setText("$ "+coin.getCoinUsdc());
                 CoinUsdc = coin.getCoinBalance();
-//                CoinUsdc = coin.getCoinUsdc();
                 CoinId = coin.getCoinId();
                 Fee = coin.getWithdrawalFee();
                 mtvWithdrawalFee.setText(Fee + " " + coin.getCoinSymbol());
@@ -221,7 +239,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         });
     }
 
-    private void submitWitdraw() {
+    private void submitWithdraw() {
         loadToast.show();
         JSONObject jsonObject = new JSONObject();
 
@@ -305,7 +323,6 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("coin assets response", "" + response);
                             loadToast.success();
-//                            editWithdrawAmount.setFocusable(true);
                             coinList.clear();
 
                             JSONArray coins = null;
@@ -355,6 +372,26 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                             Log.d("coin withdraw history ", "" + response);
                             loadToast.success();
 
+                            mtvWeeklyLimit.setText("Weekly withdrawal limit = $" + response.optString("weekly_withdraw_limit"));
+                            mtvGasFee.setText(response.optString("coin_withdraw_gas_fee"));
+                            selectedCoin = new CoinInfo(response.optJSONObject("coin"));
+                            mtvAvailCoinQty.setText(selectedCoin.getCoinBalance());
+
+                            Coin = selectedCoin.getCoinSymbol();
+                            CoinUsdc = selectedCoin.getCoinBalance();
+                            CoinId = selectedCoin.getCoinId();
+                            Fee = selectedCoin.getWithdrawalFee();
+                            mtvWithdrawalFee.setText(Fee);
+                            mtvWithdrawalFeeSymbol.setText(Coin);
+
+                            mtvGetAmountSymbol.setText(Coin);
+                            String withdraw_amount = editWithdrawAmount.getText().toString();
+                            if(!withdraw_amount.equals("")) {
+                                BigDecimal amount = new BigDecimal(withdraw_amount);
+                                BigDecimal fee = new BigDecimal(Fee);
+                                mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()));
+                            }
+
                             history.clear();
                             try {
                                 JSONArray temp = response.getJSONArray("history");
@@ -379,6 +416,26 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                             Log.d("errorm", "" + error.getMessage());
                         }
                     });
+    }
+
+    private void confirmPhoneVerification() {
+        Intent intent = new Intent(CoinWithdrawActivity.this, PhoneNumberActivity.class);
+        startActivityForResult(intent, REQUEST_PHONE_VERIFICATION);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_PHONE_VERIFICATION:
+                if (data != null && data.hasExtra("PHONE_NUMBER") && data.getStringExtra("PHONE_NUMBER") != null) {
+                    submitWithdraw();
+                } else {
+                    // If mobile number is not verified successfully You can hendle according to your requirement.
+                    Toast.makeText(getBaseContext(), "Mobile number verification fails",Toast.LENGTH_SHORT);
+                }
+                break;
+        }
     }
 
     @Override

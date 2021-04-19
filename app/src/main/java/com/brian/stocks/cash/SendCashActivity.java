@@ -131,8 +131,8 @@ public class SendCashActivity extends AppCompatActivity {
         loadToast.show();
         JSONObject object = new JSONObject();
         try {
-            object.put("getter_currency", getterId);
-            object.put("sender_currency", CurrencyId);
+            object.put("getter_currency", bankCurrency);
+            object.put("sender_currency", Currency);
 
         } catch (JSONException e) {
             e.printStackTrace();

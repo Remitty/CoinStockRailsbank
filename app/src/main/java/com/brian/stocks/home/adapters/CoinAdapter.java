@@ -70,7 +70,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
         CoinInfo item = arrItems.get(position);
 
-        holder.tvCoinName.setText(item.getCoinName());
+        holder.tvCoinName.setText(item.getCoinSymbol());
         holder.tvCoinRate.setText("$ " + String.format("%.2f", item.getCoinRate()));
         holder.tvCoinEffect.setText(item.getCoinEffect() + "%");
 
@@ -87,7 +87,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
 //            holder.tvCoinBalance.setText("0.00"+ " " + item.getCoinSymbol());
 //        }
 //        else {
-            holder.tvCoinBalance.setText(item.getCoinBalance() + " " + item.getCoinSymbol());
+            holder.tvCoinBalance.setText(item.getCoinBalance());
             holder.tvCoinBalance.setVisibility(View.VISIBLE);
 //        }
             holder.tvCoinEstAmount.setText("$ " + item.getCoinUsdc());
@@ -111,26 +111,26 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
             }
         });
         
-        holder.btnDeposit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.OnDeposit(position);
-            }
-        });
-        holder.btnRamp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.OnBuyNow(position);
-            }
-        });
+//        holder.btnDeposit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                listener.OnDeposit(position);
+//            }
+//        });
+//        holder.btnRamp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                listener.OnBuyNow(position);
+//            }
+//        });
         String coins = "BTC ETH DAI XDAI USDC DOT";
 //        if(coins.contains(item.getCoinSymbol())) {
-        if(item.getBuyNowOption() != 0 && item.getBuyNowOption() != 100) {
-            holder.btnRamp.setVisibility(View.VISIBLE);
-        }
-        else {
-            holder.btnRamp.setVisibility(View.GONE);
-        }
+//        if(item.getBuyNowOption() != 0 && item.getBuyNowOption() != 100) {
+//            holder.btnRamp.setVisibility(View.VISIBLE);
+//        }
+//        else {
+//            holder.btnRamp.setVisibility(View.GONE);
+//        }
 
     }
 

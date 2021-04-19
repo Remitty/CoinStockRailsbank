@@ -99,12 +99,12 @@ public class CoinStakeListActivity extends AppCompatActivity {
 //                                dailyReward = response.getDouble("stake_reward_yearly_percent");
 
                                 stakeList.clear();
-                                JSONArray stakes = response.getJSONArray("stake_histories");
-                                for (int i = 0; i < stakes.length(); i ++) {
-                                    stakeList.add(stakes.getJSONObject(i));
-                                }
-                                stakeAdapter.notifyDataSetChanged();
-
+//
+//                                JSONArray stakes = response.getJSONArray("stake_histories");
+//                                for (int i = 0; i < stakes.length(); i ++) {
+//                                    stakeList.add(stakes.getJSONObject(i));
+//                                }
+//                                stakeAdapter.notifyDataSetChanged();
                                 stakableList.clear();
                                 JSONArray stakable = response.getJSONArray("stakes");
                                 for (int i = 0; i < stakable.length(); i ++) {

@@ -21,6 +21,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.brian.stocks.R;
+import com.brian.stocks.SharedPrefs;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
 import com.brian.stocks.profile.ProfileCompleteActivity;
@@ -34,7 +35,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
-
+    private SharedPrefs sharedPrefs;
     private EditText mUserNameEditText, mFirstNameEditText, mLastNameEditText, mEmailEditText, mPasswordEditText;
     private TextView mSigninButton;
     private LoadToast loadToast;
@@ -125,11 +126,15 @@ public class SignUpActivity extends AppCompatActivity {
                         loadToast.success();
                         if(response.optBoolean("success")) {
                             JSONObject user = response.optJSONObject("data");
-                            SharedHelper.putKey(getBaseContext(), "access_token", user.optString("access_token"));
-                            SharedHelper.putKey(getBaseContext(), "is_completed", "false");
+                            String key = response.optString("access_token");
+                            sharedPrefs.savePref(key);
+                            SharedHelper.putKey(getBaseContext(), "access_token", key);
+
+                            SharedHelper.putKey(getBaseContext(), "userId", response.optString("id"));
+                            SharedHelper.putKey(getBaseContext(), "is_completed", response.optString("isCompleteProfile"));
 
                             SharedHelper.putKey(getBaseContext(), "fullName", mFirstNameEditText.getText().toString() + " " + mLastNameEditText.getText().toString());
-                            startActivity(new Intent(getApplicationContext(), ProfileCompleteActivity.class));
+                            startActivity(new Intent(getApplicationContext(), SplashActivity.class));
                         }
 
                         Toast.makeText(getApplicationContext(), response.optString("message"), Toast.LENGTH_LONG).show();

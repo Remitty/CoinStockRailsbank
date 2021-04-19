@@ -19,7 +19,10 @@ import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
 import com.brian.stocks.home.HomeActivity;
+import com.brian.stocks.model.PredictionModel;
 import com.brian.stocks.predict.adapters.PredictPageAdapter;
+import com.brian.stocks.stock.StocksActivity;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -37,8 +40,11 @@ public class PredictActivity extends AppCompatActivity {
     ViewPager pager;
     TextView predictNow;
     PredictPageAdapter mAdapter;
+
+    private BottomSheetDialog dialog;
+
     LoadToast loadToast;
-    private ArrayList all = new ArrayList(), incoming = new ArrayList(), my_post = new ArrayList();
+    private ArrayList<PredictionModel> all = new ArrayList(), incoming = new ArrayList(), my_post = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,24 +59,42 @@ public class PredictActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
-        //loadToast.setBackgroundColor(R.color.colorBlack);
+
+        View dialogView = getLayoutInflater().inflate(R.layout.predict_select_kind, null);
+        TextView stocks = dialogView.findViewById(R.id.tv_select_stocks);
+        TextView coins = dialogView.findViewById(R.id.tv_select_coins);
+        stocks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Intent intent = new Intent(PredictActivity.this, StocksActivity.class);
+                intent.putExtra("predict", true);
+                startActivity(intent);
+            }
+        });
+        coins.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Intent intent = new Intent(PredictActivity.this, PredictableListActivity.class);
+                startActivity(intent);
+            }
+        });
+        dialog = new BottomSheetDialog(this);
+        dialog.setContentView(dialogView);
 
         tab = findViewById(R.id.tab);
         pager = findViewById(R.id.view_pager);
         predictNow = findViewById(R.id.btn_post_predict);
 
         mAdapter = new PredictPageAdapter(getSupportFragmentManager(), all, incoming, my_post);
-//        mAdapter.add(new NewPredictsFragment(all));
-//        mAdapter.add(new IncomingPredictsFragment(incoming));
-//        mAdapter.add(new MyPredictsFragment(my_post));
         pager.setAdapter(mAdapter);
         tab.setupWithViewPager(pager);
 
         predictNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PredictActivity.this, PredictableListActivity.class);
-                startActivity(intent);
+                dialog.show();
             }
         });
 
@@ -98,7 +122,7 @@ public class PredictActivity extends AppCompatActivity {
 
                                 for (int i = 0; i < all_temp.length(); i ++) {
                                     try {
-                                        all.add(all_temp.getJSONObject(i));
+                                        all.add(new PredictionModel(all_temp.getJSONObject(i)));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -106,7 +130,7 @@ public class PredictActivity extends AppCompatActivity {
 
                                 for (int i = 0; i < incoming_temp.length(); i ++) {
                                     try {
-                                        incoming.add(incoming_temp.getJSONObject(i));
+                                        incoming.add(new PredictionModel(incoming_temp.getJSONObject(i)));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -114,7 +138,7 @@ public class PredictActivity extends AppCompatActivity {
 
                                 for (int i = 0; i < my_post_temp.length(); i ++) {
                                     try {
-                                        my_post.add(my_post_temp.getJSONObject(i));
+                                        my_post.add(new PredictionModel(my_post_temp.getJSONObject(i)));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }

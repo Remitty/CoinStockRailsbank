@@ -1,6 +1,5 @@
-package com.brian.stocks.xmt;
+package com.brian.stocks.token;
 
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
@@ -27,17 +26,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMTChartFragment extends Fragment {
+public class TokenChartFragment extends Fragment {
     private static JSONArray chartAskData, chartBidData;
     private AnyChartView mXMTChartView;
 
-    public XMTChartFragment() {
+    public TokenChartFragment() {
         // Required empty public constructor
     }
 
-    public static XMTChartFragment newInstance(JSONObject data) {
+    public static TokenChartFragment newInstance(JSONObject data) {
         Log.d("xmt chart data", data.toString());
-        XMTChartFragment fragment = new XMTChartFragment();
+        TokenChartFragment fragment = new TokenChartFragment();
         try {
             chartAskData = data.getJSONArray("ask");
         } catch (JSONException e) {

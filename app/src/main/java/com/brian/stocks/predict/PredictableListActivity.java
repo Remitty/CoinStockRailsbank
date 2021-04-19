@@ -81,7 +81,7 @@ public class PredictableListActivity extends AppCompatActivity {
                                             Intent intent = new Intent(PredictableListActivity.this, AddPredictActivity.class);
                                             JSONObject item = data.getJSONObject(position);
                                             intent.putExtra("symbol", item.getString("symbol"));
-                                            intent.putExtra("symbol_id", item.getString("id"));
+                                            intent.putExtra("id", item.getString("id"));
                                             intent.putExtra("name", item.getString("name"));
                                             intent.putExtra("price", item.getString("price"));
                                             intent.putExtra("usdc_balance", usdcBalance);

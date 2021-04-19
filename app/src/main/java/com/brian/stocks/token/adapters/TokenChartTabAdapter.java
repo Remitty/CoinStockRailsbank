@@ -1,26 +1,22 @@
-package com.brian.stocks.xmt.adapters;
+package com.brian.stocks.token.adapters;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.brian.stocks.xmt.XMTChartFragment;
+import com.brian.stocks.token.TokenChartFragment;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class XMTChartTabAdapter extends FragmentPagerAdapter {
+public class TokenChartTabAdapter extends FragmentPagerAdapter {
     private String[] items={"1H","6H", "7D", "All"};
-    public XMTChartTabAdapter(FragmentManager fm) {
+    public TokenChartTabAdapter(FragmentManager fm) {
         super(fm);
     }
     private JSONObject data;
     @Override
     public Fragment getItem(int i) {
-        XMTChartFragment fragment = XMTChartFragment.newInstance(this.data);
+        TokenChartFragment fragment = TokenChartFragment.newInstance(this.data);
         return fragment;
     }
 

@@ -1,4 +1,4 @@
-package com.brian.stocks.xmt;
+package com.brian.stocks.token;
 
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
@@ -36,11 +36,10 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
-import com.brian.stocks.model.CoinInfo;
-import com.brian.stocks.xmt.adapters.OrderAdapter;
-import com.brian.stocks.xmt.adapters.OrderHistoryAdapter;
-import com.brian.stocks.xmt.adapters.OrderBookAsksAdapter;
-import com.brian.stocks.xmt.adapters.OrderBookBidsAdapter;
+import com.brian.stocks.model.TokenTradePair;
+import com.brian.stocks.token.adapters.OrderAdapter;
+import com.brian.stocks.token.adapters.OrderBookAsksAdapter;
+import com.brian.stocks.token.adapters.OrderBookBidsAdapter;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -54,18 +53,20 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import com.brian.stocks.xmt.adapters.XMTChartTabAdapter;
+import com.brian.stocks.token.adapters.TokenChartTabAdapter;
 import com.google.android.material.tabs.TabLayout;
+
+import static android.graphics.Color.BLACK;
 
 public class CoinExchangeFragment extends Fragment {
     private Button mBtnTrade;
-    private TabLayout tabLayout;
+    private TextView mBtnBuy, mBtnSell;
     private EditText mEditQuantity, mEditPrice;
     private TextView mTextChangeVolume, mTextChangeRate, mTextChangeLow, mTextChangeHigh, mTextCoinBuy, mTextCoinBuyBalance, mTextCoinSellBalance, mTextCoinSellBalance1, mTextOutputTrade, mTextAsksTotalUSD, mTextBidsTotalUSD, mTextPriceUSD;
     private TextView mtvOrderSymbol;
     private TextView mtvMaxBidQty, mtvMaxBidValue;
-    private TextView mtvTradeHistory;
-    private String CoinSymbol;
+    private TextView mtvTradeHistory, mtvOrderBook;
+    private String marketCoinSymbol, tradeCoinSymbol = "PEPE";
     private View mView;
     private DecimalFormat df = new DecimalFormat("#.####");
     private LoadToast loadToast;
@@ -83,12 +84,10 @@ public class CoinExchangeFragment extends Fragment {
 
     private String mPair, selType;
     private Double mBTCUSD_rate, mBTCXMT_rate;
-    double buyCoinPrice=0, sellCoinPrice=0;
     private JSONArray bids = null;
     private JSONArray asks = null;
-    private ArrayList<JSONObject> pairList = new ArrayList<>();
+    private ArrayList<TokenTradePair> pairList = new ArrayList<>();
     final Handler h = new Handler();
-    int select = 0;
     private Handler mHandler;
     private int i;
     private boolean graph_flag = false;
@@ -105,7 +104,7 @@ public class CoinExchangeFragment extends Fragment {
     private JSONObject mAggregateDay, mAggregateWeek, mAggregateMonth, mAggregate6Month, mAggregateYear, mAggregateAll;
     private ViewPager mXMTChartViewPager;
     private TabLayout mXMTTabBar;
-    XMTChartTabAdapter mPageAdapter;
+    TokenChartTabAdapter mPageAdapter;
 
     public CoinExchangeFragment() {
         // Required empty public constructor
@@ -113,7 +112,7 @@ public class CoinExchangeFragment extends Fragment {
 
     public static CoinExchangeFragment newInstance(String symbol) {
         CoinExchangeFragment fragment = new CoinExchangeFragment();
-        fragment.CoinSymbol = symbol;
+        fragment.marketCoinSymbol = symbol;
         return fragment;
     }
 
@@ -126,7 +125,7 @@ public class CoinExchangeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadToast = new LoadToast(getActivity());
-        loadToast.setProgressColor(R.color.green);
+//        loadToast.setProgressColor(R.color.green);
     }
 
 
@@ -136,46 +135,12 @@ public class CoinExchangeFragment extends Fragment {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_coin_exchange, container, false);
 
+        mBtnBuy = mView.findViewById(R.id.btnBuy);
+        mBtnSell = mView.findViewById(R.id.btnSell);
 
-        tabLayout = mView.findViewById(R.id.tabLayout);
-        TabLayout.Tab tabsel = tabLayout.getTabAt(0);
-        tabsel.select();
         selType = "buy";
 
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() > 0) {
-                    selType = "sell";
-                    mBtnTrade.setText("Sell");
-                    mBtnTrade.setBackgroundColor(getResources().getColor(R.color.colorRedCrayon));
-                } else {
-                    selType = "buy";
-                    mBtnTrade.setText("Buy");
-                    mBtnTrade.setBackgroundColor(getResources().getColor(R.color.green));
-                }
-                focusedPrice = false;
-                changedPrice = false;
-                try {
-                    mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        mPair = "XMT-BTC";
+        mPair = "PEPE-XLM";
         initComponents();
 
         initListeners();
@@ -186,6 +151,261 @@ public class CoinExchangeFragment extends Fragment {
 
         getPairs();
         return mView;
+    }
+
+
+    private void initComponents() {
+        mBtnTrade = mView.findViewById(R.id.btn_coin_trade);
+        mBtnTrade.setText("Buy" + tradeCoinSymbol);
+        mTextPriceUSD = mView.findViewById(R.id.price_usd);
+        mEditQuantity = mView.findViewById(R.id.edit_quantity);
+        mEditPrice = mView.findViewById(R.id.edit_price);
+        mTextAsksTotalUSD = mView.findViewById(R.id.asks_total_usd);
+        mTextBidsTotalUSD = mView.findViewById(R.id.bids_total_usd);
+
+        mtvTradeHistory = mView.findViewById(R.id.tv_trade_history);
+        mtvOrderBook = mView.findViewById(R.id.tv_view_order_book);
+
+        mtvMaxBidQty = mView.findViewById(R.id.max_bid_quantity);
+        mtvMaxBidValue = mView.findViewById(R.id.max_bid_value);
+
+        try {
+            mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mTextOutputTrade = mView.findViewById(R.id.output_trade);
+        mTextCoinBuy = mView.findViewById(R.id.coin_buyy);
+
+        mTextCoinBuyBalance = mView.findViewById(R.id.coin_buy_balance);
+        mTextCoinSellBalance = mView.findViewById(R.id.coin_sell_balance);
+        mTextCoinSellBalance1 = mView.findViewById(R.id.coin_sell_balance1);
+
+
+        mTextChangeLow = mView.findViewById(R.id.coin_low);
+        mTextChangeHigh = mView.findViewById(R.id.coin_high);
+
+        mTextChangeVolume = mView.findViewById(R.id.coin_volume_change);
+        mTextChangeRate = mView.findViewById(R.id.coin_rate_change);
+
+        orderView = mView.findViewById(R.id.orders_view);
+        orderAdapter = new OrderAdapter(ordersList);
+        orderView.setLayoutManager(new LinearLayoutManager(getContext()));
+        orderAdapter.setListener(new OrderAdapter.Listener() {
+            @Override
+            public void cancelOrder(final int position) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setIcon(R.mipmap.ic_launcher_round)
+                        .setTitle("Confirm cancel")
+                        .setMessage("Are you sure you want to cancel this order?")
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                submitCancel(position);
+                            }
+                        })
+                        .show();
+
+            }
+        });
+        orderView.setAdapter(orderAdapter);
+
+        orderbookAsksView = mView.findViewById(R.id.orderbook_asks_view);
+        orderbookAsksAdapter = new OrderBookAsksAdapter(asksList);
+        orderbookAsksAdapter.setListener(new OrderBookAsksAdapter.Listener() {
+            @Override
+            public void OnClickQty(int position) {
+                JSONObject object = asksList.get(position);
+                Double qty = object.optDouble("quantity");
+                mEditQuantity.setText(new DecimalFormat("#.########").format(qty));
+            }
+
+            @Override
+            public void OnClickValue(int position) {
+                JSONObject object = asksList.get(position);
+                Double price = object.optDouble("price");
+                mEditPrice.setText(new DecimalFormat("#.########").format(price));
+            }
+        });
+        orderbookAsksView.setLayoutManager(new LinearLayoutManager(getContext()));
+        orderbookAsksView.setAdapter(orderbookAsksAdapter);
+
+        orderbookBidsView = mView.findViewById(R.id.orderbook_bids_view);
+        orderBookBidsAdapter2 = new OrderBookBidsAdapter(bidsList);
+        orderBookBidsAdapter2.setListener(new OrderBookBidsAdapter.Listener() {
+            @Override
+            public void OnClickQty(int position) {
+                JSONObject object = bidsList.get(position);
+                Double qty = object.optDouble("quantity");
+                mEditQuantity.setText(new DecimalFormat("#.########").format(qty));
+            }
+
+            @Override
+            public void OnClickValue(int position) {
+                JSONObject object = bidsList.get(position);
+                Double price = object.optDouble("price");
+                mEditPrice.setText(new DecimalFormat("#.########").format(price));
+            }
+        });
+        orderbookBidsView.setLayoutManager(new LinearLayoutManager(getContext()));
+        orderbookBidsView.setAdapter(orderBookBidsAdapter2);
+
+    }
+
+    private void initListeners() {
+
+        mBtnTrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(validate()) {
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
+                    alertBuilder.setIcon(R.mipmap.ic_launcher_round)
+                            .setTitle("Confirm trade")
+                            .setMessage("Are you sure you want to " + selType + " " + mEditQuantity.getText().toString() + marketCoinSymbol +"?")
+                            .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    sendData();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .show();
+                }
+
+
+            }
+        });
+        mBtnBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selType = "buy";
+                mBtnTrade.setText("Buy" + tradeCoinSymbol);
+                mBtnTrade.setBackgroundColor(getResources().getColor(R.color.green));
+
+                mBtnBuy.setTextColor(getResources().getColor(R.color.green));
+                mBtnSell.setTextColor(BLACK);
+
+                focusedPrice = false;
+                changedPrice = false;
+                try {
+                    mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        mBtnSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selType = "sell";
+                mBtnTrade.setText("Sell" + tradeCoinSymbol);
+                mBtnTrade.setBackgroundColor(getResources().getColor(R.color.colorRedCrayon));
+
+                mBtnSell.setTextColor(getResources().getColor(R.color.green));
+                mBtnBuy.setTextColor(BLACK);
+
+                focusedPrice = false;
+                changedPrice = false;
+                try {
+                    mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        mEditPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if(hasFocus) {
+                    focusedPrice = true;
+                } else {
+                    focusedPrice = false;
+                }
+            }
+        });
+        mEditQuantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String price=charSequence.toString();
+//                if(!price.equalsIgnoreCase(".")) {
+//                    //            if (!price.equalsIgnoreCase("")) {
+//                    //                mtvBuyingEstQty.setText(BigDecimalDouble.newInstance().multify(price, buyCoinPrice));
+//                    //            } else mtvBuyingEstQty.setText("0.00");
+//                }
+//                calculate();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (mEditQuantity.getText().toString().equalsIgnoreCase("")) {
+                    return;
+                }
+                calculate();
+
+            }
+        });
+
+        mEditPrice.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                changedPrice = true;
+                if (!mEditPrice.getText().toString().equalsIgnoreCase("")) {
+                    mBTCXMT_rate = mBTCUSD_rate * Double.parseDouble(charSequence.toString());
+                    mTextPriceUSD.setText("$" + new DecimalFormat("#,###.##").format(mBTCXMT_rate));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                if (mEditPrice.getText().toString().equalsIgnoreCase("")) {
+                    mTextPriceUSD.setText("$" + new DecimalFormat("#,###.##").format(0.0));
+                    return;
+                }
+                calculate();
+                changedPrice = true;
+            }
+        });
+
+        mtvTradeHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), TokenTradeHistoryActivity.class);
+                intent.putExtra("pair", mPair);
+                startActivity(intent);
+            }
+        });
+
+        mtvOrderBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), TokenOrderBookActivity.class);
+                intent.putExtra("orders", ordersList);
+                startActivity(intent);
+            }
+        });
     }
 
     private class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
@@ -226,21 +446,18 @@ public class CoinExchangeFragment extends Fragment {
     private void updatePairs() {
         Spinner l = mView.findViewById(R.id.pairslist);
 
-        ArrayAdapter<JSONObject> adapter = new ArrayAdapter<JSONObject>(getContext(), R.layout.pairs_row, R.id.tvPair, pairList) {
+        ArrayAdapter<TokenTradePair> adapter = new ArrayAdapter<TokenTradePair>(getContext(), R.layout.pairs_row, R.id.tvPair, pairList) {
 
             public View getView(int position, View convertView,ViewGroup parent) {
                 View v = super.getView(position, convertView, parent);
                 ImageView coin1 = v.findViewById(R.id.ivCoin1);
-                TextView pair = v.findViewById(R.id.tvPair);
+                TextView tvPair = v.findViewById(R.id.tvPair);
                 ImageView coin2 = v.findViewById(R.id.ivCoin2);
 
-                try {
-                    pair.setText((String) pairList.get(position).get("symbol"));
-                    new ImageLoadTask((String) pairList.get(position).get("icon1"), coin1).execute();
-                    new ImageLoadTask((String) pairList.get(position).get("icon2"), coin2).execute();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                TokenTradePair pair = pairList.get(position);
+                tvPair.setText(pair.getTradeSymbol() +"/" + pair.getMarketSymbol());
+//                    new ImageLoadTask((String) pairList.get(position).get("icon1"), coin1).execute();
+//                    new ImageLoadTask((String) pairList.get(position).get("icon2"), coin2).execute();
 
                 return v;
 
@@ -250,16 +467,13 @@ public class CoinExchangeFragment extends Fragment {
 
                 View v = super.getDropDownView(position, convertView, parent);
                 ImageView coin1 = v.findViewById(R.id.ivCoin1);
-                TextView pair = v.findViewById(R.id.tvPair);
+                TextView tvPair = v.findViewById(R.id.tvPair);
                 ImageView coin2 = v.findViewById(R.id.ivCoin2);
 
-                try {
-                    pair.setText((String) pairList.get(position).get("symbol"));
-                    new ImageLoadTask((String) pairList.get(position).get("icon1"), coin1).execute();
-                    new ImageLoadTask((String) pairList.get(position).get("icon2"), coin2).execute();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                TokenTradePair pair = pairList.get(position);
+                tvPair.setText(pair.getTradeSymbol() +"/" + pair.getMarketSymbol());
+//                    new ImageLoadTask((String) pairList.get(position).get("icon1"), coin1).execute();
+//                    new ImageLoadTask((String) pairList.get(position).get("icon2"), coin2).execute();
                 return v;
 
             }
@@ -270,21 +484,12 @@ public class CoinExchangeFragment extends Fragment {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
                 // TODO Auto-generated method stub
-                try {
-                    mPair = (String) pairList.get(arg2).get("symbol");
-                    //Log.d("pairs list response", "got pair " + mPair);
-
-//                    TextView vscoin = mView.findViewById(R.id.coin_buyy);
-//                    vscoin.setText(" "+mPair.split("-")[0]);
-                    CoinSymbol = " "+mPair.split("-")[0];
-                    focusedPrice = false;
-                    changedPrice = false;
-                    getData();
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                mPair = pairList.get(arg2).getPair();
+                marketCoinSymbol = pairList.get(arg2).getMarketSymbol();
+                tradeCoinSymbol = pairList.get(arg2).getTradeSymbol();
+                focusedPrice = false;
+                changedPrice = false;
+                getData();
             }
 
             @Override
@@ -295,40 +500,12 @@ public class CoinExchangeFragment extends Fragment {
         });
         l.setAdapter(adapter);
 
-        /*
-        for(final String s : pairList){
-            Button newButton = new Button(getContext());
-            if (s.equals(mPair)) {
-                newButton.setSelected(true);
-                newButton.setBackgroundColor(0xFFFFFFFF);
-            } else {
-                newButton.setBackgroundColor(0xFFE9E9E9);
-            }
-            newButton.setText(s);
-            newButton.setTextSize(15);
-            newButton.setPadding(125,3,125,3);
-            newButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mPair = s;
-                    TextView vscoin = mView.findViewById(R.id.coin_buyy);
-                    vscoin.setText(s.split("-")[1]);
-                    updatePairs();
-
-                    getData();
-
-                }
-            });
-            l.addView(newButton);
-        }
-
-         */
     }
     private void getPairs() {
 
         if(getContext() != null) {
             loadToast.show();
-            AndroidNetworking.get(URLHelper.COIN_REALEXCHANGE_LIST)
+            AndroidNetworking.get(URLHelper.COIN_TRADE_LIST)
                     .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(), "access_token"))
                     .setPriority(Priority.MEDIUM)
                     .build()
@@ -343,7 +520,9 @@ public class CoinExchangeFragment extends Fragment {
                             if (response != null && response.length() > 0) {
                                 for (int i = 0; i < response.length(); i++) {
                                     try {
-                                        pairList.add(response.getJSONObject(i));
+                                        TokenTradePair pair = new TokenTradePair();
+                                        pair.setData(response.getJSONObject(i));
+                                        pairList.add(pair);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -374,10 +553,10 @@ public class CoinExchangeFragment extends Fragment {
             e.printStackTrace();
         }
 
-        Log.d("exchange param", jsonObject.toString()+" -> "+URLHelper.COIN_REALEXCHANGE_DATA);
+        Log.d("exchange param", jsonObject.toString()+" -> "+URLHelper.COIN_TRADE_DATA);
         //Log.d("token",SharedHelper.getKey(getContext(),"access_token"));
         if(getContext() != null)
-            AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE_DATA)
+            AndroidNetworking.post(URLHelper.COIN_TRADE_DATA)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
                     .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
@@ -390,7 +569,6 @@ public class CoinExchangeFragment extends Fragment {
                             Log.d("coin assets response", "" + response.toString());
                             try {
                                 if (response.getBoolean("success") == true) {
-                                    mTextCoinBuy.setText(CoinSymbol);
 
                                     bidsList.clear();
                                     asksList.clear();
@@ -398,17 +576,18 @@ public class CoinExchangeFragment extends Fragment {
                                     JSONObject responseObj = null;
                                     mTextChangeVolume.setText("$ "+new DecimalFormat("#,###.##").format(response.getDouble("change_volume")));
                                     mTextChangeRate.setText("$ "+df.format(response.getDouble("change_rate")));
-                                    mTextChangeHigh.setText(new DecimalFormat("#.########").format(response.getDouble("last_high")) +CoinSymbol);
-                                    mTextChangeLow.setText(new DecimalFormat("#.########").format(response.getDouble("last_low")) +CoinSymbol);
-                                    mtvOrderSymbol.setText("("+CoinSymbol+")");
+                                    mTextChangeHigh.setText(new DecimalFormat("#.########").format(response.getDouble("last_high")) +marketCoinSymbol);
+                                    mTextChangeLow.setText(new DecimalFormat("#.########").format(response.getDouble("last_low")) +marketCoinSymbol);
+//                                    mtvOrderSymbol.setText("("+marketCoinSymbol+")");
 
                                     JSONObject maxBid = response.getJSONObject("max_bid");
                                     mtvMaxBidQty.setText(new DecimalFormat("#.########").format(maxBid.getDouble("quantity")));
                                     mtvMaxBidValue.setText(new DecimalFormat("#.########").format(maxBid.getDouble("price")));
 
                                     mTextCoinBuyBalance.setText(new DecimalFormat("#,###.####").format(response.getDouble("coin2_balance")));
-                                    mTextCoinSellBalance.setText(df.format(response.getDouble("coin1_balance")));
-                                    mTextCoinSellBalance1.setText(df.format(response.getDouble("coin1_balance")));
+                                    mTextCoinBuy.setText(tradeCoinSymbol);
+                                    mTextCoinSellBalance.setText(df.format(response.getDouble("coin1_balance")) + marketCoinSymbol);
+                                    mTextCoinSellBalance1.setText(df.format(response.getDouble("coin1_balance")) + marketCoinSymbol);
                                     if(graph_flag == false) {
                                         ordersList.clear();
                                         try {
@@ -504,7 +683,7 @@ public class CoinExchangeFragment extends Fragment {
         Log.d("xmt exchange params", jsonObject.toString());
         if(getContext() != null) {
             loadToast.show();
-            AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE)
+            AndroidNetworking.post(URLHelper.COIN_TRADE)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
                     .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
@@ -567,7 +746,7 @@ public class CoinExchangeFragment extends Fragment {
         }
     }
 
-    private void cancelOrder1(final int position) {
+    private void submitCancel(final int position) {
         JSONObject jsonObject = new JSONObject();
         String orderid = null;
         try {
@@ -576,7 +755,7 @@ public class CoinExchangeFragment extends Fragment {
             Log.d("cancel xmt orderid", orderid);
             if (getContext() != null) {
                 loadToast.show();
-                AndroidNetworking.post(URLHelper.COIN_REALEXCHANGE_CANCEL)
+                AndroidNetworking.post(URLHelper.COIN_TRADE_CANCEL)
                         .addHeaders("Content-Type", "application/json")
                         .addHeaders("accept", "application/json")
                         .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(), "access_token"))
@@ -612,213 +791,6 @@ public class CoinExchangeFragment extends Fragment {
 
     }
 
-    private void initComponents() {
-        mBtnTrade = mView.findViewById(R.id.btn_coin_trade);
-        mBtnTrade.setText("Buy");
-        mTextPriceUSD = mView.findViewById(R.id.price_usd);
-        mEditQuantity = mView.findViewById(R.id.edit_quantity);
-        mEditPrice = mView.findViewById(R.id.edit_price);
-        mTextAsksTotalUSD = mView.findViewById(R.id.asks_total_usd);
-        mTextBidsTotalUSD = mView.findViewById(R.id.bids_total_usd);
-
-        mtvTradeHistory = mView.findViewById(R.id.tv_trade_history);
-
-        mtvMaxBidQty = mView.findViewById(R.id.max_bid_quantity);
-        mtvMaxBidValue = mView.findViewById(R.id.max_bid_value);
-
-        try {
-            mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        mTextOutputTrade = mView.findViewById(R.id.output_trade);
-        mTextCoinBuy = mView.findViewById(R.id.coin_buyy);
-
-        mtvOrderSymbol = mView.findViewById(R.id.orders_symbol);
-
-        mTextCoinBuyBalance = mView.findViewById(R.id.coin_buy_balance);
-        mTextCoinSellBalance = mView.findViewById(R.id.coin_sell_balance);
-        mTextCoinSellBalance1 = mView.findViewById(R.id.coin_sell_balance1);
-
-
-        mTextChangeLow = mView.findViewById(R.id.coin_low);
-        mTextChangeHigh = mView.findViewById(R.id.coin_high);
-
-        mTextChangeVolume = mView.findViewById(R.id.coin_volume_change);
-        mTextChangeRate = mView.findViewById(R.id.coin_rate_change);
-
-        orderView = mView.findViewById(R.id.orders_view);
-        orderAdapter = new OrderAdapter(ordersList);
-        orderView.setLayoutManager(new LinearLayoutManager(getContext()));
-        orderAdapter.setListener(new OrderAdapter.Listener() {
-            @Override
-            public void cancelOrder(final int position) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                alert.setIcon(R.mipmap.ic_launcher_round)
-                        .setTitle("Confirm cancel")
-                        .setMessage("Are you sure you want to cancel this order?")
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                cancelOrder1(position);
-                            }
-                        })
-                        .show();
-
-            }
-        });
-        orderView.setAdapter(orderAdapter);
-
-        orderbookAsksView = mView.findViewById(R.id.orderbook_asks_view);
-        orderbookAsksAdapter = new OrderBookAsksAdapter(asksList);
-        orderbookAsksAdapter.setListener(new OrderBookAsksAdapter.Listener() {
-            @Override
-            public void OnClickQty(int position) {
-                JSONObject object = asksList.get(position);
-                Double qty = object.optDouble("quantity");
-                mEditQuantity.setText(new DecimalFormat("#.########").format(qty));
-            }
-
-            @Override
-            public void OnClickValue(int position) {
-                JSONObject object = asksList.get(position);
-                Double price = object.optDouble("price");
-                mEditPrice.setText(new DecimalFormat("#.########").format(price));
-            }
-        });
-        orderbookAsksView.setLayoutManager(new LinearLayoutManager(getContext()));
-        orderbookAsksView.setAdapter(orderbookAsksAdapter);
-
-        orderbookBidsView = mView.findViewById(R.id.orderbook_bids_view);
-        orderBookBidsAdapter2 = new OrderBookBidsAdapter(bidsList);
-        orderBookBidsAdapter2.setListener(new OrderBookBidsAdapter.Listener() {
-            @Override
-            public void OnClickQty(int position) {
-                JSONObject object = bidsList.get(position);
-                Double qty = object.optDouble("quantity");
-                mEditQuantity.setText(new DecimalFormat("#.########").format(qty));
-            }
-
-            @Override
-            public void OnClickValue(int position) {
-                JSONObject object = bidsList.get(position);
-                Double price = object.optDouble("price");
-                mEditPrice.setText(new DecimalFormat("#.########").format(price));
-            }
-        });
-        orderbookBidsView.setLayoutManager(new LinearLayoutManager(getContext()));
-        orderbookBidsView.setAdapter(orderBookBidsAdapter2);
-
-    }
-
-    private void initListeners() {
-
-        mBtnTrade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(validate()) {
-                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
-                    alertBuilder.setIcon(R.mipmap.ic_launcher_round)
-                            .setTitle("Confirm trade")
-                            .setMessage("Are you sure you want to " + selType + " " + mEditQuantity.getText().toString() + CoinSymbol +"? Price is $" + mEditPrice.getText().toString() + ".")
-                            .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    sendData();
-                                }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .show();
-                }
-
-
-            }
-        });
-        mEditPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-
-                if(hasFocus) {
-                    focusedPrice = true;
-                } else {
-                    focusedPrice = false;
-                }
-            }
-        });
-        mEditQuantity.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String price=charSequence.toString();
-//                if(!price.equalsIgnoreCase(".")) {
-//                    //            if (!price.equalsIgnoreCase("")) {
-//                    //                mtvBuyingEstQty.setText(BigDecimalDouble.newInstance().multify(price, buyCoinPrice));
-//                    //            } else mtvBuyingEstQty.setText("0.00");
-//                }
-//                calculate();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (mEditQuantity.getText().toString().equalsIgnoreCase("")) {
-                    return;
-                }
-                calculate();
-
-            }
-        });
-
-        mEditPrice.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                changedPrice = true;
-                if (!mEditPrice.getText().toString().equalsIgnoreCase("")) {
-                    mBTCXMT_rate = mBTCUSD_rate * Double.parseDouble(charSequence.toString());
-                    mTextPriceUSD.setText("$" + new DecimalFormat("#,###.##").format(mBTCXMT_rate));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                if (mEditPrice.getText().toString().equalsIgnoreCase("")) {
-                    mTextPriceUSD.setText("$" + new DecimalFormat("#,###.##").format(0.0));
-                    return;
-                }
-                calculate();
-                changedPrice = true;
-            }
-        });
-
-        mtvTradeHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), XMTTradeHistoryActivity.class);
-                intent.putExtra("pair", mPair);
-                startActivity(intent);
-            }
-        });
-    }
 
     private boolean validate() {
         boolean validation = true;
@@ -873,7 +845,7 @@ public class CoinExchangeFragment extends Fragment {
 //        } else {
 //            mTextOutputTrade.setText(df.format(calc)+" BTC");
 //        }
-        mTextOutputTrade.setText(new DecimalFormat("#.########").format(calc)+" BTC");
+        mTextOutputTrade.setText(new DecimalFormat("#.########").format(calc) + marketCoinSymbol);
 
     }
 
@@ -892,7 +864,7 @@ public class CoinExchangeFragment extends Fragment {
             }
             mXMTTabBar = mView.findViewById(R.id.xmt_chart_tab_bar);
             mXMTChartViewPager = mView.findViewById(R.id.xmt_chart_view_pager);
-            mPageAdapter = new XMTChartTabAdapter(getFragmentManager());
+            mPageAdapter = new TokenChartTabAdapter(getFragmentManager());
             mPageAdapter.addCharData(mAggregateDay);
             mPageAdapter.addCharData(mAggregateWeek);
             mPageAdapter.addCharData(mAggregateMonth);

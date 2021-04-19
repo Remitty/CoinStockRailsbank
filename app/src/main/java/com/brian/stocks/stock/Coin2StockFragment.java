@@ -301,46 +301,5 @@ public class Coin2StockFragment extends Fragment {
                     });
     }
 
-    private void getCoinAssets() {
-        loadToast.show();
 
-        if(getContext() != null)
-            AndroidNetworking.get(URLHelper.GET_SEND_COIN_ASSETS)
-                    .addHeaders("Content-Type", "application/json")
-                    .addHeaders("accept", "application/json")
-                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
-                    .setPriority(Priority.MEDIUM)
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Log.d("coin assets response", "" + response);
-                            loadToast.success();
-
-                            coinList.clear();
-
-                            JSONArray coins = response.optJSONArray("assets");
-
-                            for(int i = 0; i < coins.length(); i ++) {
-                                try {
-                                    Log.d("coinitem", coins.get(i).toString());
-                                    coinList.add(new CoinInfo((JSONObject) coins.get(i)));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            mAdapter.notifyDataSetChanged();
-                            dialog.show();
-                        }
-
-                        @Override
-                        public void onError(ANError error) {
-                            loadToast.error();
-                            // handle error
-                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
-                        }
-                    });
-    }
 }

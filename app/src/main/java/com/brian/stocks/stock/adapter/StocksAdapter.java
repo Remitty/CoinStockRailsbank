@@ -19,7 +19,7 @@ import com.anychart.data.Mapping;
 import com.anychart.data.Set;
 
 import com.brian.stocks.R;
-import com.brian.stocks.model.StocksInfo;
+import com.brian.stocks.model.PositionInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,12 +29,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StocksAdapter extends RecyclerView.Adapter<StocksAdapter.OrderViewHolder> {
-    private List<StocksInfo> arrItems;
+    private List<PositionInfo> arrItems;
     private Listener listener;
     private AnyChartView  mStocksChartView;
     private Boolean mViewType;
 
-    public StocksAdapter(List<StocksInfo> arrItems, boolean viewType) {
+    public StocksAdapter(List<PositionInfo> arrItems, boolean viewType) {
         this.arrItems = arrItems;
         mViewType = viewType;
     }
@@ -72,14 +72,14 @@ public class StocksAdapter extends RecyclerView.Adapter<StocksAdapter.OrderViewH
 
     @Override
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
-        StocksInfo item = arrItems.get(position);
+        PositionInfo item = arrItems.get(position);
 
-        holder.tvStocksName.setText(item.getStockName());
-        holder.tvStocksSymbol.setText(item.getStockSymbol());
-        holder.tvStocksShared.setText(item.getStocksShares());
-        holder.tvStocksChangeGreen.setText(item.getStockTodayChangePercent() + "%");
-        holder.tvStocksChangeRed.setText(item.getStockTodayChangePercent() + "%");
-        if(item.getStockTodayChangePercent().startsWith("-")) {
+        holder.tvStocksName.setText(item.getName());
+        holder.tvStocksSymbol.setText(item.getSymbol());
+        holder.tvStocksShared.setText(item.getQty());
+        holder.tvStocksChangeGreen.setText(item.getChangePricePercent() + "%");
+        holder.tvStocksChangeRed.setText(item.getChangePricePercent() + "%");
+        if(item.getChangePricePercent().startsWith("-")) {
             holder.tvStocksChangeGreen.setVisibility(View.GONE);
             holder.tvStocksChangeRed.setVisibility(View.VISIBLE);
         }
@@ -88,7 +88,7 @@ public class StocksAdapter extends RecyclerView.Adapter<StocksAdapter.OrderViewH
             holder.tvStocksChangeRed.setVisibility(View.GONE);
         }
 
-        holder.tvStocksPrice.setText("$ " + item.getStocksPrice());
+        holder.tvStocksPrice.setText("$ " + item.getCurrentPrice());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,9 +97,9 @@ public class StocksAdapter extends RecyclerView.Adapter<StocksAdapter.OrderViewH
             }
         });
 
-        JSONArray aggregate = item.getStockAggregate();
-
-        drawStocksChart(aggregate);
+//        JSONArray aggregate = item.getStockAggregate();
+//
+//        drawStocksChart(aggregate);
 
     }
 

@@ -63,7 +63,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.github.kassisdion:ViewPagerWithIndicator:v1.0'
 
-    implementation ('io.socket:socket.io-client:2.0.0') {
+    implementation('io.socket:socket.io-client:2.0.0') {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }

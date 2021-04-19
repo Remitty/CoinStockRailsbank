@@ -22,6 +22,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
+import com.brian.stocks.model.PredictionModel;
 import com.brian.stocks.predict.adapters.PredictAdapter;
 
 import net.steamcrafted.loadtoast.LoadToast;
@@ -33,8 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MyPredictsFragment extends Fragment {
-    JSONArray data = new JSONArray();
-    ArrayList<JSONObject> dataList = new ArrayList<JSONObject>();
+    ArrayList<PredictionModel> dataList = new ArrayList<PredictionModel>();
     RecyclerView recyclerView;
     PredictAdapter mAdapter;
     LinearLayout emptyLayout;
@@ -68,7 +68,7 @@ public class MyPredictsFragment extends Fragment {
 
         mAdapter = new PredictAdapter(dataList, 2);
         recyclerView.setAdapter(mAdapter);
-        mAdapter.seListener(new PredictAdapter.Listener() {
+        mAdapter.setListener(new PredictAdapter.Listener() {
             @Override
             public void onSelect(int position) {
 
@@ -107,7 +107,7 @@ public class MyPredictsFragment extends Fragment {
         loadToast.show();
         JSONObject object = new JSONObject();
         try {
-            object.put("id", dataList.get(idx).getString("id"));
+            object.put("id", dataList.get(idx).getId());
         } catch (JSONException e) {
             e.printStackTrace();
         }

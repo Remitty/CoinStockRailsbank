@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -25,11 +28,15 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
+import com.brian.stocks.adapters.BottomCoinAdapter;
+import com.brian.stocks.coins.CoinTradeActivity;
+import com.brian.stocks.coins.CoinWithdrawActivity;
 import com.brian.stocks.home.adapters.CoinAdapter;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
 import com.brian.stocks.model.CoinInfo;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.squareup.picasso.Picasso;
 
 import net.steamcrafted.loadtoast.LoadToast;
@@ -55,7 +62,7 @@ public class CoinsFragment extends Fragment {
     private LoadToast loadToast;
     private View rootView;
     private CoinAdapter mAdapter;
-    private List<CoinInfo> coinList = new ArrayList<>();
+    private ArrayList<CoinInfo> coinList = new ArrayList<>();
     private RecyclerView coinListView;
     private TextView mTotalBalance, mTotalEffect, mUSDBalance, mtvUserName;
     private Handler handler;
@@ -64,8 +71,13 @@ public class CoinsFragment extends Fragment {
 
     private String mOnramperApikey;
     private String onRamperCoins="";
-    private ImageView icArrow;
     private String xanpoolApikey;
+    private ImageView icArrow;
+    private Button btnDeposit, btnWithdraw, btnTrade;
+
+    BottomCoinAdapter mBottomAdapter;
+    private RecyclerView recyclerView;
+    private BottomSheetDialog dialog;
 
     public CoinsFragment() {
         // Required empty public constructor
@@ -93,69 +105,19 @@ public class CoinsFragment extends Fragment {
         coinListView = (RecyclerView) rootView.findViewById(R.id.list_coins_view);
         mTotalBalance = rootView.findViewById(R.id.total_balance);
         mTotalEffect = rootView.findViewById(R.id.total_effect);
-        mUSDBalance = rootView.findViewById(R.id.usd_balance);
-        mtvUserName = rootView.findViewById(R.id.user_name);
-        mtvUserName.setText(SharedHelper.getKey(getContext(), "fullName"));
+//        mUSDBalance = rootView.findViewById(R.id.usd_balance);
+//        mtvUserName = rootView.findViewById(R.id.user_name);
+//        mtvUserName.setText(SharedHelper.getKey(getContext(), "fullName"));
         icArrow = rootView.findViewById(R.id.ic_arrow);
+
+        btnDeposit = rootView.findViewById(R.id.btn_deposit);
+        btnWithdraw = rootView.findViewById(R.id.btn_withdraw);
+        btnTrade = rootView.findViewById(R.id.btn_trade);
 
         refreshLayout = rootView.findViewById(R.id.swipe_refresh_layout);
 
-        mAdapter = new CoinAdapter(coinList, getActivity(), true);
-        coinListView.setLayoutManager(new LinearLayoutManager(getContext()));
-        coinListView.setAdapter(mAdapter);
-
-        mAdapter.setListener(new CoinAdapter.Listener() {
-            @Override
-            public void OnDeposit(int position) {
-//                index = position;
-//                GoToTransaction(position);
-                CoinSymbol = coinList.get(position).getCoinSymbol();
-                CoinId = coinList.get(position).getCoinId();
-
-                if (CoinSymbol.equals("XMT")) {
-                    showInputDialog(inflater, container,
-                            savedInstanceState);
-                } else {
-                    doGenerateWalletAddress("", 0);
-                }
-            }
-
-            @Override
-            public void OnBuyNow(final int position) {
-                final CoinInfo coin = coinList.get(position);
-                CoinSymbol = coin.getCoinSymbol();
-                CoinId = coin.getCoinId();
-                if(coin.getBuyNowOption() >= 2) { // btc, eth, usdc, dai
-                    AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                    View view = getLayoutInflater().inflate(R.layout.dialog_coin_buy_option, null);
-                    final RadioGroup coinRdg = view.findViewById(R.id.coin_rdg);
-                    if(coin.getBuyNowOption() == 2) {
-                        RadioButton rdb3 = view.findViewById(R.id.coin_rdb_3);
-                        rdb3.setVisibility(View.GONE);
-                    }
-                    alert.setView(view)
-                            .setIcon(R.mipmap.ic_launcher_round)
-                            .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    if (coinRdg.getCheckedRadioButtonId() == R.id.coin_rdb_1)
-                                        doGenerateWalletAddress("", 1); // ramp
-                                    else if(coinRdg.getCheckedRadioButtonId() == R.id.coin_rdb_2)doGenerateWalletAddress("", 2); // onramp
-                                    else if(coinRdg.getCheckedRadioButtonId() == R.id.coin_rdb_3)doGenerateWalletAddress("", 3); // xanpool
-                                    else {
-                                        Toast.makeText(getContext(), "Please select option", Toast.LENGTH_SHORT).show();
-                                        return;
-                                    }
-                                }
-                            })
-                            .show();
-                }
-                else { // xrp, bch, ltc
-                    doGenerateWalletAddress("", 2);
-                }
-            }
-        });
+        initListeners();
+        initCoinsRecyclerView();
 
         getAllCoins(false);
         handler = new Handler();
@@ -178,75 +140,84 @@ public class CoinsFragment extends Fragment {
 
         final Handler handler = new Handler();
 
+        initBottomSheet();
+
         return rootView;
     }
 
-    protected void showInputDialog(LayoutInflater inflater, ViewGroup container,
-                                   Bundle savedInstanceState) {
+    private void initListeners() {
+        btnDeposit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+        btnWithdraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), CoinWithdrawActivity.class));
+            }
+        });
+        btnTrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CoinTradeActivity.class);
+                intent.putExtra("onrampercoins", onRamperCoins);
+                intent.putParcelableArrayListExtra("coins", coinList);
+                intent.putExtra("onramperApiKey", mOnramperApikey);
+                intent.putExtra("xanpoolApiKey", xanpoolApikey);
+                startActivity(intent);
+            }
+        });
+    }
 
-        // get prompts.xml view
-        View promptView = inflater.inflate(R.layout.prompt_deposit_amount, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        alertDialogBuilder.setView(promptView);
+    private void initCoinsRecyclerView() {
+        mAdapter = new CoinAdapter(coinList, getActivity(), true);
+        coinListView.setLayoutManager(new LinearLayoutManager(getContext()));
+        coinListView.setAdapter(mAdapter);
+    }
 
-        final EditText editText = (EditText) promptView.findViewById(R.id.edittext);
-        // setup a dialog window
-        alertDialogBuilder.setCancelable(false)
-                .setPositiveButton("Deposit", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //depositAmount.setText(editText.getText());
-                        doGenerateWalletAddress(String.valueOf(editText.getText()), 0);
-                    }
-                })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        })
-        .show();
+    private void initBottomSheet() {
+        View dialogView = getLayoutInflater().inflate(R.layout.coins_bottom_sheet, null);
+        dialog = new BottomSheetDialog(getActivity());
+        dialog.setContentView(dialogView);
 
-        // create an alert dialog
-//        AlertDialog alert = alertDialogBuilder.create();
-//        alert.show();
+        recyclerView = dialogView.findViewById(R.id.bottom_coins_list);
+        mBottomAdapter  = new BottomCoinAdapter(coinList, getActivity());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(mBottomAdapter);
+
+        mBottomAdapter.setListener(new BottomCoinAdapter.Listener() {
+            @Override
+            public void onSelectCoin(int position) {
+                CoinInfo coin = coinList.get(position);
+                CoinSymbol = coin.getCoinSymbol();
+                CoinId = coin.getCoinId();
+
+                doGenerateWalletAddress();
+
+                dialog.dismiss();
+            }
+        });
     }
 
     private void showWalletAddressDialog(JSONObject data) {
-        if (CoinSymbol.equals("XMT")) {
-            DepositERC20Dialog DepositDialogERC20;
-            DepositDialogERC20 = new DepositERC20Dialog(R.layout.fragment_coin_deposit_erc20, data, CoinSymbol);
-            DepositDialogERC20.setListener(new DepositERC20Dialog.Listener() {
 
-                @Override
-                public void onOk() {
-//                mContentDialog.dismiss();
-                    Toast.makeText(getContext(), "Copied successfully", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onCancel() {
-//                mContentDialog.dismiss();
-                }
-            });
-            DepositDialogERC20.show(this.getActivity().getSupportFragmentManager(), "deposit");
-        } else {
             DepositDialog mContentDialog;
             mContentDialog = new DepositDialog(R.layout.fragment_coin_deposit, data, CoinSymbol);
             mContentDialog.setListener(new DepositDialog.Listener() {
 
                 @Override
                 public void onOk() {
-//                mContentDialog.dismiss();
                     Toast.makeText(getContext(), "Copied successfully", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onCancel() {
-//                mContentDialog.dismiss();
                 }
             });
             mContentDialog.show(getActivity().getSupportFragmentManager(), "deposit");
-        }
+
     }
 
     private void refresh() {
@@ -321,7 +292,7 @@ public class CoinsFragment extends Fragment {
                         try {
                             mTotalBalance.setText("$ " +new DecimalFormat("#,###.##").format(response.getDouble("total_balance")));
                             mTotalEffect.setText(response.getString("total_effect")+" %");
-                            mUSDBalance.setText(new DecimalFormat("#,###.##").format(response.getDouble("usd_balance")));
+//                            mUSDBalance.setText(new DecimalFormat("#,###.##").format(response.getDouble("usd_balance")));
                             mOnramperApikey = response.getString("onramper_api_key");
                             xanpoolApikey = response.getString("xanpool_api_key");
                             icArrow.setVisibility(View.VISIBLE);
@@ -329,14 +300,17 @@ public class CoinsFragment extends Fragment {
                                 Picasso.with(getActivity()).load(R.drawable.ic_down).into(icArrow);
                                 mTotalEffect.setTextColor(RED);
                             }
-                            else mTotalEffect.setTextColor(GREEN);
+                            else {
+                                Picasso.with(getActivity()).load(R.drawable.ic_up).into(icArrow);
+                                mTotalEffect.setTextColor(GREEN);
+                            }
 
                             JSONArray coins = response.getJSONArray("coins");
                             for(int i = 0; i < coins.length(); i ++) {
                                 try {
                                     CoinInfo coin = new CoinInfo((JSONObject) coins.get(i));
                                     coinList.add(coin);
-                                    if(coin.getBuyNowOption() >= 2)
+                                    if(coin.getBuyNowOption() >= 2 && coin.getBuyNowOption() < 100)
                                         onRamperCoins = onRamperCoins+coin.getCoinSymbol()+",";
 
                                 } catch (JSONException e) {
@@ -346,6 +320,8 @@ public class CoinsFragment extends Fragment {
                             if(onRamperCoins.length() > 2)
                                 onRamperCoins = onRamperCoins.substring(0, onRamperCoins.length() - 1);
                             mAdapter.notifyDataSetChanged();
+                            mBottomAdapter.notifyDataSetChanged();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }catch (NullPointerException e) {
@@ -364,16 +340,14 @@ public class CoinsFragment extends Fragment {
                 });
     }
 
-    private void doGenerateWalletAddress(String depositQuant, final int type) {
+    private void doGenerateWalletAddress() {
         loadToast.show();
 //        loadToast.show();
         JSONObject jsonObject = new JSONObject();
 
         try {
             jsonObject.put("coin", CoinId);
-            if (!depositQuant.isEmpty()) {
-                jsonObject.put("deposit_amount", depositQuant);
-            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -393,47 +367,7 @@ public class CoinsFragment extends Fragment {
                             loadToast.success();
                             if(response.optBoolean("success")) {
                                 String address = response.optString("address");
-                                if(type == 0)
-                                    showWalletAddressDialog(response);
-                                else if(type == 1){
-                                    RampInstantSDK rampInstantSDK = new RampInstantSDK(
-                                            getContext(),
-                                            address,
-                                            "https://cdn-images-1.medium.com/max/2600/1*nqtMwugX7TtpcS-5c3lRjw.png",
-                                            "Coins",
-                                            "com.brian.stocks",
-                                            CoinSymbol,
-                                            "",
-                                            "",
-                                            "https://widget-instant.ramp.network/"
-//                                            "https://ri-widget-staging-ropsten.firebaseapp.com/"
-                                    );
-                                    rampInstantSDK.show();
-                                } else if(type == 2){
-                                    String coin_address = "&defaultAddrs="+CoinSymbol+":"+address;
-//                                    String coin_address = "";
-                                    String excludeCryptos = "&excludeCryptos=EOS,USDT,XLM,BUSD,GUSD,HUSD,PAX,USDS";
-                                    String url = "https://widget.onramper.com?color=1d2d50&apiKey="+mOnramperApikey+"&defaultCrypto="
-                                                +CoinSymbol+excludeCryptos+coin_address+"&onlyCryptos="+onRamperCoins
-                                                +"&isAddressEditable=false";
-                                    Intent browserIntent = new Intent(getActivity(), WebViewActivity.class);
-                                    browserIntent.putExtra("uri", url);
-                                    startActivityForResult(browserIntent, REQUEST_ONRAMPER);
-                                }
-                                else if(type == 3){ //xanpool
-                                    String base = "https://checkout.xanpool.com/";
-                                    String apikey = "?apiKey="+xanpoolApikey;
-                                    String wallet = "&wallet=" + address;
-                                    String cryptoCurrency = "&cryptoCurrency=" + CoinSymbol;
-                                    String transactionType = "&transactionType=";
-                                    String isWebview = "&isWebview=true";
-                                    String partnerData = "&partnerData=88824d8683434f4e";
-
-                                    String url = base + apikey + wallet + cryptoCurrency + transactionType + isWebview;
-                                    Intent browserIntent = new Intent(getActivity(), WebViewActivity.class);
-                                    browserIntent.putExtra("uri", url);
-                                    startActivityForResult(browserIntent, REQUEST_XANPOOL);
-                                }
+                                showWalletAddressDialog(response);
                             }
                             else
                                 Toast.makeText(getContext(), response.optString("error"), Toast.LENGTH_SHORT).show();

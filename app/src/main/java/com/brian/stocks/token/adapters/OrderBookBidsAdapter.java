@@ -1,4 +1,4 @@
-package com.brian.stocks.xmt.adapters;
+package com.brian.stocks.token.adapters;
 
 
 import android.annotation.SuppressLint;
@@ -17,13 +17,14 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class OrderBookAsksAdapter extends RecyclerView.Adapter<OrderBookAsksAdapter.OrderViewHolder> {
+public class OrderBookBidsAdapter extends RecyclerView.Adapter<OrderBookBidsAdapter.OrderViewHolder> {
 
     ArrayList<JSONObject> orders;
+
     private Listener listener;
 
     private DecimalFormat df = new DecimalFormat("#.########");
-    public OrderBookAsksAdapter(ArrayList orders) {
+    public OrderBookBidsAdapter(ArrayList orders) {
         this.orders = orders;
     }
 
@@ -41,14 +42,14 @@ public class OrderBookAsksAdapter extends RecyclerView.Adapter<OrderBookAsksAdap
 
     @NonNull
     @Override
-    public OrderBookAsksAdapter.OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_coin_orderbook_asks, parent, false);
-        OrderBookAsksAdapter.OrderViewHolder vh = new OrderBookAsksAdapter.OrderViewHolder(mView);
+    public OrderBookBidsAdapter.OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_coin_orderbook_bids, parent, false);
+        OrderBookBidsAdapter.OrderViewHolder vh = new OrderBookBidsAdapter.OrderViewHolder(mView);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final OrderBookAsksAdapter.OrderViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final OrderBookBidsAdapter.OrderViewHolder holder, final int position) {
         JSONObject item = orders.get(position);
 
         holder.tvQuantity.setText(df.format(Float.parseFloat(item.optString("quantity"))));
@@ -75,6 +76,7 @@ public class OrderBookAsksAdapter extends RecyclerView.Adapter<OrderBookAsksAdap
         return orders != null ? orders.size(): 0;
     }
 
+
     public void setListener(Listener listener) {
         this.listener = listener;
     }
@@ -86,6 +88,7 @@ public class OrderBookAsksAdapter extends RecyclerView.Adapter<OrderBookAsksAdap
         void OnClickQty(int position);
         void OnClickValue(int position);
     }
+
 
 }
 

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.brian.stocks.R;
+import com.brian.stocks.model.PredictionModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +27,7 @@ import cn.iwgang.countdownview.CountdownView;
 public class PredictAdapter extends RecyclerView.Adapter<PredictAdapter.CustomerViewHolder> {
     int type;
     Listener listener;
-    ArrayList<JSONObject> data = new ArrayList<JSONObject>();
+    ArrayList<PredictionModel> data = new ArrayList<PredictionModel>();
     
     public PredictAdapter(ArrayList data, int type) {
         this.data = data;
@@ -43,74 +44,72 @@ public class PredictAdapter extends RecyclerView.Adapter<PredictAdapter.Customer
 
     @Override
     public void onBindViewHolder(@NonNull CustomerViewHolder holder, final int position) {
-        try {
-            JSONObject item = data.get(position);
+        PredictionModel item = data.get(position);
 
-            holder.mtvSymbol.setText("");
-            holder.mtvName.setText(item.getJSONObject("item").optString("name"));
-            holder.mtvPrice.setText("$"+ new DecimalFormat("#,###.##").format(item.optDouble("cu_price")));
-            holder.mtvBettingPrice.setText(item.optString("bet_price") + " " + item.getJSONObject("coin").optString("coin_symbol"));
-            holder.mtvContent.setText(item.getJSONObject("item").optString("symbol") + " will be "+getEstType(item.optInt("type")) +" $"+ new DecimalFormat("#,###.##").format(item.optDouble("est_price")));
-            holder.mtvCreatedDate.setText(item.optString("created_at").substring(0, 10));
-            holder.timer.start(Long.parseLong(item.getString("day_left"))*1000);
+        holder.mtvSymbol.setText("");
+        holder.mtvName.setText(item.getSymbol());
+        holder.mtvPrice.setText("$"+ item.getPrice());
+        holder.mtvBettingPrice.setText(item.getPayout());
+//            holder.mtvContent.setText(item.getJSONObject("item").optString("symbol") + " will be "+getEstType(item.optInt("type")) +" $"+ new DecimalFormat("#,###.##").format(item.optDouble("est_price")));
+        holder.mtvContent.setText(item.getContent());
+//            holder.mtvCreatedDate.setText(item.optString("created_at").substring(0, 10));
+        holder.timer.start(item.getDayLeft()*1000);
 
 //            holder.mtvBidders.setText(item.optJSONArray("bidders").length()+"");
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onSelect(position);
-                }
-            });
-            holder.btnCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onCancel(position);
-                }
-            });
-            holder.btnNo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onHandle(position, 0);
-                }
-            });
-
-            switch (type) {
-                case 0:// new
-                    holder.answerLayout.setVisibility(View.GONE);
-                    break;
-                case 1://my answer
-                    holder.btnNo.setVisibility(View.GONE);
-                    if(!item.optString("status").equals("Finished"))
-                        holder.mtvResult.setText(item.optString("status"));
-                    else {
-                        String str = item.optString("win");
-                        if(str.equals("Win"))
-                            holder.mtvResult.setText("Lose");
-                        else
-                            holder.mtvResult.setText("Win");
-                        holder.mtvResultPrice.setText("( $"+item.optString("result") + ")");
-                    }
-                    break;
-                case 2://my post
-                    holder.answerLayout.setVisibility(View.GONE);
-                    holder.btnNo.setVisibility(View.GONE);
-                    if(!item.optString("status").equals("Finished"))
-                        holder.mtvResult.setText(item.optString("status"));
-                    else {
-                        holder.mtvResult.setText(item.optString("win"));
-                        holder.mtvResultPrice.setText("( $"+item.optString("result") + ")");
-                    }
-                    if(item.optString("status").equals("Created"))
-                        holder.btnCancel.setVisibility(View.VISIBLE);
-                    break;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onSelect(position);
             }
+        });
+        holder.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onCancel(position);
+            }
+        });
+        holder.btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onHandle(position, 0);
+            }
+        });
+
+        switch (type) {
+            case 0:// new
+                holder.answerLayout.setVisibility(View.GONE);
+                holder.mtvResult.setText(item.getStatus());
+                break;
+            case 1://my answer
+                holder.btnNo.setVisibility(View.GONE);
+                if(!item.getStatus().equals("Finished"))
+                    holder.mtvResult.setText(item.getStatus());
+                else {
+                    String str = item.getWinner();
+                    if(str.equals("Win"))
+                        holder.mtvResult.setText("Lose");
+                    else
+                        holder.mtvResult.setText("Win");
+//                        holder.mtvResultPrice.setText("( $"+item.optString("result") + ")");
+                }
+                break;
+            case 2://my post
+                holder.answerLayout.setVisibility(View.GONE);
+                holder.btnNo.setVisibility(View.GONE);
+                if(!item.getStatus().equals("Finished"))
+                    holder.mtvResult.setText(item.getStatus());
+                else {
+                    holder.mtvResult.setText(item.getWinner());
+//                        holder.mtvResultPrice.setText("( $"+item.optString("result") + ")");
+                }
+                if(item.getStatus().equals("Created"))
+                    holder.btnCancel.setVisibility(View.VISIBLE);
+                break;
+        }
 
 //            holder.mtvAnswer.setText(item.getJSONArray("bid").getJSONObject(0).optString("answer"));
 //            holder.mtvPoster.setText(item.optString("poster"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -165,7 +164,7 @@ public class PredictAdapter extends RecyclerView.Adapter<PredictAdapter.Customer
         }
     }
 
-    public void seListener(Listener listener){this.listener = listener;}
+    public void setListener(Listener listener){this.listener = listener;}
     
     public interface  Listener {
         void onSelect(int position);

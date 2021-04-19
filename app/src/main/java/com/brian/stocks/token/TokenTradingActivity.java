@@ -1,4 +1,4 @@
-package com.brian.stocks.xmt;
+package com.brian.stocks.token;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.brian.stocks.R;
 
-public class XMTTradingActivity extends AppCompatActivity {
+public class TokenTradingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

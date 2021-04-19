@@ -6,13 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
-import com.brian.stocks.coins.CoinStakeActivity;
 import com.brian.stocks.coins.CoinStakeListActivity;
 import com.brian.stocks.mtn.MTNActivity;
 import com.brian.stocks.predict.PredictActivity;
 import com.brian.stocks.profile.ProfileActivity;
 import com.brian.stocks.stock.NewsListActivity;
-import com.brian.stocks.xmt.XMTTradingActivity;
+import com.brian.stocks.token.TokenTradingActivity;
 import com.brian.stocks.zabo.ZaboActivity;
 import com.google.android.material.navigation.NavigationView;
 import androidx.fragment.app.Fragment;
@@ -33,15 +32,12 @@ import android.widget.TextView;
 import com.brian.stocks.R;
 import com.brian.stocks.SharedPrefs;
 import com.brian.stocks.coins.CoinDepositHistoryActivity;
-import com.brian.stocks.stock.StockDepositActivity;
 import com.brian.stocks.coins.CoinWithdrawActivity;
 import com.brian.stocks.chat.SocialGroupActivity;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.main.ChangePasswordActivity;
 import com.brian.stocks.main.MainActivity;
 import com.brian.stocks.main.SupportActivity;
-import com.brian.stocks.stock.stockwithdraw.StockCoinWithdrawActivity;
-import com.brian.stocks.stock.StockNewsActivity;
 import com.brian.stocks.stock.stockorder.StockOrderHistoryActivity;
 
 import java.util.ArrayList;
@@ -202,7 +198,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                 startActivity(new Intent(getApplicationContext(), MTNActivity.class));
                 break;
             case R.id.nav_exchange:
-                startActivity(new Intent(getApplicationContext(), XMTTradingActivity.class));
+                startActivity(new Intent(getApplicationContext(), TokenTradingActivity.class));
                 break;
             case R.id.nav_help:
                 startActivity(new Intent(getApplicationContext(), SupportActivity.class));

@@ -2,9 +2,12 @@ package com.brian.stocks.home;
 
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.brian.stocks.coins.CoinSwapHistoryActivity;
 import com.brian.stocks.home.adapters.CoinConversionAdapter;
+import com.brian.stocks.model.SwapRateModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +35,7 @@ import com.brian.stocks.helper.BigDecimalDouble;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
 import com.brian.stocks.model.CoinInfo;
+import com.squareup.picasso.Picasso;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -44,23 +49,25 @@ import java.util.List;
 
 public class CoinSwapFragment extends Fragment {
     private Button mBtnExchange;
-    private EditText mEditSellingAmount;
-    private LinearLayout sendLayout, getLayout;
-    private TextView mEditBuyingCoin, mEditSellingCoin,
-            mtvSellAvailabelQty, mtvBuyAvailabelQty, mtvBuyingEstQty,
-            mtvSellRateCoin, mtvBuyRateCoin, mtvBuyRateQty, mtvBuyingCoinName, mtvSellingCoinName;
-    private static String CoinSymbol;
+    private EditText mEditSendAmount;
+    private TextView mtvGetCoin, mtvSendCoin, mtvSendLimit, mtvGetFee,
+            mtvSendCoinBalance, mtvGetEstQty,
+            mtvSendRateCoin, mtvGetRateCoin, mtvGetCoinRate,
+            tvViewHistory;
+    private ImageView sendIcon, getIcon;
+
     private View mView;
     private LoadToast loadToast;
+
     private BottomSheetDialog dialog;
-    private RecyclerView recyclerView, conversionView;
+    private RecyclerView recyclerView;
     BottomCoinAdapter mAdapter;
     private List<CoinInfo> coinList = new ArrayList<>();
-    CoinConversionAdapter conversionAdapter;
-    private ArrayList<JSONObject> conversionList = new ArrayList<>();
-    private String buyCoinId, sellCoinId, sellingCoinBalance="0";
-    private Double buyCoinPrice = 0.0;
-    int select = 0;
+
+    private CoinInfo sendCoin, getCoin;
+    private SwapRateModel rateModel;
+    private Double sellAmount = 0.1, getAmount = 0.0, fee = 0.0;
+    private String selectedType = "get";
 
     public CoinSwapFragment() {
         // Required empty public constructor
@@ -68,7 +75,6 @@ public class CoinSwapFragment extends Fragment {
 
     public static CoinSwapFragment newInstance(String symbol) {
         CoinSwapFragment fragment = new CoinSwapFragment();
-        CoinSymbol = symbol;
         return fragment;
     }
 
@@ -94,80 +100,36 @@ public class CoinSwapFragment extends Fragment {
 
         initListeners();
 
-        getConversionList();
+//        mEditSendAmount.setText(sellAmount+"");
 
-        initFormat();
+        loadData();
+
         return mView;
     }
 
-    private void getConversionList() {
-        loadToast.show();
 
-        if(getContext() != null)
-            AndroidNetworking.get(URLHelper.COIN_EXCHANGE)
-                    .addHeaders("Content-Type", "application/json")
-                    .addHeaders("accept", "application/json")
-                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
-                    .setPriority(Priority.MEDIUM)
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Log.d("coin assets response", "" + response);
-                            loadToast.success();
-                            conversionList.clear();
-
-                            JSONArray history = null;
-                            try {
-                                history = response.getJSONArray("data");
-                                if(history != null) {
-                                    for (int i = 0; i < history.length(); i++) {
-                                        try {
-                                            conversionList.add(history.getJSONObject(i));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    conversionAdapter.notifyDataSetChanged();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-
-                        @Override
-                        public void onError(ANError error) {
-                            loadToast.error();
-                            // handle error
-                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
-                        }
-                    });
-    }
 
     private void initComponents() {
         mBtnExchange = mView.findViewById(R.id.btn_coin_exchange);
-        mEditBuyingCoin = mView.findViewById(R.id.edit_buying_coin);
-//        mEditBuyingCoin.requestFocus();
+        mtvGetCoin = mView.findViewById(R.id.tv_get_coin);
+        mtvSendCoin = mView.findViewById(R.id.tv_send_coin);
+        mEditSendAmount = mView.findViewById(R.id.editSendAmount);
 
-        mEditSellingAmount = mView.findViewById(R.id.edit_selling_amount);
-        mEditSellingCoin = mView.findViewById(R.id.edit_selling_coin);
+        mtvGetFee = mView.findViewById(R.id.tvFee);
+        mtvSendLimit = mView.findViewById(R.id.tvSendLimit);
 
-        getLayout = mView.findViewById(R.id.layout_get);
-        sendLayout = mView.findViewById(R.id.layout_send);
+        sendIcon = mView.findViewById(R.id.send_imgIcon);
+        getIcon = mView.findViewById(R.id.get_imgIcon);
 
-        mtvSellAvailabelQty = mView.findViewById(R.id.tv_sell_avail_qty);
-        mtvBuyAvailabelQty = mView.findViewById(R.id.tv_buy_avail_qty);
-        mtvBuyingEstQty = mView.findViewById(R.id.tv_buy_est_qty);
 
-        mtvBuyingCoinName = mView.findViewById(R.id.buying_coin_name);
-        mtvSellingCoinName = mView.findViewById(R.id.selling_coin_name);
+        mtvSendCoinBalance = mView.findViewById(R.id.tvSendCoinBalance);
+        mtvGetEstQty = mView.findViewById(R.id.tvGetAmount);
 
-        mtvSellRateCoin = mView.findViewById(R.id.tv_sell_rate_coin);
-        mtvBuyRateCoin = mView.findViewById(R.id.tv_buy_rate_coin);
-        mtvBuyRateQty = mView.findViewById(R.id.tv_buy_rate_qty);
+        tvViewHistory = mView.findViewById(R.id.tvViewHistory);
+
+        mtvSendRateCoin = mView.findViewById(R.id.tv_sell_rate_coin);
+        mtvGetRateCoin = mView.findViewById(R.id.tv_buy_rate_coin);
+        mtvGetCoinRate = mView.findViewById(R.id.tv_buy_rate_qty);
 
         View dialogView = getLayoutInflater().inflate(R.layout.coins_bottom_sheet, null);
         dialog = new BottomSheetDialog(getContext());
@@ -177,11 +139,6 @@ public class CoinSwapFragment extends Fragment {
         mAdapter  = new BottomCoinAdapter(coinList, getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
-
-        conversionView = mView.findViewById(R.id.list_conversion_view);
-        conversionAdapter = new CoinConversionAdapter(conversionList);
-        conversionView.setLayoutManager(new LinearLayoutManager(getContext()));
-        conversionView.setAdapter(conversionAdapter);
     }
 
     private void initListeners() {
@@ -189,59 +146,31 @@ public class CoinSwapFragment extends Fragment {
             @Override
             public void onSelectCoin(int position) {
                 CoinInfo coin = coinList.get(position);
-                if(select == 1) {
-                    mEditSellingCoin.setText(coin.getCoinSymbol());
-                    mtvSellingCoinName.setText(coin.getCoinName());
-                    mtvSellRateCoin.setText(coin.getCoinSymbol());
-                    sellingCoinBalance = coin.getCoinBalance();
-                    mtvSellAvailabelQty.setText(sellingCoinBalance);
-//                    sellCoinPrice = coin.getCoinRate();
-                    sellCoinId = coin.getCoinId();
-
-//                    if(buyCoinPrice)
-//                    String amount = mEditSellingAmount.getText().toString();
-//                    if(!amount.equalsIgnoreCase("")) {
-//                        mtvBuyingEstQty.setText(new DecimalFormat("#,###.##########").format(BigDecimalDouble.newInstance().multify(amount, buyCoinPrice+"")));
-//                    }
-
-                    initFormat();
-
+                if(selectedType.equals("send")) {
+                    sendCoin = coin;
+                    mtvSendCoin.setText(coin.getCoinSymbol());
+                    mtvSendCoinBalance.setText(coin.getCoinBalance());
+                    Picasso.with(getActivity()).load(sendCoin.getCoinIcon()).into(sendIcon);
                 }//sell coin
-                if(select == 2) {
-                    if(!coin.getTradable()){
-                        Toast.makeText(getContext(), "Current coins pair can't trade each other", Toast.LENGTH_SHORT).show();
-                    }else{
-                        mEditBuyingCoin.setText(coin.getCoinSymbol());
-                        mtvBuyingCoinName.setText(coin.getCoinName());
-                        buyCoinId = coin.getCoinId();
-                        buyCoinPrice = coin.getCoinExchangeRate();
-                        mtvBuyRateCoin.setText(coin.getCoinSymbol());
-                        mtvBuyAvailabelQty.setText(coin.getCoinBalance());
-                        mtvBuyRateQty.setText(new DecimalFormat("#,###.############").format(buyCoinPrice));
-                        String amount = mEditSellingAmount.getText().toString();
-                        if(!amount.equalsIgnoreCase("")) {
-                            mtvBuyingEstQty.setText(new DecimalFormat("#,###.######").format(BigDecimalDouble.newInstance().multify(amount, buyCoinPrice+"")));
-                        }
-                    }
+                if(selectedType.equals("get")) {
+                    getCoin = coin;
+                    mtvGetCoin.setText(coin.getCoinSymbol());
+                    Picasso.with(getActivity()).load(getCoin.getCoinIcon()).into(getIcon);
                 }//buy coin
                 dialog.dismiss();
+                getRate();
             }
         });
 
         mBtnExchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mEditSellingAmount.getText().toString().equals("")) {
-                    mEditSellingAmount.setError("!");
+                if(mEditSendAmount.getText().toString().equals("")) {
+                    mEditSendAmount.setError("!");
                     return;
                 }
 
-                if(buyCoinId == null || sellCoinId == null) {
-                    Toast.makeText(getContext(), "Please select coin", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(Double.parseDouble(mEditSellingAmount.getText().toString()) > Double.parseDouble(sellingCoinBalance)) {
+                if(Double.parseDouble(mEditSendAmount.getText().toString()) > Double.parseDouble(sendCoin.getCoinBalance())) {
                     Toast.makeText(getContext(), "Insufficient funds", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -260,46 +189,30 @@ public class CoinSwapFragment extends Fragment {
             }
         });
 
-        getLayout.setOnClickListener(new View.OnClickListener() {
+        mtvGetCoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                select= 2;
-//                coinList.clear();
-//                if(coinListBuying.size() == 0)
-//                    getCoinAssets();
-//                else {
-//                    coinList.addAll(coinListBuying);
-//                    mAdapter.notifyDataSetChanged();
-//                    dialog.show();
-//                }
-                if(sellCoinId != null)
-                    getBuyCoinAssets();
-                else
-                    Toast.makeText(getContext(), "Please select sending coin", Toast.LENGTH_SHORT).show();
+                selectedType = "get";
+                dialog.show();
             }
         });
 
-        sendLayout.setOnClickListener(new View.OnClickListener() {
+        mtvSendCoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                select= 1;
-//                coinList.clear();
-                getSendCoinAssets();
-//                mAdapter.notifyDataSetChanged();
-//                dialog.show();
-//                if(coinListSelling.size() == 0) {
-//                    getCoinAssets();
-//                }
-//                else {
-//
-//                    coinList.addAll(coinListSelling);
-//                    mAdapter.notifyDataSetChanged();
-//                    dialog.show();
-//                }
+                selectedType = "send";
+                dialog.show();
             }
         });
 
-        mEditSellingAmount.addTextChangedListener(new TextWatcher() {
+        tvViewHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), CoinSwapHistoryActivity.class));
+            }
+        });
+
+        mEditSendAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -310,8 +223,10 @@ public class CoinSwapFragment extends Fragment {
                 String price=charSequence.toString();
                 if(!price.equalsIgnoreCase(".")) {
                     if (!price.equalsIgnoreCase("")) {
-                        mtvBuyingEstQty.setText(new DecimalFormat("#,###.############").format(BigDecimalDouble.newInstance().multify(price, buyCoinPrice+"")));
-                    } else mtvBuyingEstQty.setText("0.00");
+                        sellAmount = new Double(price);
+                        displayFee();
+                        displayEstCost();
+                    } else sellAmount = 0.0;
                 }
             }
 
@@ -322,13 +237,64 @@ public class CoinSwapFragment extends Fragment {
         });
     }
 
-    private void initFormat() {
-        mEditSellingAmount.setText("");
-        mtvBuyRateQty.setText("1.00");
-        mtvBuyRateCoin.setText("BTC");
-        mEditBuyingCoin.setText("select coin");
-        mtvBuyingEstQty.setText("0.00");
-        buyCoinId=null;
+    private void getRate() {
+        loadToast.show();
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("sendCoin", sendCoin.getCoinSymbol());
+            jsonObject.put("receiveCoin", getCoin.getCoinSymbol());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("exchange param", jsonObject.toString());
+        if(getContext() != null)
+            AndroidNetworking.post(URLHelper.GET_COIN_EXCHANGE_RATE)
+                    .addHeaders("Content-Type", "application/json")
+                    .addHeaders("accept", "application/json")
+                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
+                    .addJSONObjectBody(jsonObject)
+                    .setPriority(Priority.MEDIUM)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("response", "" + response);
+                            loadToast.success();
+                            rateModel = new SwapRateModel();
+                            try {
+                                rateModel.setData(response.getJSONObject("rate"));
+                                displayFee();
+                                displayEstCost();
+                                displayExchangeRate();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(ANError error) {
+                            loadToast.error();
+                            // handle error
+                            Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            Log.d("errorm", "" + error.getErrorBody());
+                        }
+                    });
+    }
+
+    private void displayFee(){
+        getAmount = sellAmount * (1-rateModel.getSendFee()) * rateModel.getRate();
+        fee = getAmount * rateModel.getFee();
+        mtvGetFee.setText(new DecimalFormat("#,###.######").format(fee));
+    }
+    private void displayEstCost(){
+        mtvGetEstQty.setText(new DecimalFormat("#,###.####").format(getAmount-fee));
+    }
+    private void displayExchangeRate(){
+        mtvSendRateCoin.setText(sendCoin.getCoinSymbol());
+        mtvGetRateCoin.setText(getCoin.getCoinSymbol());
+        mtvGetCoinRate.setText(rateModel.getRate()+"");
+        mtvSendLimit.setText(rateModel.getSendMin() + " - " + rateModel.getSendMax());
     }
 
     private void doExchange() {
@@ -336,10 +302,10 @@ public class CoinSwapFragment extends Fragment {
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put("buy_coin_id", buyCoinId);
-            jsonObject.put("buy_amount", mtvBuyingEstQty.getText().toString());
-            jsonObject.put("sell_coin_id", sellCoinId);
-            jsonObject.put("sell_amount", mEditSellingAmount.getText().toString());
+            jsonObject.put("receiveCoin", getCoin.getCoinSymbol());
+            jsonObject.put("receive_amount",getAmount);
+            jsonObject.put("sendCoin", sendCoin.getCoinSymbol());
+            jsonObject.put("send_amount", mEditSendAmount.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -357,36 +323,7 @@ public class CoinSwapFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
                         loadToast.success();
-                        if(response.optBoolean("success")) {
                             Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
-                            conversionList.clear();
-
-                            JSONArray history = null;
-                            try {
-                                history = response.getJSONArray("history");
-                                if(history != null) {
-                                    for (int i = 0; i < history.length(); i++) {
-                                        try {
-                                            conversionList.add(history.getJSONObject(i));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    conversionAdapter.notifyDataSetChanged();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }catch (NullPointerException e) {
-                                e.printStackTrace();
-                            }
-                        }else {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                            alert.setIcon(R.mipmap.ic_launcher_round)
-                                    .setTitle("Error")
-                                    .setMessage(response.optString("message"))
-                                    .show();
-                        }
                     }
 
                     @Override
@@ -399,11 +336,11 @@ public class CoinSwapFragment extends Fragment {
                 });
     }
 
-    private void getSendCoinAssets() {
+    private void loadData() {
         loadToast.show();
 
         if(getContext() != null)
-            AndroidNetworking.get(URLHelper.GET_SEND_COIN_ASSETS)
+            AndroidNetworking.get(URLHelper.COIN_EXCHANGE)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
                     .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
@@ -415,108 +352,39 @@ public class CoinSwapFragment extends Fragment {
                             Log.d("coin assets response", "" + response);
                             loadToast.success();
 
-//                            coinListBuying.clear();
-//                            coinListSelling.clear();
                             coinList.clear();
 
                             JSONArray coins = null;
                             try {
-                                coins = response.getJSONArray("assets");
-                                if(coins != null) {
-                                    for (int i = 0; i < coins.length(); i++) {
-                                        try {
-                                            Log.d("coinitem", coins.get(i).toString());
-//                                    if(coins.getJSONObject(i).getInt("exchange_possible") == 1)
-//                                        coinListBuying.add(new CoinInfo((JSONObject) coins.get(i)));
-//                                    coinListSelling.add(new CoinInfo((JSONObject) coins.get(i)));
-                                            coinList.add(new CoinInfo((JSONObject) coins.get(i)));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
+                                coins = response.getJSONArray("coins");
+                                for(int i = 0; i < coins.length(); i ++) {
+                                    try {
+                                        coinList.add(new CoinInfo((JSONObject) coins.get(i)));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
-
-                                    mAdapter.notifyDataSetChanged();
-                                    if(coins.length() > 0)
-                                        dialog.show();
-                                    else Toast.makeText(getContext(), "You have no deposited coins.", Toast.LENGTH_SHORT).show();
                                 }
+
+                                mAdapter.notifyDataSetChanged();
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }catch (NullPointerException e) {
                                 e.printStackTrace();
                             }
 
-                        }
+                            rateModel = new SwapRateModel();
+                            rateModel.setData(response.optJSONObject("rate"));
+                            getCoin = new CoinInfo(response.optJSONObject("receiveCoin"));
+                            sendCoin = new CoinInfo(response.optJSONObject("sendCoin"));
 
-                        @Override
-                        public void onError(ANError error) {
-                            loadToast.error();
-                            // handle error
-                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
-                        }
-                    });
-    }
+                            mtvSendCoinBalance.setText(sendCoin.getCoinBalance());
+                            Picasso.with(getContext()).load(getCoin.getCoinIcon()).into(getIcon);
+                            mtvGetCoin.setText(getCoin.getCoinSymbol());
 
-    private void getBuyCoinAssets() {
-        loadToast.show();
-
-        JSONObject jsonObject = new JSONObject();
-
-        try {
-            jsonObject.put("send_coin_id", sellCoinId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        if(getContext() != null)
-            AndroidNetworking.post(URLHelper.GET_BUY_COIN_ASSETS)
-                    .addHeaders("Content-Type", "application/json")
-                    .addHeaders("accept", "application/json")
-                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
-                    .addJSONObjectBody(jsonObject)
-                    .setPriority(Priority.MEDIUM)
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Log.d("coin assets response", "" + response);
-                            loadToast.success();
-
-                            if(response.optBoolean("success")){
-                                coinList.clear();
-
-                                JSONArray coins = null;
-                                try {
-                                    coins = response.getJSONArray("assets");
-                                    for(int i = 0; i < coins.length(); i ++) {
-                                        try {
-                                            Log.d("coinitem", coins.get(i).toString());
-//                                    if(coins.getJSONObject(i).getInt("exchange_possible") == 1)
-//                                        coinListBuying.add(new CoinInfo((JSONObject) coins.get(i)));
-//                                    coinListSelling.add(new CoinInfo((JSONObject) coins.get(i)));
-                                            coinList.add(new CoinInfo((JSONObject) coins.get(i)));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    mAdapter.notifyDataSetChanged();
-                                    dialog.show();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }catch (NullPointerException e) {
-                                    e.printStackTrace();
-                                }
-
-
-                            }
-                            else{
-                                Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
-                            }
-
-//                            coinListBuying.clear();
-//                            coinListSelling.clear();
+                            displayFee();
+                            displayEstCost();
+                            displayExchangeRate();
 
                         }
 

@@ -37,8 +37,17 @@ public class PredictPageAdapter extends FragmentStatePagerAdapter {
             default:
                 return null;
         }
-//        Fragment sampleFragment=fragments.get(i);
-//        return sampleFragment;
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        if (object instanceof NewPredictsFragment) {
+            return POSITION_NONE;
+        }
+        if (object instanceof IncomingPredictsFragment) {
+            return POSITION_NONE;
+        }
+        return 1;
     }
 
     @Override

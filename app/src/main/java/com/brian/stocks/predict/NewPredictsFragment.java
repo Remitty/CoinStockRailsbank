@@ -22,6 +22,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
+import com.brian.stocks.model.PredictionModel;
 import com.brian.stocks.predict.adapters.PredictAdapter;
 
 import net.steamcrafted.loadtoast.LoadToast;
@@ -33,8 +34,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class NewPredictsFragment extends Fragment {
-    JSONArray data = new JSONArray();
-    ArrayList<JSONObject> dataList = new ArrayList<JSONObject>();
+//    JSONArray data = new JSONArray();
+    ArrayList<PredictionModel> dataList = new ArrayList<PredictionModel>();
     RecyclerView recyclerView;
     PredictAdapter mAdapter;
     LinearLayout emptyLayout;
@@ -69,7 +70,7 @@ public class NewPredictsFragment extends Fragment {
 
         mAdapter = new PredictAdapter(dataList, 0);
         recyclerView.setAdapter(mAdapter);
-        mAdapter.seListener(new PredictAdapter.Listener() {
+        mAdapter.setListener(new PredictAdapter.Listener() {
             @Override
             public void onSelect(int position) {
 
@@ -86,13 +87,13 @@ public class NewPredictsFragment extends Fragment {
                     answer="No";
                 else answer = "Yes";
 
-                JSONObject object = data.optJSONObject(position);
-                bet_currency = object.optJSONObject("coin").optString("coin_symbol");
+                PredictionModel object = dataList.get(position);
+                bet_currency = object.getSymbol();
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                 alert.setIcon(R.mipmap.ic_launcher_round)
                         .setTitle("Confirm Prediction")
-                        .setMessage("You are about to disagree that " + object.optJSONObject("item").optString("symbol") + " will be "+ getEstType(object.optInt("type")) +" $"+object.optString("est_price") +"." + "You call price is " + object.optString("bet_price")+" " + bet_currency +".")
+                        .setMessage("You are about to disagree this predict.")
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -126,7 +127,7 @@ public class NewPredictsFragment extends Fragment {
         loadToast.show();
         JSONObject object = new JSONObject();
         try {
-            object.put("id", dataList.get(idx).getString("id"));
+            object.put("id", dataList.get(idx).getId());
             object.put("answer", answer);
         } catch (JSONException e) {
             e.printStackTrace();

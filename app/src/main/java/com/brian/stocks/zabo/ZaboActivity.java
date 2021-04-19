@@ -38,7 +38,7 @@ public class ZaboActivity extends AppCompatActivity {
 
     private static final int ZAHO_CONNECT = 100;
     private LoadToast loadToast;
-    private String clientId;
+    private String clientId, testmode;
     Button btnConnect;
     RecyclerView accountView;
     ArrayList<ZaboAccount> accountList = new ArrayList();
@@ -81,13 +81,14 @@ public class ZaboActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String base = "https://connect.zabo.com/connect";
                 String apikey = "?client_id="+clientId;
-                String origin = "&origin=localhost";
-                String env = "&zabo_env=sandbox";
+                String origin = "&origin=wyretrade.com";
+                String env = "&zabo_env="+testmode;
                 String version = "&zabo_version=latest";
-                String redirect = "&redirect_uri=" + URLHelper.ZABO_REDIRECT;
+                String userId = SharedHelper.getKey(getBaseContext(), "userId");
+//                String redirect = "&redirect_uri=" + URLHelper.ZABO_REDIRECT;
 //                String redirect = "";
 
-                String url = base + apikey + origin + env + version +redirect;
+                String url = base + apikey + origin + env + version + "&" + userId;
                 Log.d("zabo url:", url);
                 Intent browserIntent = new Intent(ZaboActivity.this, WebViewActivity.class);
                 browserIntent.putExtra("uri", url);
@@ -204,7 +205,7 @@ public class ZaboActivity extends AppCompatActivity {
                                 JSONObject account = new JSONObject(query);
                                 String id = account.getString("id");
                                 String token = account.getString("token");
-                                sendAccount(id, token);
+//                                sendAccount(id, token);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

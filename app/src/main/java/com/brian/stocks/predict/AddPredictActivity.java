@@ -15,6 +15,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import com.androidnetworking.AndroidNetworking;
@@ -57,23 +59,50 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         loadToast = new LoadToast(this);
-        //loadToast.setBackgroundColor(R.color.colorBlack);
         initComponents();
         initListeners();
         if(getIntent() != null) {
-            symbol = getIntent().getStringExtra("symbol_id");
-            mtvSymbol.setText(getIntent().getStringExtra("symbol"));
-            mtvPrice.setText("$ "+getIntent().getStringExtra("price"));
+            symbol = getIntent().getStringExtra("symbol");
+            mtvSymbol.setText(symbol);
+            String price = new DecimalFormat("#,###.##").format(Double.parseDouble(getIntent().getStringExtra("price")));
+            mtvPrice.setText("$ "+ price);
             mtvName.setText(getIntent().getStringExtra("name"));
-            mtvUsdcBalance.setText(String.format("%.4f",Double.parseDouble(getIntent().getStringExtra("usdc_balance"))));
+//            mtvUsdcBalance.setText(String.format("%.4f",Double.parseDouble(getIntent().getStringExtra("usdc_balance"))));
         }
+        loadUSDCBalance();
+    }
+
+    private void loadUSDCBalance() {
+        loadToast.show();
+        AndroidNetworking.get(URLHelper.GET_USDC_BALANCE)
+                .addHeaders("Content-Type", "application/json")
+                .addHeaders("accept", "application/json")
+                .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("response", "" + response);
+                        loadToast.success();
+                        mtvUsdcBalance.setText(String.format("%.4f",Double.parseDouble(response.optString("usdc_balance"))));
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        loadToast.error();
+                        // handle error
+                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getMessage());
+                    }
+                });
     }
 
     private void initComponents() {
         mtvSymbol = findViewById(R.id.symbol);
         mtvName = findViewById(R.id.name);
         mtvPrice = findViewById(R.id.price);
-        mtvEndDate = findViewById(R.id.tv_end_date);
+//        mtvEndDate = findViewById(R.id.tv_end_date);
         mtvUsdcBalance = findViewById(R.id.usdc_balance);
         radioGroup = findViewById(R.id.rdg_type);
         meditEstPrice = findViewById(R.id.edit_est_price);

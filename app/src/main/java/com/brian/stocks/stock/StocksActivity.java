@@ -9,6 +9,7 @@ import com.brian.stocks.R;
 
 public class StocksActivity extends AppCompatActivity {
 
+    private boolean isPredict = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +22,11 @@ public class StocksActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0);
         }
 
-        Fragment fragment = new StocksFragment();
+        if(getIntent() != null) {
+            isPredict = getIntent().getBooleanExtra("predict", false);
+        }
+
+        Fragment fragment = StocksFragment.newInstance(isPredict);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).commit();
     }

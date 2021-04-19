@@ -163,7 +163,7 @@
                 android:paddingBottom="6dp"
                 android:text="Resend"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorPrimary1"
                 android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -178,7 +178,7 @@
                 android:maxLines="1"
                 android:minWidth="20dp"
                 android:singleLine="true"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorPrimary1"
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
