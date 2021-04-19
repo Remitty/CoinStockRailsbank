@@ -116,7 +116,7 @@ public class StocksFragment extends Fragment {
                     getAllStocks(false);
                     aggregates=new JSONArray();
                     stocksList.clear();
-                    getAggregate();
+//                    getAggregate();
                     return true;
                 }
                 return false;
@@ -150,7 +150,7 @@ public class StocksFragment extends Fragment {
         );
         getAllStocks(false);
 
-        getAggregate();
+//        getAggregate();
 
         return rootView;
     }

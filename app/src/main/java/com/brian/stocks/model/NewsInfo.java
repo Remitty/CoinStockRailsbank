@@ -18,11 +18,11 @@ public class NewsInfo {
     }
 
     public String getImageURL(){
-        return data.optString("imageUrl");
+        return data.optString("image");
     }
 
     public String getNewsTitle(){
-        return data.optString("headline");
+        return data.optString("title");
     }
 
     public String getURL(){
@@ -30,7 +30,7 @@ public class NewsInfo {
     }
 
     public String getSummary(){
-        return data.optString("summary");
+        return data.optString("text");
     }
 
     public String getDate(){
