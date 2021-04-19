@@ -145,18 +145,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" ~ "/>
-<<<<<<< Updated upstream
 
-                        <TextView
-                            android:id="@+id/withdrawal_fee"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:text="0.00 BTC"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="16dp" />
-=======
                         <LinearLayout
                                 android:layout_weight="1"
                             android:layout_marginLeft="50dp"
@@ -183,7 +172,7 @@
                                 android:textSize="13dp" />
 
                         </LinearLayout>
->>>>>>> Stashed changes
+
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -241,17 +230,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" ~ "/>
-                        <TextView
-                            android:id="@+id/receipt_amount"
+                        <LinearLayout
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-<<<<<<< Updated upstream
-                            android:gravity="center_horizontal"
-                            android:textSize="16dp"
-                            android:textColor="@color/colorBlack"
-                            android:text="0.00 BTC"/>
-=======
                             android:orientation="horizontal"
                             android:layout_marginLeft="50dp">
                             <TextView
@@ -273,7 +255,7 @@
                                 android:textSize="13dp" />
 
                         </LinearLayout>
->>>>>>> Stashed changes
+
                     </LinearLayout>
                 </LinearLayout>
                 <TextView
