@@ -52,19 +52,15 @@ import java.util.List;
 public class CoinWithdrawActivity extends AppCompatActivity {
     private static final int REQUEST_PHONE_VERIFICATION = 1080;
     EditText editWithdrawAmount, editAddress;
-<<<<<<< Updated upstream
-    TextView mtvCoin,mtvCoinName, mtvAvailCoinQty, mtvCoinSymbol, mTVCoinBalance, mtvWithdrawalFee, mtvGetAmount;
-=======
     TextView mtvCoin,mtvAvailCoinQty, mTVCoinBalance, mtvWithdrawalFee, mtvWithdrawalFeeSymbol, mtvGasFee, mtvGasFeeSymbol, mtvGetAmount, mtvGetAmountSymbol, mtvWeeklyLimit;
     ImageView imgIcon;
->>>>>>> Stashed changes
     Button btnWithdraw;
     BottomCoinAdapter mBottomAdapter;
     private RecyclerView recyclerView;
     private BottomSheetDialog dialog;
     private LoadToast loadToast;
 
-    private String CoinId="1", CoinUsdc="0", Fee="0", Coin="BTC";
+    private String CoinId="1", CoinUsdc="0", Fee="0", Coin="BTC", GasFee = "0";
 
     private List<CoinInfo> coinList = new ArrayList<>();
     private CoinInfo selectedCoin;
@@ -98,12 +94,9 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         mTVCoinBalance = findViewById(R.id.tv_balance);
 
         mtvWithdrawalFee = findViewById(R.id.withdrawal_fee);
-<<<<<<< Updated upstream
-=======
         mtvWithdrawalFeeSymbol = findViewById(R.id.withdrawal_fee_symbol);
         mtvGasFee = findViewById(R.id.gas_fee);
         mtvGasFeeSymbol = findViewById(R.id.gas_fee_symbol);
->>>>>>> Stashed changes
         mtvGetAmount = findViewById(R.id.receipt_amount);
 
         mtvWeeklyLimit = findViewById(R.id.tv_weekly_limit);
@@ -227,6 +220,10 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                 CoinId = coin.getCoinId();
                 Fee = coin.getWithdrawalFee();
                 mtvWithdrawalFee.setText(Fee + " " + coin.getCoinSymbol());
+
+                if(coin.getType().equals("ERC20"))
+                    mtvGasFee.setText(GasFee);
+                else mtvGasFee.setText("0");
 
                 String withdraw_amount = editWithdrawAmount.getText().toString();
                 if(!withdraw_amount.equals("")) {
@@ -373,7 +370,8 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                             loadToast.success();
 
                             mtvWeeklyLimit.setText("Weekly withdrawal limit = $" + response.optString("weekly_withdraw_limit"));
-                            mtvGasFee.setText(response.optString("coin_withdraw_gas_fee"));
+                            GasFee = response.optString("coin_withdraw_gas_fee");
+                            mtvGasFee.setText(GasFee);
                             selectedCoin = new CoinInfo(response.optJSONObject("coin"));
                             mtvAvailCoinQty.setText(selectedCoin.getCoinBalance());
 

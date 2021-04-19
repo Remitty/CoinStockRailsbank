@@ -42,7 +42,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.OrderViewHolde
         holder.mNewsSummary.setText(item.getSummary());
         holder.mNewsUrl.setText(item.getURL());
         holder.mNewsDate.setText(item.getDate());
-
+        if(!item.getImageURL().equals(""))
         Picasso.with(mContext)
                 .load(item.getImageURL())
                 .into(holder.mNewsImage);

@@ -200,16 +200,6 @@ public class StocksFragment extends Fragment {
     private void GoToTrade(int position) {
         PositionInfo stock = stocksList.get(position);
         Intent intent = new Intent(getActivity(), StocksTradingActivity.class);
-<<<<<<< Updated upstream
-        intent.putExtra("stock_symbol", stock.getStockSymbol());
-        intent.putExtra("stock_name", stock.getStockName());
-        intent.putExtra("stock_price", stock.getStocksPrice());
-        intent.putExtra("stock_shares", stock.getStocksShares());
-        intent.putExtra("stock_avg_price", stock.getStockAvgPrice());
-        intent.putExtra("stock_equity", stock.getStockAvgPrice());
-        intent.putExtra("stock_today_change", stock.getStockTodayChange());
-        intent.putExtra("stock_today_change_perc", stock.getStockTodayChangePercent());
-=======
         intent.putExtra("stock_symbol", stock.getSymbol());
         intent.putExtra("stock_name", stock.getName());
         intent.putExtra("stock_price", stock.getCurrentPrice());
@@ -218,7 +208,6 @@ public class StocksFragment extends Fragment {
         intent.putExtra("stock_equity", stock.getEquity());
         intent.putExtra("stock_today_change", stock.getChangePrice());
         intent.putExtra("stock_today_change_perc", stock.getChangePricePercent());
->>>>>>> Stashed changes
         intent.putExtra("type", "stock");
         startActivity(intent);
     }
@@ -269,12 +258,7 @@ public class StocksFragment extends Fragment {
                             if(stocks != null)
                             for(int i = 0; i < stocks.length(); i ++) {
                                 try {
-<<<<<<< Updated upstream
-                                    StocksInfo stock = new StocksInfo((JSONObject) stocks.get(i));
-                                    if(aggregates.length() > 0 && aggregates.length() == stocks.length())
-                                        stock.setStockAggregate(aggregates.optJSONArray(i));
-                                    stocksList.add(stock);
-=======
+
 //                                    StocksInfo stock = new StocksInfo((JSONObject) stocks.get(i));
                                     stocksList.add(new PositionInfo((JSONObject) stocks.get(i)));
 //                                    if(aggregates.length() > 0 && aggregates.length() == stocks.length())
@@ -282,7 +266,7 @@ public class StocksFragment extends Fragment {
 //
 //                                    stock.setStockAggregate(aggregates.optJSONArray(i));
 //                                    stocksList.add(stock);
->>>>>>> Stashed changes
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

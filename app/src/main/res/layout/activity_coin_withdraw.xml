@@ -263,7 +263,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/colorRedCrayon"
+                    android:textColor="@color/colorBlack"
                     android:textSize="16dp"
                     android:text=""/>
                 <com.google.android.material.button.MaterialButton

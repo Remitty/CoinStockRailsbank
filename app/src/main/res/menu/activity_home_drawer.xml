@@ -6,12 +6,13 @@
         android:id="@+id/menu_up">
         <item
             android:id="@+id/nav_coin_stake"
-            android:icon="@drawable/xmt"
+            android:icon="@drawable/pepe"
             android:title="Stake Coin" />
 
         <item
             android:id="@+id/nav_exchange"
             android:icon="@drawable/nav_trade"
+            android:visible="false"
             android:title="Trade Cryptos"/>
         <item
             android:id="@+id/nav_coin_trade"
@@ -30,6 +31,7 @@
         <item
             android:id="@+id/nav_coin_withdraw"
             android:icon="@drawable/nav_bitcoin"
+            android:visible="false"
             android:title="Crypto Withdraw" />
 
         <item
