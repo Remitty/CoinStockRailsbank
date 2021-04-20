@@ -23,7 +23,7 @@ import com.brian.stocks.stock.adapter.NewsAdapter;
 import com.brian.stocks.stock.adapter.NewsStockAdapter;
 import com.brian.stocks.helper.URLHelper;
 import com.brian.stocks.model.NewsInfo;
-import com.brian.stocks.model.StocksInfo;
+import com.brian.stocks.model.StocksOrderModel;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -39,7 +39,7 @@ public class StocksNewsFragment extends Fragment {
     private LoadToast loadToast;
     private String mSearch="";
     private EditText mEditStockSearch;
-    private List<StocksInfo> stocksList = new ArrayList<>();
+    private List<StocksOrderModel> stocksList = new ArrayList<>();
     private ArrayList<NewsInfo> newsList = new ArrayList<>();
     private NewsStockAdapter mAdapter;
     private NewsAdapter mAdapter1;
@@ -123,9 +123,9 @@ public class StocksNewsFragment extends Fragment {
     }
 
     private void GoToNewsList(int position) {
-        Intent intent = new Intent(getActivity(), NewsListActivity.class);
-        intent.putExtra("symbol", stocksList.get(position).getStocksTickerOther());
-        startActivity(intent);
+//        Intent intent = new Intent(getActivity(), NewsListActivity.class);
+//        intent.putExtra("symbol", stocksList.get(position).getStocksTickerOther());
+//        startActivity(intent);
     }
 
     private void getStockNews() {
@@ -188,7 +188,7 @@ public class StocksNewsFragment extends Fragment {
                     for(int i = 0; i < stocks.length(); i ++) {
                         try {
                             Log.d("newssitem", stocks.get(i).toString());
-                            stocksList.add(new StocksInfo((JSONObject) stocks.get(i)));
+                            stocksList.add(new StocksOrderModel((JSONObject) stocks.get(i)));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

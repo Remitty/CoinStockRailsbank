@@ -1,22 +1,16 @@
 package com.brian.stocks.model;
 
-import com.google.gson.JsonArray;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class StocksInfo {
     private JSONObject data;
-    private String StocksName;
-    private String StocksShared;
-    private String StocksPrice;
-    private JSONArray StockAggregate = new JSONArray();
 
     public StocksInfo(JSONObject item) {
-        //            data = item.getJSONObject("ticker");
         data = item;
     }
 
@@ -24,146 +18,73 @@ public class StocksInfo {
         return data;
     }
 
-    public String getStockSymbol() {
+    public String getSymbol() {
+        return data.optString("symbol");
+    }
+
+    public String getName() {
         try {
-            return data.getString("symbol");
+            return data.getString("name");
         } catch (JSONException e) {
-            e.printStackTrace();
             return "";
         }
     }
 
-    public String getStockName() {
+    public String getQty() {
         try {
-            String name = data.getString("name");
-            if(name.equals("null")) name="";
-            return name;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public String getStocksTickerOther() {
-        try {
-
-            return data.getString("ticker");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public String getStocksShares() {
-        try {
-            return new DecimalFormat("#,###").format(data.getDouble("shares"));
+            return data.getString("filled_qty");
         } catch (JSONException e) {
             return "0";
         }
     }
 
-    public String getStocksOrderShares(){
+    public String getAvgPrice() {
         try {
-            return new DecimalFormat("#,###").format(data.getDouble("qty"));
-        } catch (JSONException e) {
-            return "0";
-        }
-    }
-
-    public String getStockAvgPrice(){
-        try {
-            return new DecimalFormat("#.##").format(data.getDouble("filled_avg_price"));
+            return new DecimalFormat("#,###.##").format(data.getDouble("avg_price"));
         } catch (JSONException e) {
             return "0.0";
         }
     }
 
-    public String getStocksPrice() {
+    public String getCurrentPrice(){
         try {
-            return new DecimalFormat("#,###.##").format(data.getDouble("vw"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return "0.0";
-        }
-    }
-
-    public JSONArray getStockAggregate(){
-            return StockAggregate;
-    }
-
-    public void setStockAggregate(JSONArray aggregate) {
-        StockAggregate = aggregate;
-    }
-
-    public String getStockTodayChange() {
-        try {
-            return String.format("%.2f", Double.parseDouble(data.getString("todaysChange")));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return "0.0";
-        }
-    }
-
-    public String getStockTodayChangePercent() {
-        try {
-            return String.format("%.4f", Double.parseDouble(data.getString("todaysChangePerc")));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return "0.0";
-        }
-    }
-
-    public String getStockOrderStatus(){
-        try {
-            return data.getString("status");
-        } catch (JSONException e) {
-            return "";
-        }
-    }
-    public String getStockOrderLimitPrice() {
-        try {
-            return String.format("%.2f", Double.parseDouble(data.getString("limit_price")));
+            return new DecimalFormat("#,###.##").format(data.getDouble("current_price"));
         } catch (JSONException e) {
             return "0.0";
         }
     }
-    public String getStockOrderSide(){
+
+    public String getHolding(){//holding
         try {
-            return data.getString("side");
+            return new DecimalFormat("#,###.##").format(data.getDouble("holding"));
         } catch (JSONException e) {
-            return "";
+            return "0.0";
         }
     }
 
-    public String getStockOrderType(){
+
+    public String getChangePrice(){
+
         try {
-            return data.getString("type");
+            return new DecimalFormat("#,###.##").format(data.getDouble("change"));
         } catch (JSONException e) {
-            return "";
+            return "0.0";
         }
     }
 
-    public String getStockOrderID(){
+    public String getProfit(){
         try {
-            return data.getString("order_id");
+            return new DecimalFormat("#,###.##").format(data.getDouble("profit"));
         } catch (JSONException e) {
-            return  "";
+            return "0.0";
         }
     }
 
-    public String getStockOrderCost(){
+    public String getChangePricePercent(){
         try {
-            return new DecimalFormat("#,###.##").format(data.getDouble("est_cost"));
+            return new DecimalFormat("#,###.####").format(data.getDouble("change_percent"));
         } catch (JSONException e) {
-            return  "";
-        }
-    }
-
-    public String getStockOrderDate(){
-        try {
-            return data.getString("created_at").split(" ")[0];
-        } catch (JSONException e) {
-            return "";
+            return "0.0";
         }
     }
 

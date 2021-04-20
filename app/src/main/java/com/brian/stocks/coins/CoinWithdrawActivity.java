@@ -135,12 +135,13 @@ public class CoinWithdrawActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if(!s.toString().equals(".") && !s.toString().equals("")) {
-                    BigDecimal amount = new BigDecimal(s.toString());
-                    BigDecimal fee = new BigDecimal(Fee);
-                    mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()));
+                String amount = s.toString();
+                if(amount.equals("") || amount.equals(".")) {
+                    mtvGetAmount.setText("0");
+                } else {
+                    mtvGetAmount.setText(new DecimalFormat("#,###.####").format(Double.parseDouble(amount) - Double.parseDouble(Fee)));
                 }
+
             }
 
             @Override

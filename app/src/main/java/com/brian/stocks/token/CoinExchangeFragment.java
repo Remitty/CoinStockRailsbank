@@ -371,21 +371,18 @@ public class CoinExchangeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 changedPrice = true;
-                if (!mEditPrice.getText().toString().equalsIgnoreCase("")) {
-                    mBTCXMT_rate = mBTCUSD_rate * Double.parseDouble(charSequence.toString());
-                    mTextPriceUSD.setText("$" + new DecimalFormat("#,###.##").format(mBTCXMT_rate));
-                }
+                String str = charSequence.toString();
+                if (str.equals("") && str.equals(".")) {
+                    mBTCXMT_rate = 0.0;
+                } else
+                    mBTCXMT_rate = mBTCUSD_rate * Double.parseDouble(str);
+                mTextPriceUSD.setText("$" + new DecimalFormat("#,###.##").format(mBTCXMT_rate));
+                calculate();
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
 
-                if (mEditPrice.getText().toString().equalsIgnoreCase("")) {
-                    mTextPriceUSD.setText("$" + new DecimalFormat("#,###.##").format(0.0));
-                    return;
-                }
-                calculate();
-                changedPrice = true;
             }
         });
 

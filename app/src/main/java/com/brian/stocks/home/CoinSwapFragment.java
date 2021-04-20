@@ -177,8 +177,8 @@ public class CoinSwapFragment extends Fragment {
 
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                     alert.setIcon(R.mipmap.ic_launcher_round)
-                            .setTitle("Confirm Exchange")
-                            .setMessage("Please confirm your transaction? Exchange fees is 0.50%. If you hold 200XMT fees is 0.25%.")
+                            .setTitle("Confirm Swap")
+                            .setMessage("Please confirm your transaction.")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -221,13 +221,12 @@ public class CoinSwapFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String price=charSequence.toString();
-                if(!price.equalsIgnoreCase(".")) {
-                    if (!price.equalsIgnoreCase("")) {
-                        sellAmount = new Double(price);
-                        displayFee();
-                        displayEstCost();
-                    } else sellAmount = 0.0;
+                if(price.equals(".") || price.equals("")) {
+                    sellAmount = 0.0;
                 }
+                else sellAmount = new Double(price);
+                displayFee();
+                displayEstCost();
             }
 
             @Override

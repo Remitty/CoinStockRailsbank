@@ -65,11 +65,11 @@ public class StockChartFragment extends Fragment {
         cartesian.yGrid(3, true);
         List<DataEntry> seriesData = new ArrayList<>();
         if(aggregate != null) {
-            for (int i = aggregate.length(); i >= 0; i--) {
+            for (int i = aggregate.length()-1; i >= 0; i--) {
                 try {
                     JSONObject data = aggregate.getJSONObject(i);
-                    String time = data.optString("t");
-                    Double vw = data.optDouble("vw");
+                    String time = data.optString("date");
+                    Double vw = data.optDouble("open");
                     seriesData.add(new StockChartFragment.ChartDataEntry(time, vw));
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -10,7 +10,6 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +65,7 @@ public class StocksOrderActivity extends AppCompatActivity {
         mIntent = getIntent();
 
         mStockName.setText(mIntent.getStringExtra("stock_name"));
-        mStockShares.setText(mIntent.getStringExtra("stock_shares"));
+//        mStockShares.setText(mIntent.getStringExtra("stock_order_shares"));
         StockSide = mIntent.getStringExtra("stock_order_side");
 
 
@@ -178,6 +177,7 @@ public class StocksOrderActivity extends AppCompatActivity {
         intent.putExtra("stock_order_id", mIntent.getStringExtra("stock_order_id"));
         intent.putExtra("stock_shares", shares);
         intent.putExtra("stock_order_shares", mIntent.getStringExtra("stock_order_shares"));
+        intent.putExtra("stock_est_cost", mIntent.getStringExtra("stock_est_cost"));
         intent.putExtra("stock_order_type", mIntent.getStringExtra("stock_order_type"));
         intent.putExtra("stock_balance", StockBalance);
         intent.putExtra("stock_side", StockSide);
@@ -228,14 +228,14 @@ public class StocksOrderActivity extends AppCompatActivity {
                                 mStockSymbol.setText(response.optString("symbol"));
                                 StockBalance = response.optString("stock_balance");
                                 StocksInfo stock = new StocksInfo(response.optJSONObject("stock"));
-                                price = stock.getStocksPrice();
+                                price = stock.getCurrentPrice();
                                 String[] separatedPrice = price.split("\\.");
                                 mStockPriceInteger.setText(separatedPrice[0].trim());
                                 if(separatedPrice.length > 1)
                                     mStockPriceFloat.setText("."+separatedPrice[1].trim());
-                                mStockTodayChange.setText("$ "+stock.getStockTodayChange());
-                                mStockTodayChangePerc.setText("( % "+ stock.getStockTodayChangePercent() + " )");
-                                shares = stock.getStocksShares();
+                                mStockTodayChange.setText("$ "+stock.getChangePrice());
+                                mStockTodayChangePerc.setText("( % "+ stock.getChangePricePercent() + " )");
+                                shares = stock.getQty();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

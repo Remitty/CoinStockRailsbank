@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.brian.stocks.R;
-import com.brian.stocks.model.StocksInfo;
+import com.brian.stocks.model.StocksOrderModel;
 import java.util.List;
 
 public class NewsStockAdapter extends RecyclerView.Adapter<NewsStockAdapter.OrderViewHolder> {
-    private List<StocksInfo> arrItems;
+    private List<StocksOrderModel> arrItems;
     private NewsStockAdapter.Listener listener;
 
-    public NewsStockAdapter(List<StocksInfo> data, boolean viewType ){
+    public NewsStockAdapter(List<StocksOrderModel> data, boolean viewType ){
         this.arrItems = data;
     };
 
@@ -29,16 +29,16 @@ public class NewsStockAdapter extends RecyclerView.Adapter<NewsStockAdapter.Orde
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, final int i) {
-        StocksInfo item = arrItems.get(i);
+        StocksOrderModel item = arrItems.get(i);
 
-        holder.mStockName.setText(item.getStocksTickerOther() + " - "+item.getStockName());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.OnGoToNewsList(i);
-            }
-        });
+//        holder.mStockName.setText(item.getStocksTickerOther() + " - "+item.getStockName());
+//
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                listener.OnGoToNewsList(i);
+//            }
+//        });
     }
 
     @Override

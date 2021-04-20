@@ -18,7 +18,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
-import com.brian.stocks.model.StocksInfo;
+import com.brian.stocks.model.StocksOrderModel;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -33,7 +33,7 @@ public class StockTradeHistoryFragment extends Fragment {
     private LoadToast loadToast;
     private View rootView;
     private StockOrderAdapter mAdapter;
-    private List<StocksInfo> stocksList = new ArrayList<>();
+    private List<StocksOrderModel> stocksList = new ArrayList<>();
     private RecyclerView stocksListView;
     LinearLayout emptyLayout;
 
@@ -98,7 +98,7 @@ public class StockTradeHistoryFragment extends Fragment {
                             for(int i = 0; i < stocks.length(); i ++) {
                                 try {
                                     Log.d("stocksitem", stocks.get(i).toString());
-                                    stocksList.add(new StocksInfo((JSONObject) stocks.get(i)));
+                                    stocksList.add(new StocksOrderModel((JSONObject) stocks.get(i)));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

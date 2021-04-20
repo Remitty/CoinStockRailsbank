@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +12,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brian.stocks.R;
-import com.brian.stocks.model.PositionInfo;
+import com.brian.stocks.model.StocksInfo;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class OpenPositionAdapter extends RecyclerView.Adapter<OpenPositionAdapter.OrderViewHolder> {
-    private List<PositionInfo> arrItems;
+    private List<StocksInfo> arrItems;
     private Listener listener;
     private Context mContext;
-    public OpenPositionAdapter(List<PositionInfo> arrItems, boolean viewType, Context context) {
+    public OpenPositionAdapter(List<StocksInfo> arrItems, boolean viewType, Context context) {
         this.arrItems = arrItems;
         mContext = context;
     }
@@ -58,14 +57,14 @@ public class OpenPositionAdapter extends RecyclerView.Adapter<OpenPositionAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
-        PositionInfo item = arrItems.get(position);
+        StocksInfo item = arrItems.get(position);
 
         holder.tvStockSymbol.setText(item.getSymbol());
         holder.tvStockName.setText(item.getName());
         holder.tvStockShared.setText(item.getQty());
         holder.tvStockPrice.setText("$ "+item.getCurrentPrice());
         holder.tvStockChangePrice.setText("$ "+item.getChangePrice());
-        holder.tvStockHoldingPrice.setText("$ "+item.getEquity());
+        holder.tvStockHoldingPrice.setText("$ "+item.getHolding());
         holder.tvStockProfit.setText("$ "+item.getProfit());
 
         if(Double.parseDouble(item.getProfit()) >= 0){

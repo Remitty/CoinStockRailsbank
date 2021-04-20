@@ -30,14 +30,7 @@ public class StockChartTabAdapter extends FragmentStatePagerAdapter {
         return items.length;
     }
 
-    @Override
-    public int getItemPosition(Object object) {
-        if (object instanceof StockChartFragment) {
-            return POSITION_NONE;
-        }
 
-        return 1;
-    }
 
     @Override
     public CharSequence getPageTitle(int position) {

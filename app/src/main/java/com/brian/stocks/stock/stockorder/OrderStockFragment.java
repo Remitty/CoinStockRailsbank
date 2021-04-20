@@ -16,12 +16,11 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.anychart.enums.Layout;
 import com.brian.stocks.R;
 import com.brian.stocks.stock.stocktrade.StocksOrderActivity;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
-import com.brian.stocks.model.StocksInfo;
+import com.brian.stocks.model.StocksOrderModel;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -36,7 +35,7 @@ public class OrderStockFragment extends Fragment {
     private LoadToast loadToast;
     private View rootView;
     private StockOrderAdapter mAdapter;
-    private List<StocksInfo> stocksList = new ArrayList<>();
+    private List<StocksOrderModel> stocksList = new ArrayList<>();
     private RecyclerView stocksListView;
     LinearLayout emptyLayout;
 
@@ -103,7 +102,7 @@ public class OrderStockFragment extends Fragment {
                             for(int i = 0; i < stocks.length(); i ++) {
                                 try {
                                     Log.d("stocksorderitem", stocks.get(i).toString());
-                                    stocksList.add(new StocksInfo((JSONObject) stocks.get(i)));
+                                    stocksList.add(new StocksOrderModel((JSONObject) stocks.get(i)));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -126,11 +125,12 @@ public class OrderStockFragment extends Fragment {
     }
 
     private void GoToOrder(int position) {
-        StocksInfo stock = stocksList.get(position);
+        StocksOrderModel stock = stocksList.get(position);
         Intent intent = new Intent(getActivity(), StocksOrderActivity.class);
         intent.putExtra("stock_name", stock.getStockSymbol());
         intent.putExtra("stock_limit_price", stock.getStockOrderLimitPrice());
         intent.putExtra("stock_order_shares", stock.getStocksOrderShares());
+        intent.putExtra("stock_est_cost", stock.getStockOrderCost());
         intent.putExtra("stock_order_id", stock.getStockOrderID());
         intent.putExtra("stock_order_side", stock.getStockOrderSide());
         intent.putExtra("stock_order_type", stock.getStockOrderType());

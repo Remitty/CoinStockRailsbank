@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.brian.stocks.R;
-import com.brian.stocks.model.StocksInfo;
+import com.brian.stocks.model.StocksOrderModel;
 
 import java.util.List;
 
 public class StockOrderAdapter extends RecyclerView.Adapter<StockOrderAdapter.OrderViewHolder> {
-    private List<StocksInfo> arrItems;
+    private List<StocksOrderModel> arrItems;
     private StockOrderAdapter.Listener listener;
-    public StockOrderAdapter(List<StocksInfo> arrItems, boolean viewType) {
+    public StockOrderAdapter(List<StocksOrderModel> arrItems, boolean viewType) {
         this.arrItems = arrItems;
     }
 
@@ -48,7 +48,7 @@ public class StockOrderAdapter extends RecyclerView.Adapter<StockOrderAdapter.Or
 
     @Override
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
-        StocksInfo item = arrItems.get(position);
+        StocksOrderModel item = arrItems.get(position);
 
         holder.tvStocksName.setText(item.getStockSymbol());
         holder.tvStocksShared.setText(item.getStocksOrderShares());

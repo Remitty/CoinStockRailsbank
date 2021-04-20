@@ -39,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.parseColor("#3AE57F"));
+//            window.setStatusBarColor(Color.parseColor("#3AE57F"));
         }
 
         mGetStartedButton = findViewById(R.id.getstarted);

@@ -10,8 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
+
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -27,13 +26,12 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
-import com.brian.stocks.model.PositionInfo;
+import com.brian.stocks.model.StocksInfo;
 import com.brian.stocks.predict.AddPredictActivity;
 import com.brian.stocks.stock.stocktrade.StocksTradingActivity;
 import com.brian.stocks.stock.adapter.StocksAdapter;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
-import com.brian.stocks.model.StocksInfo;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -48,7 +46,7 @@ public class StocksFragment extends Fragment {
     private LoadToast loadToast;
     private View rootView;
     private StocksAdapter mAdapter;
-    private List<PositionInfo> stocksList = new ArrayList<>();
+    private List<StocksInfo> stocksList = new ArrayList<>();
     private RecyclerView stocksListView;
     private Handler handler;
     private EditText mEditStockSearch;
@@ -198,14 +196,14 @@ public class StocksFragment extends Fragment {
     }
 
     private void GoToTrade(int position) {
-        PositionInfo stock = stocksList.get(position);
+        StocksInfo stock = stocksList.get(position);
         Intent intent = new Intent(getActivity(), StocksTradingActivity.class);
         intent.putExtra("stock_symbol", stock.getSymbol());
         intent.putExtra("stock_name", stock.getName());
         intent.putExtra("stock_price", stock.getCurrentPrice());
         intent.putExtra("stock_shares", stock.getQty());
         intent.putExtra("stock_avg_price", stock.getAvgPrice());
-        intent.putExtra("stock_equity", stock.getEquity());
+        intent.putExtra("stock_equity", stock.getHolding());
         intent.putExtra("stock_today_change", stock.getChangePrice());
         intent.putExtra("stock_today_change_perc", stock.getChangePricePercent());
         intent.putExtra("type", "stock");
@@ -213,7 +211,7 @@ public class StocksFragment extends Fragment {
     }
 
     private void GoToAddPredict(int position) {
-        PositionInfo stock = stocksList.get(position);
+        StocksInfo stock = stocksList.get(position);
         Intent intent = new Intent(getActivity(), AddPredictActivity.class);
         intent.putExtra("symbol", stock.getSymbol());
         intent.putExtra("name", stock.getName());
@@ -260,7 +258,7 @@ public class StocksFragment extends Fragment {
                                 try {
 
 //                                    StocksInfo stock = new StocksInfo((JSONObject) stocks.get(i));
-                                    stocksList.add(new PositionInfo((JSONObject) stocks.get(i)));
+                                    stocksList.add(new StocksInfo((JSONObject) stocks.get(i)));
 //                                    if(aggregates.length() > 0 && aggregates.length() == stocks.length())
 //                                    aggregates = response.getJSONArray("aggregates");
 //

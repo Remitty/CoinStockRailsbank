@@ -29,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class SendCashActivity extends AppCompatActivity {
 
@@ -90,12 +91,11 @@ public class SendCashActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.toString().equals(""))
-                    s = "0";
-                if(!s.toString().equals(".") && !s.toString().equals("")) {
-                    BigDecimal amount = new BigDecimal(s.toString());
-                    BigDecimal getamount = amount.multiply(new BigDecimal(rate));
-                    tvGet.setText(getamount.toString());
+                String str = s.toString();
+                if(str.equals("") || str.equals("."))
+                    tvGet.setText("0");
+                else {
+                    tvGet.setText(new DecimalFormat("#,###.##").format(Double.parseDouble(rate) * Double.parseDouble(str)));
                 }
             }
 

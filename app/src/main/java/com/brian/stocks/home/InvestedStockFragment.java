@@ -30,7 +30,7 @@ import com.brian.stocks.stock.stocktrade.StocksTradingActivity;
 import com.brian.stocks.home.adapters.OpenPositionAdapter;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
-import com.brian.stocks.model.PositionInfo;
+import com.brian.stocks.model.StocksInfo;
 import com.brian.stocks.stock.stockwithdraw.StockCoinWithdrawActivity;
 import com.squareup.picasso.Picasso;
 
@@ -48,19 +48,15 @@ import java.util.List;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
-import io.socket.engineio.client.transports.Polling;
-import io.socket.engineio.client.transports.WebSocket;
 
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
-import static java.util.Collections.singletonList;
-import static java.util.Collections.singletonMap;
 
 public class InvestedStockFragment extends Fragment {
     private LoadToast loadToast;
     private View rootView;
     private OpenPositionAdapter mAdapter;
-    private List<PositionInfo> stocksList = new ArrayList<>();
+    private List<StocksInfo> stocksList = new ArrayList<>();
     private RecyclerView stocksListView;
     private TextView mTotalBalance, mStockBalance, mTextStockProfit, mTextStockMargin, marketStatus;
     private ImageView icArrow;
@@ -273,7 +269,7 @@ public class InvestedStockFragment extends Fragment {
                                     for(int i = 0; i < stocks.length(); i ++) {
                                         try {
 //                                            Log.d("stocksinvestitem", stocks.get(i).toString());
-                                            stocksList.add(new PositionInfo((JSONObject) stocks.get(i)));
+                                            stocksList.add(new StocksInfo((JSONObject) stocks.get(i)));
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -335,14 +331,14 @@ public class InvestedStockFragment extends Fragment {
     }
 
     private void GoToTrade(int position) {
-        PositionInfo stock = stocksList.get(position);
+        StocksInfo stock = stocksList.get(position);
         Intent intent = new Intent(getActivity(), StocksTradingActivity.class);
         intent.putExtra("stock_symbol", stock.getSymbol());
         intent.putExtra("stock_name", stock.getName());
         intent.putExtra("stock_price", stock.getCurrentPrice());
         intent.putExtra("stock_shares", stock.getQty());
         intent.putExtra("stock_avg_price", stock.getAvgPrice());
-        intent.putExtra("stock_equity", stock.getEquity());
+        intent.putExtra("stock_equity", stock.getHolding());
         intent.putExtra("stock_today_change", stock.getChangePrice());
         intent.putExtra("stock_today_change_perc", stock.getChangePricePercent());
         intent.putExtra("type", "invest");

@@ -19,7 +19,7 @@ import com.anychart.data.Mapping;
 import com.anychart.data.Set;
 
 import com.brian.stocks.R;
-import com.brian.stocks.model.PositionInfo;
+import com.brian.stocks.model.StocksInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,12 +29,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StocksAdapter extends RecyclerView.Adapter<StocksAdapter.OrderViewHolder> {
-    private List<PositionInfo> arrItems;
+    private List<StocksInfo> arrItems;
     private Listener listener;
     private AnyChartView  mStocksChartView;
     private Boolean mViewType;
 
-    public StocksAdapter(List<PositionInfo> arrItems, boolean viewType) {
+    public StocksAdapter(List<StocksInfo> arrItems, boolean viewType) {
         this.arrItems = arrItems;
         mViewType = viewType;
     }
@@ -72,7 +72,7 @@ public class StocksAdapter extends RecyclerView.Adapter<StocksAdapter.OrderViewH
 
     @Override
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
-        PositionInfo item = arrItems.get(position);
+        StocksInfo item = arrItems.get(position);
 
         holder.tvStocksName.setText(item.getName());
         holder.tvStocksSymbol.setText(item.getSymbol());

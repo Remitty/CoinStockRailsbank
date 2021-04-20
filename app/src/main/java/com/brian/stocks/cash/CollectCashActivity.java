@@ -65,25 +65,6 @@ public class CollectCashActivity extends AppCompatActivity {
 
         tvCurrency.setText(currency);
 
-        btnAdd.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(!s.toString().equals(".")) {
-                    BigDecimal amount = new BigDecimal(s.toString());
-                    editAmount.setText(amount.multiply(new BigDecimal("1.0")).toString());
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
