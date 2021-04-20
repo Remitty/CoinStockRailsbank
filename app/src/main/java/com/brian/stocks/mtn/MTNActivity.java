@@ -58,7 +58,7 @@ public class MTNActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mtn);
 
         if(getSupportActionBar() != null) {
-            // getSupportActionBar().setTitle("MTN Service");
+             getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);

@@ -71,7 +71,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
-        // getSupportActionBar().setTitle("STOCK WITHDRAW");
+         getSupportActionBar().setTitle("");
         tab = findViewById(R.id.tab);
         mViewPager = findViewById(R.id.pager);
 

@@ -16,7 +16,7 @@ public class TokenTradingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_x_m_t_trading);
 
         if(getSupportActionBar() != null) {
-            // getSupportActionBar().setTitle("XMT Trading");
+             getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

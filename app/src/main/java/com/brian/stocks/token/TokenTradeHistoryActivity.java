@@ -43,7 +43,7 @@ public class TokenTradeHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_xmt_trade_history);
 
         if(getSupportActionBar() != null) {
-            // getSupportActionBar().setTitle("XMT Trading");
+             getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

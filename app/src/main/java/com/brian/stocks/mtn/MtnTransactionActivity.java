@@ -43,7 +43,7 @@ public class MtnTransactionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mtn_transaction);
 
         if(getSupportActionBar() != null) {
-            // getSupportActionBar().setTitle("MTN Transaction");
+             getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);

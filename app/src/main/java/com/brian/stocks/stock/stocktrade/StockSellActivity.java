@@ -64,7 +64,7 @@ public class StockSellActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
-        // getSupportActionBar().setTitle(mStockSymbol);
+         getSupportActionBar().setTitle("");
 
         initComponents();
 
@@ -247,8 +247,16 @@ public class StockSellActivity extends AppCompatActivity {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getBaseContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getErrorBody());
+                            AlertDialog.Builder alert = new AlertDialog.Builder(StockSellActivity.this);
+                            alert.setIcon(R.mipmap.ic_launcher_round)
+                                    .setTitle("Alert")
+                                    .setMessage(error.getErrorBody())
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .show();
                         }
                     });
     }

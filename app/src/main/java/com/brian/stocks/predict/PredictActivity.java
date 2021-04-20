@@ -52,7 +52,7 @@ public class PredictActivity extends AppCompatActivity {
         setContentView(R.layout.activity_predict);
 
         if(getSupportActionBar() != null){
-            // getSupportActionBar().setTitle("Predict");
+             getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);

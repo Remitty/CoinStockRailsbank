@@ -40,36 +40,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/coin_rate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:textColor="@color/colorBlack"
-                android:text="$ 1234.23"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-                <ImageView
-                    android:id="@+id/ic_arrow"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_up"/>
+                android:orientation="vertical">
                 <TextView
-                    android:id="@+id/coin_effect"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/coin_rate"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="30dp"
                     android:textSize="14dp"
-                    android:textColor="@color/green"
-                    android:text="$ 0.00"/>
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    android:text="$ 1234.23"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ic_arrow"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_up"/>
+                    <TextView
+                        android:id="@+id/coin_effect"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="14dp"
+                        android:textColor="@color/green"
+                        android:text="$ 0.00"/>
+                </LinearLayout>
             </LinearLayout>
+
 
         </LinearLayout>
         <LinearLayout
@@ -89,10 +97,10 @@
                 android:id="@+id/coin_balance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:gravity="right"
                 android:text="0.0001"
-                android:textColor="@color/colorPurple"
+                android:textColor="@color/orange"
                 android:textSize="13dp" />
         </LinearLayout>
     </LinearLayout>

@@ -15,7 +15,7 @@
         android:adjustViewBounds="true"
         android:layout_gravity="center"
         android:layout_marginBottom="50dp"
-        android:src="@drawable/pepe"
+        android:src="@mipmap/ic_launcher_round"
         android:scaleType="centerCrop"
         android:visibility="visible"
          />

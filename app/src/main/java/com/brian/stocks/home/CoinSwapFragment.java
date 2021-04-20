@@ -165,7 +165,7 @@ public class CoinSwapFragment extends Fragment {
         mBtnExchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mEditSendAmount.getText().toString().equals("")) {
+                if(mEditSendAmount.getText().toString().equals("") || sellAmount == 0) {
                     mEditSendAmount.setError("!");
                     return;
                 }

@@ -36,7 +36,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         //loadToast.setBackgroundColor(R.color.colorBlack);
 
         if(getSupportActionBar() != null){
-            // getSupportActionBar().setTitle("Change Password");
+             getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 

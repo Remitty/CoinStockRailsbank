@@ -39,7 +39,7 @@ public class PredictableListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_predictable_list);
 
         if(getSupportActionBar() != null) {
-            // getSupportActionBar().setTitle("Select to predict");
+             getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);

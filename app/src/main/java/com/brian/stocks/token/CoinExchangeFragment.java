@@ -83,6 +83,7 @@ public class CoinExchangeFragment extends Fragment {
     private ArrayList<JSONObject> ordersList = new ArrayList<>();
 
     private String mPair, selType;
+    private Double High = 0.0, Low = 0.0;
     private Double mBTCUSD_rate, mBTCXMT_rate;
     private JSONArray bids = null;
     private JSONArray asks = null;
@@ -156,7 +157,7 @@ public class CoinExchangeFragment extends Fragment {
 
     private void initComponents() {
         mBtnTrade = mView.findViewById(R.id.btn_coin_trade);
-        mBtnTrade.setText("Buy" + tradeCoinSymbol);
+        mBtnTrade.setText("Buy " + tradeCoinSymbol);
         mTextPriceUSD = mView.findViewById(R.id.price_usd);
         mEditQuantity = mView.findViewById(R.id.edit_quantity);
         mEditPrice = mView.findViewById(R.id.edit_price);
@@ -169,11 +170,11 @@ public class CoinExchangeFragment extends Fragment {
         mtvMaxBidQty = mView.findViewById(R.id.max_bid_quantity);
         mtvMaxBidValue = mView.findViewById(R.id.max_bid_value);
 
-        try {
-            mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         mTextOutputTrade = mView.findViewById(R.id.output_trade);
         mTextCoinBuy = mView.findViewById(R.id.coin_buyy);
 
@@ -267,7 +268,7 @@ public class CoinExchangeFragment extends Fragment {
                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
                     alertBuilder.setIcon(R.mipmap.ic_launcher_round)
                             .setTitle("Confirm trade")
-                            .setMessage("Are you sure you want to " + selType + " " + mEditQuantity.getText().toString() + marketCoinSymbol +"?")
+                            .setMessage("Are you sure you want to " + selType + " " + mEditQuantity.getText().toString() + tradeCoinSymbol +"?")
                             .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -290,7 +291,7 @@ public class CoinExchangeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 selType = "buy";
-                mBtnTrade.setText("Buy" + tradeCoinSymbol);
+                mBtnTrade.setText("Buy " + tradeCoinSymbol);
                 mBtnTrade.setBackgroundColor(getResources().getColor(R.color.green));
 
                 mBtnBuy.setTextColor(getResources().getColor(R.color.green));
@@ -309,7 +310,7 @@ public class CoinExchangeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 selType = "sell";
-                mBtnTrade.setText("Sell" + tradeCoinSymbol);
+                mBtnTrade.setText("Sell " + tradeCoinSymbol);
                 mBtnTrade.setBackgroundColor(getResources().getColor(R.color.colorRedCrayon));
 
                 mBtnSell.setTextColor(getResources().getColor(R.color.green));
@@ -372,7 +373,7 @@ public class CoinExchangeFragment extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 changedPrice = true;
                 String str = charSequence.toString();
-                if (str.equals("") && str.equals(".")) {
+                if (str.equals("") || str.equals(".")) {
                     mBTCXMT_rate = 0.0;
                 } else
                     mBTCXMT_rate = mBTCUSD_rate * Double.parseDouble(str);
@@ -573,13 +574,18 @@ public class CoinExchangeFragment extends Fragment {
                                     JSONObject responseObj = null;
                                     mTextChangeVolume.setText("$ "+new DecimalFormat("#,###.##").format(response.getDouble("change_volume")));
                                     mTextChangeRate.setText("$ "+df.format(response.getDouble("change_rate")));
-                                    mTextChangeHigh.setText(new DecimalFormat("#.########").format(response.getDouble("last_high")) +marketCoinSymbol);
-                                    mTextChangeLow.setText(new DecimalFormat("#.########").format(response.getDouble("last_low")) +marketCoinSymbol);
+                                    High = response.getDouble("last_high");
+                                    mTextChangeHigh.setText( new DecimalFormat("#.########").format(High) +marketCoinSymbol);
+                                    Low = response.getDouble("last_low");
+                                    mTextChangeLow.setText( new DecimalFormat("#.########").format(Low) + marketCoinSymbol);
 //                                    mtvOrderSymbol.setText("("+marketCoinSymbol+")");
-
-                                    JSONObject maxBid = response.getJSONObject("max_bid");
-                                    mtvMaxBidQty.setText(new DecimalFormat("#.########").format(maxBid.getDouble("quantity")));
-                                    mtvMaxBidValue.setText(new DecimalFormat("#.########").format(maxBid.getDouble("price")));
+                                    try {
+                                        JSONObject maxBid = response.getJSONObject("max_bid");
+                                        mtvMaxBidQty.setText(new DecimalFormat("#.########").format(maxBid.getDouble("quantity")));
+                                        mtvMaxBidValue.setText(new DecimalFormat("#.########").format(maxBid.getDouble("price")));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
 
                                     mTextCoinBuyBalance.setText(new DecimalFormat("#,###.####").format(response.getDouble("coin2_balance")));
                                     mTextCoinBuy.setText(tradeCoinSymbol);
@@ -806,21 +812,21 @@ public class CoinExchangeFragment extends Fragment {
         try {
             if (selType.equalsIgnoreCase("buy")) {
                 if (asksList.isEmpty()) {
-                    return 0.00000001;
+                    return Low;
                 } else {
                     JSONObject item = asksList.get(0);
                     return item.optDouble("price");
                 }
             } else {
                 if (bidsList.isEmpty()) {
-                    return 0.00000001;
+                    return High;
                 } else {
                     JSONObject item = bidsList.get(0);
                     return item.optDouble("price");
                 }
             }
         } catch (Exception e) {
-            return 0.00000001;
+            return 1.0;
         }
     }
 
@@ -829,19 +835,13 @@ public class CoinExchangeFragment extends Fragment {
         String fixval1, fixval2;
         fixval1 = mEditQuantity.getText().toString();
         if (fixval1 == null || fixval1.isEmpty()) {
-            fixval1 = "0.00000001";
+            fixval1 = "0";
         }
         fixval2 = mEditPrice.getText().toString();
         if (fixval2 == null || fixval2.isEmpty()) {
-            fixval2 = "0.00000001";
+            fixval2 = "0";
         }
         Float calc = Float.parseFloat(fixval1) * Float.parseFloat(fixval2);
-    //Buying "+df.format(Float.parseFloat(fixval1))+" XMT, s
-//        if(selType.equalsIgnoreCase("buy")) {
-//            mTextOutputTrade.setText(df.format(calc)+" BTC");
-//        } else {
-//            mTextOutputTrade.setText(df.format(calc)+" BTC");
-//        }
         mTextOutputTrade.setText(new DecimalFormat("#.########").format(calc) + marketCoinSymbol);
 
     }

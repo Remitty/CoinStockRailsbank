@@ -22,7 +22,7 @@ public class NewsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
-        // getSupportActionBar().setTitle("News");
+         getSupportActionBar().setTitle("");
 
         mNewsTitle = findViewById(R.id.title);
         mNewsSummary = findViewById(R.id.summary);

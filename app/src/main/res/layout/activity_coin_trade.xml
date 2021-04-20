@@ -13,8 +13,8 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            app:tabTextColor="@color/textColorPrimary"
+            android:layout_height="30dp"
+            app:tabTextColor="@color/colorBlack"
             app:tabIndicatorColor="@color/textColorPrimary"
             app:tabIndicatorFullWidth="false"
             app:tabIndicator="@drawable/rounded_corner_white_rectangle"

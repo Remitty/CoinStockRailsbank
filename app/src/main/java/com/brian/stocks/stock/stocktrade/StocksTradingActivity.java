@@ -64,7 +64,7 @@ public class StocksTradingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
-//        // getSupportActionBar().setTitle(R.string.app_name);
+         getSupportActionBar().setTitle("");
 
         initComponents();
 

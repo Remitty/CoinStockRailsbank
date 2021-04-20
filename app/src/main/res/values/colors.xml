@@ -18,6 +18,7 @@
     <color name="gray_text">#8D8D8D</color>
     <color name="green">#3AE57F</color>
     <color name="greenGray">#803AE57F</color>
+    <color name="orange">#FFC107</color>
 
     <color name="tab1">#a0d468</color>
     <color name="tab2">#3498db</color>

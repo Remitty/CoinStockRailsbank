@@ -269,7 +269,16 @@ public class StockReplaceActivity extends AppCompatActivity {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getBaseContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            AlertDialog.Builder alert = new AlertDialog.Builder(StockReplaceActivity.this);
+                            alert.setIcon(R.mipmap.ic_launcher_round)
+                                    .setTitle("Alert")
+                                    .setMessage(error.getErrorBody())
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .show();
                         }
                     });
     }

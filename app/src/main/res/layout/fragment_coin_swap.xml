@@ -321,7 +321,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_gravity="center_horizontal"
-        android:text="Transfer history"
+        android:text="Swap history"
         android:textColor="@color/colorBlue"
         android:textSize="14dp"
         />
