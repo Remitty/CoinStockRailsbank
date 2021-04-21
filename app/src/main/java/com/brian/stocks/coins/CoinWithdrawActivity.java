@@ -52,7 +52,7 @@ import java.util.List;
 public class CoinWithdrawActivity extends AppCompatActivity {
     private static final int REQUEST_PHONE_VERIFICATION = 1080;
     EditText editWithdrawAmount, editAddress;
-    TextView mtvCoin,mtvAvailCoinQty, mTVCoinBalance, mtvWithdrawalFee, mtvWithdrawalFeeSymbol, mtvGasFee, mtvGasFeeSymbol, mtvGetAmount, mtvGetAmountSymbol, mtvWeeklyLimit;
+    TextView mtvCoin,mtvAvailCoinQty, mTVCoinBalance, mtvWithdrawalFee, mtvWithdrawalFeeSymbol, mtvGasFee, mtvGasFeeSymbol, mtvGetAmount, mtvGetAmountSymbol, mtvWeeklyLimit, tvViewHistory;
     ImageView imgIcon;
     Button btnWithdraw;
     BottomCoinAdapter mBottomAdapter;
@@ -65,10 +65,6 @@ public class CoinWithdrawActivity extends AppCompatActivity {
     private List<CoinInfo> coinList = new ArrayList<>();
     private CoinInfo selectedCoin;
 
-    private ArrayList<JSONObject> history = new ArrayList<>();
-    RecyclerView historyView;
-    CoinWithdrawAdapter mAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +74,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setElevation(0);
+        getSupportActionBar().setTitle("");
 
         initComponents();
         initListeners();
@@ -103,6 +100,8 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         mtvWeeklyLimit = findViewById(R.id.tv_weekly_limit);
 
         btnWithdraw = findViewById(R.id.btn_coin_withdraw);
+        tvViewHistory = findViewById(R.id.tv_view_history);
+
 
         View dialogView = getLayoutInflater().inflate(R.layout.coins_bottom_sheet, null);
         dialog = new BottomSheetDialog(this);
@@ -113,13 +112,17 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mBottomAdapter);
 
-        historyView = findViewById(R.id.history_view);
-        historyView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-        mAdapter = new CoinWithdrawAdapter(history);
-        historyView.setAdapter(mAdapter);
+
     }
 
     private void initListeners() {
+
+        tvViewHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CoinWithdrawActivity.this, CoinWithdrawHistoryActivity.class));
+            }
+        });
 
         mtvCoin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,22 +265,6 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                                 CoinUsdc = coin.getCoinUsdc();
                                 Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
 
-                                history.clear();
-                                JSONArray temp = null;
-                                try {
-                                    temp = response.getJSONArray("history");
-                                    for(int i = 0; i < temp.length(); i ++) {
-                                        try {
-                                            history.add(temp.getJSONObject(i));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                    mAdapter.notifyDataSetChanged();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
                             }
                             else {
                                 AlertDialog.Builder alert = new AlertDialog.Builder(CoinWithdrawActivity.this);
@@ -391,20 +378,6 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                                 mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()));
                             }
 
-                            history.clear();
-                            try {
-                                JSONArray temp = response.getJSONArray("history");
-                                for(int i = 0; i < temp.length(); i ++) {
-                                    try {
-                                        history.add(temp.getJSONObject(i));
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                mAdapter.notifyDataSetChanged();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
                         }
 
                         @Override

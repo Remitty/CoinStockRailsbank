@@ -44,10 +44,10 @@ public class CoinDepositHistoryActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setElevation(0);
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setTitle("");
 
         loadToast = new LoadToast(this);
-        //loadToast.setBackgroundColor(R.color.colorBlack);
 
         initComponents();
 

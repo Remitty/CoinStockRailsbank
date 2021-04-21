@@ -53,10 +53,12 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_predict);
+
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("");
         }
         loadToast = new LoadToast(this);
         initComponents();

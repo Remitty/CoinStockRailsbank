@@ -24,7 +24,7 @@ public class StockOrderHistoryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
-//        this.setTitle("Stock Order History");
+        this.setTitle("");
 
         mTabBar = findViewById(R.id.tab_bar);
         mViewPager = findViewById(R.id.ta_view_pager);

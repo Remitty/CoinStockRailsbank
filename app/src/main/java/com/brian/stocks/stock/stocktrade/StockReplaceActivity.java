@@ -38,8 +38,8 @@ import java.text.DecimalFormat;
 
 public class StockReplaceActivity extends AppCompatActivity {
     LoadToast loadToast;
-    private String StockSide, mStockName, mStockSymbol,  mStockBalance, mStockTradeType="market";
-    private Double mStockPrice = 0.0, mStockLimitPrice = 0.0, mEstCost = 0.0, mStockShares = 0.0, mStockOrderShares;
+    private String StockSide, mStockName, mStockSymbol,  mStockTradeType="market";
+    private Double mStockPrice = 0.0, mStockLimitPrice = 0.0, mEstCost = 0.0, mStockShares = 0.0, mStockOrderShares, mStockBalance=0.0;
     EditText mEditShares, mEditStockLimitPrice;
     TextView mTextMktPrice, mTextShareEstCost, mTextStockName, mTextStockSymbol, mTextStockBalance, mTextStockShares;
     LinearLayout llMktPrice, llLimitPrice, llMktPriceLabel, llLimitPriceLabel;
@@ -65,7 +65,7 @@ public class StockReplaceActivity extends AppCompatActivity {
         mStockLimitPrice = Double.parseDouble(getIntent().getStringExtra("stock_limit_price"));
         mStockShares = Double.parseDouble(getIntent().getStringExtra("stock_shares"));
         mStockOrderShares = Double.parseDouble(getIntent().getStringExtra("stock_order_shares"));
-        mEstCost = Double.parseDouble(getIntent().getStringExtra("stock_est_cost"));
+        mEstCost = getIntent().getDoubleExtra("stock_est_cost", 0.0);
 
         initComponents();
 
@@ -78,15 +78,15 @@ public class StockReplaceActivity extends AppCompatActivity {
         mTextStockName.setText(mStockName);
         mTextStockSymbol.setText(mStockSymbol);
 
-        mStockBalance = new DecimalFormat("#,###.##").format(Double.parseDouble(SharedHelper.getKey(getBaseContext(), "stock_balance")));
-        mTextStockBalance.setText("$ "+mStockBalance);
+        mStockBalance = Double.parseDouble(SharedHelper.getKey(getBaseContext(), "stock_balance"));
+        mTextStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(mStockBalance));
 
         mTextStockShares.setText(getIntent().getStringExtra("stock_shares"));
 
-        mEditShares.setText(new DecimalFormat("#,###.####").format(mEstCost));
-
         mStockTradeType = getIntent().getStringExtra("stock_order_type");
-        mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mStockOrderShares));
+
+        mEditShares.setText(new DecimalFormat("#,###.##").format(mStockOrderShares));
+        mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
 
         if(mStockTradeType.equals("limit")){
             llMktPrice.setVisibility(View.GONE);
@@ -116,10 +116,11 @@ public class StockReplaceActivity extends AppCompatActivity {
 
                 String str = charSequence.toString();
                 if(str.equals("") || str.equals("."))
-                    mEstCost = 0.0;
-                else mEstCost = Double.parseDouble(str);
-                mStockShares = mEstCost / mStockPrice;
-                mTextShareEstCost.setText(new DecimalFormat("#,###.####").format(mStockShares));
+                    mStockShares = 0.0;
+                else
+                    mStockShares = Double.parseDouble(str);
+                mEstCost = mStockShares * mStockPrice;
+                mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
 
             @Override
@@ -138,15 +139,15 @@ public class StockReplaceActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 String str = charSequence.toString();
-                if(str.equals("") || str.equals("."))
+                if(str.equals("") || str.equals(".")) {
                     mStockPrice = 0.0;
-                else mStockPrice = Double.parseDouble(str);
+                }
+                else {
+                    mStockPrice = Double.parseDouble(str);
+                }
 
-                if(mStockPrice != 0)
-                    mStockShares = mEstCost / mStockPrice;
-                else mStockShares = 0.0;
-
-                mTextShareEstCost.setText(new DecimalFormat("#,###.####").format(mStockShares));
+                mEstCost = mStockShares * mStockPrice;
+                mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
 
             @Override
@@ -163,7 +164,7 @@ public class StockReplaceActivity extends AppCompatActivity {
 //                    Toast.makeText(getBaseContext(), "Please input shares", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(StockSide.equals("buy") && mEstCost > Double.parseDouble(mStockBalance)){
+                if(StockSide.equals("buy") && mEstCost > mStockBalance){
                     Toast.makeText(getBaseContext(), "Insufficient Funds", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -196,7 +197,7 @@ public class StockReplaceActivity extends AppCompatActivity {
                 dialog.dismiss();
                 if(radioGroup.getCheckedRadioButtonId() == R.id.rdb_limit_price){//limit price
                     String limit =mEditStockLimitPrice.getText().toString();
-                    if(limit.equals(""))
+                    if(limit.equals("") || limit.equals("."))
                         mStockPrice = 0.0;
                     llMktPrice.setVisibility(View.GONE);
                     llLimitPrice.setVisibility(View.VISIBLE);
@@ -208,8 +209,8 @@ public class StockReplaceActivity extends AppCompatActivity {
                     mStockTradeType = "market";
                 }
 
-                mStockShares = mEstCost / mStockPrice;
-                mTextShareEstCost.setText(new DecimalFormat("#,###.####").format(mStockShares));
+                mEstCost = mStockShares * mStockPrice;
+                mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
         });
     }
@@ -259,9 +260,9 @@ public class StockReplaceActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
                             loadToast.success();
-                            mStockBalance = new DecimalFormat("#,###.##").format(response.optDouble("stock_balance"));
-                            mTextStockBalance.setText("$ "+mStockBalance);
-                            SharedHelper.putKey(getBaseContext(), "stock_balance", mStockBalance);
+                            mStockBalance = response.optDouble("stock_balance");
+                            mTextStockBalance.setText("$ "+new DecimalFormat("#,###.##").format(mStockBalance));
+                            SharedHelper.putKey(getBaseContext(), "stock_balance", mStockBalance+"");
                             Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                         }
 

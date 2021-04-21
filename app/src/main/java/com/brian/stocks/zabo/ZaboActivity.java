@@ -52,6 +52,7 @@ public class ZaboActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
+            getSupportActionBar().setTitle("");
         }
 
         if(getIntent().getDataString() != null) {

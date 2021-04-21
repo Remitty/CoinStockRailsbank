@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="40dp"
-                android:paddingVertical="20dp"
+                android:paddingVertical="0dp"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                         android:id="@+id/stock_symbol"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="0dp"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         android:textColor="@color/colorBlack"
@@ -46,14 +46,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/rounded_corner_white_rectangle"
                     android:orientation="horizontal">
                     <LinearLayout
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
+                        android:padding="5dp"
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
+                        android:padding="5dp"
                         android:layout_marginLeft="20dp"
                         android:orientation="vertical">
                         <TextView
@@ -122,7 +122,7 @@
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Enter amount ($)"
+                            android:text="Enter shares"
                             android:textSize="16dp"
                             android:textColor="@color/colorBlack"/>
                         <EditText
@@ -245,7 +245,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Est. shares"
+                            android:text="Est. price ($)"
                             android:textSize="16dp"
                             android:textColor="@color/colorBlack"/>
                         <TextView

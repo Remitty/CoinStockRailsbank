@@ -98,10 +98,11 @@ public class StockSellActivity extends AppCompatActivity {
 
                 String str = charSequence.toString();
                 if(str.equals("") || str.equals("."))
-                    mEstCost = 0.0;
-                else mEstCost = Double.parseDouble(str);
-                mStockOrderShares = mEstCost / mStockPrice;
-                mTextShareEstCost.setText(new DecimalFormat("#,###.####").format(mStockOrderShares));
+                    mStockShares = 0.0;
+                else
+                    mStockShares = Double.parseDouble(str);
+                mEstCost = mStockShares * mStockPrice;
+                mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
 
             @Override
@@ -119,15 +120,15 @@ public class StockSellActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String str = charSequence.toString();
-                if(str.equals("") || str.equals("."))
+                if(str.equals("") || str.equals(".")) {
                     mStockPrice = 0.0;
-                else mStockPrice = Double.parseDouble(str);
+                }
+                else {
+                    mStockPrice = Double.parseDouble(str);
+                }
 
-                if(mStockPrice != 0)
-                    mStockOrderShares = mEstCost / mStockPrice;
-                else mStockOrderShares = 0.0;
-
-                mTextShareEstCost.setText(new DecimalFormat("#,###.####").format(mStockOrderShares));
+                mEstCost = mStockShares * mStockPrice;
+                mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
 
             @Override
@@ -176,7 +177,7 @@ public class StockSellActivity extends AppCompatActivity {
                 dialog.dismiss();
                 if(radioGroup.getCheckedRadioButtonId() == R.id.rdb_limit_price){//limit price
                     String limit =mEditStockLimitPrice.getText().toString();
-                    if(limit.equals(""))
+                    if(limit.equals("") || limit.equals("."))
                         mStockPrice = 0.0;
                     llMktPrice.setVisibility(View.GONE);
                     llLimitPrice.setVisibility(View.VISIBLE);
@@ -188,8 +189,8 @@ public class StockSellActivity extends AppCompatActivity {
                     mStockTradeType = "market";
                 }
 
-                mStockOrderShares = mEstCost / mStockPrice;
-                mTextShareEstCost.setText(new DecimalFormat("#,###.####").format(mStockOrderShares));
+                mEstCost = mStockShares * mStockPrice;
+                mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
         });
     }

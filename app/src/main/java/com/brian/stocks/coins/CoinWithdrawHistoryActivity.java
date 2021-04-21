@@ -13,9 +13,11 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
+import com.brian.stocks.coins.adapter.CoinWithdrawAdapter;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
 import com.brian.stocks.home.adapters.CoinConversionAdapter;
+import com.brian.stocks.model.CoinInfo;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -23,34 +25,42 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CoinWithdrawHistoryActivity extends AppCompatActivity {
     private LoadToast loadToast;
 
-    CoinConversionAdapter conversionAdapter;
-    private RecyclerView conversionView;
-    private ArrayList<JSONObject> conversionList = new ArrayList<>();
+    private ArrayList<JSONObject> history = new ArrayList<>();
+    RecyclerView historyView;
+    CoinWithdrawAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_withdraw_history);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setTitle("");
+
         loadToast = new LoadToast(this);
 
-        conversionView = findViewById(R.id.list_conversion_view);
-        conversionAdapter = new CoinConversionAdapter(conversionList);
-        conversionView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-        conversionView.setAdapter(conversionAdapter);
+        historyView = findViewById(R.id.history_view);
+        historyView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        mAdapter = new CoinWithdrawAdapter(history);
+        historyView.setAdapter(mAdapter);
 
-        loadHistory();
+        getWithdrawHistory();
     }
 
-    private void loadHistory() {
+    private void getWithdrawHistory() {
         loadToast.show();
 
         if(getBaseContext() != null)
-            AndroidNetworking.get(URLHelper.GET_COIN_EXCHANGE_LIST)
+            AndroidNetworking.get(URLHelper.COIN_WITHDRAW)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
                     .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))
@@ -59,27 +69,23 @@ public class CoinWithdrawHistoryActivity extends AppCompatActivity {
                     .getAsJSONObject(new JSONObjectRequestListener() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d("coin assets response", "" + response);
+                            Log.d("coin withdraw history ", "" + response);
                             loadToast.success();
-                            conversionList.clear();
 
-                            JSONArray history = null;
+                            history.clear();
                             try {
-                                history = response.getJSONArray("data");
-                                if(history != null) {
-                                    for (int i = 0; i < history.length(); i++) {
-                                        try {
-                                            conversionList.add(history.getJSONObject(i));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
+                                JSONArray temp = response.getJSONArray("history");
+                                for(int i = 0; i < temp.length(); i ++) {
+                                    try {
+                                        history.add(temp.getJSONObject(i));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
-                                    conversionAdapter.notifyDataSetChanged();
                                 }
+                                mAdapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
                         }
 
                         @Override
@@ -87,8 +93,19 @@ public class CoinWithdrawHistoryActivity extends AppCompatActivity {
                             loadToast.error();
                             // handle error
                             Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getErrorBody());
+                            Log.d("errorm", "" + error.getMessage());
                         }
                     });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

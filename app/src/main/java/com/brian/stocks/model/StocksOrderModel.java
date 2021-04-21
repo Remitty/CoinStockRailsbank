@@ -74,11 +74,12 @@ public class StocksOrderModel {
         }
     }
 
-    public String getStockOrderCost(){
+    public Double getStockOrderCost(){
         try {
-            return new DecimalFormat("#,###.##").format(data.getDouble("est_cost"));
+//            return new DecimalFormat("#,###.##").format(data.getDouble("est_cost"));
+            return data.getDouble("est_cost");
         } catch (JSONException e) {
-            return  "";
+            return  0.0;
         }
     }
 

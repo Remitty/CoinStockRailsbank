@@ -36,6 +36,11 @@ public class CoinSwapHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_swap_history);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setTitle("");
+
         loadToast = new LoadToast(this);
 
         conversionView = findViewById(R.id.list_conversion_view);
@@ -90,5 +95,16 @@ public class CoinSwapHistoryActivity extends AppCompatActivity {
                             Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

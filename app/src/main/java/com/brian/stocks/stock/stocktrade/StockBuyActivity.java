@@ -136,11 +136,11 @@ public class StockBuyActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String str = charSequence.toString();
                 if(str.equals("") || str.equals("."))
-                    mEstCost = 0.0;
+                    mStockShares = 0.0;
                 else
-                    mEstCost = Double.parseDouble(str);
-                mStockShares = mEstCost / mStockPrice;
-                mTextShareEstCost.setText(new DecimalFormat("#,###.####").format(mStockShares));
+                    mStockShares = Double.parseDouble(str);
+                mEstCost = mStockShares * mStockPrice;
+                mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
 
             @Override
@@ -166,10 +166,8 @@ public class StockBuyActivity extends AppCompatActivity {
                     mStockPrice = Double.parseDouble(str);
                 }
 
-                if(mStockPrice != 0)
-                    mStockShares = mEstCost / mStockPrice;
-                else mStockShares = 0.0;
-                mTextShareEstCost.setText(new DecimalFormat("#,###.####").format(mStockShares));
+                mEstCost = mStockShares * mStockPrice;
+                mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
 
             @Override
@@ -185,7 +183,7 @@ public class StockBuyActivity extends AppCompatActivity {
                 dialog.dismiss();
                 if(radioGroup.getCheckedRadioButtonId() == R.id.rdb_limit_price){//limit price
                     String limit =mEditStockLimitPrice.getText().toString();
-                    if(limit.equals(""))
+                    if(limit.equals("") || limit.equals("."))
                         mStockPrice = 0.0;
                     llMktPrice.setVisibility(View.GONE);
                     llLimitPrice.setVisibility(View.VISIBLE);
@@ -197,8 +195,8 @@ public class StockBuyActivity extends AppCompatActivity {
                     mStockTradeType = "market";
                 }
 
-                mStockShares = mEstCost / mStockPrice;
-                mTextShareEstCost.setText(new DecimalFormat("#,###.####").format(mStockShares));
+                mEstCost = mStockShares * mStockPrice;
+                mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
         });
     }

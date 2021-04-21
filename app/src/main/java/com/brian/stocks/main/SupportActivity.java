@@ -37,6 +37,7 @@ public class SupportActivity extends AppCompatActivity implements View.OnClickLi
         if(getSupportActionBar() != null) {
              getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         loadToast = new LoadToast(this);

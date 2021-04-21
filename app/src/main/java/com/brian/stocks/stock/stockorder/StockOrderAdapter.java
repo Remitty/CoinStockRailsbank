@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.brian.stocks.R;
 import com.brian.stocks.model.StocksOrderModel;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class StockOrderAdapter extends RecyclerView.Adapter<StockOrderAdapter.OrderViewHolder> {
@@ -56,7 +57,7 @@ public class StockOrderAdapter extends RecyclerView.Adapter<StockOrderAdapter.Or
         holder.tvStocksOrderSide.setText(item.getStockOrderSide());
         holder.tvStocksOrderStatus.setText(item.getStockOrderStatus());
         holder.tvStocksOrderDate.setText(item.getStockOrderDate());
-        holder.tvStocksOrderCost.setText("$ "+item.getStockOrderCost());
+        holder.tvStocksOrderCost.setText("$ "+ new DecimalFormat("#,###.##").format(item.getStockOrderCost()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

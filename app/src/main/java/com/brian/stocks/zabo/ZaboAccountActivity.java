@@ -48,6 +48,7 @@ public class ZaboAccountActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
+            getSupportActionBar().setTitle("");
         }
 
         accountId = getIntent().getStringExtra("account_id");

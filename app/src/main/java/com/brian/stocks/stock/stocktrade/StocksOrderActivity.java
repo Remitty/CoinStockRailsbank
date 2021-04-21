@@ -177,7 +177,7 @@ public class StocksOrderActivity extends AppCompatActivity {
         intent.putExtra("stock_order_id", mIntent.getStringExtra("stock_order_id"));
         intent.putExtra("stock_shares", shares);
         intent.putExtra("stock_order_shares", mIntent.getStringExtra("stock_order_shares"));
-        intent.putExtra("stock_est_cost", mIntent.getStringExtra("stock_est_cost"));
+        intent.putExtra("stock_est_cost", mIntent.getDoubleExtra("stock_est_cost", 0.0));
         intent.putExtra("stock_order_type", mIntent.getStringExtra("stock_order_type"));
         intent.putExtra("stock_balance", StockBalance);
         intent.putExtra("stock_side", StockSide);
