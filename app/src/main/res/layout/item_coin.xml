@@ -85,12 +85,13 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+                android:paddingLeft="40dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/coin_est_usdc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="left"
                 android:textSize="14dp"
                 android:textStyle="bold"
                 android:textColor="@color/colorBlack"
@@ -100,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="0.0001"
                 android:textStyle="bold"
                 android:textColor="@color/orange"

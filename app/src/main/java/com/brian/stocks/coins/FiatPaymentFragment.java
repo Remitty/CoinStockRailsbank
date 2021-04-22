@@ -239,7 +239,7 @@ public class FiatPaymentFragment extends Fragment {
     }
 
     private void doOnramp(String symbol, String address) {
-        String coin_address = "&defaultAddrs="+symbol+":"+address;
+        String coin_address = "&wallets="+symbol+":"+address;
 //                                    String coin_address = "";
         String excludeCryptos = "&excludeCryptos=EOS,USDT,XLM,BUSD,GUSD,HUSD,PAX,USDS";
         String url = "https://widget.onramper.com?color=1d2d50&apiKey="+mOnramperApikey+"&defaultCrypto="

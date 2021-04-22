@@ -176,11 +176,12 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "You have to request amount than " + Fee + " at least.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Double total = Double.parseDouble(amount) - Double.parseDouble(Fee);
+                String total = new DecimalFormat("#,###.####").format(Double.parseDouble(amount) - Double.parseDouble(Fee));
                 new AlertDialog.Builder(CoinWithdrawActivity.this)
-                        .setTitle(getString(R.string.app_name))
-                        .setMessage("Are you sure you want to withdraw " + amount + " ? Fee is " + Fee + ". Total is " + total + ".")
-                        .setPositiveButton("Yes",
+                        .setIcon(R.mipmap.ic_launcher_round)
+                        .setTitle("Confirm")
+                        .setMessage("Are you sure you want to withdraw " + amount + Coin + " ? Fee is " + Fee + Coin + ".\nTotal is " + total + Coin + ".\n" + SharedHelper.getKey(getBaseContext(), "msgCoinWithdrawFeePolicy"))
+                        .setPositiveButton("Confirm",
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {

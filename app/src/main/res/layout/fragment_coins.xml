@@ -99,6 +99,7 @@
             android:backgroundTint="@color/colorRedCrayon"
             android:textColor="@color/white"
             android:text="Deposit"
+            android:textSize="12dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"/>
         <com.google.android.material.button.MaterialButton
@@ -108,6 +109,7 @@
             android:backgroundTint="@color/green"
             android:textColor="@color/white"
             android:text="Withdraw"
+            android:textSize="12dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"/>
         <com.google.android.material.button.MaterialButton
@@ -117,6 +119,7 @@
             android:backgroundTint="@color/colorBlue"
             android:textColor="@color/white"
             android:text="Buy/Sell"
+            android:textSize="12dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"/>
     </LinearLayout>
@@ -151,7 +154,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Holdings"
-            android:gravity="right"
+            android:gravity="left"
+            android:paddingLeft="40dp"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
             android:textSize="14dp"

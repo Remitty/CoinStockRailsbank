@@ -143,6 +143,9 @@ public class TransferCoinFragment extends Fragment {
                                 String msg3 = response.getString("msgStockTradeFeePolicy");
                                 SharedHelper.putKey(getContext(), "msgStockTradeFeePolicy", msg3);
 
+                                String msg4 = response.getString("msgCoinWithdrawFeePolicy");
+                                SharedHelper.putKey(getContext(), "msgCoinWithdrawFeePolicy", msg4);
+
                                 JSONArray news = response.getJSONArray("news");
                                 for (int i = 0; i < news.length(); i ++) {
                                     newsList.add(new NewsInfo(news.getJSONObject(i)));

@@ -87,10 +87,10 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
 //            holder.tvCoinBalance.setText("0.00"+ " " + item.getCoinSymbol());
 //        }
 //        else {
-            holder.tvCoinBalance.setText(item.getCoinBalance());
+            holder.tvCoinBalance.setText(String.format("%.4f", Double.parseDouble(item.getCoinBalance())));
             holder.tvCoinBalance.setVisibility(View.VISIBLE);
 //        }
-            holder.tvCoinEstAmount.setText("$ " + item.getCoinUsdc());
+            holder.tvCoinEstAmount.setText(String.format("$ %.2f", Double.parseDouble(item.getCoinUsdc())));
 //        if(!item.getCoinSymbol().equals("DAI"))
             Picasso.with(mContext)
                 .load(item.getCoinIcon())
