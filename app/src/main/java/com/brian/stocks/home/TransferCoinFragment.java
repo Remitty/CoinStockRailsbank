@@ -134,11 +134,13 @@ public class TransferCoinFragment extends Fragment {
                                 usdcBalance = response.getDouble("usdc_balance");
                                 tvBalance.setText(new DecimalFormat("###,###.##").format(usdcBalance));
 
+                                String msg1 = response.getString("msgMarginAccountUsagePolicy");
+                                SharedHelper.putKey(getContext(), "msgMarginAccountUsagePolicy", msg1);
+
                                 JSONArray news = response.getJSONArray("news");
                                 for (int i = 0; i < news.length(); i ++) {
                                     newsList.add(new NewsInfo(news.getJSONObject(i)));
                                 }
-
                                 mAdapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();

@@ -74,7 +74,8 @@ public class StocksInfo {
 
     public String getProfit(){
         try {
-            return new DecimalFormat("#,###.##").format(data.getDouble("profit"));
+//            return new DecimalFormat("#,###.##").format(data.getDouble("profit"));
+            return String.format("%.2f", data.getDouble("profit"));
         } catch (JSONException e) {
             return "0.0";
         }

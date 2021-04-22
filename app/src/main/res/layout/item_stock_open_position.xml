@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginHorizontal="10dp"
         >
         <LinearLayout
             android:layout_weight="1"
@@ -18,16 +19,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/stock_symbol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:textSize="11dp"
-                android:textStyle="bold"
+                android:text="AAPL"
                 android:textColor="@color/colorBlue"
-                android:text="AAPL"/>
+                android:textSize="12dp"
+                android:textStyle="bold" />
             <LinearLayout
                 android:layout_weight="1"
                 android:layout_width="match_parent"
@@ -41,8 +43,9 @@
                     android:layout_height="wrap_content"
                     android:textSize="11dp"
                     android:textColor="@color/colorPurple"
+                    android:textStyle="bold"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="0dp"
                     android:maxLines="1"
                     android:text="0"/>
                 <TextView
@@ -60,7 +63,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="3dp"
+            android:layout_marginHorizontal="0dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/stocks_price"
@@ -68,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textSize="13dp"
+                android:textStyle="bold"
                 android:maxLines="1"
                 android:textColor="@color/colorBlack"
                 android:text="$ 2456.23"/>
@@ -77,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:layout_marginTop="3dp"
+                android:textStyle="bold"
                 android:textSize="13dp"
                 android:maxLines="1"
                 android:textColor="@color/green"
@@ -95,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
+                android:textStyle="bold"
                 android:maxLines="1"
                 android:textColor="@color/colorBlack"
                 android:text="$ 2456.23"/>
@@ -112,19 +118,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
-                android:gravity="left"
+                android:gravity="right"
+                android:textAlignment="textStart"
+                android:textStyle="bold"
                 android:maxLines="1"
                 android:textColor="@color/green"
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginHorizontal="0dp"
                 android:text="$ 0.0"/>
-
+            <ImageView
+                android:id="@+id/ic_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="0dp"
+                android:src="@drawable/ic_up"/>
         </LinearLayout>
-        <ImageView
-            android:id="@+id/ic_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/ic_up"/>
+
     </LinearLayout>
     <TextView
         android:id="@+id/stock_name"

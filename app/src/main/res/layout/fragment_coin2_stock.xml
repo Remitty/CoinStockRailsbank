@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".stock.Coin2StockFragment">
+    tools:context=".stock.deposit.Coin2StockFragment">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -171,69 +171,24 @@
                 android:textColor="@color/colorBlack"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_transfer_funds"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/green"
                 app:cornerRadius="20dp"
                 android:paddingHorizontal="40dp"
                 android:textSize="15dp"
                 android:text="transfer now"/>
+            <TextView
+                android:id="@+id/tv_view_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Transfer History"
+                android:textColor="@color/colorBlue"/>
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="20dp"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:textColor="@color/colorBlack"
-                android:text="Amount"/>
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:text="Received"/>
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:visibility="visible"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:text="Status"/>
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:text="Date"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginVertical="10dp"
-            android:background="@color/darkBlue"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_transfer_view"
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+
 </LinearLayout>

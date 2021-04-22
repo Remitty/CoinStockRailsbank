@@ -1,8 +1,9 @@
-package com.brian.stocks.stock;
+package com.brian.stocks.stock.deposit;
 
 import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,12 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,30 +27,25 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
-import com.brian.stocks.model.BankInfo;
-import com.brian.stocks.model.TransferInfo;
 import com.brian.stocks.stock.adapter.StockTransferAdapter;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 public class Bank2StockFragment extends Fragment {
     View mView;
     String stockBalance, bankBalance;
 
-    RecyclerView mTransferListView;
-    StockTransferAdapter mTransferAdapter;
-
     TextView mStockBalance, mBankBalance;
     EditText mEditAmount;
     CheckBox mChkMargin;
     Button mBtnTransfer;
+    TextView tvViewHistory;
+
     private LoadToast loadToast;
 
     public Bank2StockFragment() {
@@ -95,8 +89,8 @@ public class Bank2StockFragment extends Fragment {
         mBankBalance = mView.findViewById(R.id.bank_balance);
         mEditAmount = mView.findViewById(R.id.edit_transfer_amount);
         mBtnTransfer = mView.findViewById(R.id.btn_transfer_funds);
-        mTransferListView = mView.findViewById(R.id.list_transfer_view);
         mChkMargin = mView.findViewById(R.id.chk_margin);
+        tvViewHistory = mView.findViewById(R.id.tv_view_history);
     }
 
     private void initListeners() {
@@ -121,13 +115,46 @@ public class Bank2StockFragment extends Fragment {
                     showTransferConfirmAlertDialog();
             }
         });
+
+        tvViewHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), Bank2StockHistoryActivity.class));
+            }
+        });
+
+        mChkMargin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Confirm")
+                            .setIcon(R.mipmap.ic_launcher_round)
+                            .setMessage(SharedHelper.getKey(getContext(), "msgMarginAccountUsagePolicy"))
+                            .setCancelable(false);
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mChkMargin.setChecked(false);
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
+            }
+        });
     }
 
     private void showTransferConfirmAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         builder.setTitle(getContext().getResources().getString(R.string.app_name))
-                .setIcon(R.mipmap.ic_launcher)
+                .setIcon(R.mipmap.ic_launcher_round)
                 .setMessage("Are you sure transfer $ " + mEditAmount.getText()+"?")
                 .setCancelable(false);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -150,7 +177,7 @@ public class Bank2StockFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         builder.setTitle(getContext().getResources().getString(R.string.app_name))
-                .setIcon(R.mipmap.ic_launcher)
+                .setIcon(R.mipmap.ic_launcher_round)
                 .setMessage("Do you want to transfer $ " + mEditAmount.getText()+" into your margin account?")
                 .setCancelable(false);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

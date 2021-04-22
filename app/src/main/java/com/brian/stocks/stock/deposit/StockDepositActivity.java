@@ -1,11 +1,10 @@
-package com.brian.stocks.stock;
+package com.brian.stocks.stock.deposit;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.androidnetworking.AndroidNetworking;
@@ -15,9 +14,10 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
-import com.brian.stocks.model.BankInfo;
 import com.brian.stocks.model.TransferInfo;
 import com.brian.stocks.stock.adapter.StockDepositPageAdapter;
+import com.brian.stocks.stock.deposit.Bank2StockFragment;
+import com.brian.stocks.stock.deposit.Coin2StockFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import net.steamcrafted.loadtoast.LoadToast;
@@ -37,7 +37,6 @@ public class StockDepositActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     String mCoinBalance="0", mStockBalance="0", mUSDBalance="0", coinUSD ="0";
-    private List<TransferInfo> coinStocksList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,7 @@ public class StockDepositActivity extends AppCompatActivity {
         tab = findViewById(R.id.tab);
         mViewPager = findViewById(R.id.pager);
 
-        mPageAdapter=new StockDepositPageAdapter(this.getSupportFragmentManager(), mStockBalance, mCoinBalance, coinUSD, mUSDBalance,  coinStocksList);
+        mPageAdapter=new StockDepositPageAdapter(this.getSupportFragmentManager(), mStockBalance, mCoinBalance, coinUSD, mUSDBalance);
 
         tab.setupWithViewPager(mViewPager);
 
@@ -86,18 +85,7 @@ public class StockDepositActivity extends AppCompatActivity {
                             coinUSD = response.optString("usdc_est_usd");
                             mUSDBalance = response.optString("bank_usd_balance");
 
-                            coinStocksList.clear();
-
-                            JSONArray stocks = response.optJSONArray("coin_stock_transfer");
-                            for(int i = 0; i < stocks.length(); i ++) {
-                                try {
-                                    coinStocksList.add(new TransferInfo((JSONObject) stocks.get(i)));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            mPageAdapter.add(Coin2StockFragment.newInstance(mStockBalance, mCoinBalance, coinUSD, coinStocksList));
+                            mPageAdapter.add(Coin2StockFragment.newInstance(mStockBalance, mCoinBalance, coinUSD));
                             mPageAdapter.add(Bank2StockFragment.newInstance(mStockBalance, mUSDBalance));
                             mViewPager.setAdapter(mPageAdapter);
                             mPageAdapter.notifyDataSetChanged();

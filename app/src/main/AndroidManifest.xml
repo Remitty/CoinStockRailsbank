@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".coins.CoinWithdrawHistoryActivity"></activity>
+        <activity android:name=".stock.deposit.Coin2StockHistoryActivity"></activity>
+        <activity android:name=".stock.deposit.Bank2StockHistoryActivity" />
+        <activity android:name=".coins.CoinWithdrawHistoryActivity" />
         <activity android:name=".coins.CoinSwapHistoryActivity" />
         <activity android:name=".token.TokenOrderBookActivity" />
         <activity android:name=".coins.CoinTradeActivity" />
@@ -72,7 +74,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".stock.stockwithdraw.StockCoinWithdrawActivity" />
         <activity android:name=".stock.stocktrade.StockReplaceActivity" />
-        <activity android:name=".stock.StockDepositActivity" />
+        <activity android:name=".stock.deposit.StockDepositActivity" />
         <activity android:name=".coins.CoinWithdrawActivity" />
         <activity android:name=".stock.StockNewsActivity" />
         <activity android:name=".coins.CoinDepositHistoryActivity" />

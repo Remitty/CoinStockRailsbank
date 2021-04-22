@@ -24,7 +24,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
-import com.brian.stocks.stock.StockDepositActivity;
+import com.brian.stocks.stock.deposit.StockDepositActivity;
 import com.brian.stocks.stock.StocksActivity;
 import com.brian.stocks.stock.stocktrade.StocksTradingActivity;
 import com.brian.stocks.home.adapters.OpenPositionAdapter;

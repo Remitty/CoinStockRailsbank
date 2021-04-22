@@ -1,8 +1,9 @@
-package com.brian.stocks.stock;
+package com.brian.stocks.stock.deposit;
 
 import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,10 +51,9 @@ public class Coin2StockFragment extends Fragment {
     ImageView mCoinIcon;
     EditText mEditAmount;
     Button mBtnTransfer;
+    TextView tvViewHistory;
     CheckBox mChkMargin;
-    RecyclerView mTransferListView;
-    StockTransferAdapter mTransferAdapter;
-    private List<TransferInfo> stocksList = new ArrayList<>();
+
     View mView;
     BottomCoinAdapter mAdapter;
     private RecyclerView recyclerView;
@@ -68,12 +69,11 @@ public class Coin2StockFragment extends Fragment {
     }
 
 
-    public static Coin2StockFragment newInstance(String stockBalance, String coinBalance, String coinUSD, List<TransferInfo> coinStocksList){
+    public static Coin2StockFragment newInstance(String stockBalance, String coinBalance, String coinUSD){
         Coin2StockFragment fragment = new Coin2StockFragment();
         fragment.stockBalance = stockBalance;
         fragment.coinBalance = coinBalance;
         fragment.coinUSD = coinUSD;
-        fragment.stocksList = coinStocksList;
         return fragment;
     }
 
@@ -94,23 +94,9 @@ public class Coin2StockFragment extends Fragment {
 
         initListeners();
 
-//        mCoinBalance.setText(CoinBalance);
-//        mCoinSymbol.setText(CoinSymbol);
-//        mCoinUsdc.setText("( $ "+CoinUsdc+" )");
-
-//        Picasso.with(getContext())
-//                .load(CoinIcon)
-//                .placeholder(R.drawable.coin_bitcoin)
-//                .error(R.drawable.coin_bitcoin)
-//                .into(mCoinIcon);
-
         mCoinBalance.setText(new DecimalFormat("#,###.##").format(Double.parseDouble(coinBalance)));
         mCoinUsdc.setText("($ " + coinUSD+")");
         mStockBalance.setText("$ "+new DecimalFormat("#,###.##").format(Double.parseDouble(stockBalance)));
-
-        mTransferAdapter = new StockTransferAdapter(stocksList, true);
-        mTransferListView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mTransferListView.setAdapter(mTransferAdapter);
 
        return mView;
 
@@ -163,6 +149,39 @@ public class Coin2StockFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+
+        tvViewHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), Coin2StockHistoryActivity.class));
+            }
+        });
+
+        mChkMargin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Confirm")
+                            .setIcon(R.mipmap.ic_launcher_round)
+                            .setMessage(SharedHelper.getKey(getContext(), "msgMarginAccountUsagePolicy"))
+                            .setCancelable(false);
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mChkMargin.setChecked(false);
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
+            }
+        });
     }
 
     private void initComponents() {
@@ -173,8 +192,8 @@ public class Coin2StockFragment extends Fragment {
         mEditAmount = mView.findViewById(R.id.edit_transfer_amount);
         mBtnTransfer = mView.findViewById(R.id.btn_transfer_funds);
         mCoinIcon = mView.findViewById(R.id.coin_icon);
-        mTransferListView = mView.findViewById(R.id.list_transfer_view);
         mChkMargin = mView.findViewById(R.id.chk_margin);
+        tvViewHistory = mView.findViewById(R.id.tv_view_history);
 
         View dialogView = getLayoutInflater().inflate(R.layout.coins_bottom_sheet, null);
         dialog = new BottomSheetDialog(getContext());
@@ -188,15 +207,20 @@ public class Coin2StockFragment extends Fragment {
 
     private void showTransferConfirmAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         builder.setTitle(getContext().getResources().getString(R.string.app_name))
-                .setIcon(R.mipmap.ic_launcher)
-                .setMessage("Are you sure transfer $ " + mEditAmount.getText()+"?")
+                .setIcon(R.mipmap.ic_launcher_round)
+                .setMessage("Are you sure transfer " + mEditAmount.getText()+"USDC ?")
                 .setCancelable(false);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 onTransferFunds();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
             }
         });
         AlertDialog alertDialog = builder.create();
@@ -207,13 +231,19 @@ public class Coin2StockFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         builder.setTitle(getContext().getResources().getString(R.string.app_name))
-                .setIcon(R.mipmap.ic_launcher)
-                .setMessage("Do you want to transfer $ " + mEditAmount.getText()+" into your margin account?")
+                .setIcon(R.mipmap.ic_launcher_round)
+                .setMessage("Do you want to transfer " + mEditAmount.getText()+"USDC into your margin account?")
                 .setCancelable(false);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 showTransferConfirmAlertDialog();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
             }
         });
         AlertDialog alertDialog = builder.create();
@@ -247,26 +277,7 @@ public class Coin2StockFragment extends Fragment {
                             Log.d("response", "" + response);
                             loadToast.success();
 
-                            stocksList.clear();
                             if(response.optBoolean("success")) {
-                                JSONArray stocks = null;
-                                try {
-                                    stocks = response.getJSONArray("stock_transfer");
-                                    for (int i = 0; i < stocks.length(); i++) {
-                                        try {
-                                            Log.d("transferitem", stocks.get(i).toString());
-                                            stocksList.add(new TransferInfo((JSONObject) stocks.get(i)));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                    mTransferAdapter.notifyDataSetChanged();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-
-//                            CoinUsdc = BigDecimalDouble.newInstance().sub(CoinUsdc, mEditAmount.getText().toString());
 
                                 try {
                                     mStockBalance.setText("$ " + response.getString("stock_balance"));
