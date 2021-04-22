@@ -178,13 +178,15 @@ public class CoinSwapFragment extends Fragment {
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                     alert.setIcon(R.mipmap.ic_launcher_round)
                             .setTitle("Confirm Swap")
-                            .setMessage("Please confirm your transaction.")
+                            .setMessage("Please confirm your transaction.\n" +  SharedHelper.getKey(getContext(), "msgCoinSwapFeePolicy"))
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     doExchange();
                                 }
-                            }).show();
+                            })
+                            .setNegativeButton("No", null)
+                            .show();
 
             }
         });

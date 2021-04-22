@@ -40,7 +40,8 @@ public class StocksInfo {
 
     public String getAvgPrice() {
         try {
-            return new DecimalFormat("#,###.##").format(data.getDouble("avg_price"));
+            return data.getString("avg_price");
+//            return new DecimalFormat("#,###.##").format(data.getDouble("avg_price"));
         } catch (JSONException e) {
             return "0.0";
         }
@@ -48,6 +49,7 @@ public class StocksInfo {
 
     public String getCurrentPrice(){
         try {
+//            return data.getString("current_price");
             return new DecimalFormat("#,###.##").format(data.getDouble("current_price"));
         } catch (JSONException e) {
             return "0.0";
@@ -56,7 +58,8 @@ public class StocksInfo {
 
     public String getHolding(){//holding
         try {
-            return new DecimalFormat("#,###.##").format(data.getDouble("holding"));
+            return data.getString("holding");
+//            return new DecimalFormat("#,###.##").format(data.getDouble("holding"));
         } catch (JSONException e) {
             return "0.0";
         }
@@ -66,7 +69,8 @@ public class StocksInfo {
     public String getChangePrice(){
 
         try {
-            return new DecimalFormat("#,###.##").format(data.getDouble("change"));
+            return data.getString("change");
+//            return new DecimalFormat("#,###.##").format(data.getDouble("change"));
         } catch (JSONException e) {
             return "0.0";
         }
@@ -74,8 +78,9 @@ public class StocksInfo {
 
     public String getProfit(){
         try {
+            return data.getString("profit");
 //            return new DecimalFormat("#,###.##").format(data.getDouble("profit"));
-            return String.format("%.2f", data.getDouble("profit"));
+//            return String.format("%.2f", data.getDouble("profit"));
         } catch (JSONException e) {
             return "0.0";
         }
@@ -83,7 +88,8 @@ public class StocksInfo {
 
     public String getChangePricePercent(){
         try {
-            return new DecimalFormat("#,###.####").format(data.getDouble("change_percent"));
+            return data.getString("change_percent");
+//            return new DecimalFormat("#,###.####").format(data.getDouble("change_percent"));
         } catch (JSONException e) {
             return "0.0";
         }

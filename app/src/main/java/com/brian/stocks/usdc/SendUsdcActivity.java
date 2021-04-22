@@ -42,8 +42,9 @@ import java.util.ArrayList;
 public class SendUsdcActivity extends AppCompatActivity {
     TextView tvBalance;
 
-    RecyclerView payHistoryView, contactListView;
+    RecyclerView contactListView;
     Button btnPay;
+    TextView tvViewHistory;
 
     TextView tvTo;
     EditText editAmount;
@@ -52,14 +53,13 @@ public class SendUsdcActivity extends AppCompatActivity {
 
     ArrayList<ContactUser> users = new ArrayList();
     ArrayList<ContactUser> usersTemp = new ArrayList();
-    ArrayList<JSONObject> payHistory = new ArrayList();
 
     String selectedUserEmail, amount;
     Double usdcBalance =0.0;
 
     AutoUserAdapter userAdapter;
     UserContactAdapter userContactAdapter;
-    TransferCoinHistoryAdapter historyAdapter;
+
 
     private LoadToast loadToast;
 
@@ -80,8 +80,10 @@ public class SendUsdcActivity extends AppCompatActivity {
 
         tvBalance = findViewById(R.id.usdc_balance);
 
-        payHistoryView = findViewById(R.id.pay_history_view);
+
         btnPay = findViewById(R.id.btn_pay);
+
+        tvViewHistory = findViewById(R.id.tv_view_history);
 
         tvTo = findViewById(R.id.edit_pay_to);
         editAmount = findViewById(R.id.edit_pay_amount);
@@ -108,11 +110,12 @@ public class SendUsdcActivity extends AppCompatActivity {
             }
         });
 
-//        userAdapter = new AutoUserAdapter(getActivity(), R.layout.item_user ,users);
-
-        historyAdapter = new TransferCoinHistoryAdapter(payHistory);
-        payHistoryView.setAdapter(historyAdapter);
-        payHistoryView.setLayoutManager(new LinearLayoutManager(this));
+        tvViewHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SendUsdcActivity.this, SendUsdcHistoryActivity.class));
+            }
+        });
 
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,7 +190,7 @@ public class SendUsdcActivity extends AppCompatActivity {
 
     private void setData(JSONObject response) {
         users.clear();
-        payHistory.clear();
+
         try {
             JSONArray userarray = response.getJSONArray("users");
             for(int i = 0; i < userarray.length(); i ++) {
@@ -201,17 +204,7 @@ public class SendUsdcActivity extends AppCompatActivity {
                 }
             }
 
-            JSONArray payhistory = response.getJSONArray("pay_history");
-            for(int i = 0; i < payhistory.length(); i ++) {
-                try {
-                    payHistory.add(payhistory.getJSONObject(i));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
             userContactAdapter.notifyDataSetChanged();
-            historyAdapter.notifyDataSetChanged();
 
             usdcBalance = Double.parseDouble(response.getString("usdc_balance"));
             tvBalance.setText(new DecimalFormat("###,###.##").format(usdcBalance));

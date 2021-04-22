@@ -265,6 +265,7 @@ public class InvestedStockFragment extends Fragment {
                                 JSONArray stocks = null;
                             
                                 stocks = response.getJSONArray("stocks");
+                                Log.d("stocks postfolio", stocks.toString());
                                 if(stocks != null)
                                     for(int i = 0; i < stocks.length(); i ++) {
                                         try {

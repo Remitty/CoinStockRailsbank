@@ -303,13 +303,14 @@ public class StockBuyActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(StockBuyActivity.this);
         alert.setIcon(R.mipmap.ic_launcher_round)
                 .setTitle("Confirm Transaction")
-                .setMessage("Please confirm your transaction.")
+                .setMessage("Please confirm your transaction.\n" + SharedHelper.getKey(this, "msgStockTradeFeePolicy"))
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         onBuy();
                     }
                 })
+                .setNegativeButton("No", null)
                 .show();
 
     }
