@@ -391,7 +391,6 @@ public class CoinExchangeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), TokenTradeHistoryActivity.class);
-                intent.putExtra("pair", mPair);
                 startActivity(intent);
             }
         });
@@ -400,7 +399,6 @@ public class CoinExchangeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), TokenOrderBookActivity.class);
-                intent.putExtra("orders", ordersList);
                 startActivity(intent);
             }
         });

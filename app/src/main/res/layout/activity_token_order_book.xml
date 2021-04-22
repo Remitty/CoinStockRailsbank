@@ -17,11 +17,18 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="70dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
                 android:textColor="@color/colorBlack"
                 android:text="Type"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="@color/colorBlack"
+                android:text="Pair"/>
             <TextView
                 android:layout_weight="1"
                 android:layout_width="match_parent"
@@ -37,8 +44,7 @@
                 android:textColor="@color/colorBlack"
                 android:text="Price"/>
             <TextView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
                 android:textColor="@color/colorBlack"

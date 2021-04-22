@@ -215,7 +215,9 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                 CoinUsdc = coin.getCoinBalance();
                 CoinId = coin.getCoinId();
                 Fee = coin.getWithdrawalFee();
-                mtvWithdrawalFee.setText(Fee + " " + coin.getCoinSymbol());
+                mtvWithdrawalFee.setText(Fee);
+                mtvWithdrawalFeeSymbol.setText(Coin);
+                mtvGetAmountSymbol.setText(Coin);
 
                 if(coin.getType().equals("ERC20"))
                     mtvGasFee.setText(GasFee);
@@ -225,7 +227,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                 if(!withdraw_amount.equals("")) {
                     BigDecimal amount = new BigDecimal(withdraw_amount);
                     BigDecimal fee = new BigDecimal(Fee);
-                    mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()) + " " + Coin);
+                    mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()));
                 }
                 dialog.dismiss();
             }

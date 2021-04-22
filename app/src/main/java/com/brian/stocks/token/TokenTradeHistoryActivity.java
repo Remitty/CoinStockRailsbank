@@ -29,7 +29,6 @@ import java.util.ArrayList;
 
 public class TokenTradeHistoryActivity extends AppCompatActivity {
 
-    private String mPair;
     TextView noHistory;
     LoadToast loadToast;
 
@@ -51,9 +50,6 @@ public class TokenTradeHistoryActivity extends AppCompatActivity {
 
         loadToast = new LoadToast(this);
 
-        if(getIntent() != null)
-            mPair = getIntent().getStringExtra("pair");
-
         noHistory = findViewById(R.id.empty_text);
 
         orderHistoryView = findViewById(R.id.history_view);
@@ -65,20 +61,12 @@ public class TokenTradeHistoryActivity extends AppCompatActivity {
     }
 
     private void getHistoryData() {
-        JSONObject jsonObject = new JSONObject();
 
-        try {
-            jsonObject.put("pair", mPair);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         loadToast.show();
-        Log.d("exchange param", jsonObject.toString()+" -> "+ URLHelper.COIN_TRADE_HISTORY_DATA);
-            AndroidNetworking.post(URLHelper.COIN_TRADE_HISTORY_DATA)
+            AndroidNetworking.get(URLHelper.COIN_TRADE_HISTORY_DATA)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
                     .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(this,"access_token"))
-                    .addJSONObjectBody(jsonObject)
                     .setPriority(Priority.MEDIUM)
                     .build()
                     .getAsJSONObject(new JSONObjectRequestListener() {

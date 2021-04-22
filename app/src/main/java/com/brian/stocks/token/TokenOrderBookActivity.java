@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +20,6 @@ import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
 import com.brian.stocks.token.adapters.OrderAdapter;
-import com.brian.stocks.token.adapters.OrderHistoryAdapter;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -32,7 +31,6 @@ import java.util.ArrayList;
 
 public class TokenOrderBookActivity extends AppCompatActivity {
 
-    private String mPair;
     TextView noHistory;
     LoadToast loadToast;
 
@@ -49,16 +47,10 @@ public class TokenOrderBookActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
-        if(getIntent() != null) {
-            ordersList = (ArrayList<JSONObject>)getIntent().getSerializableExtra("orders");
+            getSupportActionBar().setTitle("");
         }
 
         loadToast = new LoadToast(this);
-
-        if(getIntent() != null)
-            mPair = getIntent().getStringExtra("pair");
 
         noHistory = findViewById(R.id.empty_text);
 
@@ -69,7 +61,7 @@ public class TokenOrderBookActivity extends AppCompatActivity {
         orderAdapter.setListener(new OrderAdapter.Listener() {
             @Override
             public void cancelOrder(final int position) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder alert = new AlertDialog.Builder(TokenOrderBookActivity.this);
                 alert.setIcon(R.mipmap.ic_launcher_round)
                         .setTitle("Confirm cancel")
                         .setMessage("Are you sure you want to cancel this order?")
@@ -89,6 +81,54 @@ public class TokenOrderBookActivity extends AppCompatActivity {
 
             }
         });
+
+
+        getData();
+
+    }
+
+    private void getData() {
+
+        loadToast.show();
+        AndroidNetworking.get(URLHelper.COIN_TRADE_ORDERS)
+                .addHeaders("Content-Type", "application/json")
+                .addHeaders("accept", "application/json")
+                .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(this,"access_token"))
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        loadToast.hide();
+                        Log.d("xmt trade history response", "" + response.toString());
+                        try {
+                            JSONArray ordersHistory = response.getJSONArray("history");
+
+                            for (int i = 0; i < ordersHistory.length(); i++) {
+                                try {
+                                    ordersList.add(ordersHistory.getJSONObject(i));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            if(ordersList.size() > 0)
+                                noHistory.setVisibility(View.GONE);
+
+                            orderAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                        loadToast.hide();
+                        Toast.makeText(getBaseContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 

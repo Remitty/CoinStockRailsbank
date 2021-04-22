@@ -45,6 +45,7 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="3dp"
+                    android:visibility="gone"
                     android:outlineProvider="background"
                     app:cardUseCompatPadding="true"
                     android:layout_marginTop="10dp"

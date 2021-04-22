@@ -14,6 +14,7 @@ import com.brian.stocks.R;
 
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.OrderViewHolder> {
@@ -26,7 +27,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvQuantity, tvValue, tvType, tvDate;
+        TextView tvQuantity, tvValue, tvType, tvDate, tvPair;
 
         @SuppressLint("ResourceAsColor")
         public OrderViewHolder(View view) {
@@ -35,6 +36,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             tvValue = view.findViewById(R.id.value);
             tvType = view.findViewById(R.id.type);
             tvDate = view.findViewById(R.id.date);
+            tvPair = view.findViewById(R.id.pair);
         }
     }
 
@@ -50,8 +52,9 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     public void onBindViewHolder(@NonNull final OrderHistoryAdapter.OrderViewHolder holder, final int position) {
         JSONObject item = orders.get(position);
 
-        holder.tvQuantity.setText(item.optString("quantity"));
-        holder.tvValue.setText(item.optString("price"));
+        holder.tvQuantity.setText(new DecimalFormat("#,###.######").format(item.optDouble("quantity")));
+        holder.tvValue.setText(new DecimalFormat("#,###.######").format(item.optDouble("price")));
+        holder.tvPair.setText(item.optString("pair"));
         holder.tvType.setText(item.optString("type"));
         holder.tvDate.setText(item.optString("updated_at").substring(0, 10));
 
