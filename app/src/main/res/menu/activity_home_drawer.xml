@@ -2,8 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-    <group android:checkableBehavior="single"
-        android:id="@+id/menu_up">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_coin_stake"
             android:icon="@drawable/pepe"
@@ -56,8 +55,7 @@
             android:title="Group Chat" />
 
     </group>
-   <group android:checkableBehavior="none"
-       android:id="@+id/menu_bottom">
+   <group android:checkableBehavior="none">
 
        <item
            android:id="@+id/nav_help"

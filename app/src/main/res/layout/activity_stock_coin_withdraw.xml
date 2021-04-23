@@ -94,14 +94,12 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <androidx.appcompat.widget.AppCompatRadioButton
-                            android:id="@+id/rdb_withdraw_usdc"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="20dp"
                             android:text="USDC"/>
                         <androidx.appcompat.widget.AppCompatRadioButton
-                            android:id="@+id/rdb_withdraw_dai"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

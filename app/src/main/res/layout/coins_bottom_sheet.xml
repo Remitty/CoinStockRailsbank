@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="300dp"
-    android:id="@+id/coins_bottom_sheet"
     android:layout_gravity="bottom"
     app:behavior_hideable="true"
     app:behavior_peekHeight="56dp"

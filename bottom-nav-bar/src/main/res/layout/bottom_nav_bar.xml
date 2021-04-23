@@ -9,9 +9,7 @@
     card_view:cardElevation="10dp"
     card_view:cardCornerRadius="3dp">
 
-    <LinearLayout
-        android:id="@+id/panelAddress"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackground"

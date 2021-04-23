@@ -5,11 +5,6 @@
     <string name="country_name_and_code" translatable="false">%1$s (%2$s)</string>
     <string name="search_hint">Search&#8230;</string>
     <string name="no_result_found">No result found</string>
-    <string name="select_country">Select county</string>
-    <string name="country_code_and_phone_code">(%1$s) +%2$s</string>
-    <string name="country_full_name_and_phone_code">%1$s +%2$s</string>
-    <string name="error_unregister_carrier_number">EditText for carrier number is not registered. Register it using registerPhoneNumberTextView() before getFullNumber() or setFullNumber().</string>
-    <string name="message_something_wrong">Something went wrong.Please try again later.</string>
 
     <!--NEW ADD-->
     <string name="country_ascension_island_name">Ascension Island</string>
@@ -69,10 +64,6 @@
     <string name="country_australia_name">Australia</string>
     <string name="country_australia_code">au</string>
     <string name="country_australia_number" translatable="false">61</string>
-
-    <string name="country_austria_name">Austria</string>
-    <string name="country_austria_code">at</string>
-    <string name="country_austria_number" translatable="false">43</string>
 
     <string name="country_aland_islands_name">Aland Islands</string>
     <string name="country_aland_islands_code">ax</string>
@@ -152,9 +143,6 @@
     <string name="country_brunei_darussalam_number" translatable="false">673</string>
 
     <!--NEW ADD-->
-    <string name="country_bouvet_island_name">Bouvet Island</string>
-    <string name="country_bouvet_island_code">bv</string>
-    <string name="country_bouvet_island_number" translatable="false">47</string>
 
     <!--NEW ADD-->
     <string name="country_iceland_name">Iceland</string>
@@ -231,9 +219,6 @@
     <string name="country_comoros_number" translatable="false">269</string>
 
     <!--NEW ADD-->
-    <string name="country_curacao_name">Curacao</string>
-    <string name="country_curacao_code">cw</string>
-    <string name="country_curacao_number" translatable="false">599</string>
 
     <string name="country_congo_name">Republic of the Congo</string>
     <string name="country_congo_code">cg</string>
@@ -643,10 +628,6 @@
     <string name="country_mozambique_code">mz</string>
     <string name="country_mozambique_number" translatable="false">258</string>
 
-    <string name="country_myanmar_name">Myanmar</string>
-    <string name="country_myanmar_code">mm</string>
-    <string name="country_myanmar_number" translatable="false">95</string>
-
     <string name="country_namibia_name">Namibia</string>
     <string name="country_namibia_code">na</string>
     <string name="country_namibia_number" translatable="false">264</string>
@@ -1053,78 +1034,4 @@
     <string name="we_sent_you_a_6_digit_code">We sent you a 6-digit code.</string>
 
 
-    <string name="label_google_sign_in">Firebase + Google Sign In</string>
-    <string name="desc_google_sign_in">Use a Google Sign In credential to authenticate with Firebase.</string>
-
-    <string name="label_facebook_login">Firebase + Facebook Login</string>
-    <string name="desc_facebook_login">Use a Facebook Login credential to authenticate with Firebase.</string>
-
-    <string name="label_twitter_login">Firebase + Twitter Login</string>
-    <string name="desc_twitter_login">Use a Twitter Login credential to authenticate with Firebase.</string>
-
-    <string name="label_emailpassword">Email/Password Authentication</string>
-    <string name="desc_emailpassword">Use an email and password to authenticate with Firebase.</string>
-
-    <string name="label_phone_auth">Phone Number Authentication</string>
-    <string name="desc_phone_auth">Use a phone number to authenticate with Firebase.</string>
-
-    <string name="label_anonymous_auth">Anonymous Authentication</string>
-    <string name="desc_anonymous_auth">Sign in anonymously and then later upgrade to a full Firebase Auth user.</string>
-
-    <string name="label_custom_auth">Custom Authentication</string>
-    <string name="desc_custom_auth">Use a custom token signed by your own server to authenticate with Firebase.</string>
-
-    <string name="label_firebase_ui">FirebaseUI Auth</string>
-    <string name="desc_firebase_ui">Use the FirebaseUI-Android library to authenticate with Firebase.</string>
-
-    <string name="hint_user_id">User ID</string>
-    <string name="get_custom_token">Get Token</string>
-    <string name="sign_in">Sign In</string>
-    <string name="create_account">Create Account</string>
-    <string name="sign_out">Sign Out</string>
-    <string name="verify_email">Verify Email</string>
-    <string name="disconnect">Disconnect</string>
-    <string name="loading">Loading…</string>
-    <string name="custom_token">Custom Token</string>
-    <string name="signed_in">Signed In</string>
-    <string name="signed_out">Signed Out</string>
-    <string name="token_null">Token: null</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
-    <string name="desc_firebase_lockup">Firebase logo and name</string>
-    <string name="auth_failed">Authentication failed</string>
-    <string name="start_phone_auth">Start</string>
-    <string name="verify_phone_auth">Verify</string>
-    <string name="resend_phone_auth">Resend</string>
-    <string name="hint_phone_number">Phone Number</string>
-    <string name="hint_verification_code">Verification Code</string>
-    <string name="status_code_sent">Code Sent</string>
-    <string name="status_verification_failed">Verification failed</string>
-    <string name="status_verification_succeeded">Verification succeeded</string>
-    <string name="status_sign_in_failed">Sign-in failed</string>
-    <string name="instant_validation">(instant validation)</string>
-
-    <string name="firebase_status_fmt">Firebase User: %s</string>
-    <string name="firebase_user_management">Firebase User Management</string>
-
-    <string name="google_status_fmt">Google User: %s</string>
-    <string name="google_title_text">Google Sign In</string>
-
-    <string name="facebook_status_fmt">Facebook User: %s</string>
-    <string name="facebook_title_text">Facebook Login</string>
-
-    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
-    <string name="emailpassword_title_text">Email and Password</string>
-
-    <string name="phone_title_text">Phone Number</string>
-
-    <string name="twitter_status_fmt">Twitter User: %s</string>
-    <string name="twitter_title_text">Twitter Login</string>
-
-    <string name="firebaseui_status_fmt">Firebase User: %s</string>
-    <string name="firebaseui_title_text">FirebaseUI Auth</string>
-
-    <string name="id_fmt">User ID: %s</string>
-    <string name="email_fmt">Email: %s</string>
-    <string name="title_m_v">?attr/title_of_mobile_verification</string>
 </resources>

@@ -99,7 +99,6 @@
                                     android:text="0.00" />
 
                                 <TextView
-                                    android:id="@+id/coin_selll1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text=""
@@ -337,7 +336,6 @@
                                     android:text="0.00" />
 
                             <TextView
-                                android:id="@+id/coin_selll"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=""

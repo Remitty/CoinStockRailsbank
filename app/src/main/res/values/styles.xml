@@ -56,14 +56,6 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="customDialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:windowAnimationStyle">@style/customDialogAnimation</item>
-    </style>
-    <style name="customDialogAnimation">
-        <item name="android:windowEnterAnimation">@anim/slide_from_right</item>
-        <item name="android:windowExitAnimation">@anim/slide_to_left</item>
-    </style>
-
     <style name="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"></style>
 
     <style name="MyTabLayoutTextAppearance">
