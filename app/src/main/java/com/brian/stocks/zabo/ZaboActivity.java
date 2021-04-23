@@ -115,7 +115,7 @@ public class ZaboActivity extends AppCompatActivity {
                         loadToast.success();
                         try {
                             clientId = response.getString("client_id");
-
+                            testmode = response.getString("test_mode");
                             accountList.clear();
                             JSONArray accounts = response.getJSONArray("accounts");
                             for (int i = 0; i < accounts.length(); i ++) {
