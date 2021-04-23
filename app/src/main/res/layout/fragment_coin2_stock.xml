@@ -22,7 +22,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_corner_white_rectangle"
                     android:padding="20dp"
-                    android:minHeight="170dp"
+                    android:minHeight="150dp"
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -85,34 +85,38 @@
                         android:layout_height="30dp"
                         android:src="@drawable/send"/>
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/rounded_corner_white_rectangle"
-                    android:padding="20dp"
-                    android:minHeight="170dp"
-                    android:orientation="vertical">
+                    android:minHeight="150dp"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
                     <ImageView
-                        android:src="@drawable/ic_round_stock"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_round_stock" />
+
                     <TextView
                         android:id="@+id/stock_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="$ 0.0"
-                        android:textStyle="bold"
                         android:textColor="@color/green"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="Stock Balance"
                         android:textColor="@color/colorBlack"
-                        android:textSize="13dp"/>
+                        android:textSize="13dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -131,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/rounded_corner_white_rectangle"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <EditText
                         android:id="@+id/edit_transfer_amount"
@@ -144,16 +148,18 @@
                         android:textSize="16dp"
                         android:textColor="@color/colorBlue"
                         android:hint="0.00"/>
+
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="10dp"
-                        android:background="@color/green"/>
+                        android:background="@color/green" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:text="USDC"
-                        android:textSize="16dp"
+                        android:textSize="14dp"
                         android:textColor="@color/colorBlack"/>
                 </LinearLayout>
 
@@ -165,8 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
                 android:paddingLeft="10dp"
-                android:textStyle="bold"
-                android:text="Select if you want a margin account"
+                android:text="Select to open a margin trading  account."
                 android:textColor="@color/colorBlack"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_transfer_funds"

@@ -122,7 +122,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Enter shares"
+                        android:text="Number of Shares"
                         android:textSize="16dp"
                         android:textColor="@color/colorBlack"/>
                     <EditText
@@ -209,12 +209,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="MKT price"
-                            android:textSize="16dp"
-                            android:textColor="@color/colorBlack"/>
+                            android:text="MKT Price"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="16dp" />
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -245,7 +246,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Est. price ($)"
+                        android:text="Estimated Price ($)"
                         android:textSize="16dp"
                         android:textColor="@color/colorBlack"/>
                     <TextView

@@ -37,7 +37,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvCoinName, tvCoinRate, tvCoinEstAmount, tvCoinBalance, tvCoinEffect;
+        TextView tvCoinName, tvCoinSymbol, tvCoinRate, tvCoinEstAmount, tvCoinBalance, tvCoinEffect;
         ImageView coinIcon, arrowIcon;
         LinearLayout llCoinBalance;
         Button btnDeposit, btnRamp;
@@ -46,6 +46,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
             super(view);
 
             tvCoinName = view.findViewById(R.id.coin_name);
+            tvCoinSymbol = view.findViewById(R.id.coin_symbol);
             tvCoinRate= view.findViewById(R.id.coin_rate);
             tvCoinBalance= view.findViewById(R.id.coin_balance);
             tvCoinEffect= view.findViewById(R.id.coin_effect);
@@ -70,7 +71,8 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
         CoinInfo item = arrItems.get(position);
 
-        holder.tvCoinName.setText(item.getCoinSymbol());
+        holder.tvCoinName.setText(item.getCoinName());
+        holder.tvCoinSymbol.setText(item.getCoinSymbol());
         holder.tvCoinRate.setText("$ " + String.format("%.2f", item.getCoinRate()));
         holder.tvCoinEffect.setText(item.getCoinEffect() + "%");
 

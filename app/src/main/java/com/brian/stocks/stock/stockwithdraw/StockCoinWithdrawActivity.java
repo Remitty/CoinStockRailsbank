@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -44,20 +45,13 @@ import java.util.ArrayList;
 public class StockCoinWithdrawActivity extends AppCompatActivity {
     LoadToast loadToast;
 
-    TabLayout tab;
-    private PageAdapter mPageAdapter;
-    private ViewPager mViewPager;
-
 //    private JSONArray history;
-    private ArrayList<JSONObject> history = new ArrayList<>();
-    RecyclerView historyView;
-    StockWithdrawAdapter mAdapter;
 
     private Button mBtnWithdraw;
     private EditText mWalletAddress, mEditAmount;
     TextView mStockBalance, mUSDCRate;
+    TextView tvViewHistory;
     RadioGroup radioGroup;
-    AppCompatRadioButton radioButton;
     Double StockBalance = 0.0, USDCRate = 0.0;
 
     @Override
@@ -72,10 +66,6 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
          getSupportActionBar().setTitle("");
-        tab = findViewById(R.id.tab);
-        mViewPager = findViewById(R.id.pager);
-
-        mPageAdapter=new PageAdapter(this.getSupportFragmentManager());
 
         initComponent();
 
@@ -101,13 +91,16 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                 showInvoiceDialog();
             }
         });
+
+        tvViewHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StockCoinWithdrawActivity.this, StockWithdrawHistoryActivity.class));
+            }
+        });
     }
 
     private void initComponent() {
-        historyView = findViewById(R.id.history_view);
-        historyView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-        mAdapter = new StockWithdrawAdapter(history);
-        historyView.setAdapter(mAdapter);
 
         mStockBalance = findViewById(R.id.stock_balance);
         mUSDCRate = findViewById(R.id.stock_usdc_rate);
@@ -115,11 +108,12 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
         mWalletAddress = findViewById(R.id.edit_withdraw_wallet_address);
         mEditAmount = findViewById(R.id.edit_coin_withdraw_amount);
         radioGroup = findViewById(R.id.rdg_withdraw_coins);
+
+        tvViewHistory = findViewById(R.id.tv_view_history);
     }
 
     private void getData() {
         loadToast.show();
-        JSONObject jsonObject = new JSONObject();
         if(getBaseContext() != null)
             AndroidNetworking.get(URLHelper.STOCK_WITHDRAW)
                     .addHeaders("Content-Type", "application/json")
@@ -136,24 +130,10 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                             try {
                                 StockBalance = response.getDouble("stock_balance");
                                 USDCRate = response.getDouble("stock2usdc");
-                                history.clear();
-                                JSONArray temp = response.getJSONArray("history");
-                                for(int i = 0; i < temp.length(); i ++) {
-                                    try {
-                                        history.add(temp.getJSONObject(i));
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                mAdapter.notifyDataSetChanged();
-//                                StockBalance = new DecimalFormat("####.####").format(StockBalance).toString();
+
                                 mStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(StockBalance));
                                 mUSDCRate.setText(new DecimalFormat("#,###.##").format(USDCRate));
 
-//                                mPageAdapter.add(StockWithdrawFragment.newInstance(StockBalance, USDCRate));
-////                                mPageAdapter.add(StockWithdrawHistoryFragment.newInstance(history));
-//                                mViewPager.setAdapter(mPageAdapter);
-//                                tab.setupWithViewPager(mViewPager);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -180,36 +160,6 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
             return;
         }
 
-//        if(Double.parseDouble(amount.toString()) <= 7.5) {
-//            Toast.makeText(getBaseContext(), "You have to request amount than 7.5USDC at least.", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-
-        Double total = Double.parseDouble(amount.toString()) - 7.5;
-//        if(radioButton.getText().toString().equals("USDC")){
-//        }
-//        else{
-//            rate = new BigDecimal(DAIRate);
-//        }
-//        BigDecimal withdraw_fee = new BigDecimal(WithdrawFee);
-//        String total = amount.multiply(rate).subtract(withdraw_fee).toString();
-
-//        final WithdrawInvoiceDialog dialog = new WithdrawInvoiceDialog(R.layout.dialog_withdraw_invoice, "$ "+mEditAmount.getText().toString(), "$1 = "+rate+radioButton.getText().toString(), "$ "+WithdrawFee, "$ "+total);
-//        dialog.setListener(new WithdrawInvoiceDialog.Listener() {
-//
-//            @Override
-//            public void onOk() {
-//                dialog.dismiss();
-//                doWithdraw();
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        dialog.show(getSupportFragmentManager(), "deposit");
         new AlertDialog.Builder(StockCoinWithdrawActivity.this)
                 .setTitle(getString(R.string.app_name))
                 .setMessage("Are you sure you want to withdraw " + amount + "USDC ?")
@@ -263,16 +213,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                                 mStockBalance.setText("$ " + new DecimalFormat("#,###.##").format(StockBalance));
                                 USDCRate = response.getDouble("usdc_balance");
                                 mUSDCRate.setText(new DecimalFormat("#,###.##").format(USDCRate));
-                                history.clear();
-                                JSONArray temp = response.getJSONArray("history");
-                                for(int i = 0; i < temp.length(); i ++) {
-                                    try {
-                                        history.add(temp.getJSONObject(i));
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                mAdapter.notifyDataSetChanged();
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

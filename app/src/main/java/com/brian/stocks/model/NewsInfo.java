@@ -2,6 +2,7 @@ package com.brian.stocks.model;
 
 import android.text.format.DateFormat;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
@@ -34,10 +35,17 @@ public class NewsInfo {
     }
 
     public String getDate(){
-        Long timestamp = data.optLong("datetime");
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis(timestamp);
-        String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+//        Long timestamp = data.optLong("publishedDate");
+//        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+//        cal.setTimeInMillis(timestamp);
+//        String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+        String date = null;
+        try {
+            date = data.getString("publishedDate");
+            date = date.substring(0, 10);
+        } catch (JSONException e) {
+            date = "01-01-1970";
+        }
         return date;
     }
 }

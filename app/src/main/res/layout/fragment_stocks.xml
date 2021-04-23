@@ -20,7 +20,7 @@
             android:id="@+id/edit_stock_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search any stock quote"
+            android:hint="Search Stock Quote"
             android:padding="10dp"
             android:drawableEnd="@drawable/ic_search"
             android:maxLines="1"

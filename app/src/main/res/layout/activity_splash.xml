@@ -10,15 +10,14 @@
 
     <ImageView
         android:id="@+id/agora_image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:adjustViewBounds="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginBottom="50dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:visibility="visible"
-         />
+        android:src="@mipmap/ic_launcher_round"
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/getstarted"
@@ -47,6 +46,8 @@
         android:layout_gravity="center"
         android:text="@string/welcome_to_agora_vote"
         android:textColor="@color/green"
+        android:textAllCaps="true"
+        android:textStyle="bold"
         android:textSize="28dp"
          />
     <TextView

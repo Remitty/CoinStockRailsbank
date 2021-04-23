@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".usdc.SendUsdcHistoryActivity"></activity>
+        <activity android:name=".stock.stockwithdraw.StockWithdrawHistoryActivity"></activity>
+        <activity android:name=".usdc.SendUsdcHistoryActivity" />
         <activity android:name=".stock.deposit.Coin2StockHistoryActivity" />
         <activity android:name=".stock.deposit.Bank2StockHistoryActivity" />
         <activity android:name=".coins.CoinWithdrawHistoryActivity" />

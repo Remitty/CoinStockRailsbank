@@ -23,7 +23,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_corner_white_rectangle"
                     android:padding="20dp"
-                    android:minHeight="170dp"
+                    android:minHeight="150dp"
                     android:orientation="vertical">
                     <LinearLayout
                         android:gravity="center"
@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_corner_white_rectangle"
                     android:padding="20dp"
-                    android:minHeight="170dp"
+                    android:minHeight="150dp"
                     android:orientation="vertical">
                     <ImageView
                         android:src="@drawable/ic_round_stock"
@@ -119,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_corner_white_rectangle"
                     android:layout_marginTop="10dp"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <EditText
                         android:id="@+id/edit_transfer_amount"
@@ -139,8 +139,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:text="$"
-                        android:textSize="16dp"
+                        android:textSize="14dp"
                         android:textColor="@color/colorBlack"/>
                 </LinearLayout>
             </LinearLayout>
@@ -151,9 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
                 android:paddingLeft="10dp"
-                android:textStyle="bold"
-                android:textSize="16dp"
-                android:text="Select if you want a margin account"
+                android:text="Select to open a margin trading  account."
                 android:textColor="@color/colorBlack"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_transfer_funds"
