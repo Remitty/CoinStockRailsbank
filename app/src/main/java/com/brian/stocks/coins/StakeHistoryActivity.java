@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,7 +13,6 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
-import com.brian.stocks.coins.adapter.StakableCoinAdapter;
 import com.brian.stocks.coins.adapter.StakeAdapter;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
@@ -25,66 +23,48 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class CoinStakeListActivity extends AppCompatActivity {
+public class StakeHistoryActivity extends AppCompatActivity {
 
-    private Double dailyReward = 0.0;
-    RecyclerView stakableView;
-    StakableCoinAdapter stakableCoinAdapter;
-    ArrayList<JSONObject> stakableList = new ArrayList();
+    private LoadToast loadToast;
 
     RecyclerView stakeHistoryView;
     ArrayList stakeList = new ArrayList();
     StakeAdapter stakeAdapter;
 
-    private LoadToast loadToast;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coin_stake_list);
+        setContentView(R.layout.activity_stake_history);
 
         if(getSupportActionBar() != null){
+            getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setElevation(0);
-            getSupportActionBar().setTitle("");
+        }
+
+        if(getIntent() != null) {
+            id = getIntent().getStringExtra("id");
         }
 
         loadToast = new LoadToast(this);
+
 
         stakeHistoryView = findViewById(R.id.stake_history);
         stakeHistoryView.setLayoutManager(new LinearLayoutManager(this));
         stakeAdapter = new StakeAdapter(stakeList);
         stakeHistoryView.setAdapter(stakeAdapter);
 
-        stakableView = findViewById(R.id.stakes_view);
-        stakableView.setLayoutManager(new LinearLayoutManager(this));
-        stakableCoinAdapter = new StakableCoinAdapter(this, stakableList);
-        stakableCoinAdapter.setListener(new StakableCoinAdapter.Listener() {
-            @Override
-            public void onSelect(int position) {
-                JSONObject item = stakableList.get(position);
-                Intent intent = new Intent(CoinStakeListActivity.this, CoinStakeActivity.class);
-                intent.putExtra("symbol", item.optString("symbol"));
-                intent.putExtra("id", item.optString("id"));
-                intent.putExtra("balance", item.optDouble("balance"));
-                intent.putExtra("amount", item.optDouble("amount"));
-                intent.putExtra("dailyReward", item.optDouble("daily_reward"));
-                intent.putExtra("stake_reward_yearly_percent", item.optDouble("stake_reward_yearly_percent"));
-                startActivity(intent);
-            }
-        });
-        stakableView.setAdapter(stakableCoinAdapter);
-
         getData();
     }
 
     private void getData() {
         loadToast.show();
-        AndroidNetworking.get(URLHelper.GET_STAKE_LIST)
+        AndroidNetworking.get(URLHelper.GET_STAKE_BALANCE + "/" + id)
                 .addHeaders("Content-Type", "application/json")
                 .addHeaders("accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))
@@ -95,27 +75,19 @@ public class CoinStakeListActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
                         loadToast.success();
+                        if(response.optBoolean("success")){
                             try {
-
-//                                dailyReward = response.getDouble("stake_reward_yearly_percent");
-
                                 stakeList.clear();
-//
-//                                JSONArray stakes = response.getJSONArray("stake_histories");
-//                                for (int i = 0; i < stakes.length(); i ++) {
-//                                    stakeList.add(stakes.getJSONObject(i));
-//                                }
-//                                stakeAdapter.notifyDataSetChanged();
-                                stakableList.clear();
-                                JSONArray stakable = response.getJSONArray("stakes");
-                                for (int i = 0; i < stakable.length(); i ++) {
-                                    stakableList.add(stakable.getJSONObject(i));
+                                JSONArray stakes = response.getJSONArray("stake_histories");
+                                for (int i = 0; i < stakes.length(); i ++) {
+                                    stakeList.add(stakes.getJSONObject(i));
                                 }
-                                stakableCoinAdapter.notifyDataSetChanged();
-
+                                stakeAdapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                        }else
+                            Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -126,11 +98,6 @@ public class CoinStakeListActivity extends AppCompatActivity {
                         Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 
     @Override

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
-import com.brian.stocks.coins.CoinStakeListActivity;
+import com.brian.stocks.coins.StakeAssetListActivity;
 import com.brian.stocks.mtn.MTNActivity;
 import com.brian.stocks.predict.PredictActivity;
 import com.brian.stocks.profile.ProfileActivity;
@@ -191,7 +191,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                 startActivity(new Intent(getApplicationContext(), CoinDepositHistoryActivity.class));
                 break;
             case R.id.nav_coin_stake:
-                startActivity(new Intent(getApplicationContext(), CoinStakeListActivity.class));
+                startActivity(new Intent(getApplicationContext(), StakeAssetListActivity.class));
                 break;
             case R.id.nav_predict:
                 startActivity(new Intent(getApplicationContext(), PredictActivity.class));

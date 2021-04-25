@@ -76,6 +76,7 @@ public class TokenChartFragment extends Fragment {
                 .yGrid(true)
                 .background(false);
         areaChart.yScale().stackMode(ScaleStackMode.VALUE);
+//        areaChart.yScale().stackMode(ScaleStackMode.PERCENT);
         List<DataEntry> seriesData = new ArrayList<>();
          int size = 0;
          if(chartAskData.length() > chartBidData.length())
@@ -104,11 +105,12 @@ public class TokenChartFragment extends Fragment {
         Mapping series2Data = set.mapAs("{ x: 'x', value: 'value2' }");
 
         Area series1 = areaChart.area(series1Data);
-//        series1.name("Americas");
+        series1.name("Ask");
         series1.stroke("0 #ee204d");
         series1.color("#ee204d");
 
         Area series2 = areaChart.area(series2Data);
+        series2.name("Bid");
         series2.stroke("0 #3AE57F");
         series2.color("#3AE57F");
 //        areaChart.legend().enabled(true);

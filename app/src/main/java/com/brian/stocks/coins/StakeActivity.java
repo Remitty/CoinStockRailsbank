@@ -21,7 +21,6 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.coins.adapter.StakeAdapter;
-import com.brian.stocks.helper.BigDecimalDouble;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
 import com.brian.stocks.home.HomeActivity;
@@ -35,18 +34,17 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class CoinStakeActivity extends AppCompatActivity {
+public class StakeActivity extends AppCompatActivity {
     private String symbol, id;
     private Double balance = 0.0, amount = 0.0, dailyReward=0.0, rewardPercent = 0.0;
     Button btnStake, btnRelease;
+    TextView tvViewHistory;
     TextView mtvYearlyFee, mtvBalance, mtvStakingBalance, mtvDailyReward, mtvSymbol, mtVSymbolInput;
     EditText editAmount;
     private LoadToast loadToast;
     private Double mBalance = 0.0, mStakingBalance = 0.0;
 
-    RecyclerView stakeHistoryView;
-    ArrayList stakeList = new ArrayList();
-    StakeAdapter stakeAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +70,8 @@ public class CoinStakeActivity extends AppCompatActivity {
         mtvDailyReward = findViewById(R.id.daily_reward);
         editAmount = findViewById(R.id.edit_send_amount);
 
+        tvViewHistory = findViewById(R.id.tv_view_history);
+
         btnStake = findViewById(R.id.btn_stake);
         btnRelease = findViewById(R.id.btn_stake_release);
         btnStake.setOnClickListener(new View.OnClickListener() {
@@ -86,11 +86,15 @@ public class CoinStakeActivity extends AppCompatActivity {
                 confirmReleaseAlert();
             }
         });
+        tvViewHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StakeActivity.this, StakeHistoryActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+            }
+        });
 
-        stakeHistoryView = findViewById(R.id.stake_history);
-        stakeHistoryView.setLayoutManager(new LinearLayoutManager(this));
-        stakeAdapter = new StakeAdapter(stakeList);
-        stakeHistoryView.setAdapter(stakeAdapter);
 
         if(getIntent() != null) {
             symbol = getIntent().getStringExtra("symbol");
@@ -109,52 +113,6 @@ public class CoinStakeActivity extends AppCompatActivity {
             mtvYearlyFee.setText(String.format("+ %.2f", rewardPercent) + " %");
         }
 
-        getData();
-    }
-
-    private void getData() {
-        loadToast.show();
-        AndroidNetworking.get(URLHelper.GET_STAKE_BALANCE + "/" + id)
-                .addHeaders("Content-Type", "application/json")
-                .addHeaders("accept", "application/json")
-                .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("response", "" + response);
-                        loadToast.success();
-                        if(response.optBoolean("success")){
-                            try {
-//                                mBalance = response.getDouble("coin_balance");
-//                                mStakingBalance = response.getDouble("stake_balance");
-//                                mtvBalance.setText(new DecimalFormat("#,###.##").format(mBalance));
-//                                mtvStakingBalance.setText(new DecimalFormat("#,###.##").format(mStakingBalance));
-//                                mtvDailyReward.setText(String.format("+ %.4f", response.optDouble("daily_reward")));
-//                                mtvYearlyFee.setText(String.format("+ %.2f", response.optDouble("yearly_fee")) + " %");
-
-                                stakeList.clear();
-                                JSONArray stakes = response.getJSONArray("stake_histories");
-                                for (int i = 0; i < stakes.length(); i ++) {
-                                    stakeList.add(stakes.getJSONObject(i));
-                                }
-                                stakeAdapter.notifyDataSetChanged();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }else
-                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError(ANError error) {
-                        loadToast.error();
-                        // handle error
-                        Toast.makeText(getBaseContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getErrorBody());
-                    }
-                });
     }
 
     private void confirmReleaseAlert() {
@@ -227,12 +185,7 @@ public class CoinStakeActivity extends AppCompatActivity {
                                 mtvDailyReward.setText(String.format("+ %.4f", response.optDouble("daily_reward")));
                                 mtvYearlyFee.setText(String.format("+ %.2f", response.optDouble("yearly_fee")) + " %");
 
-                                stakeList.clear();
-                                JSONArray stakes = response.getJSONArray("stake_histories");
-                                for (int i = 0; i < stakes.length(); i ++) {
-                                    stakeList.add(stakes.getJSONObject(i));
-                                }
-                                stakeAdapter.notifyDataSetChanged();
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -280,12 +233,6 @@ public class CoinStakeActivity extends AppCompatActivity {
                                 mtvDailyReward.setText(String.format("+ %.4f", response.optDouble("daily_reward")));
                                 mtvYearlyFee.setText(String.format("+ %.2f", response.optDouble("yearly_fee")) + " %");
 
-                                stakeList.clear();
-                                JSONArray stakes = response.getJSONArray("stake_histories");
-                                for (int i = 0; i < stakes.length(); i ++) {
-                                    stakeList.add(stakes.getJSONObject(i));
-                                }
-                                stakeAdapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -305,7 +252,7 @@ public class CoinStakeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(CoinStakeActivity.this, HomeActivity.class));
+        startActivity(new Intent(StakeActivity.this, HomeActivity.class));
     }
 
     @Override

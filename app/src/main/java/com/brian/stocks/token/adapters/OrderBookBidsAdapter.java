@@ -23,7 +23,7 @@ public class OrderBookBidsAdapter extends RecyclerView.Adapter<OrderBookBidsAdap
 
     private Listener listener;
 
-    private DecimalFormat df = new DecimalFormat("#.########");
+    private DecimalFormat df = new DecimalFormat("#.####");
     public OrderBookBidsAdapter(ArrayList orders) {
         this.orders = orders;
     }

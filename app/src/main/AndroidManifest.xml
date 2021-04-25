@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".stock.stockwithdraw.StockWithdrawHistoryActivity"></activity>
+        <activity android:name=".coins.StakeHistoryActivity"></activity>
+        <activity android:name=".stock.stockwithdraw.StockWithdrawHistoryActivity" />
         <activity android:name=".usdc.SendUsdcHistoryActivity" />
         <activity android:name=".stock.deposit.Coin2StockHistoryActivity" />
         <activity android:name=".stock.deposit.Bank2StockHistoryActivity" />
@@ -24,7 +25,7 @@
         <activity android:name=".coins.CoinSwapHistoryActivity" />
         <activity android:name=".token.TokenOrderBookActivity" />
         <activity android:name=".coins.CoinTradeActivity" />
-        <activity android:name=".coins.CoinStakeListActivity" />
+        <activity android:name=".coins.StakeAssetListActivity" />
         <activity android:name=".token.TokenTradeHistoryActivity" />
         <activity android:name=".zabo.ZaboAccountActivity" />
         <activity android:name=".zabo.ZaboActivity">
@@ -108,7 +109,7 @@
         <activity android:name=".mtn.MtnTransactionActivity" />
         <activity android:name=".mtn.MTNActivity" />
         <activity android:name=".token.TokenTradingActivity" />
-        <activity android:name=".coins.CoinStakeActivity" />
+        <activity android:name=".coins.StakeActivity" />
         <activity android:name=".predict.AddPredictActivity" />
         <activity android:name=".predict.PredictableListActivity" />
         <activity android:name=".predict.PredictActivity" />

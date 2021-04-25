@@ -22,7 +22,7 @@ public class OrderBookAsksAdapter extends RecyclerView.Adapter<OrderBookAsksAdap
     ArrayList<JSONObject> orders;
     private Listener listener;
 
-    private DecimalFormat df = new DecimalFormat("#.########");
+    private DecimalFormat df = new DecimalFormat("#.####");
     public OrderBookAsksAdapter(ArrayList orders) {
         this.orders = orders;
     }

@@ -570,12 +570,13 @@ public class CoinExchangeFragment extends Fragment {
                                     asksList.clear();
 
                                     JSONObject responseObj = null;
+                                    marketCoinSymbol = response.getString("coin1");
                                     mTextChangeVolume.setText("$ "+new DecimalFormat("#,###.##").format(response.getDouble("change_volume")));
                                     mTextChangeRate.setText("$ "+df.format(response.getDouble("change_rate")));
                                     High = response.getDouble("last_high");
-                                    mTextChangeHigh.setText( new DecimalFormat("#.########").format(High) +marketCoinSymbol);
+                                    mTextChangeHigh.setText( new DecimalFormat("#.####").format(High) +marketCoinSymbol);
                                     Low = response.getDouble("last_low");
-                                    mTextChangeLow.setText( new DecimalFormat("#.########").format(Low) + marketCoinSymbol);
+                                    mTextChangeLow.setText( new DecimalFormat("#.####").format(Low) + marketCoinSymbol);
 //                                    mtvOrderSymbol.setText("("+marketCoinSymbol+")");
                                     try {
                                         JSONObject maxBid = response.getJSONObject("max_bid");
@@ -740,7 +741,7 @@ public class CoinExchangeFragment extends Fragment {
                         public void onError(ANError error) {
                             // handle error
                             loadToast.hide();
-                            Log.d("errorpost", "" + error.getMessage()+" responde: "+error.getResponse());
+                            Log.d("errorpost", "" + error.getErrorBody());
                             Toast.makeText(getActivity(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -840,7 +841,7 @@ public class CoinExchangeFragment extends Fragment {
             fixval2 = "0";
         }
         Float calc = Float.parseFloat(fixval1) * Float.parseFloat(fixval2);
-        mTextOutputTrade.setText(new DecimalFormat("#.########").format(calc) + marketCoinSymbol);
+        mTextOutputTrade.setText(new DecimalFormat("#.####").format(calc) + marketCoinSymbol);
 
     }
 
