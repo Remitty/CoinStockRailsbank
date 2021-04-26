@@ -339,7 +339,8 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                             public void onClick(DialogInterface dialog, int which) {
                                 sendAddCurrency(position);
                             }
-                        });
+                        })
+                        .setNegativeButton("No", null);
                 builder.show();
 //                addCurrencySpinner.setSelection(0);
             }

@@ -318,7 +318,7 @@ public class StocksFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
-        });
+        }).setNegativeButton("No", null);
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -336,7 +336,7 @@ public class StocksFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
-        });
+        }).setNegativeButton("No", null);
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();

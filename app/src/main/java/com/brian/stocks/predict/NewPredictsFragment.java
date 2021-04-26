@@ -100,6 +100,7 @@ public class NewPredictsFragment extends Fragment {
                                 sendAnswer(position);
                             }
                         })
+                        .setNegativeButton("Cancel", null)
                         .show();
             }
         });

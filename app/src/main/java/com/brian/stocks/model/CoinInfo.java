@@ -30,7 +30,9 @@ public class CoinInfo implements Parcelable {
         icon = data.optString("icon");
         if(!icon.startsWith("http"))
             icon = URLHelper.base + icon;
-        balance = new DecimalFormat("#,###.####").format(data.optDouble("balance"));
+        if(data.optDouble("balance") != 0)
+            balance = new DecimalFormat("#,###.####").format(data.optDouble("balance"));
+        else balance = "0.0000";
         price = data.optDouble("coin_rate");
         changeRate = new DecimalFormat("#.####").format(data.optDouble("change_rate"));
         type = data.optString("type");
@@ -70,19 +72,16 @@ public class CoinInfo implements Parcelable {
         }
     }
 
-    public Double getCoinExchangeRate() {
-        try {
-            return data.getDouble("exchange_rate");
-        } catch (JSONException e) {
-            return 0.0;
-        }
-    }
-
     public String getCoinUsdc() {
-        String balance = "0.0";
+        String balance;
         try {
-            balance = new DecimalFormat("#,###.##").format(data.getDouble("est_usdc"));
+            if(data.getDouble("est_usdc") != 0)
+                balance = new DecimalFormat("#,###.##").format(data.getDouble("est_usdc"));
+            else {
+                balance = "0.00";
+            }
         } catch (JSONException e) {
+            balance = "0.00";
         }
         return balance;
     }

@@ -122,6 +122,7 @@ public class SendCashActivity extends AppCompatActivity {
                                 sendMoney();
                             }
                         })
+                        .setNegativeButton("No", null)
                         .show();
             }
         });

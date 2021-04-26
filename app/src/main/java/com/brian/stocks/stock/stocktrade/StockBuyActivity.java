@@ -307,7 +307,7 @@ public class StockBuyActivity extends AppCompatActivity {
                         onBuy();
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton("Cancel", null)
                 .show();
 
     }

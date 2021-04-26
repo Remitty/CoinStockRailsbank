@@ -17,6 +17,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.brian.stocks.R;
 import com.brian.stocks.helper.SharedHelper;
 import com.brian.stocks.helper.URLHelper;
+import com.brian.stocks.model.PredictAsset;
 import com.brian.stocks.predict.adapters.PredictableStockAdapter;
 
 import net.steamcrafted.loadtoast.LoadToast;
@@ -25,10 +26,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class PredictableListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     PredictableStockAdapter mAdapter;
-    JSONArray data = new JSONArray();
+    ArrayList<PredictAsset> data = new ArrayList<PredictAsset>();
     private LoadToast loadToast;
     private String usdcBalance;
     private Context mContext;
@@ -51,6 +54,22 @@ public class PredictableListActivity extends AppCompatActivity {
         //loadToast.setBackgroundColor(R.color.colorBlack);
 
         recyclerView = findViewById(R.id.recyclerView);
+        mAdapter = new PredictableStockAdapter(mContext, data);
+        recyclerView.setLayoutManager(new LinearLayoutManager(PredictableListActivity.this));
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.setListener(new PredictableStockAdapter.Listener() {
+            @Override
+            public void onSelect(int position) {
+                Intent intent = new Intent(PredictableListActivity.this, AddPredictActivity.class);
+                PredictAsset item = data.get(position);
+                intent.putExtra("symbol", item.getSymbol());
+                intent.putExtra("id", item.getId());
+                intent.putExtra("name", item.getName());
+                intent.putExtra("price", item.getPrice());
+                intent.putExtra("usdc_balance", usdcBalance);
+                startActivity(intent);
+            }
+        });
 
         getPredictableItemList();
     }
@@ -69,28 +88,14 @@ public class PredictableListActivity extends AppCompatActivity {
                         Log.d("response", "" + response);
                         loadToast.success();
                             try {
-                                data = response.getJSONArray("data");
+                                JSONArray data1 = response.getJSONArray("data");
+                                for(int i = 0; i < data1.length(); i ++) {
+                                    PredictAsset temp = new PredictAsset(data1.getJSONObject(i));
+                                    data.add(temp);
+                                }
+                                mAdapter.notifyDataSetChanged();
                                 usdcBalance = response.getString("usdc_balance");
-                                mAdapter = new PredictableStockAdapter(mContext, data);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(PredictableListActivity.this));
-                                recyclerView.setAdapter(mAdapter);
-                                mAdapter.setListener(new PredictableStockAdapter.Listener() {
-                                    @Override
-                                    public void onSelect(int position) {
-                                        try {
-                                            Intent intent = new Intent(PredictableListActivity.this, AddPredictActivity.class);
-                                            JSONObject item = data.getJSONObject(position);
-                                            intent.putExtra("symbol", item.getString("symbol"));
-                                            intent.putExtra("id", item.getString("id"));
-                                            intent.putExtra("name", item.getString("name"));
-                                            intent.putExtra("price", item.getString("price"));
-                                            intent.putExtra("usdc_balance", usdcBalance);
-                                            startActivity(intent);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                });
+
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

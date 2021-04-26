@@ -82,6 +82,7 @@ public class CollectCashActivity extends AppCompatActivity {
                                 handleAddMoney();
                             }
                         })
+                        .setNegativeButton("No", null)
                         .show();
             }
         });

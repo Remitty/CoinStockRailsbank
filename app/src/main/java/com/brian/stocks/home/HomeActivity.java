@@ -152,7 +152,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         builder.setIcon(R.mipmap.ic_launcher_round)
                 .setTitle(getString(R.string.app_name))
                 .setMessage("Are you sure you want to logout?")
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         sharedPrefs.clearLogin();

@@ -11,6 +11,7 @@ import com.anychart.graphics.vector.Image;
 import com.brian.stocks.R;
 import com.brian.stocks.adapters.DepositAdapter;
 import com.brian.stocks.helper.URLHelper;
+import com.brian.stocks.model.PredictAsset;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -21,14 +22,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class PredictableStockAdapter extends RecyclerView.Adapter<PredictableStockAdapter.CustomerViewHolder> {
-    JSONArray data = new JSONArray();
+    ArrayList<PredictAsset> data;
 
     Listener listener;
     Context mContext;
 
-    public PredictableStockAdapter(Context context, JSONArray data) {
+    public PredictableStockAdapter(Context context, ArrayList data) {
         this.data = data;
         mContext = context;
     }
@@ -43,24 +45,18 @@ public class PredictableStockAdapter extends RecyclerView.Adapter<PredictableSto
 
     @Override
     public void onBindViewHolder(@NonNull CustomerViewHolder holder, final int position) {
-        try {
-            JSONObject item = data.getJSONObject(position);
+        PredictAsset item = data.get(position);
 
-            holder.mtvSymbol.setText(item.getString("symbol"));
-            holder.mtvName.setText(item.getString("name"));
-            holder.mtvPrice.setText("$" + new DecimalFormat("#,###.##").format(item.getDouble("price")));
-            holder.mtvChange.setText(item.getString("change") + "%");
-            String icon = item.getString("icon");
-            if(!icon.startsWith("http"))
-                icon = URLHelper.base + icon;
-            Picasso.with(mContext)
-                    .load(icon)
-                    .placeholder(R.drawable.coin_bitcoin)
-                    .error(R.drawable.coin_bitcoin)
-                    .into(holder.icon);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        holder.mtvSymbol.setText(item.getSymbol());
+        holder.mtvName.setText(item.getName());
+        holder.mtvPrice.setText("$" + new DecimalFormat("#,###.##").format(item.getPrice()));
+        holder.mtvChange.setText(new DecimalFormat("#,###.####").format(item.getChange()) + "%");
+        String icon = item.getIcon();
+        Picasso.with(mContext)
+                .load(icon)
+                .placeholder(R.drawable.coin_bitcoin)
+                .error(R.drawable.coin_bitcoin)
+                .into(holder.icon);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +68,7 @@ public class PredictableStockAdapter extends RecyclerView.Adapter<PredictableSto
 
     @Override
     public int getItemCount() {
-        return data!= null? data.length(): 0;
+        return data.size();
     }
 
     public void setListener(Listener listener){this.listener = listener;}

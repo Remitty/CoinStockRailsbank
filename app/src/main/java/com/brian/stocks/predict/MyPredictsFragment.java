@@ -87,6 +87,7 @@ public class MyPredictsFragment extends Fragment {
                                 sendCancel(position);
                             }
                         })
+                        .setNegativeButton("No", null)
                         .show();
             }
 

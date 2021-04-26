@@ -24,15 +24,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     >
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hello, "
+                        android:text="Hello "
                         android:textColor="@color/white_greyish"
                         android:textSize="24dp"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
+
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -122,7 +124,8 @@
                             android:textSize="20dp"
                             android:layout_gravity="center_vertical"
                             android:textColor="@color/colorBlack"
-                            android:text="Pay Now"/>
+                            android:textAllCaps="true"
+                            android:text="Send USDC"/>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -170,7 +173,8 @@
                             android:textSize="20dp"
                             android:layout_gravity="center_vertical"
                             android:textColor="@color/colorBlack"
-                            android:text="Add Payment Contact"/>
+                            android:textAllCaps="true"
+                            android:text="Add Recipient"/>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

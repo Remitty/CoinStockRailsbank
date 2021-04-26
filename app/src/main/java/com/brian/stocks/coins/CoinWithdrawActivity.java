@@ -189,7 +189,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                                         confirmPhoneVerification();
                                     }
                                 })
-                        .setNegativeButton("No",
+                        .setNegativeButton("Cancel",
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {

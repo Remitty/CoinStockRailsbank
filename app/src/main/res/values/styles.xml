@@ -29,11 +29,11 @@
     </style>
 
     <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/darkBlue</item>
+        <item name="android:textColor">@color/colorRedCrayon</item>
     </style>
 
     <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/colorRedCrayon</item>
+        <item name="android:textColor">@color/green</item>
     </style>
 
     <style name="ActionBarCustom" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">

@@ -66,7 +66,7 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
         if(getIntent() != null) {
             symbol = getIntent().getStringExtra("symbol");
             mtvSymbol.setText(symbol);
-            String price = new DecimalFormat("#,###.##").format(Double.parseDouble(getIntent().getStringExtra("price")));
+            String price = new DecimalFormat("#,###.##").format(getIntent().getDoubleExtra("price", 0.0));
             mtvPrice.setText("$ "+ price);
             mtvName.setText(getIntent().getStringExtra("name"));
 //            mtvUsdcBalance.setText(String.format("%.4f",Double.parseDouble(getIntent().getStringExtra("usdc_balance"))));
@@ -141,6 +141,7 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
                                     postPrediction();
                                 }
                             })
+                            .setNegativeButton("No", null)
                             .show();
                 }
             }

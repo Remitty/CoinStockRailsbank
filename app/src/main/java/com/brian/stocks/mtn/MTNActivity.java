@@ -115,6 +115,7 @@ public class MTNActivity extends AppCompatActivity {
                                         handlePay();
                                     }
                                 })
+                                .setNegativeButton("No", null)
                                 .show();
                     }
                 });
@@ -161,6 +162,7 @@ public class MTNActivity extends AppCompatActivity {
                                         handleTopup();
                                     }
                                 })
+                                .setNegativeButton("No", null)
                                 .show();
                     }
                 });
@@ -198,6 +200,7 @@ public class MTNActivity extends AppCompatActivity {
                                         handleConvert(0);
                                     }
                                 })
+                                .setNegativeButton("No", null)
                                 .show();
                     }
                 });
@@ -235,6 +238,7 @@ public class MTNActivity extends AppCompatActivity {
                                         handleConvert(1);
                                     }
                                 })
+                                .setNegativeButton("No", null)
                                 .show();
                     }
                 });

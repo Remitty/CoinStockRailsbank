@@ -297,11 +297,11 @@ public class CoinsFragment extends Fragment {
                             xanpoolApikey = response.getString("xanpool_api_key");
                             icArrow.setVisibility(View.VISIBLE);
                             if(response.getString("total_effect").startsWith("-")) {
-                                Picasso.with(getActivity()).load(R.drawable.ic_down).into(icArrow);
+                                Picasso.with(getContext()).load(R.drawable.ic_down).into(icArrow);
                                 mTotalEffect.setTextColor(RED);
                             }
                             else {
-                                Picasso.with(getActivity()).load(R.drawable.ic_up).into(icArrow);
+                                Picasso.with(getContext()).load(R.drawable.ic_up).into(icArrow);
                                 mTotalEffect.setTextColor(GREEN);
                             }
 

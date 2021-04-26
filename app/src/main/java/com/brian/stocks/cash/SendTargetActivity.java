@@ -71,6 +71,7 @@ public class SendTargetActivity extends AppCompatActivity {
                                 removeBank(position);
                             }
                         })
+                        .setNegativeButton("No", null)
                         .show();
             }
 
