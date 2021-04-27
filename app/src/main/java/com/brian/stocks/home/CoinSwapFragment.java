@@ -165,13 +165,18 @@ public class CoinSwapFragment extends Fragment {
         mBtnExchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mEditSendAmount.getText().toString().equals("") || sellAmount == 0) {
+                if(sellAmount == 0) {
                     mEditSendAmount.setError("!");
                     return;
                 }
 
-                if(Double.parseDouble(mEditSendAmount.getText().toString()) > Double.parseDouble(sendCoin.getCoinBalance())) {
+                if(sellAmount > Double.parseDouble(sendCoin.getCoinBalance())) {
                     Toast.makeText(getContext(), "Insufficient funds", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(sellAmount < Double.parseDouble(rateModel.getSendMin()) || sellAmount > Double.parseDouble(rateModel.getSendMax())) {
+                    Toast.makeText(getContext(), "The deposit amount is not within the range", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -331,8 +336,8 @@ public class CoinSwapFragment extends Fragment {
                     public void onError(ANError error) {
                         loadToast.error();
                         // handle error
-                        Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }

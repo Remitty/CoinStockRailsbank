@@ -72,10 +72,11 @@ public class TokenChartFragment extends Fragment {
         areaChart.animation(false)
                 .tooltip(false)
                 .xAxis(true)
-                .yAxis(true)
+                .yAxis(false)
                 .yGrid(true)
                 .background(false);
         areaChart.yScale().stackMode(ScaleStackMode.VALUE);
+        areaChart.yScale().alignMinimum(true);
 //        areaChart.yScale().stackMode(ScaleStackMode.PERCENT);
         List<DataEntry> seriesData = new ArrayList<>();
          int size = 0;

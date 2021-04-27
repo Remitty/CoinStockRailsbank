@@ -14,7 +14,7 @@ public class SwapRateModel {
 
     public String getSendMax() {
         try {
-            return  new DecimalFormat("#,###.###").format(data.getDouble("max"));
+            return  new DecimalFormat("#.###").format(data.getDouble("max"));
         } catch (JSONException e) {
             return "";
         }
@@ -22,7 +22,7 @@ public class SwapRateModel {
 
     public String getSendMin() {
         try {
-            return  new DecimalFormat("#,###.###").format(data.getDouble("min"));
+            return  new DecimalFormat("#.###").format(data.getDouble("min"));
         } catch (JSONException e) {
             return "";
         }

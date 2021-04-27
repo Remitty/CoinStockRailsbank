@@ -56,38 +56,13 @@
         android:text="Add User"
         />
     <TextView
+        android:id="@+id/view_users"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Payment users"
-        android:textColor="@color/colorBlack"
-        android:textSize="20dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="User name"
-            android:textColor="@color/darkBlue"/>
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="User name"
-            android:textColor="@color/darkBlue"/>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grayBlue"
-        android:layout_marginVertical="10dp"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/user_list"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_gravity="center_horizontal"
+        android:text="Recipients"
+        android:textColor="@color/colorBlue"
+        android:textSize="14dp"/>
+
 </LinearLayout>
