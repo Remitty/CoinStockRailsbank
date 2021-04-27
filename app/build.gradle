@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.brian.stocks"
+        applicationId "com.wyre.trade"
         minSdkVersion 24
         targetSdkVersion 29
         multiDexEnabled true
-        versionCode 6
+        versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.brian.stocks">
+    package="com.wyre.trade">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.wyre.trade.MyApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,20 +16,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".usdc.PaymentUserListActivity"></activity>
-        <activity android:name=".coins.StakeHistoryActivity" />
-        <activity android:name=".stock.stockwithdraw.StockWithdrawHistoryActivity" />
-        <activity android:name=".usdc.SendUsdcHistoryActivity" />
-        <activity android:name=".stock.deposit.Coin2StockHistoryActivity" />
-        <activity android:name=".stock.deposit.Bank2StockHistoryActivity" />
-        <activity android:name=".coins.CoinWithdrawHistoryActivity" />
-        <activity android:name=".coins.CoinSwapHistoryActivity" />
-        <activity android:name=".token.TokenOrderBookActivity" />
-        <activity android:name=".coins.CoinTradeActivity" />
-        <activity android:name=".coins.StakeAssetListActivity" />
-        <activity android:name=".token.TokenTradeHistoryActivity" />
-        <activity android:name=".zabo.ZaboAccountActivity" />
-        <activity android:name=".zabo.ZaboActivity">
+        <activity android:name="com.wyre.trade.usdc.PaymentUserListActivity"></activity>
+        <activity android:name="com.wyre.trade.coins.StakeHistoryActivity" />
+        <activity android:name="com.wyre.trade.stock.stockwithdraw.StockWithdrawHistoryActivity" />
+        <activity android:name="com.wyre.trade.usdc.SendUsdcHistoryActivity" />
+        <activity android:name="com.wyre.trade.stock.deposit.Coin2StockHistoryActivity" />
+        <activity android:name="com.wyre.trade.stock.deposit.Bank2StockHistoryActivity" />
+        <activity android:name="com.wyre.trade.coins.CoinWithdrawHistoryActivity" />
+        <activity android:name="com.wyre.trade.coins.CoinSwapHistoryActivity" />
+        <activity android:name="com.wyre.trade.token.TokenOrderBookActivity" />
+        <activity android:name="com.wyre.trade.coins.CoinTradeActivity" />
+        <activity android:name="com.wyre.trade.coins.StakeAssetListActivity" />
+        <activity android:name="com.wyre.trade.token.TokenTradeHistoryActivity" />
+        <activity android:name="com.wyre.trade.zabo.ZaboAccountActivity" />
+        <activity android:name="com.wyre.trade.zabo.ZaboActivity">
             <intent-filter android:label="Zaho connect account">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -41,9 +41,9 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".usdc.PaymentUserActivity" />
+        <activity android:name="com.wyre.trade.usdc.PaymentUserActivity" />
         <activity
-            android:name=".main.SplashActivity"
+            android:name="com.wyre.trade.main.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -53,35 +53,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".main.MainActivity"
+            android:name="com.wyre.trade.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".main.SignInActivity"
-            android:parentActivityName=".main.MainActivity"
+            android:name="com.wyre.trade.main.SignInActivity"
+            android:parentActivityName="com.wyre.trade.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".main.SignUpActivity"
-            android:parentActivityName=".main.MainActivity"
+            android:name="com.wyre.trade.main.SignUpActivity"
+            android:parentActivityName="com.wyre.trade.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".home.HomeActivity"
+            android:name="com.wyre.trade.home.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".stock.stocktrade.StocksTradingActivity" />
-        <activity android:name=".stock.stocktrade.StockBuyActivity" />
-        <activity android:name=".stock.stocktrade.StockSellActivity" />
-        <activity android:name=".stock.stocktrade.StocksOrderActivity" />
-        <activity android:name=".stock.NewsListActivity" />
-        <activity android:name=".stock.NewsActivity" />
+        <activity android:name="com.wyre.trade.stock.stocktrade.StocksTradingActivity" />
+        <activity android:name="com.wyre.trade.stock.stocktrade.StockBuyActivity" />
+        <activity android:name="com.wyre.trade.stock.stocktrade.StockSellActivity" />
+        <activity android:name="com.wyre.trade.stock.stocktrade.StocksOrderActivity" />
+        <activity android:name="com.wyre.trade.stock.NewsListActivity" />
+        <activity android:name="com.wyre.trade.stock.NewsActivity" />
         <activity
-            android:name=".coins.TransferFundsActivity"
+            android:name="com.wyre.trade.coins.TransferFundsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".stock.stockwithdraw.StockCoinWithdrawActivity" />
-        <activity android:name=".stock.stocktrade.StockReplaceActivity" />
-        <activity android:name=".stock.deposit.StockDepositActivity" />
-        <activity android:name=".coins.CoinWithdrawActivity" />
-        <activity android:name=".stock.StockNewsActivity" />
-        <activity android:name=".coins.CoinDepositHistoryActivity" />
+        <activity android:name="com.wyre.trade.stock.stockwithdraw.StockCoinWithdrawActivity" />
+        <activity android:name="com.wyre.trade.stock.stocktrade.StockReplaceActivity" />
+        <activity android:name="com.wyre.trade.stock.deposit.StockDepositActivity" />
+        <activity android:name="com.wyre.trade.coins.CoinWithdrawActivity" />
+        <activity android:name="com.wyre.trade.stock.StockNewsActivity" />
+        <activity android:name="com.wyre.trade.coins.CoinDepositHistoryActivity" />
         <activity
             android:name="network.ramp.instantsdk.ui.bank.BankActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
@@ -95,7 +95,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="com.brian.stocks"
+                    android:host="com.wyre.trade"
                     android:scheme="rampnetwork" />
             </intent-filter>
         </activity>
@@ -105,30 +105,30 @@
             android:launchMode="singleTask"
             android:theme="@style/RampInstant.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".home.WebViewActivity" />
-        <activity android:name=".usdc.SendUsdcActivity" />
-        <activity android:name=".mtn.MtnTransactionActivity" />
-        <activity android:name=".mtn.MTNActivity" />
-        <activity android:name=".token.TokenTradingActivity" />
-        <activity android:name=".coins.StakeActivity" />
-        <activity android:name=".predict.AddPredictActivity" />
-        <activity android:name=".predict.PredictableListActivity" />
-        <activity android:name=".predict.PredictActivity" />
-        <activity android:name=".profile.ProfileCompleteActivity" />
-        <activity android:name=".cash.InfoActivity" />
-        <activity android:name=".cash.AddFriendActivity" />
-        <activity android:name=".stock.StocksActivity" />
-        <activity android:name=".cash.AddBankActivity" />
-        <activity android:name=".profile.ProfileActivity" />
-        <activity android:name=".cash.CollectCashActivity" />
-        <activity android:name=".cash.SendCashActivity" />
-        <activity android:name=".cash.SendTargetActivity" />
-        <activity android:name=".main.SupportActivity" />
-        <activity android:name=".main.ChangePasswordActivity" />
-        <activity android:name=".main.ResetPasswordActivity" />
-        <activity android:name=".main.ForgotPasswordActivity" />
-        <activity android:name=".stock.stockorder.StockOrderHistoryActivity" />
-        <activity android:name=".chat.SocialGroupActivity" />
+        <activity android:name="com.wyre.trade.home.WebViewActivity" />
+        <activity android:name="com.wyre.trade.usdc.SendUsdcActivity" />
+        <activity android:name="com.wyre.trade.mtn.MtnTransactionActivity" />
+        <activity android:name="com.wyre.trade.mtn.MTNActivity" />
+        <activity android:name="com.wyre.trade.token.TokenTradingActivity" />
+        <activity android:name="com.wyre.trade.coins.StakeActivity" />
+        <activity android:name="com.wyre.trade.predict.AddPredictActivity" />
+        <activity android:name="com.wyre.trade.predict.PredictableListActivity" />
+        <activity android:name="com.wyre.trade.predict.PredictActivity" />
+        <activity android:name="com.wyre.trade.profile.ProfileCompleteActivity" />
+        <activity android:name="com.wyre.trade.cash.InfoActivity" />
+        <activity android:name="com.wyre.trade.cash.AddFriendActivity" />
+        <activity android:name="com.wyre.trade.stock.StocksActivity" />
+        <activity android:name="com.wyre.trade.cash.AddBankActivity" />
+        <activity android:name="com.wyre.trade.profile.ProfileActivity" />
+        <activity android:name="com.wyre.trade.cash.CollectCashActivity" />
+        <activity android:name="com.wyre.trade.cash.SendCashActivity" />
+        <activity android:name="com.wyre.trade.cash.SendTargetActivity" />
+        <activity android:name="com.wyre.trade.main.SupportActivity" />
+        <activity android:name="com.wyre.trade.main.ChangePasswordActivity" />
+        <activity android:name="com.wyre.trade.main.ResetPasswordActivity" />
+        <activity android:name="com.wyre.trade.main.ForgotPasswordActivity" />
+        <activity android:name="com.wyre.trade.stock.stockorder.StockOrderHistoryActivity" />
+        <activity android:name="com.wyre.trade.chat.SocialGroupActivity" />
     </application>
 
 </manifest>
