@@ -14,6 +14,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
+import com.wyre.trade.model.Card;
 import com.wyre.trade.stock.adapter.StockDepositPageAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -77,8 +78,16 @@ public class StockDepositActivity extends AppCompatActivity {
                             coinUSD = response.optString("usdc_est_usd");
                             mUSDBalance = response.optString("bank_usd_balance");
 
-                            mPageAdapter.add(Coin2StockFragment.newInstance(mStockBalance, mCoinBalance, coinUSD));
+                            Card card = null;
+                            if(response.optJSONObject("card") != null)
+                                card = new Card(response.optJSONObject("card"));
+                            String stripe_pub_key = response.optString("stripe_pub_key");
+                            JSONObject paypal = response.optJSONObject("paypal");
+
+                            mPageAdapter.add(Coin2StockFragment.newInstance(mStockBalance, Double.parseDouble(mCoinBalance), coinUSD));
                             mPageAdapter.add(Bank2StockFragment.newInstance(mStockBalance, mUSDBalance));
+                            mPageAdapter.add(Card2StockFragment.newInstance(mStockBalance, card, stripe_pub_key));
+                            mPageAdapter.add(Paypal2StockFragment.newInstance(mStockBalance, paypal));
                             mViewPager.setAdapter(mPageAdapter);
                             mPageAdapter.notifyDataSetChanged();
 
@@ -89,9 +98,16 @@ public class StockDepositActivity extends AppCompatActivity {
                             loadToast.error();
                             // handle error
                             Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
 
     }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.wyre.trade.model.StocksInfo;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -35,6 +36,7 @@ import org.json.JSONObject;
 
 public class StocksOrderActivity extends AppCompatActivity {
     private LoadToast loadToast;
+    KProgressHUD loadProgress;
     private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc;
     private TextView mStockShares, mStockQuantity, mStockAvgCost;
     private Button mBtnEdit, mBtnCancel;
@@ -46,7 +48,6 @@ public class StocksOrderActivity extends AppCompatActivity {
     private TabLayout mStockTabBar;
     StockChartTabAdapter mPageAdapter;
     private String price, shares;
-    private boolean loading = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,10 @@ public class StocksOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stocks_order);
         loadToast = new LoadToast(this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
+        loadProgress = KProgressHUD.create(StocksOrderActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -72,10 +77,7 @@ public class StocksOrderActivity extends AppCompatActivity {
         mBtnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!loading)
                 onEditOrder();
-                else
-                    Toast.makeText(getBaseContext(), "Please wait for loading", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -185,7 +187,8 @@ public class StocksOrderActivity extends AppCompatActivity {
     }
 
     private void getStockDetailData() {
-        loadToast.show();
+//        loadToast.show();
+        loadProgress.show();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("ticker", mStockName.getText());
@@ -204,8 +207,8 @@ public class StocksOrderActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-                            loadToast.success();
-                            loading = false;
+//                            loadToast.success();
+                            loadProgress.dismiss();
                             try {
                                 mAggregateDay = response.getJSONArray("aggregate_day");
                                 mAggregateWeek = response.getJSONArray("aggregate_week");

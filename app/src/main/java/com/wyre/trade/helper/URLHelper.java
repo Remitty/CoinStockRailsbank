@@ -56,6 +56,13 @@ public class URLHelper {
     public static final String GET_DEPOSIT_COIN_STOCK_HISTORY = REDIRECT_URL + "stock/deposit/history/coin";
     public static final String GET_DEPOSIT_BANK_STOCK_HISTORY = REDIRECT_URL + "stock/deposit/history/bank";
 
+    public static final String REQUEST_CARD = REDIRECT_URL + "card";
+    public static final String REQUEST_PAYPAL = REDIRECT_URL + "paypal";
+
+    public static final String GET_PLAID_LINK_TOKEN = REDIRECT_URL + "plaid/linktoken";
+    public static final String SEND_PLAID_PUB_TOKEN = REDIRECT_URL + "plaid/pubtoken";
+    public static final String SEND_PLAID_CONNECT_BANK = REDIRECT_URL + "plaid/bank/create";
+
     public static final String GET_BANK_DETAIL = REDIRECT_URL + "bank/detail";
     public static final String REQUEST_ADD_BANK = REDIRECT_URL + "bank/add";
     public static final String REQUEST_REMOVE_FRIEND_BANK = REDIRECT_URL + "bank/friend/remove";

@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,40 +26,53 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.wyre.trade.R;
-import com.wyre.trade.helper.PlaidConnect;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
+import com.wyre.trade.model.Card;
+import com.wyre.trade.payment.AddCardActivity;
+import com.wyre.trade.payment.CardActivity;
+import com.wyre.trade.stock.adapter.BottomCardAdapter;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
-import org.jetbrains.annotations.Nullable;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
-public class Bank2StockFragment extends Fragment {
+public class Card2StockFragment extends Fragment {
     View mView;
-    String stockBalance, bankBalance;
-    Double usd = 0.0;
+    String stockBalance, stripe_pub_key;
+    Card mCard;
 
-    TextView mStockBalance, mBankBalance;
+    TextView mStockBalance, tvCardId;
     EditText mEditAmount;
     CheckBox mChkMargin;
-    Button mBtnTransfer, btnConnectBank;
-    TextView tvViewHistory;
+    Button mBtnTransfer;
+    TextView tvViewHistory, tvChangeCard, tvEditCard;
+    LinearLayout llAddCard;
+
+    BottomSheetDialog dialog;
+    BottomCardAdapter mBottomAdapter;
+    RecyclerView recyclerView;
+    ArrayList<Card> cardList = new ArrayList<Card>();
+
 
     private LoadToast loadToast;
 
-    public Bank2StockFragment() {
+    public Card2StockFragment() {
         // Required empty public constructor
     }
 
-    public static Bank2StockFragment newInstance(String mStockBalance, String usdBalance) {
-        Bank2StockFragment fragment = new Bank2StockFragment();
+    public static Card2StockFragment newInstance(String mStockBalance, Card card, String stripe_pub_key) {
+        Card2StockFragment fragment = new Card2StockFragment();
         fragment.stockBalance = mStockBalance;
-        fragment.bankBalance = usdBalance;
+        fragment.mCard = card;
+        fragment.stripe_pub_key = stripe_pub_key;
         return fragment;
     }
 
@@ -71,59 +87,72 @@ public class Bank2StockFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_bank2_stock, container, false);
+        mView = inflater.inflate(R.layout.fragment_card2_stock_fragemnt, container, false);
 
         initComponents();
         initListeners();
 
         mStockBalance.setText("$ " + new DecimalFormat("#,###.##").format(Double.parseDouble(stockBalance)));
-        if(bankBalance.equals("No wallet"))
-            mBankBalance.setText(bankBalance);
-        else {
-            usd = Double.parseDouble(bankBalance);
-            mBankBalance.setText(new DecimalFormat("#,###.##").format(usd));
+        if(mCard != null) {
+            tvCardId.setText(mCard.getLastFour());
+            llAddCard.setVisibility(View.GONE);
+        } else {
+            tvEditCard.setVisibility(View.GONE);
+            tvChangeCard.setVisibility(View.GONE);
         }
+
+        initBottomSheet();
 
         return mView;
     }
 
     private void initComponents() {
         mStockBalance = mView.findViewById(R.id.stock_balance);
-        mBankBalance = mView.findViewById(R.id.bank_balance);
+        tvCardId = mView.findViewById(R.id.tv_card_id);
         mEditAmount = mView.findViewById(R.id.edit_transfer_amount);
         mBtnTransfer = mView.findViewById(R.id.btn_transfer_funds);
         mChkMargin = mView.findViewById(R.id.chk_margin);
         tvViewHistory = mView.findViewById(R.id.tv_view_history);
-        btnConnectBank = mView.findViewById(R.id.btn_connect_bank);
+        tvEditCard = mView.findViewById(R.id.tv_edit_card);
+        tvChangeCard = mView.findViewById(R.id.tv_change_card);
+        llAddCard = mView.findViewById(R.id.ll_add_card);
     }
 
     private void initListeners() {
-        btnConnectBank.setOnClickListener(new View.OnClickListener() {
+        tvEditCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new PlaidConnect(getActivity()).openPlaid();
+                Intent intent = new Intent(getActivity(), CardActivity.class);
+                intent.putExtra("stripe_pub_key", stripe_pub_key);
+                startActivity(intent);
+            }
+        });
+        llAddCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddCardActivity.class);
+                intent.putExtra("stripe_pub_key", stripe_pub_key);
+                startActivity(intent);
+            }
+        });
+        tvChangeCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCard();
             }
         });
         mBtnTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(bankBalance.equals("No wallet")) {
-//                    Toast.makeText(getContext(), "No wallet", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                if(mCard == null) {
+                    Toast.makeText(getContext(), "No card", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if(mEditAmount.getText().toString().equals("")) {
                     mEditAmount.setError("!");
                     return;
                 }
-//                if(usd == 0) {
-//                    Toast.makeText(getContext(), "No balance", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if(Double.parseDouble(mEditAmount.getText().toString()) > usd) {
-//                    Toast.makeText(getContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
 
                 if(mChkMargin.isChecked())
                     showMarginConfirmAlertDialog();
@@ -162,6 +191,27 @@ public class Bank2StockFragment extends Fragment {
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
                 }
+            }
+        });
+    }
+
+    private void initBottomSheet() {
+        View dialogView = getLayoutInflater().inflate(R.layout.coins_bottom_sheet, null);
+        dialog = new BottomSheetDialog(getActivity());
+        dialog.setContentView(dialogView);
+
+        recyclerView = dialogView.findViewById(R.id.bottom_coins_list);
+        mBottomAdapter  = new BottomCardAdapter(cardList, getActivity());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(mBottomAdapter);
+
+        mBottomAdapter.setListener(new BottomCardAdapter.Listener() {
+            @Override
+            public void onSelectCard(int position) {
+                mCard = cardList.get(position);
+                tvCardId.setText(mCard.getLastFour());
+
+                dialog.dismiss();
             }
         });
     }
@@ -212,14 +262,58 @@ public class Bank2StockFragment extends Fragment {
         alertDialog.show();
     }
 
+    private void getCard() {
+        loadToast.show();
+        AndroidNetworking.get(URLHelper.REQUEST_CARD)
+                .addHeaders("Content-Type", "application/json")
+                .addHeaders("accept", "application/json")
+                .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getActivity(),"access_token"))
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        loadToast.success();
+
+                        cardList.clear();
+
+                        JSONArray cards = response.optJSONArray("cards");
+                        for(int i = 0; i < cards.length(); i ++) {
+                            try {
+                                cardList.add(new Card(cards.getJSONObject(i)));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        if(cards.length() > 0) {
+                            mBottomAdapter.notifyDataSetChanged();
+                            dialog.show();
+                        } else {
+                            Toast.makeText(getContext(), "No card", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        loadToast.error();
+                        // handle error
+                        Toast.makeText(getActivity(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getErrorBody());
+                    }
+                });
+    }
+
     private void onTransferFunds() {
         loadToast.show();
 
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("amount", mEditAmount.getText().toString());
-            jsonObject.put("type", 1);
+            jsonObject.put("type", 2); //deposit from card
             jsonObject.put("rate", 1);
+            jsonObject.put("cardId", mCard.getCardId());
             jsonObject.put("check_margin", mChkMargin.isChecked());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -238,16 +332,16 @@ public class Bank2StockFragment extends Fragment {
                             Log.d("response", "" + response);
                             loadToast.success();
 
-                                mStockBalance.setText("$ " + response.optString("stock_balance"));
-                                mBankBalance.setText("$ " + response.optString("usd_balance"));
+                            stockBalance = response.optString("stock_balance");
+                            mStockBalance.setText("$ " + new DecimalFormat("#,###.##").format(Double.parseDouble(stockBalance)));
 
-
-                                Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onError(ANError error) {
                             loadToast.error();
+                            // handle error
                             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                             alert.setIcon(R.mipmap.ic_launcher_round)
                                     .setTitle("Alert")
@@ -258,16 +352,9 @@ public class Bank2StockFragment extends Fragment {
                                         }
                                     })
                                     .show();
+
                         }
                     });
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (!new PlaidConnect(getActivity()).myPlaidResultHandler.onActivityResult(requestCode, resultCode, data)) {
-//            Log.i(MainActivityJava.class.getSimpleName(), "Not handled");
-        }
     }
 
 }

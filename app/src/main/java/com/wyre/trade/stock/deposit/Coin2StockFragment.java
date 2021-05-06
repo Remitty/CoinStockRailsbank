@@ -42,7 +42,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Coin2StockFragment extends Fragment {
-    private static String CoinSymbol, CoinBalance="0.0", CoinUsdc="0.0", CoinRate, CoinIcon;
+    private static String CoinSymbol, CoinUsdc="0.0", CoinRate, CoinIcon;
+    private Double coinBalance = 0.0;
     private LoadToast loadToast;
     TextView mCoinBalance, mCoinUsdc, mCoinSymbol, mStockBalance;
     ImageView mCoinIcon;
@@ -57,7 +58,7 @@ public class Coin2StockFragment extends Fragment {
     private BottomSheetDialog dialog;
 
     private String CoinId;
-    String stockBalance, coinBalance, coinUSD;
+    String stockBalance, coinUSD;
 
     private List<CoinInfo> coinList = new ArrayList<>();
     
@@ -66,7 +67,7 @@ public class Coin2StockFragment extends Fragment {
     }
 
 
-    public static Coin2StockFragment newInstance(String stockBalance, String coinBalance, String coinUSD){
+    public static Coin2StockFragment newInstance(String stockBalance, Double coinBalance, String coinUSD){
         Coin2StockFragment fragment = new Coin2StockFragment();
         fragment.stockBalance = stockBalance;
         fragment.coinBalance = coinBalance;
@@ -91,7 +92,7 @@ public class Coin2StockFragment extends Fragment {
 
         initListeners();
 
-        mCoinBalance.setText(new DecimalFormat("#,###.##").format(Double.parseDouble(coinBalance)));
+        mCoinBalance.setText(new DecimalFormat("#,###.####").format(coinBalance));
         mCoinUsdc.setText("($ " + coinUSD+")");
         mStockBalance.setText("$ "+new DecimalFormat("#,###.##").format(Double.parseDouble(stockBalance)));
 
@@ -111,14 +112,14 @@ public class Coin2StockFragment extends Fragment {
         mBtnTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mEditAmount.getText().toString().equals("")) {
+                if(mEditAmount.getText().toString().isEmpty()) {
                     mEditAmount.setError("!");
                     return;
                 }
-//                if(Double.parseDouble(mEditAmount.getText().toString()) > Double.parseDouble(coinBalance)) {
-//                    Toast.makeText(getContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                if(Double.parseDouble(mEditAmount.getText().toString()) > coinBalance) {
+                    Toast.makeText(getContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if(mChkMargin.isChecked())
                     showMarginConfirmAlertDialog();
@@ -133,9 +134,9 @@ public class Coin2StockFragment extends Fragment {
                 CoinInfo coin = coinList.get(position);
                 CoinId = coin.getCoinId();
                 CoinSymbol = coin.getCoinSymbol();
-                CoinBalance = coin.getCoinBalance();
+//                CoinBalance = coin.getCoinBalance();
                 CoinUsdc = coin.getCoinUsdc();
-                mCoinBalance.setText(CoinBalance + " " + CoinSymbol);
+//                mCoinBalance.setText(CoinBalance + " " + CoinSymbol);
                 mCoinSymbol.setText(CoinSymbol);
                 mCoinUsdc.setText("( $ "+CoinUsdc+" )");
                 Picasso.with(getActivity())
@@ -252,7 +253,7 @@ public class Coin2StockFragment extends Fragment {
 
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("amount", mEditAmount.getText());
+            jsonObject.put("amount", mEditAmount.getText().toString());
             jsonObject.put("type", 0);
             jsonObject.put("coin", "USDC");
             jsonObject.put("rate", 1);
@@ -274,7 +275,6 @@ public class Coin2StockFragment extends Fragment {
                             Log.d("response", "" + response);
                             loadToast.success();
 
-                            if(response.optBoolean("success")) {
 
                                 try {
                                     mStockBalance.setText("$ " + response.getString("stock_balance"));
@@ -282,29 +282,34 @@ public class Coin2StockFragment extends Fragment {
                                     e.printStackTrace();
                                 }
                                 try {
+                                    coinBalance = response.getDouble("usdc_balance");
                                     mCoinBalance.setText("$ " + response.getString("usdc_balance"));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                                 try {
+
                                     mCoinUsdc.setText("$ " + response.getString("usdc_est_usd"));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
-
-                            }
-
-                            if(getContext() != null)
                             Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onError(ANError error) {
                             loadToast.error();
-                            // handle error
-                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                            alert.setIcon(R.mipmap.ic_launcher_round)
+                                    .setTitle("Alert")
+                                    .setMessage(error.getErrorBody())
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .show();
                         }
                     });
     }

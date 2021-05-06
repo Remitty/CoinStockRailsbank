@@ -56,7 +56,6 @@ public class Bank2StockHistoryActivity extends AppCompatActivity {
 
     private void loadHistory() {
         loadToast.show();
-        JSONObject jsonObject = new JSONObject();
         if(getBaseContext() != null)
             AndroidNetworking.get(URLHelper.GET_DEPOSIT_BANK_STOCK_HISTORY)
                     .addHeaders("Content-Type", "application/json")
@@ -89,7 +88,7 @@ public class Bank2StockHistoryActivity extends AppCompatActivity {
                             loadToast.error();
                             // handle error
                             Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
 

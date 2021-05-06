@@ -1,7 +1,10 @@
 package com.wyre.trade.stock.stockwithdraw;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,29 +22,41 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.PlaidConnect;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
+import com.wyre.trade.model.Card;
+import com.wyre.trade.stock.adapter.BottomCardAdapter;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class StockCoinWithdrawActivity extends AppCompatActivity {
     LoadToast loadToast;
 
 //    private JSONArray history;
 
-    private Button mBtnWithdraw;
+    private Button mBtnWithdrawCoin, btnWithdrawBank, btnWithdrawCard, btnConnectBank;
     private EditText mWalletAddress, mEditAmount;
     TextView mStockBalance, mUSDCRate;
     TextView tvViewHistory;
     RadioGroup radioGroup;
     Double StockBalance = 0.0, USDCRate = 0.0;
+
+    BottomSheetDialog dialog;
+    BottomCardAdapter mBottomAdapter;
+    RecyclerView recyclerView;
+    ArrayList<Card> cardList = new ArrayList<Card>();
+    String selectedCard, type, alertMsg, bank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +75,14 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
 
         initListeners();
 
+        initBottomSheet();
+
         getData();
 
     }
 
     private void initListeners() {
-        mBtnWithdraw.setOnClickListener(new View.OnClickListener() {
+        mBtnWithdrawCoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -77,7 +94,66 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                type = "USDC";
+                alertMsg = "Are you sure withdraw " + mEditAmount.getText().toString() + " USDC?";
                 showInvoiceDialog();
+            }
+        });
+
+        btnWithdrawBank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(mEditAmount.getText().toString().equals("")) {
+                    mEditAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(mEditAmount.getText().toString()) > USDCRate){
+                    Toast.makeText(getBaseContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                type = "bank";
+                alertMsg = "Are you sure withdraw $" + mEditAmount.getText().toString() + " to your bank?";
+                showInvoiceDialog();
+            }
+        });
+
+        btnWithdrawCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(mEditAmount.getText().toString().equals("")) {
+                    mEditAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(mEditAmount.getText().toString()) > USDCRate){
+                    Toast.makeText(getBaseContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                type = "card";
+                getCard();
+            }
+        });
+
+        btnConnectBank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bank.isEmpty())
+                    new PlaidConnect(StockCoinWithdrawActivity.this).openPlaid();
+                else {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(StockCoinWithdrawActivity.this);
+                    alert.setIcon(R.mipmap.ic_launcher_round)
+                            .setTitle("Confirm")
+                            .setMessage("You connected to " + bank + " already. Would you replace with other bank?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    new PlaidConnect(StockCoinWithdrawActivity.this).openPlaid();
+                                }
+                            })
+                            .setNegativeButton("No", null)
+                            .show();
+                }
             }
         });
 
@@ -93,7 +169,10 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
 
         mStockBalance = findViewById(R.id.stock_balance);
         mUSDCRate = findViewById(R.id.stock_usdc_rate);
-        mBtnWithdraw = findViewById(R.id.btn_coin_withdraw);
+        mBtnWithdrawCoin = findViewById(R.id.btn_coin_withdraw);
+        btnWithdrawBank = findViewById(R.id.btn_bank_withdraw);
+        btnWithdrawCard = findViewById(R.id.btn_card_withdraw);
+        btnConnectBank = findViewById(R.id.btn_connect_bank);
         mWalletAddress = findViewById(R.id.edit_withdraw_wallet_address);
         mEditAmount = findViewById(R.id.edit_coin_withdraw_amount);
         radioGroup = findViewById(R.id.rdg_withdraw_coins);
@@ -123,6 +202,8 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                                 mStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(StockBalance));
                                 mUSDCRate.setText(new DecimalFormat("#,###.##").format(USDCRate));
 
+                                bank = response.getString("stripe_bank");
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -139,6 +220,28 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
 
     }
 
+    private void initBottomSheet() {
+        View dialogView = getLayoutInflater().inflate(R.layout.coins_bottom_sheet, null);
+        dialog = new BottomSheetDialog(this);
+        dialog.setContentView(dialogView);
+
+        recyclerView = dialogView.findViewById(R.id.bottom_coins_list);
+        mBottomAdapter  = new BottomCardAdapter(cardList, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(mBottomAdapter);
+
+        mBottomAdapter.setListener(new BottomCardAdapter.Listener() {
+            @Override
+            public void onSelectCard(int position) {
+                Card card = cardList.get(position);
+                selectedCard = card.getCardId();
+                alertMsg = "Are you sure withdraw $" + mEditAmount.getText().toString() + " to " + card.getLastFour() + "?";
+                dialog.dismiss();
+                showInvoiceDialog();
+            }
+        });
+    }
+
     private void showInvoiceDialog() {
         BigDecimal amount = new BigDecimal(mEditAmount.getText().toString());
         BigDecimal rate;
@@ -151,7 +254,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
 
         new AlertDialog.Builder(StockCoinWithdrawActivity.this)
                 .setTitle(getString(R.string.app_name))
-                .setMessage("Are you sure you want to withdraw " + amount + "USDC ?")
+                .setMessage(alertMsg)
                 .setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -177,7 +280,8 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put("currency", "USDC");
+            jsonObject.put("type", type);
+            jsonObject.put("card_id", selectedCard);
             jsonObject.put("amount", mEditAmount.getText());
             jsonObject.put("address", mWalletAddress.getText());
         } catch (JSONException e) {
@@ -214,11 +318,69 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                     public void onError(ANError error) {
                         loadToast.error();
                         // handle error
+                        AlertDialog.Builder alert = new AlertDialog.Builder(StockCoinWithdrawActivity.this);
+                        alert.setTitle("Alert")
+                                .setIcon(R.mipmap.ic_launcher_round)
+                                .setMessage(error.getErrorBody())
+                                .setPositiveButton("Ok", null)
+                                .show();
+                    }
+                });
+    }
+
+    private void getCard() {
+        loadToast.show();
+        AndroidNetworking.get(URLHelper.REQUEST_CARD)
+                .addHeaders("Content-Type", "application/json")
+                .addHeaders("accept", "application/json")
+                .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(this,"access_token"))
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        loadToast.success();
+
+                        cardList.clear();
+
+                        JSONArray cards = response.optJSONArray("cards");
+                        for(int i = 0; i < cards.length(); i ++) {
+                            try {
+                                cardList.add(new Card(cards.getJSONObject(i)));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        if(cards.length() > 0) {
+                            mBottomAdapter.notifyDataSetChanged();
+                            dialog.show();
+                        } else {
+                            Toast.makeText(getBaseContext(), "No card", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        loadToast.error();
+                        // handle error
                         Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
                         Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (!new PlaidConnect(StockCoinWithdrawActivity.this).myPlaidResultHandler.onActivityResult(requestCode, resultCode, data)) {
+//            Log.i(MainActivityJava.class.getSimpleName(), "Not handled");
+            Log.d("plaid connect data", data.getDataString());
+            Log.d("plaid connect data1", data.toString());
+        }
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

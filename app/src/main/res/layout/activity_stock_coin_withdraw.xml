@@ -8,11 +8,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
 
             <LinearLayout
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingHorizontal="10dp"
@@ -38,34 +39,35 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/stock_balance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="visible"
+                                android:text="$0.0"
+                                android:textColor="@color/green"
+                                android:textSize="32dp"/>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
                                 android:orientation="horizontal">
                                 <TextView
                                     android:id="@+id/stock_usdc_rate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="0.0"
-                                    android:textColor="@color/green"
-                                    android:textSize="32dp"/>
+                                    android:textColor="@color/colorBlack"
+                                    android:textSize="16dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text=" USDC"
                                     android:textColor="@color/grayBlue"
-                                    android:textSize="32dp"/>
+                                    android:textSize="16dp"/>
                             </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/stock_balance"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:visibility="visible"
-                                android:layout_marginTop="10dp"
-                                android:text="$0.0"
-                                android:textColor="@color/colorBlack"
-                                android:textSize="16dp"/>
+
 
                         </LinearLayout>
                     </LinearLayout>
@@ -144,11 +146,13 @@
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="10dp"
+                            android:visibility="gone"
                             android:background="@color/green"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:visibility="gone"
                             android:textColor="@color/colorBlack"
                             android:text=" USDC"/>
                     </LinearLayout>
@@ -161,8 +165,26 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="20dp"
                     app:cornerRadius="25dp"
+                    android:backgroundTint="@color/colorBlue"
+                    android:text="Withdraw To USDC"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_bank_withdraw"
+                    android:layout_width="300dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    app:cornerRadius="25dp"
                     android:backgroundTint="@color/green"
-                    android:text="Withdraw now"/>
+                    android:text="Withdraw To Bank"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_card_withdraw"
+                    android:layout_width="300dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    app:cornerRadius="25dp"
+                    android:backgroundTint="@color/colorRedCrayon"
+                    android:text="Withdraw To Card"/>
 
                 <TextView
                     android:id="@+id/tv_view_history"
@@ -173,7 +195,19 @@
                     android:text="Withdraw History"
                     android:textColor="@color/colorBlue"/>
             </LinearLayout>
-
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_connect_bank"
+            android:layout_width="300dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_height="50dp"
+            app:cornerRadius="0dp"
+            android:backgroundTint="@color/green"
+            android:text="Connect Bank"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bottom_card_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

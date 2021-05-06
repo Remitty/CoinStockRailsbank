@@ -228,7 +228,7 @@ public class FiatPaymentFragment extends Fragment {
                 address,
                 "https://cdn-images-1.medium.com/max/2600/1*nqtMwugX7TtpcS-5c3lRjw.png",
                 "Coins",
-                "com.brian.stocks",
+                "com.wyre.trade",
                 symbol,
                 "",
                 "",

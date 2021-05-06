@@ -19,6 +19,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.wyre.trade.R;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
@@ -44,6 +45,8 @@ public class TransferCoinFragment extends Fragment {
     Double usdcBalance= 0.0;
 
     private LoadToast loadToast;
+    private KProgressHUD loadProgress;
+
     private TextView mtvUserName;
 
     RecyclerView newsView;
@@ -71,6 +74,11 @@ public class TransferCoinFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_transfer_coin, container, false);
 
         loadToast = new LoadToast(getActivity());
+
+        loadProgress = KProgressHUD.create(getActivity())
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
 
         tvBalance = view.findViewById(R.id.usdc_balance);
 
@@ -107,7 +115,8 @@ public class TransferCoinFragment extends Fragment {
     }
 
     private void getData() {
-        loadToast.show();
+//        loadToast.show();
+        loadProgress.show();
         if(getContext() != null)
             AndroidNetworking.get(URLHelper.GET_HOME_DATA)
                     .addHeaders("Content-Type", "application/json")
@@ -119,7 +128,8 @@ public class TransferCoinFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-                            loadToast.success();
+//                            loadToast.success();
+                            loadProgress.dismiss();
                             newsList.clear();
                             try {
                                 usdcBalance = response.getDouble("usdc_balance");

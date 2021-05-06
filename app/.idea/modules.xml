@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/../anychart/anychart.iml" filepath="$PROJECT_DIR$/../anychart/anychart.iml" group="CoinStockRailsbank/anychart" />
       <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" group="CoinStockRailsbank/app" />
       <module fileurl="file://$PROJECT_DIR$/../bottom-nav-bar/bottom-nav-bar.iml" filepath="$PROJECT_DIR$/../bottom-nav-bar/bottom-nav-bar.iml" group="CoinStockRailsbank/bottom-nav-bar" />
+      <module fileurl="file://$PROJECT_DIR$/../work-CoinStockRailsbank.iml" filepath="$PROJECT_DIR$/../work-CoinStockRailsbank.iml" group="CoinStockRailsbank" />
     </modules>
   </component>
 </project>
