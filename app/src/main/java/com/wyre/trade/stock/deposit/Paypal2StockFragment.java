@@ -32,6 +32,7 @@ import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.payment.AddPaypalActivity;
@@ -43,6 +44,8 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Paypal2StockFragment extends Fragment {
     View mView;
@@ -60,6 +63,7 @@ public class Paypal2StockFragment extends Fragment {
 
 
     private LoadToast loadToast;
+    private ConfirmAlert confirmAlert;
 
     public Paypal2StockFragment() {
         // Required empty public constructor
@@ -77,6 +81,7 @@ public class Paypal2StockFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         loadToast = new LoadToast(getActivity());
+        confirmAlert = new ConfirmAlert(getActivity());
     }
 
     @Override
@@ -140,7 +145,9 @@ public class Paypal2StockFragment extends Fragment {
         tvViewHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), Bank2StockHistoryActivity.class));
+                Intent intent = new Intent(getActivity(), Coin2StockHistoryActivity.class);
+                intent.putExtra("kind", "Paypal");
+                startActivity(intent);
             }
         });
 
@@ -172,26 +179,15 @@ public class Paypal2StockFragment extends Fragment {
     }
 
     private void showTransferConfirmAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        builder.setTitle(getContext().getResources().getString(R.string.app_name))
-                .setIcon(R.mipmap.ic_launcher_round)
-                .setMessage("Are you sure transfer $ " + mEditAmount.getText()+"?")
-                .setCancelable(false);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                handlePaypal();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        confirmAlert.confirm("Are you sure transfer $ " + mEditAmount.getText()+"? Fee is 5%.")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        handlePaypal();
+                        confirmAlert.process();
+                    }
+                })
+                .show();
     }
 
     private void showMarginConfirmAlertDialog() {
@@ -218,13 +214,13 @@ public class Paypal2StockFragment extends Fragment {
     }
 
     private void onTransferFunds() {
-        loadToast.show();
-
+//        loadToast.show();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("amount", mEditAmount.getText().toString());
             jsonObject.put("type", 3); //deposit from paypal
             jsonObject.put("rate", 1);
+            jsonObject.put("coin", paypal.optString("paypal"));
             jsonObject.put("check_margin", mChkMargin.isChecked());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -241,34 +237,25 @@ public class Paypal2StockFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-                            loadToast.success();
-
+//                            loadToast.success();
                             mStockBalance.setText("$ " + response.optString("stock_balance"));
 
-                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                                confirmAlert.success(response.optString("message"));
+//                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                            alert.setIcon(R.mipmap.ic_launcher_round)
-                                    .setTitle("Alert")
-                                    .setMessage(error.getErrorBody())
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                                    .show();
+                            confirmAlert.error(error.getErrorBody());
 
                         }
                     });
     }
 
     private void handlePaypal() {
-        loadToast.show();
+//        loadToast.show();
         PayPalConfiguration
                 config = null;
         try {
@@ -277,6 +264,7 @@ public class Paypal2StockFragment extends Fragment {
                     // or live (ENVIRONMENT_PRODUCTION)
 //                    .environment(CONFIG_ENVIRONMENT)
                     .environment(paypal.getString("mode"))
+//                    .environment(PayPalConfiguration.ENVIRONMENT_NO_NETWORK)
                     .clientId(paypal.getString("client_id"))
                     .merchantName(paypal.getString("merchant_name"));
             Intent intent = new Intent(getActivity(), PayPalService.class);
@@ -284,7 +272,7 @@ public class Paypal2StockFragment extends Fragment {
             intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
 
             //Creating a paypalpayment
-            PayPalPayment payment = new PayPalPayment(new BigDecimal(mEditAmount.getText().toString()), paypal.getString("currency"), "wyrerade",
+            PayPalPayment payment = new PayPalPayment(new BigDecimal(mEditAmount.getText().toString()), paypal.getString("currency"), "wyretrade",
                     PayPalPayment.PAYMENT_INTENT_SALE);
 //
 //            //Creating Paypal Payment activity intent
@@ -300,10 +288,12 @@ public class Paypal2StockFragment extends Fragment {
 //            //the request code will be used on the method onActivityResult
             startActivityForResult(intent1, PAYPAL_REQUEST_CODE);
         } catch (JSONException e) {
-            loadToast.error();
+//            loadToast.error();
+            confirmAlert.error("Network error");
             e.printStackTrace();
         } catch (NumberFormatException e) {
-            loadToast.error();
+//            loadToast.error();
+            confirmAlert.error("Network error");
             e.printStackTrace();
         }
     }

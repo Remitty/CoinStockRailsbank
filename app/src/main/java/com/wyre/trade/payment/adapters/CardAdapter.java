@@ -38,7 +38,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CustomViewHold
     public void onBindViewHolder(@NonNull CustomViewHolder holder, final int i) {
         Card item = arrItems.get(i);
 
-        holder.tvCardId.setText(item.getLastFour());
+        holder.tvCardId.setText("XXXX-XXXX-XXXX-" + item.getLastFour());
         if(item.getBrand().equals("Visa")) {
             Picasso.with(mContext).load(R.drawable.ic_visa).into(holder.imgCardIcon);
         } else Picasso.with(mContext).load(R.drawable.ic_mastercard).into(holder.imgCardIcon);

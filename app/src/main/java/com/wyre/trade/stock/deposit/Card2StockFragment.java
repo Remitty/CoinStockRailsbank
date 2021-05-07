@@ -28,6 +28,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.model.Card;
@@ -43,6 +44,8 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Card2StockFragment extends Fragment {
     View mView;
@@ -63,6 +66,7 @@ public class Card2StockFragment extends Fragment {
 
 
     private LoadToast loadToast;
+    private ConfirmAlert confirmAlert;
 
     public Card2StockFragment() {
         // Required empty public constructor
@@ -81,6 +85,7 @@ public class Card2StockFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         loadToast = new LoadToast(getActivity());
+        confirmAlert = new ConfirmAlert(getActivity());
     }
 
     @Override
@@ -94,7 +99,7 @@ public class Card2StockFragment extends Fragment {
 
         mStockBalance.setText("$ " + new DecimalFormat("#,###.##").format(Double.parseDouble(stockBalance)));
         if(mCard != null) {
-            tvCardId.setText(mCard.getLastFour());
+            tvCardId.setText("XXXX - XXXX - XXXX - " + mCard.getLastFour());
             llAddCard.setVisibility(View.GONE);
         } else {
             tvEditCard.setVisibility(View.GONE);
@@ -154,6 +159,12 @@ public class Card2StockFragment extends Fragment {
                     return;
                 }
 
+                if(Double.parseDouble(mEditAmount.getText().toString()) > 500) {
+                    ConfirmAlert alert = new ConfirmAlert(getActivity());
+                    alert.alert("Limit is $500");
+                    return;
+                }
+
                 if(mChkMargin.isChecked())
                     showMarginConfirmAlertDialog();
                 else
@@ -164,7 +175,9 @@ public class Card2StockFragment extends Fragment {
         tvViewHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), Bank2StockHistoryActivity.class));
+                Intent intent = new Intent(getActivity(), Coin2StockHistoryActivity.class);
+                intent.putExtra("kind", "Card");
+                startActivity(intent);
             }
         });
 
@@ -209,7 +222,7 @@ public class Card2StockFragment extends Fragment {
             @Override
             public void onSelectCard(int position) {
                 mCard = cardList.get(position);
-                tvCardId.setText(mCard.getLastFour());
+                tvCardId.setText("XXXX - XXXX - XXXX - " + mCard.getLastFour());
 
                 dialog.dismiss();
             }
@@ -217,26 +230,15 @@ public class Card2StockFragment extends Fragment {
     }
 
     private void showTransferConfirmAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        builder.setTitle(getContext().getResources().getString(R.string.app_name))
-                .setIcon(R.mipmap.ic_launcher_round)
-                .setMessage("Are you sure transfer $ " + mEditAmount.getText()+"?")
-                .setCancelable(false);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                onTransferFunds();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        confirmAlert.confirm("Are you sure transfer $ " + mEditAmount.getText()+"? Fee is 5%. Daily limit is $500.")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        onTransferFunds();
+                        confirmAlert.process();
+                    }
+                })
+                .show();
     }
 
     private void showMarginConfirmAlertDialog() {
@@ -306,13 +308,14 @@ public class Card2StockFragment extends Fragment {
     }
 
     private void onTransferFunds() {
-        loadToast.show();
+//        loadToast.show();
 
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("amount", mEditAmount.getText().toString());
             jsonObject.put("type", 2); //deposit from card
             jsonObject.put("rate", 1);
+            jsonObject.put("coin", mCard.getLastFour());
             jsonObject.put("cardId", mCard.getCardId());
             jsonObject.put("check_margin", mChkMargin.isChecked());
         } catch (JSONException e) {
@@ -330,28 +333,19 @@ public class Card2StockFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-                            loadToast.success();
-
+//                            loadToast.success();
                             stockBalance = response.optString("stock_balance");
                             mStockBalance.setText("$ " + new DecimalFormat("#,###.##").format(Double.parseDouble(stockBalance)));
 
-                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                            confirmAlert.success(response.optString("message"));
+//                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                            alert.setIcon(R.mipmap.ic_launcher_round)
-                                    .setTitle("Alert")
-                                    .setMessage(error.getErrorBody())
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                                    .show();
+                            confirmAlert.error(error.getErrorBody());
 
                         }
                     });

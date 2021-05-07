@@ -135,7 +135,9 @@ public class Bank2StockFragment extends Fragment {
         tvViewHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), Bank2StockHistoryActivity.class));
+                Intent intent = new Intent(getActivity(), Coin2StockHistoryActivity.class);
+                intent.putExtra("kind", "Bank");
+                startActivity(intent);
             }
         });
 
@@ -220,6 +222,7 @@ public class Bank2StockFragment extends Fragment {
             jsonObject.put("amount", mEditAmount.getText().toString());
             jsonObject.put("type", 1);
             jsonObject.put("rate", 1);
+            jsonObject.put("coin", "Bank");
             jsonObject.put("check_margin", mChkMargin.isChecked());
         } catch (JSONException e) {
             e.printStackTrace();

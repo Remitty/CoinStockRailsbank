@@ -53,8 +53,9 @@ public class URLHelper {
     public static final String GET_STOCK_ORDER = REDIRECT_URL + "stock/order/status/user";
     public static final String STOCK_WITHDRAW = REDIRECT_URL + "stock/withdraw";
     public static final String REQUEST_DEPOSIT_STOCK = REDIRECT_URL + "stock/deposit";
-    public static final String GET_DEPOSIT_COIN_STOCK_HISTORY = REDIRECT_URL + "stock/deposit/history/coin";
-    public static final String GET_DEPOSIT_BANK_STOCK_HISTORY = REDIRECT_URL + "stock/deposit/history/bank";
+    public static final String GET_DEPOSIT_STOCK_HISTORY = REDIRECT_URL + "stock/deposit/history";
+//    public static final String GET_DEPOSIT_COIN_STOCK_HISTORY = REDIRECT_URL + "stock/deposit/history/coin";
+//    public static final String GET_DEPOSIT_BANK_STOCK_HISTORY = REDIRECT_URL + "stock/deposit/history/bank";
 
     public static final String REQUEST_CARD = REDIRECT_URL + "card";
     public static final String REQUEST_PAYPAL = REDIRECT_URL + "paypal";

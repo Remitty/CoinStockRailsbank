@@ -1,5 +1,6 @@
 package com.wyre.trade.model;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class TransferInfo {
@@ -22,6 +23,14 @@ public class TransferInfo {
 
     public String getStatus(){
         return data.optString("status");
+    }
+
+    public String getUnit() {
+        try {
+            return  data.getString("coin");
+        } catch (JSONException e) {
+            return "";
+        }
     }
 
     public String getDate(){

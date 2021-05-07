@@ -22,9 +22,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corner_white_rectangle"
-                android:padding="20dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="20dp"
                 android:minHeight="150dp"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -49,7 +51,8 @@
                             android:id="@+id/tv_paypal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:maxLines="3"
+                            android:maxLines="1"
+                            android:ellipsize="end"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="5dp"
                             android:text="No Paypal"
@@ -193,7 +196,6 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
             android:text="Transfer History"
-            android:visibility="gone"
             android:textColor="@color/colorBlue"/>
     </LinearLayout>
 

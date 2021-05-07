@@ -57,7 +57,7 @@ public class Bank2StockHistoryActivity extends AppCompatActivity {
     private void loadHistory() {
         loadToast.show();
         if(getBaseContext() != null)
-            AndroidNetworking.get(URLHelper.GET_DEPOSIT_BANK_STOCK_HISTORY)
+            AndroidNetworking.get(URLHelper.GET_DEPOSIT_STOCK_HISTORY)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
                     .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))

@@ -69,7 +69,7 @@ dependencies {
 //    implementation "com.google.android.gms:play-services:11.8.0"
 
     implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation 'com.github.kassisdion:ViewPagerWithIndicator:v1.0'
+    implementation 'com.github.kassisdion:ViewPagerWithIndicator:v1.0'//for cash
 //view pager with arrow . used for cash page
 
     implementation('io.socket:socket.io-client:2.0.0') {
@@ -79,6 +79,7 @@ dependencies {
 
     implementation 'net.steamcrafted:load-toast:1.0.12'
     implementation 'com.kaopiz:kprogresshud:1.0.2'
+    implementation 'com.github.JobGetabu:DroidAlert:1.0.9'//sweet alert
 
 //    implementation 'org.chat21.android:chat21:1.0.15'
     implementation 'io.michaelrocks:libphonenumber-android:8.4.1'

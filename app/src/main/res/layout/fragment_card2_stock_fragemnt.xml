@@ -22,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corner_white_rectangle"
-                android:padding="20dp"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="10dp"
                 android:minHeight="150dp"
                 android:orientation="vertical">
                 <LinearLayout
@@ -51,7 +52,8 @@
                             android:id="@+id/tv_card_id"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:maxLines="3"
+                            android:singleLine="true"
+                            android:ellipsize="start"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="5dp"
                             android:text="No Card"
@@ -226,7 +228,6 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
             android:text="Transfer History"
-            android:visibility="gone"
             android:textColor="@color/colorBlue"/>
     </LinearLayout>
 

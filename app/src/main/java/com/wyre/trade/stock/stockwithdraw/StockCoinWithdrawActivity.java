@@ -24,6 +24,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.PlaidConnect;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
@@ -40,9 +41,11 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class StockCoinWithdrawActivity extends AppCompatActivity {
     LoadToast loadToast;
-
+    ConfirmAlert confirmAlert;
 //    private JSONArray history;
 
     private Button mBtnWithdrawCoin, btnWithdrawBank, btnWithdrawCard, btnConnectBank;
@@ -64,6 +67,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stock_coin_withdraw);
 
         loadToast = new LoadToast(this);
+        confirmAlert = new ConfirmAlert(StockCoinWithdrawActivity.this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -252,31 +256,41 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
             return;
         }
 
-        new AlertDialog.Builder(StockCoinWithdrawActivity.this)
-                .setTitle(getString(R.string.app_name))
-                .setMessage(alertMsg)
-                .setPositiveButton("Yes",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                doWithdraw();
-                            }
-                        })
-                .setNegativeButton("No",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+//        new AlertDialog.Builder(StockCoinWithdrawActivity.this)
+////                .setTitle(getString(R.string.app_name))
+////                .setMessage(alertMsg)
+////                .setPositiveButton("Yes",
+////                        new DialogInterface.OnClickListener() {
+////                            @Override
+////                            public void onClick(DialogInterface dialog, int which) {
+////                                doWithdraw();
+////                            }
+////                        })
+////                .setNegativeButton("No",
+////                        new DialogInterface.OnClickListener() {
+////                            @Override
+////                            public void onClick(DialogInterface dialogInterface, int i) {
+////
+////                                // dismiss the dialog
+////                                dialogInterface.dismiss();
+////
+////                                // dismiss the bottomsheet
+////                            }
+////                        }).show();
 
-                                // dismiss the dialog
-                                dialogInterface.dismiss();
-
-                                // dismiss the bottomsheet
-                            }
-                        }).show();
+        confirmAlert.confirm(alertMsg)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        confirmAlert.process();
+                        doWithdraw();
+                    }
+                })
+                .show();
     }
 
     private void doWithdraw() {
-        loadToast.show();
+//        loadToast.show();
         JSONObject jsonObject = new JSONObject();
 
         try {
@@ -299,7 +313,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
-                        loadToast.success();
+//                        loadToast.success();
                         if(response.optBoolean("success")) {
                             try {
                                 StockBalance = response.getDouble("stock_balance");
@@ -311,19 +325,21 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                        confirmAlert.success(response.optString("message"));
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        loadToast.error();
+//                        loadToast.error();
                         // handle error
-                        AlertDialog.Builder alert = new AlertDialog.Builder(StockCoinWithdrawActivity.this);
-                        alert.setTitle("Alert")
-                                .setIcon(R.mipmap.ic_launcher_round)
-                                .setMessage(error.getErrorBody())
-                                .setPositiveButton("Ok", null)
-                                .show();
+//                        AlertDialog.Builder alert = new AlertDialog.Builder(StockCoinWithdrawActivity.this);
+//                        alert.setTitle("Alert")
+//                                .setIcon(R.mipmap.ic_launcher_round)
+//                                .setMessage(error.getErrorBody())
+//                                .setPositiveButton("Ok", null)
+//                                .show();
+                       confirmAlert.error(error.getErrorBody());
                     }
                 });
     }

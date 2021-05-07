@@ -36,6 +36,18 @@
             android:textColor="@color/colorBlack"
             android:text="Status"/>
         <TextView
+            android:id="@+id/stock_transfer_unit"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="13dp"
+            android:visibility="visible"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:text="unit"/>
+        <TextView
             android:id="@+id/stock_transfer_date"
             android:layout_weight="1"
             android:layout_width="match_parent"

@@ -34,6 +34,8 @@ public class Coin2StockHistoryActivity extends AppCompatActivity {
     StockTransferAdapter mTransferAdapter;
     private List<TransferInfo> historyList = new ArrayList<>();
 
+    String kind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,10 @@ public class Coin2StockHistoryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setElevation(0);
         getSupportActionBar().setTitle("");
+
+        if(getIntent() != null) {
+            kind = getIntent().getStringExtra("kind");
+        }
 
         loadToast = new LoadToast(this);
 
@@ -58,10 +64,11 @@ public class Coin2StockHistoryActivity extends AppCompatActivity {
         loadToast.show();
         JSONObject jsonObject = new JSONObject();
         if(getBaseContext() != null)
-            AndroidNetworking.get(URLHelper.GET_DEPOSIT_COIN_STOCK_HISTORY)
+            AndroidNetworking.get(URLHelper.GET_DEPOSIT_STOCK_HISTORY)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
                     .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))
+                    .addQueryParameter("kind", kind)
                     .setPriority(Priority.MEDIUM)
                     .build()
                     .getAsJSONObject(new JSONObjectRequestListener() {

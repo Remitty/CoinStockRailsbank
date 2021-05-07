@@ -56,7 +56,7 @@ public class AddPaypalActivity extends AppCompatActivity {
         if(getIntent().getStringExtra("paypal") != null) {
             paypal = getIntent().getStringExtra("paypal");
             editPaypal.setText(paypal);
-            btnAdd.setText("Edit");
+            btnAdd.setText("Update");
         } else {
             imgDelete.setVisibility(View.GONE);
         }

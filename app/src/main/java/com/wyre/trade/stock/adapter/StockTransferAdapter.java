@@ -22,7 +22,7 @@ public class StockTransferAdapter extends RecyclerView.Adapter<StockTransferAdap
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvStockTransferAmount, tvReceived, tvStockTransferStatus, tvStockTransferDate;
+        TextView tvStockTransferAmount, tvReceived, tvStockTransferStatus, tvStockTransferDate, tvUnit;
 
         @SuppressLint("ResourceAsColor")
         public OrderViewHolder(View view) {
@@ -32,6 +32,7 @@ public class StockTransferAdapter extends RecyclerView.Adapter<StockTransferAdap
             tvReceived = view.findViewById(R.id.stock_received_amount);
             tvStockTransferStatus = view.findViewById(R.id.stock_transfer_status);
             tvStockTransferDate = view.findViewById(R.id.stock_transfer_date);
+            tvUnit = view.findViewById(R.id.stock_transfer_unit);
 
         }
     }
@@ -52,6 +53,7 @@ public class StockTransferAdapter extends RecyclerView.Adapter<StockTransferAdap
         holder.tvStockTransferDate.setText(item.getDate());
         holder.tvStockTransferAmount.setText(item.getAmount());
         holder.tvReceived.setText(item.getReceived());
+        holder.tvUnit.setText(item.getUnit());
 
     }
 

@@ -20,7 +20,7 @@ public class Card {
 
     public String getLastFour() {
         try {
-            return "XXXX-XXXX-XXXX-" + data.getString("last_four");
+            return data.getString("last_four");
         } catch (JSONException e) {
             return "";
         }

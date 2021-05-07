@@ -54,7 +54,6 @@ public class AddCardActivity extends AppCompatActivity {
 
         btnAdd = findViewById(R.id.btn_add_card);
         stripeWidget = findViewById(R.id.stripe_widget);
-
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,18 +73,25 @@ public class AddCardActivity extends AppCompatActivity {
 
         Stripe stripe = new Stripe(AddCardActivity.this, stripPubKey);
         Card card = stripeWidget.getCard();
-        loadToast.show();
-        stripe.createToken(card, new ApiResultCallback<Token>() {
-            @Override
-            public void onSuccess(@NonNull Token token) {
-                sendAddCard(token.getId());
-            }
+        if(card.validateCard()) {
+            sendAddCard("");
+//            loadToast.show();
+//            stripe.createToken(card, new ApiResultCallback<Token>() {
+//                @Override
+//                public void onSuccess(@NonNull Token token) {
+//
+//                    sendAddCard(token.getId());
+//                }
+//
+//                @Override
+//                public void onError(@NonNull Exception e) {
+//                    loadToast.error();
+//                }
+//            });
+        } else {
+            Toast.makeText(getBaseContext(), "Invalid card", Toast.LENGTH_SHORT).show();
+        }
 
-            @Override
-            public void onError(@NonNull Exception e) {
-                loadToast.error();
-            }
-        });
     }
 
     private void sendAddCard(String token) {
@@ -94,7 +100,10 @@ public class AddCardActivity extends AppCompatActivity {
                 .addHeaders("Content-Type", "application/json")
                 .addHeaders("accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))
-                .addBodyParameter("stripe_token", token)
+                .addBodyParameter("no", cardNo)
+                .addBodyParameter("month", month+"")
+                .addBodyParameter("year", year+"")
+                .addBodyParameter("cvc", cvcNo+"")
                 .addBodyParameter("user_type", "0")
                 .setPriority(Priority.MEDIUM)
                 .build()

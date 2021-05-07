@@ -27,6 +27,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
 import com.wyre.trade.adapters.BottomCoinAdapter;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.model.CoinInfo;
@@ -41,10 +42,13 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class Coin2StockFragment extends Fragment {
     private static String CoinSymbol, CoinUsdc="0.0", CoinRate, CoinIcon;
     private Double coinBalance = 0.0;
     private LoadToast loadToast;
+    private ConfirmAlert confirmAlert;
     TextView mCoinBalance, mCoinUsdc, mCoinSymbol, mStockBalance;
     ImageView mCoinIcon;
     EditText mEditAmount;
@@ -80,6 +84,7 @@ public class Coin2StockFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         loadToast = new LoadToast(getActivity());
+        confirmAlert = new ConfirmAlert(getActivity());
     }
 
     @Override
@@ -151,7 +156,9 @@ public class Coin2StockFragment extends Fragment {
         tvViewHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), Coin2StockHistoryActivity.class));
+                Intent intent = new Intent(getActivity(), Coin2StockHistoryActivity.class);
+                intent.putExtra("kind", "COIN");
+                startActivity(intent);
             }
         });
 
@@ -204,25 +211,16 @@ public class Coin2StockFragment extends Fragment {
     }
 
     private void showTransferConfirmAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(getContext().getResources().getString(R.string.app_name))
-                .setIcon(R.mipmap.ic_launcher_round)
-                .setMessage("Are you sure transfer " + mEditAmount.getText()+"USDC ?")
-                .setCancelable(false);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                onTransferFunds();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
 
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        confirmAlert.confirm("Are you sure transfer " + mEditAmount.getText()+"USDC ?")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        onTransferFunds();
+                        confirmAlert.process();
+                    }
+                })
+                .show();
     }
 
     private void showMarginConfirmAlertDialog() {
@@ -249,7 +247,7 @@ public class Coin2StockFragment extends Fragment {
     }
 
     private void onTransferFunds() {
-        loadToast.show();
+//        loadToast.show();
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -273,7 +271,7 @@ public class Coin2StockFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-                            loadToast.success();
+//                            loadToast.success();
 
 
                                 try {
@@ -294,22 +292,14 @@ public class Coin2StockFragment extends Fragment {
                                     e.printStackTrace();
                                 }
 
-                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                            confirmAlert.success(response.optString("message"));
                         }
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
+//                            loadToast.error();
                             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                            alert.setIcon(R.mipmap.ic_launcher_round)
-                                    .setTitle("Alert")
-                                    .setMessage(error.getErrorBody())
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                                    .show();
+                            confirmAlert.error(error.getErrorBody());
                         }
                     });
     }
