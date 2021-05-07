@@ -18,6 +18,7 @@
                 android:id="@+id/card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:cardElevation="3dp"
                 app:cardUseCompatPadding="true">
 
@@ -528,6 +529,43 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:visibility="visible"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="5dp"
+                            android:text="State"
+                            android:gravity="right"
+                            android:layout_weight="1"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/editTextState"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_corners_edittext_dark"
+                                android:gravity="center_vertical"
+                                android:padding="10dp"
+                                android:hint=""
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -631,7 +669,41 @@
                         </LinearLayout>
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="5dp"
+                            android:text="SSN Last 4"
+                            android:gravity="right"
+                            android:layout_weight="1"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/editTextSSN"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_corners_edittext_dark"
+                                android:gravity="center_vertical"
+                                android:padding="10dp"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_update_profile"
                         android:layout_width="match_parent"

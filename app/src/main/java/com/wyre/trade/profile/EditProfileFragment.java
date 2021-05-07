@@ -21,7 +21,11 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.phonenumberui.AppConstant;
+import com.phonenumberui.PhoneNumberActivity;
+import com.phonenumberui.VerificationCodeActivity;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.home.HomeActivity;
@@ -50,11 +54,13 @@ import io.michaelrocks.libphonenumber.android.Phonenumber;
 import static android.app.Activity.RESULT_OK;
 
 public class EditProfileFragment extends Fragment{
+    private static final int REQUEST_PHONE_VERIFICATION = 1080;
     View mView;
     EditText editTextName, editTextLastName, editTextEmail, editTextAddress1, editTextAddress2, editTextCity, editCountry,
-            editTextPostalCode, editTextNational;
+            editTextPostalCode, editTextNational, editTextState, editTextSSN;
     Button btnUpdate;
     TextView textViewChangePwd, editDob;
+    private String countrycode, mobile;
 
     private AppCompatEditText etCountryCode;
     private AppCompatEditText etPhoneNumber;
@@ -107,6 +113,8 @@ public class EditProfileFragment extends Fragment{
         editTextNational = mView.findViewById(R.id.editTextNational);
         editCountry = mView.findViewById(R.id.editTextCountry);
         editTextCity = mView.findViewById(R.id.editTextCity);
+        editTextState = mView.findViewById(R.id.editTextState);
+        editTextSSN = mView.findViewById(R.id.editTextSSN);
         editDob = mView.findViewById(R.id.editTextDOB);
 
         etCountryCode = mView.findViewById(R.id.etCountryCode);
@@ -126,8 +134,12 @@ public class EditProfileFragment extends Fragment{
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validation())
-                sendUpdateProfile();
+                if(validation()) {
+//                    if(!etCountryCode.getText().toString().equals(countrycode) || !etPhoneNumber.getText().toString().equals(mobile))
+//                        verifyPhone();
+//                    else
+                        sendUpdateProfile();
+                }
             }
         });
 
@@ -163,8 +175,7 @@ public class EditProfileFragment extends Fragment{
     private boolean validation() {
         boolean validFlag = true;
         // Check if all strings are null or not
-        Pattern p = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
-        Matcher m = p.matcher(editTextEmail.getText().toString());
+
 
         if (TextUtils.isEmpty(editTextName.getText().toString())) {
             editTextName.setError("!");
@@ -177,6 +188,12 @@ public class EditProfileFragment extends Fragment{
         if (TextUtils.isEmpty(editTextEmail.getText().toString())) {
             editTextEmail.setError("!");
             validFlag = false;
+        } else {
+            Pattern p = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
+            Matcher m = p.matcher(editTextEmail.getText().toString());
+            validFlag = m.matches();
+            if(!validFlag)
+                editTextEmail.setError("Invalid email format");
         }
         if (TextUtils.isEmpty(editTextAddress1.getText().toString())) {
             editTextAddress1.setError("!");
@@ -186,10 +203,7 @@ public class EditProfileFragment extends Fragment{
             editTextAddress2.setError("!");
             validFlag = false;
         }
-        if (TextUtils.isEmpty(etPhoneNumber.getText().toString())) {
-            etPhoneNumber.setError("!");
-            validFlag = false;
-        }
+        validFlag = validatePhone();
         if (TextUtils.isEmpty(editTextPostalCode.getText().toString())) {
             editTextPostalCode.setError("!");
             validFlag = false;
@@ -202,6 +216,10 @@ public class EditProfileFragment extends Fragment{
             editTextCity.setError("!");
             validFlag = false;
         }
+        if (TextUtils.isEmpty(editTextState.getText().toString())) {
+            editTextState.setError("!");
+            validFlag = false;
+        }
         if (TextUtils.isEmpty(editCountry.getText().toString())) {
             editCountry.setError("!");
             validFlag = false;
@@ -210,7 +228,22 @@ public class EditProfileFragment extends Fragment{
             editTextNational.setError("!");
             validFlag = false;
         }
-        validFlag = validatePhone();
+        if(editCountry.getText().toString().equals("US")) {
+            if (TextUtils.isEmpty(editTextSSN.getText().toString())) {
+                editTextSSN.setError("!");
+                validFlag = false;
+            }
+            else {
+//                Pattern p = Pattern.compile( "^(?!666|000|9\\d{2})\\d{3}" + "-(?!00)\\d{2}-" + "(?!0{4})\\d{4}$" );
+                Pattern p = Pattern.compile( "(?!0{4})\\d{4}$" );
+                Matcher m = p.matcher(editTextSSN.getText().toString());
+                validFlag = m.matches();
+                if(!validFlag)
+                    editTextSSN.setError("Invalid format");
+            }
+        }
+
+
         return validFlag;
     }
 
@@ -228,10 +261,12 @@ public class EditProfileFragment extends Fragment{
             jsonObject.put("address2", editTextAddress2.getText().toString().trim());
             jsonObject.put("postalcode", editTextPostalCode.getText().toString().trim());
             jsonObject.put("city", editTextCity.getText().toString().trim());
+            jsonObject.put("state", editTextState.getText().toString().trim());
             jsonObject.put("country", editCountry.getText().toString().trim());
             jsonObject.put("dob", editDob.getText().toString().trim());
             jsonObject.put("region", editTextNational.getText().toString().trim());
-            jsonObject.put("user_type", 2);
+            jsonObject.put("ssn", editTextSSN.getText().toString().trim());
+            jsonObject.put("user_type", 0);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -282,20 +317,24 @@ public class EditProfileFragment extends Fragment{
 
 
                                 ProfileModel profile = new ProfileModel();
-                                profile.setData(response);
+                                profile.setData(response.optJSONObject("user"));
 
 //                                textViewUserName.setText(profile.getFirstName() + " " + profile.getLastName());
 
                                 editTextName.setText(profile.getFirstName());
                                 editTextLastName.setText(profile.getLastName());
                                 editTextEmail.setText(profile.getEmail());
-                                etPhoneNumber.setText(profile.getMobile());
-                                etCountryCode.setText(profile.getCountryCode());
+                                mobile = profile.getMobile();
+                                etPhoneNumber.setText(mobile);
+                                countrycode = profile.getCountryCode();
+                                etCountryCode.setText(countrycode);
                                 editTextPostalCode.setText(profile.getPostalCode());
                                 editTextAddress1.setText(profile.getFirstAddress());
                                 editTextAddress2.setText(profile.getSecondAddress());
                                 editTextCity.setText(profile.getCity());
                                 editCountry.setText(profile.getCountry());
+                                editTextState.setText(profile.getState());
+                                editTextSSN.setText(profile.getSSN());
                                 editDob.setText(profile.getDOB());
                                 editTextNational.setText(profile.getRegion());
 
@@ -388,6 +427,14 @@ public class EditProfileFragment extends Fragment{
         return true;
     }
 
+    private void verifyPhone() {
+        Intent verificationIntent = new Intent(getActivity(), VerificationCodeActivity.class);
+        verificationIntent.putExtra("PhoneNumber", etPhoneNumber.getText().toString().trim());
+        verificationIntent.putExtra("PhoneCode", etCountryCode.getText().toString());
+        verificationIntent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        startActivityForResult(verificationIntent, REQUEST_PHONE_VERIFICATION);
+    }
+
     public boolean isValid() {
         Phonenumber.PhoneNumber phoneNumber = getPhoneNumber();
         return phoneNumber != null && mPhoneUtil.isValidNumber(phoneNumber);
@@ -423,6 +470,17 @@ public class EditProfileFragment extends Fragment{
                 }
             }
         }
+        if(requestCode == REQUEST_PHONE_VERIFICATION) {
+            if (data != null && data.hasExtra("PHONE_NUMBER") && data.getStringExtra("PHONE_NUMBER") != null) {
+                sendUpdateProfile();
+            } else {
+                // If mobile number is not verified successfully You can hendle according to your requirement.
+//                Toast.makeText(getContext(), "Mobile number verification fails",Toast.LENGTH_SHORT).show();
+                ConfirmAlert alert = new ConfirmAlert(getActivity());
+                alert.error("Mobile number verification fails");
+            }
+        }
+
     }
 
 }

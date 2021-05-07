@@ -34,7 +34,7 @@ public class ProfileModel {
 
     public String getMobile(){
         try {
-            String str = data.getJSONObject("profile").getString("mobile");
+            String str = data.getString("mobile");
             if(str.equals("null")) str = "";
             return str;
         } catch (JSONException e) {
@@ -44,7 +44,7 @@ public class ProfileModel {
 
     public String getCountryCode(){
         try {
-            String str = data.getJSONObject("profile").getString("country_code");
+            String str = data.getString("country_code");
             if(str.equals("null")) str = "";
             return str;
         } catch (JSONException e) {
@@ -122,4 +122,23 @@ public class ProfileModel {
         }
     }
 
+    public String getState(){
+        try {
+            String str = data.getJSONObject("profile").getString("state");
+            if(str.equals("null")) str = "";
+            return str;
+        } catch (JSONException e) {
+            return "";
+        }
+    }
+
+    public String getSSN(){
+        try {
+            String str = data.getJSONObject("profile").getString("ssn_last_4");
+            if(str.equals("null")) str = "";
+            return str;
+        } catch (JSONException e) {
+            return "";
+        }
+    }
 }
