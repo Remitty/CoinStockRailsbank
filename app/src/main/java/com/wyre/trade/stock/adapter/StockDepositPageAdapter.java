@@ -9,10 +9,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.wyre.trade.stock.deposit.Bank2StockFragment;
+import com.wyre.trade.stock.deposit.Card2StockFragment;
 import com.wyre.trade.stock.deposit.Coin2StockFragment;
 
 public class StockDepositPageAdapter extends FragmentPagerAdapter {
-    private String[] items={"Coin", "Bank", "Card", "Paypal"};
+    private String[] items={"Coin", "Card", "Paypal"};
+//    private String[] items={"Coin", "Bank", "Card", "Paypal"};
     private List<Fragment> fragments = new ArrayList<>();
     private String mStockBalance, mCoinBalance, coinUSD, mUSDBalance;
 
@@ -44,7 +46,7 @@ public class StockDepositPageAdapter extends FragmentPagerAdapter {
         if (object instanceof Coin2StockFragment) {
             return POSITION_NONE;
         }
-        if (object instanceof Bank2StockFragment) {
+        if (object instanceof Card2StockFragment) {
             return POSITION_NONE;
         }
         return 1;

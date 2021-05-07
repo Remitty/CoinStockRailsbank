@@ -20,6 +20,7 @@ import com.stripe.android.model.Card;
 import com.stripe.android.model.Token;
 import com.stripe.android.view.CardInputWidget;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.stock.deposit.StockDepositActivity;
@@ -35,6 +36,7 @@ public class AddCardActivity extends AppCompatActivity {
     String stripPubKey;
     String cvcNo, cardNo;
     int month, year;
+    int withdrawal = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,8 @@ public class AddCardActivity extends AppCompatActivity {
 
         if(getIntent() != null) {
             stripPubKey = getIntent().getStringExtra("stripe_pub_key");
+            if(getIntent().hasExtra("withdrawal"))
+                withdrawal = getIntent().getIntExtra("withdrawal", 0);
         }
 
         btnAdd = findViewById(R.id.btn_add_card);
@@ -65,15 +69,14 @@ public class AddCardActivity extends AppCompatActivity {
     }
 
     private void checkoutStripe() {
-
-        cvcNo = stripeWidget.getCard().getCVC();
-        cardNo = stripeWidget.getCard().getNumber();
-        month = stripeWidget.getCard().getExpMonth();
-        year = stripeWidget.getCard().getExpYear();
-
-        Stripe stripe = new Stripe(AddCardActivity.this, stripPubKey);
+//        Stripe stripe = new Stripe(AddCardActivity.this, stripPubKey);
         Card card = stripeWidget.getCard();
         if(card.validateCard()) {
+            cvcNo = stripeWidget.getCard().getCVC();
+            cardNo = stripeWidget.getCard().getNumber();
+            month = stripeWidget.getCard().getExpMonth();
+            year = stripeWidget.getCard().getExpYear();
+
             sendAddCard("");
 //            loadToast.show();
 //            stripe.createToken(card, new ApiResultCallback<Token>() {
@@ -89,7 +92,9 @@ public class AddCardActivity extends AppCompatActivity {
 //                }
 //            });
         } else {
-            Toast.makeText(getBaseContext(), "Invalid card", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getBaseContext(), "Invalid card", Toast.LENGTH_SHORT).show();
+            ConfirmAlert alert = new ConfirmAlert(AddCardActivity.this);
+            alert.error("Invalid card");
         }
 
     }
@@ -105,6 +110,7 @@ public class AddCardActivity extends AppCompatActivity {
                 .addBodyParameter("year", year+"")
                 .addBodyParameter("cvc", cvcNo+"")
                 .addBodyParameter("user_type", "0")
+                .addBodyParameter("withdrawal", String.valueOf(withdrawal))
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -117,12 +123,8 @@ public class AddCardActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError error) {
                         loadToast.error();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(AddCardActivity.this);
-                        builder.setIcon(R.mipmap.ic_launcher_round)
-                                .setTitle("Alert")
-                                .setMessage(error.getErrorBody())
-                                .setPositiveButton("Ok", null)
-                                .show();
+                        ConfirmAlert alert = new ConfirmAlert(AddCardActivity.this);
+                        alert.error(error.getErrorBody());
                     }
                 });
     }

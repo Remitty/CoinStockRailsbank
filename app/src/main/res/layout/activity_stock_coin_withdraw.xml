@@ -195,19 +195,28 @@
                     android:text="Withdraw History"
                     android:textColor="@color/colorBlue"/>
             </LinearLayout>
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_connect_bank"
-            android:layout_width="300dp"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_height="50dp"
-            app:cornerRadius="0dp"
-            android:backgroundTint="@color/green"
-            android:text="Connect Bank"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bottom_card_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_card"
+            android:layout_width="300dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="50dp"
+            app:cornerRadius="0dp"
+            android:backgroundTint="@color/green"
+            android:text="Manage Cards"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_connect_bank"
+            android:layout_width="300dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="50dp"
+            app:cornerRadius="0dp"
+            android:backgroundTint="@color/green"
+            android:text="Connect Bank"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

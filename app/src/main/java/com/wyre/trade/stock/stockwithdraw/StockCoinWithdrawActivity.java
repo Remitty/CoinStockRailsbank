@@ -29,6 +29,8 @@ import com.wyre.trade.helper.PlaidConnect;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.model.Card;
+import com.wyre.trade.payment.AddCardActivity;
+import com.wyre.trade.payment.CardActivity;
 import com.wyre.trade.stock.adapter.BottomCardAdapter;
 
 import net.steamcrafted.loadtoast.LoadToast;
@@ -48,7 +50,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
     ConfirmAlert confirmAlert;
 //    private JSONArray history;
 
-    private Button mBtnWithdrawCoin, btnWithdrawBank, btnWithdrawCard, btnConnectBank;
+    private Button mBtnWithdrawCoin, btnWithdrawBank, btnWithdrawCard, btnConnectBank, btnAddCard;
     private EditText mWalletAddress, mEditAmount;
     TextView mStockBalance, mUSDCRate;
     TextView tvViewHistory;
@@ -139,6 +141,15 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
             }
         });
 
+        btnAddCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StockCoinWithdrawActivity.this, CardActivity.class);
+                intent.putExtra("withdrawal", 1);
+                startActivity(intent);
+            }
+        });
+
         btnConnectBank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,6 +188,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
         btnWithdrawBank = findViewById(R.id.btn_bank_withdraw);
         btnWithdrawCard = findViewById(R.id.btn_card_withdraw);
         btnConnectBank = findViewById(R.id.btn_connect_bank);
+        btnAddCard = findViewById(R.id.btn_add_card);
         mWalletAddress = findViewById(R.id.edit_withdraw_wallet_address);
         mEditAmount = findViewById(R.id.edit_coin_withdraw_amount);
         radioGroup = findViewById(R.id.rdg_withdraw_coins);
@@ -350,6 +362,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                 .addHeaders("Content-Type", "application/json")
                 .addHeaders("accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(this,"access_token"))
+                .addQueryParameter("withdrawal", "1")
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {

@@ -85,7 +85,7 @@ public class StockDepositActivity extends AppCompatActivity {
                             JSONObject paypal = response.optJSONObject("paypal");
 
                             mPageAdapter.add(Coin2StockFragment.newInstance(mStockBalance, Double.parseDouble(mCoinBalance), coinUSD));
-                            mPageAdapter.add(Bank2StockFragment.newInstance(mStockBalance, mUSDBalance));
+//                            mPageAdapter.add(Bank2StockFragment.newInstance(mStockBalance, mUSDBalance));
                             mPageAdapter.add(Card2StockFragment.newInstance(mStockBalance, card, stripe_pub_key));
                             mPageAdapter.add(Paypal2StockFragment.newInstance(mStockBalance, paypal));
                             mViewPager.setAdapter(mPageAdapter);
