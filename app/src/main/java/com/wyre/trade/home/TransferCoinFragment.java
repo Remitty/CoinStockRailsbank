@@ -147,6 +147,15 @@ public class TransferCoinFragment extends Fragment {
                                 String msg4 = response.getString("msgCoinWithdrawFeePolicy");
                                 SharedHelper.putKey(getContext(), "msgCoinWithdrawFeePolicy", msg4);
 
+                                String msg5 = response.getString("token_amount_for_stock_deposit_payment");
+                                SharedHelper.putKey(getContext(), "token_amount_for_stock_deposit_payment", msg5);
+
+                                String msg6 = response.getString("stock_deposit_from_card_fee_percent");
+                                SharedHelper.putKey(getContext(), "stock_deposit_from_card_fee_percent", msg6);
+
+                                String msg7 = response.getString("stock_deposit_from_card_daily_limit");
+                                SharedHelper.putKey(getContext(), "stock_deposit_from_card_daily_limit", msg7);
+
                                 JSONArray news = response.getJSONArray("news");
                                 for (int i = 0; i < news.length(); i ++) {
                                     newsList.add(new NewsInfo(news.getJSONObject(i)));
