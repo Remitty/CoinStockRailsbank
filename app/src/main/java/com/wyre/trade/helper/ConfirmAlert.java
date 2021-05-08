@@ -78,4 +78,18 @@ public class ConfirmAlert {
                 .showCancelButton(false)
                 .changeAlertType(SweetAlertDialog.ERROR_TYPE);
     }
+
+    public void new_error(String error) {
+            pDialog = new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE);
+        pDialog.setConfirmText("Ok")
+                .setTitleText("Error")
+                .setContentText(error)
+                .setConfirmClickListener(null)
+                .showCancelButton(false)
+                .show();
+    }
+
+    public void dismissWithAnimation() {
+        pDialog.dismissWithAnimation();
+    }
 }

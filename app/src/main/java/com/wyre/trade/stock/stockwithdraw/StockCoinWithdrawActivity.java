@@ -28,6 +28,7 @@ import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.PlaidConnect;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
+import com.wyre.trade.home.WebViewActivity;
 import com.wyre.trade.model.Card;
 import com.wyre.trade.payment.AddCardActivity;
 import com.wyre.trade.payment.CardActivity;
@@ -46,6 +47,7 @@ import java.util.ArrayList;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class StockCoinWithdrawActivity extends AppCompatActivity {
+    private static final int STRIPE_CONNECT = 200;
     LoadToast loadToast;
     ConfirmAlert confirmAlert;
 //    private JSONArray history;
@@ -62,6 +64,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<Card> cardList = new ArrayList<Card>();
     String selectedCard, type, alertMsg, bank;
+    boolean stripeAccountVerified = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,17 +147,41 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
         btnAddCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StockCoinWithdrawActivity.this, CardActivity.class);
-                intent.putExtra("withdrawal", 1);
-                startActivity(intent);
+                if(stripeAccountVerified) {
+                    Intent intent = new Intent(StockCoinWithdrawActivity.this, CardActivity.class);
+                    intent.putExtra("withdrawal", 1);
+                    startActivity(intent);
+                } else {
+                    confirmAlert.confirm("No connected account. Would you connect?")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    createStripeConnectLink(true);
+                                    confirmAlert.dismissWithAnimation();
+                                }
+                            }).show();
+                }
             }
         });
 
         btnConnectBank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bank.isEmpty())
-                    new PlaidConnect(StockCoinWithdrawActivity.this).openPlaid();
+                if(bank.isEmpty()) {
+                    if(stripeAccountVerified)
+                        new PlaidConnect(StockCoinWithdrawActivity.this).openPlaid();
+                    else {
+                        confirmAlert.confirm("No connected account. Would you connect?")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        createStripeConnectLink(true);
+                                        confirmAlert.dismissWithAnimation();
+                                    }
+                                }).show();
+                    }
+
+                }
                 else {
                     AlertDialog.Builder alert = new AlertDialog.Builder(StockCoinWithdrawActivity.this);
                     alert.setIcon(R.mipmap.ic_launcher_round)
@@ -178,6 +205,48 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                 startActivity(new Intent(StockCoinWithdrawActivity.this, StockWithdrawHistoryActivity.class));
             }
         });
+    }
+
+    private void createStripeConnectLink(boolean create) {
+        loadToast.show();
+        if(getBaseContext() != null)
+            AndroidNetworking.get(URLHelper.REQUEST_STRIPE_CONNECT)
+                    .addHeaders("Content-Type", "application/json")
+                    .addHeaders("accept", "application/json")
+                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))
+                    .setPriority(Priority.MEDIUM)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("response", "" + response);
+                            loadToast.success();
+
+                            try {
+
+                                stripeAccountVerified = response.getBoolean("stripe_account_verified");
+                                if(stripeAccountVerified) {
+                                    confirmAlert.alert(response.getString("message"));
+                                } else {
+                                    if(create) {
+                                        Intent intent = new Intent(StockCoinWithdrawActivity.this, WebViewActivity.class);
+                                        intent.putExtra("uri", response.getString("stripe_connect_link"));
+                                        startActivityForResult(intent, STRIPE_CONNECT);
+
+                                    }
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(ANError error) {
+                            loadToast.error();
+                            confirmAlert.new_error(error.getErrorBody());
+                        }
+                    });
     }
 
     private void initComponent() {
@@ -219,6 +288,8 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                                 mUSDCRate.setText(new DecimalFormat("#,###.##").format(USDCRate));
 
                                 bank = response.getString("stripe_bank");
+                                stripeAccountVerified = response.getInt("stripe_account_verified") == 0? false: true;
+
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -403,11 +474,18 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == STRIPE_CONNECT) {
+            createStripeConnectLink(false);
+        }
+
         if (!new PlaidConnect(StockCoinWithdrawActivity.this).myPlaidResultHandler.onActivityResult(requestCode, resultCode, data)) {
 //            Log.i(MainActivityJava.class.getSimpleName(), "Not handled");
-            Log.d("plaid connect data", data.getDataString());
-            Log.d("plaid connect data1", data.toString());
+//            Log.d("plaid connect data", data.getDataString());
+//            Log.d("plaid connect data1", data.toString());
         }
+
+
     }
 
     @Override

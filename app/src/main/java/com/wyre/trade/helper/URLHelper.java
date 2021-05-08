@@ -60,6 +60,8 @@ public class URLHelper {
     public static final String REQUEST_CARD = REDIRECT_URL + "card";
     public static final String REQUEST_PAYPAL = REDIRECT_URL + "paypal";
 
+    public static final String REQUEST_STRIPE_CONNECT = REDIRECT_URL + "stripe/connect";
+
     public static final String GET_PLAID_LINK_TOKEN = REDIRECT_URL + "plaid/linktoken";
     public static final String SEND_PLAID_PUB_TOKEN = REDIRECT_URL + "plaid/pubtoken";
     public static final String SEND_PLAID_CONNECT_BANK = REDIRECT_URL + "plaid/bank/create";

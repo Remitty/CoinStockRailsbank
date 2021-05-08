@@ -172,7 +172,7 @@
                     android:layout_width="300dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     app:cornerRadius="25dp"
                     android:backgroundTint="@color/green"
                     android:text="Withdraw To Bank"/>
@@ -181,7 +181,7 @@
                     android:layout_width="300dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     app:cornerRadius="25dp"
                     android:backgroundTint="@color/colorRedCrayon"
                     android:text="Withdraw To Card"/>
@@ -190,16 +190,12 @@
                     android:id="@+id/tv_view_history"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_gravity="center_horizontal"
                     android:text="Withdraw History"
                     android:textColor="@color/colorBlue"/>
             </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/bottom_card_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"/>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_add_card"
             android:layout_width="300dp"
