@@ -18,6 +18,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.squareup.picasso.Picasso;
 import com.wyre.trade.R;
 import com.wyre.trade.helper.SharedHelper;
@@ -36,6 +37,7 @@ import static android.graphics.Color.RED;
 
 public class TopStocksTradeActivity extends AppCompatActivity {
     private LoadToast loadToast;
+    private KProgressHUD loadProgress;
     private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc;
     private String companysummary, companyindustry, companyweb;
     private MaterialButton mBtnBuy;
@@ -54,6 +56,10 @@ public class TopStocksTradeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_stocks_trade);
         loadToast = new LoadToast(this);
+        loadProgress = KProgressHUD.create(TopStocksTradeActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
         //loadToast.setBackgroundColor(R.color.colorBlack);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -126,7 +132,7 @@ public class TopStocksTradeActivity extends AppCompatActivity {
         intent.putExtra("stock_name", mStockName.getText());
         intent.putExtra("stock_symbol", mStockSymbol.getText());
         intent.putExtra("stock_balance", StockBalance);
-        intent.putExtra("stock_shares", mIntent.getStringExtra("stock_shares"));
+//        intent.putExtra("stock_shares", mIntent.getStringExtra("stock_shares"));
         intent.putExtra("company_summary", companysummary);
         intent.putExtra("company_industry", companyindustry);
         intent.putExtra("company_web", companyweb);
@@ -134,7 +140,8 @@ public class TopStocksTradeActivity extends AppCompatActivity {
     }
 
     private void getStockDetailData() {
-        loadToast.show();
+//        loadToast.show();
+        loadProgress.show();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("ticker", mStockSymbol.getText());
@@ -153,7 +160,7 @@ public class TopStocksTradeActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-                            loadToast.success();
+//                            loadToast.success();
 
                             try {
                                 mAggregateDay = response.getJSONArray("aggregate_day");
@@ -218,13 +225,16 @@ public class TopStocksTradeActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+
+                            loadProgress.dismiss();
                         }
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
+//                            loadToast.error();
+                            loadProgress.dismiss();
                             // handle error
-                            Toast.makeText(getBaseContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "Network error", Toast.LENGTH_SHORT).show();
                             Log.d("errorm", "" + error.getErrorBody());
                         }
                     });

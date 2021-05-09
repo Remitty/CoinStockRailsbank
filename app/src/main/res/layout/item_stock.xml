@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
                 android:textColor="@color/colorBlack"
+                android:textStyle="bold"
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="10dp"
                 android:text="0"/>
@@ -91,6 +92,7 @@
                 android:gravity="right|center_vertical"
                 android:textSize="14dp"
                 android:maxLines="1"
+                android:textStyle="bold"
                 android:textColor="@color/colorPurple"
                 android:text="$ 0.00"/>
             <TextView
@@ -101,6 +103,7 @@
                 android:gravity="right|center_vertical"
                 android:textSize="12dp"
                 android:maxLines="1"
+                android:textStyle="bold"
                 android:textColor="@color/green"
                 android:text="0.00%"/>
             <TextView
@@ -112,6 +115,7 @@
                 android:textSize="12dp"
                 android:maxLines="1"
                 android:visibility="gone"
+                android:textStyle="bold"
                 android:textColor="@color/colorRedCrayon"
                 android:layout_marginBottom="5px"
                 android:text="$ 0.00"/>
