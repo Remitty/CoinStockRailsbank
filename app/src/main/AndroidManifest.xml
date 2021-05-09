@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".payment.CardActivity"></activity>
+        <activity android:name=".stock.stocktrade.TopStocksTradeActivity"></activity>
+        <activity android:name=".payment.CardActivity" />
         <activity android:name=".payment.AddPaypalActivity" />
         <activity android:name=".stock.deposit.Paypal2StockFragment" />
         <activity android:name=".payment.AddCardActivity" />

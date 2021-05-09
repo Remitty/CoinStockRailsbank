@@ -24,7 +24,11 @@ import com.wyre.trade.R;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.model.NewsInfo;
+import com.wyre.trade.model.TopStocks;
 import com.wyre.trade.stock.adapter.NewsAdapter;
+import com.wyre.trade.stock.adapter.StocksAdapter;
+import com.wyre.trade.stock.adapter.TopStocksAdapter;
+import com.wyre.trade.stock.stocktrade.TopStocksTradeActivity;
 import com.wyre.trade.usdc.PaymentUserActivity;
 import com.wyre.trade.usdc.SendUsdcActivity;
 
@@ -52,6 +56,14 @@ public class TransferCoinFragment extends Fragment {
     RecyclerView newsView;
     private ArrayList<NewsInfo> newsList = new ArrayList<>();
     NewsAdapter mAdapter;
+
+    RecyclerView gainersView;
+    ArrayList<TopStocks> gainers = new ArrayList<>();
+    TopStocksAdapter gainerAdapter;
+
+    RecyclerView losersView;
+    ArrayList<TopStocks> losers = new ArrayList<>();
+    TopStocksAdapter loserAdapter;
 
     public TransferCoinFragment() {
         // Required empty public constructor
@@ -109,6 +121,46 @@ public class TransferCoinFragment extends Fragment {
         newsView.setLayoutManager(new LinearLayoutManager(getContext()));
         newsView.setAdapter(mAdapter);
 
+        losersView = view.findViewById(R.id.losers_view);
+        loserAdapter = new TopStocksAdapter(getActivity(), losers);
+        losersView.setLayoutManager(new LinearLayoutManager(getContext()));
+        loserAdapter.setListener(new TopStocksAdapter.Listener() {
+            @Override
+            public void OnGoToTrade(int position) {
+                TopStocks stock = losers.get(position);
+                Intent intent = new Intent(getActivity(), TopStocksTradeActivity.class);
+                intent.putExtra("stock_symbol", stock.getSymbol());
+                intent.putExtra("stock_name", stock.getCompanyName());
+                intent.putExtra("stock_price", stock.getPrice()+"");
+                intent.putExtra("stock_today_change", stock.getChanges());
+                intent.putExtra("stock_today_change_perc", stock.getChangesPercentage());
+                startActivity(intent);
+            }
+        });
+        losersView.setAdapter(loserAdapter);
+
+        gainersView = view.findViewById(R.id.gainers_view);
+        gainersView.setNestedScrollingEnabled(false);
+        gainersView.setLayoutManager(new LinearLayoutManager(getContext()));
+        gainerAdapter = new TopStocksAdapter(getActivity(), gainers);
+        gainerAdapter.setListener(new TopStocksAdapter.Listener() {
+            @Override
+            public void OnGoToTrade(int position) {
+                TopStocks stock = gainers.get(position);
+                Intent intent = new Intent(getActivity(), TopStocksTradeActivity.class);
+                intent.putExtra("stock_symbol", stock.getSymbol());
+                intent.putExtra("stock_name", stock.getCompanyName());
+                intent.putExtra("stock_price", stock.getPrice()+"");
+                intent.putExtra("stock_today_change", stock.getChanges());
+                intent.putExtra("stock_today_change_perc", stock.getChangesPercentage());
+                startActivity(intent);
+            }
+        });
+        gainersView.setLayoutManager(new LinearLayoutManager(getContext()));
+        gainersView.setAdapter(gainerAdapter);
+
+
+
         getData();
 
         return view;
@@ -131,6 +183,8 @@ public class TransferCoinFragment extends Fragment {
 //                            loadToast.success();
                             loadProgress.dismiss();
                             newsList.clear();
+                            gainers.clear();
+                            losers.clear();
                             try {
                                 usdcBalance = response.getDouble("usdc_balance");
                                 tvBalance.setText(new DecimalFormat("###,###.##").format(usdcBalance));
@@ -161,6 +215,18 @@ public class TransferCoinFragment extends Fragment {
                                     newsList.add(new NewsInfo(news.getJSONObject(i)));
                                 }
                                 mAdapter.notifyDataSetChanged();
+
+                                JSONArray topgainers = response.getJSONArray("top_stocks_gainers");
+                                for (int i = 0; i < topgainers.length(); i ++) {
+                                    gainers.add(new TopStocks(topgainers.getJSONObject(i)));
+                                }
+                                gainerAdapter.notifyDataSetChanged();
+
+                                JSONArray toplosers = response.getJSONArray("top_stocks_losers");
+                                for (int i = 0; i < toplosers.length(); i ++) {
+                                    losers.add(new TopStocks(toplosers.getJSONObject(i)));
+                                }
+                                loserAdapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -169,9 +235,10 @@ public class TransferCoinFragment extends Fragment {
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
+//                            loadToast.error();
                             // handle error
-                            Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            loadProgress.dismiss();
+                            Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
                             Log.d("errorm", "" + error.getErrorBody());
                         }
                     });

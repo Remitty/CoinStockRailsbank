@@ -23,6 +23,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 
@@ -33,8 +34,11 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class StockReplaceActivity extends AppCompatActivity {
     LoadToast loadToast;
+    ConfirmAlert confirmAlert;
     private String StockSide, mStockName, mStockSymbol,  mStockTradeType="market";
     private Double mStockPrice = 0.0, mStockLimitPrice = 0.0, mEstCost = 0.0, mStockShares = 0.0, mStockOrderShares, mStockBalance=0.0;
     EditText mEditShares, mEditStockLimitPrice;
@@ -54,6 +58,7 @@ public class StockReplaceActivity extends AppCompatActivity {
         getSupportActionBar().setElevation(0);
 
         loadToast = new LoadToast(this);
+        confirmAlert = new ConfirmAlert(StockReplaceActivity.this);
 
         mStockName = getIntent().getStringExtra("stock_name");
         mStockPrice = Double.parseDouble(getIntent().getStringExtra("stock_price"));
@@ -231,7 +236,7 @@ public class StockReplaceActivity extends AppCompatActivity {
     }
 
     private void onReplace() {
-        loadToast.show();
+//        loadToast.show();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("ticker", mStockName);
@@ -260,48 +265,27 @@ public class StockReplaceActivity extends AppCompatActivity {
                             mStockBalance = response.optDouble("stock_balance");
                             mTextStockBalance.setText("$ "+new DecimalFormat("#,###.##").format(mStockBalance));
                             SharedHelper.putKey(getBaseContext(), "stock_balance", mStockBalance+"");
-                            Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                            confirmAlert.success(response.optString("message"));
                         }
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
-                            // handle error
-                            AlertDialog.Builder alert = new AlertDialog.Builder(StockReplaceActivity.this);
-                            alert.setIcon(R.mipmap.ic_launcher_round)
-                                    .setTitle("Alert")
-                                    .setMessage(error.getErrorBody())
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                                    .show();
+                            confirmAlert.error(error.getErrorBody());
                         }
                     });
     }
 
     private void showReplaceConfirmAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        builder.setTitle(getResources().getString(R.string.app_name))
-                .setIcon(R.mipmap.ic_launcher)
-                .setMessage("Are you sure replace " + mEditShares.getText()+" shares ?")
-                .setCancelable(false);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                onReplace();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+
+        confirmAlert.confirm("Are you sure replace " + mEditShares.getText()+" shares ?")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        onReplace();
+                        confirmAlert.process();
+                    }
+                }).show();
     }
 
     @Override

@@ -34,6 +34,7 @@ public class CoinInfo implements Parcelable {
         else balance = "0.0000";
         price = data.optDouble("coin_rate");
         changeRate = new DecimalFormat("#.####").format(data.optDouble("change_rate"));
+//        changeRate = String.format("%.2f", data.optDouble("change_rate"));
         type = data.optString("type");
         buynow = data.optInt("buy_now");
     }
@@ -94,6 +95,8 @@ public class CoinInfo implements Parcelable {
     }
 
     public String getCoinEffect() {
+        if(changeRate.equals("0"))
+            changeRate = "0.00";
         return changeRate;
     }
 

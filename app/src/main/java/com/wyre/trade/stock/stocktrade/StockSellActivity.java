@@ -25,6 +25,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 
@@ -35,8 +36,11 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class StockSellActivity extends AppCompatActivity {
     LoadToast loadToast;
+    ConfirmAlert confirmAlert;
     private String mStockName, mStockSymbol, mStockTradeType="market";
     private Double mStockBalance = 0.0, mEstCost = 0.0, mStockShares=0.0, mStockOrderShares = 0.0, mStockPrice = 0.0;
     EditText mEditShares, mEditStockLimitPrice;
@@ -52,6 +56,7 @@ public class StockSellActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stock_sell);
 
         loadToast = new LoadToast(this);
+        confirmAlert = new ConfirmAlert(StockSellActivity.this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
 
         mStockName = getIntent().getStringExtra("stock_name");
@@ -210,7 +215,7 @@ public class StockSellActivity extends AppCompatActivity {
     }
 
     private void onSell() {
-        loadToast.show();
+//        loadToast.show();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("ticker", mStockSymbol);
@@ -234,62 +239,31 @@ public class StockSellActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-                            loadToast.success();
+//                            loadToast.success();
                             mStockBalance = response.optDouble("stock_balance");
                             mTextStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(mStockBalance));
                             mTextStockShares.setText(response.optString("shares"));
-                            Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                            confirmAlert.success(response.optString("message"));
                         }
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
-                            // handle error
-                            AlertDialog.Builder alert = new AlertDialog.Builder(StockSellActivity.this);
-                            alert.setIcon(R.mipmap.ic_launcher_round)
-                                    .setTitle("Alert")
-                                    .setMessage(error.getErrorBody())
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                                    .show();
+                            confirmAlert.error(error.getErrorBody());
                         }
                     });
     }
 
     private void showSellConfirmAlertDialog() {
-//        String total = BigDecimalDouble.newInstance().multify(mEditShares.getText().toString(), mStockPrice);
-//        total = BigDecimalDouble.newInstance().sub(total, "1.99");
-//        final StockTradeInvoiceDialog dialog = new StockTradeInvoiceDialog(R.layout.dialog_stock_trade_invoice, mStockName, mEditShares.getText().toString(), "$ "+mStockPrice, "$ 1.99","SELL",total);
-//        dialog.setListener(new StockTradeInvoiceDialog.Listener() {
-//
-//            @Override
-//            public void onOk() {
-//                dialog.dismiss();
-//                onSell();
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        dialog.show(getSupportFragmentManager(), "deposit");
-        AlertDialog.Builder alert = new AlertDialog.Builder(StockSellActivity.this);
-        alert.setIcon(R.mipmap.ic_launcher_round)
-                .setTitle("Confirm Transaction")
-                .setMessage("Please confirm your transaction.\n" + SharedHelper.getKey(this, "msgStockTradeFeePolicy"))
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+        confirmAlert.confirm("Please confirm your transaction.\n" + SharedHelper.getKey(this, "msgStockTradeFeePolicy"))
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
                         onSell();
+                        confirmAlert.process();
                     }
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
+                }).show();
+
     }
 
     @Override
