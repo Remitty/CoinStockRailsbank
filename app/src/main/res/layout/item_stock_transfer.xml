@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="13dp"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:textColor="@color/colorBlack"
             android:text="Amount"/>
         <TextView
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="13dp"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:textColor="@color/colorBlack"
             android:text="Amount"/>
         <TextView
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:textSize="13dp"
             android:visibility="visible"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:textColor="@color/colorBlack"
             android:text="Status"/>
         <TextView
@@ -44,18 +44,21 @@
             android:ellipsize="end"
             android:textSize="13dp"
             android:visibility="visible"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:textColor="@color/colorBlack"
             android:text="unit"/>
+
         <TextView
             android:id="@+id/stock_transfer_date"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="13dp"
+            android:layout_weight="1"
+            android:minLines="1"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:text="Date"
             android:textColor="@color/colorBlack"
-            android:text="Date"/>
+            android:textSize="13dp" />
     </LinearLayout>
 
 </LinearLayout>

@@ -51,8 +51,8 @@ public class StockTransferAdapter extends RecyclerView.Adapter<StockTransferAdap
 
         holder.tvStockTransferStatus.setText(item.getStatus());
         holder.tvStockTransferDate.setText(item.getDate());
-        holder.tvStockTransferAmount.setText(item.getAmount());
-        holder.tvReceived.setText(item.getReceived());
+        holder.tvStockTransferAmount.setText("$"+item.getAmount());
+        holder.tvReceived.setText("$"+item.getReceived());
         holder.tvUnit.setText(item.getUnit());
 
     }

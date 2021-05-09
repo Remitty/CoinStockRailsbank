@@ -232,7 +232,7 @@ public class Card2StockFragment extends Fragment {
     private void showTransferConfirmAlertDialog() {
         confirmAlert.confirm("Are you sure transfer $ " + mEditAmount.getText()
                 +"? "
-                + "\nYou must hold " + SharedHelper.getKey(getActivity(), "token_amount_for_stock_deposit_payment") + " PEPE to process this transaction."
+//                + "\nYou must hold " + SharedHelper.getKey(getActivity(), "token_amount_for_stock_deposit_payment") + " PEPE to process this transaction."
                 +"\nFee is "+SharedHelper.getKey(getActivity(), "stock_deposit_from_card_fee_percent")
                 +"%.\nDaily limit is $"+SharedHelper.getKey(getActivity(), "stock_deposit_from_card_daily_limit")
                 +".")
@@ -350,6 +350,7 @@ public class Card2StockFragment extends Fragment {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
+                            Log.d("card depost", error.getErrorBody());
                             confirmAlert.error(error.getErrorBody());
 
                         }
