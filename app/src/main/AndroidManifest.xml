@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.wyre.trade">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".stock.stocktrade.TopStocksTradeActivity"></activity>
+        <activity android:name=".payment.CardActivity" />
+        <activity android:name=".payment.AddPaypalActivity" />
+        <activity android:name=".stock.deposit.Paypal2StockFragment" />
+        <activity android:name=".payment.AddCardActivity" />
+        <activity android:name=".usdc.PaymentUserListActivity" />
+        <activity android:name=".coins.StakeHistoryActivity" />
+        <activity android:name=".stock.stockwithdraw.StockWithdrawHistoryActivity" />
+        <activity android:name=".usdc.SendUsdcHistoryActivity" />
+        <activity android:name=".stock.deposit.Coin2StockHistoryActivity" />
+        <activity android:name=".stock.deposit.Bank2StockHistoryActivity" />
+        <activity android:name=".coins.CoinWithdrawHistoryActivity" />
+        <activity android:name=".coins.CoinSwapHistoryActivity" />
+        <activity android:name=".token.TokenOrderBookActivity" />
+        <activity android:name=".coins.CoinTradeActivity" />
+        <activity android:name=".coins.StakeAssetListActivity" />
+        <activity android:name=".token.TokenTradeHistoryActivity" />
+        <activity android:name=".zabo.ZaboAccountActivity" />
+        <activity android:name=".zabo.ZaboActivity">
+            <intent-filter android:label="Zaho connect account">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.joiintapp.com"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".usdc.PaymentUserActivity" />
+        <activity
+            android:name=".main.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.SignInActivity"
+            android:parentActivityName=".main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.SignUpActivity"
+            android:parentActivityName=".main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".home.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".stock.stocktrade.StocksTradingActivity" />
+        <activity android:name=".stock.stocktrade.StockBuyActivity" />
+        <activity android:name=".stock.stocktrade.StockSellActivity" />
+        <activity android:name=".stock.stocktrade.StocksOrderActivity" />
+        <activity android:name=".stock.NewsListActivity" />
+        <activity android:name=".stock.NewsActivity" />
+        <activity
+            android:name=".coins.TransferFundsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".stock.stockwithdraw.StockCoinWithdrawActivity" />
+        <activity android:name=".stock.stocktrade.StockReplaceActivity" />
+        <activity android:name=".stock.deposit.StockDepositActivity" />
+        <activity android:name=".coins.CoinWithdrawActivity" />
+        <activity android:name=".stock.StockNewsActivity" />
+        <activity android:name=".coins.CoinDepositHistoryActivity" />
+        <activity
+            android:name="network.ramp.instantsdk.ui.bank.BankActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTask"
+            android:theme="@style/RampInstant.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.wyre.trade"
+                    android:scheme="rampnetwork" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="network.ramp.instantsdk.ui.rampinstant.RampInstantActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTask"
+            android:theme="@style/RampInstant.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".home.WebViewActivity"
+            android:exported="false" />
+        <activity android:name=".usdc.SendUsdcActivity" />
+        <activity android:name=".mtn.MtnTransactionActivity" />
+        <activity android:name=".mtn.MTNActivity" />
+        <activity android:name=".token.TokenTradingActivity" />
+        <activity android:name=".coins.StakeActivity" />
+        <activity android:name=".predict.AddPredictActivity" />
+        <activity android:name=".predict.PredictableListActivity" />
+        <activity android:name=".predict.PredictActivity" />
+        <activity android:name=".profile.ProfileCompleteActivity" />
+        <activity android:name=".cash.InfoActivity" />
+        <activity android:name=".cash.AddFriendActivity" />
+        <activity android:name=".stock.StocksActivity" />
+        <activity android:name=".cash.AddBankActivity" />
+        <activity android:name=".profile.ProfileActivity" />
+        <activity android:name=".cash.CollectCashActivity" />
+        <activity android:name=".cash.SendCashActivity" />
+        <activity android:name=".cash.SendTargetActivity" />
+        <activity android:name=".main.SupportActivity" />
+        <activity android:name=".main.ChangePasswordActivity" />
+        <activity android:name=".main.ResetPasswordActivity" />
+        <activity android:name=".main.ForgotPasswordActivity" />
+        <activity android:name=".stock.stockorder.StockOrderHistoryActivity" />
+        <activity android:name=".chat.SocialGroupActivity" />
+    </application>
+
+</manifest>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/ivCoin1"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:padding="5dp"
+        android:visibility="gone"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvPair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/ivCoin1"
+        android:layout_toRightOf="@+id/ivCoin1"
+        android:padding="2dp"
+        android:textSize="14dp"
+        android:text="TextView"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/ivCoin2"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_toEndOf="@+id/tvPair"
+        android:layout_toRightOf="@+id/tvPair"
+        android:visibility="gone"
+        android:padding="5dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+</RelativeLayout>

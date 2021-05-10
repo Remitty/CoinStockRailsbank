@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wyre.trade.coins.CoinTradeActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:tabTextColor="@color/colorBlack"
+            app:tabIndicatorColor="@color/textColorPrimary"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicator="@drawable/rounded_corner_white_rectangle"
+            app:tabIndicatorHeight="3dp"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tab"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_coin_stake"
+            android:icon="@drawable/pepe"
+            android:title="Stake Coin" />
+
+        <item
+            android:id="@+id/nav_exchange"
+            android:icon="@drawable/nav_trade"
+            android:visible="false"
+            android:title="Trade Cryptos"/>
+        <item
+            android:id="@+id/nav_coin_trade"
+            android:icon="@drawable/nav_trading"
+            android:title="Link Wallet"/>
+        <item
+            android:id="@+id/nav_mtn"
+            android:icon="@drawable/nav_smartphone"
+            android:title="MTN Service"/>
+
+        <item
+            android:id="@+id/nav_predict"
+            android:icon="@drawable/nav_analysis"
+            android:title="Prediction"/>
+
+        <item
+            android:id="@+id/nav_coin_withdraw"
+            android:icon="@drawable/nav_bitcoin"
+            android:visible="false"
+            android:title="Crypto Withdraw" />
+
+        <item
+            android:id="@+id/nav_stock_activity"
+            android:icon="@drawable/nav_chart"
+            android:title="Stock History" />
+
+        <item
+                android:id="@+id/nav_coin_activity"
+                android:icon="@drawable/nav_credit"
+            android:title="Deposit Activities"/>
+
+        <item
+            android:id="@+id/nav_stock_news"
+            android:icon="@drawable/nav_news"
+            android:visible="false"
+            android:title="Stock News" />
+        <item
+            android:id="@+id/nav_group"
+            android:icon="@drawable/nav_news"
+            android:visible="false"
+            android:title="Group Chat" />
+
+    </group>
+   <group android:checkableBehavior="none">
+
+       <item
+           android:id="@+id/nav_help"
+           android:icon="@drawable/nav_support"
+           android:title="@string/help" />
+       <item
+           android:id="@+id/nav_reset"
+           android:icon="@drawable/ic_lock_outline"
+           android:visible="false"
+           android:title="Reset Password" />
+
+       <item
+           android:id="@+id/nav_logout"
+           android:icon="@drawable/nav_logout"
+           android:title="Logout" />
+   </group>
+
+
+
+</menu>

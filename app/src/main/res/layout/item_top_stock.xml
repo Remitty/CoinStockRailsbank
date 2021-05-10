@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_opacity"
+    android:paddingVertical="5dp"
+    android:layout_marginVertical="2dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingRight="20dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/stock_symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="AAPL"
+                android:textColor="@color/colorBlue"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/stock_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textSize="14dp"
+                    android:text="name"
+                    android:textColor="@color/colorPurple"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="2"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/stocks_price"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:textColor="@color/colorPurple"
+                android:text="$ 0.00"/>
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/stocks_change_green"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:textSize="12dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/green"
+                android:textStyle="bold"
+                android:text="0.00%"/>
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/stocks_change_red"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:textSize="12dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:visibility="gone"
+                android:textStyle="bold"
+                android:textColor="@color/colorRedCrayon"
+                android:layout_marginBottom="5px"
+                android:text="$ 0.00"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
