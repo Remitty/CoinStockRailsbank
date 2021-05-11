@@ -189,7 +189,8 @@ public class Paypal2StockFragment extends Fragment {
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        handlePaypal();
+//                        handlePaypal();
+                        checkDepositable();
                         confirmAlert.process();
                     }
                 })
@@ -217,6 +218,34 @@ public class Paypal2StockFragment extends Fragment {
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private void checkDepositable() {
+
+        if(getContext() != null)
+            AndroidNetworking.get(URLHelper.REQUEST_CHECK_PAYPAL_DEPOSIT_STOCK)
+                    .addHeaders("Content-Type", "application/json")
+                    .addHeaders("accept", "application/json")
+                    .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
+                    .setPriority(Priority.MEDIUM)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("response", "" + response);
+//                            loadToast.success();
+                            if(response.optBoolean("enable"))
+                                handlePaypal();
+                        }
+
+                        @Override
+                        public void onError(ANError error) {
+//                            loadToast.error();
+                            // handle error
+                            confirmAlert.error(error.getErrorBody());
+
+                        }
+                    });
     }
 
     private void onTransferFunds() {
@@ -252,7 +281,7 @@ public class Paypal2StockFragment extends Fragment {
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
+//                            loadToast.error();
                             // handle error
                             confirmAlert.error(error.getErrorBody());
 
