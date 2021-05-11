@@ -93,5 +93,29 @@ public class StocksInfo {
         }
     }
 
+    public String getYearHigh() {
+        try {
+            return new DecimalFormat("#,###.####").format(data.getDouble("year_high"));
+        } catch (JSONException e) {
+            return "0.00";
+        }
+    }
+
+    public String getYearLow() {
+        try {
+            return new DecimalFormat("#,###.####").format(data.getDouble("year_low"));
+        } catch (JSONException e) {
+            return "0.00";
+        }
+    }
+
+    public String getDailyVolume() {
+        try {
+            return new DecimalFormat("#,###.####").format(data.getDouble("daily_volume"));
+        } catch (JSONException e) {
+            return "0.00";
+        }
+    }
+
 }
 

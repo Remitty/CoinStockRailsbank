@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.wyre.trade.coins.CoinSwapHistoryActivity;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.model.SwapRateModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import androidx.fragment.app.Fragment;
@@ -44,7 +45,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class CoinSwapFragment extends Fragment {
+    private LoadToast loadToast;
+    ConfirmAlert confirmAlert;
+
     private Button mBtnExchange;
     private EditText mEditSendAmount;
     private TextView mtvGetCoin, mtvSendCoin, mtvSendLimit, mtvGetFee,
@@ -54,7 +60,6 @@ public class CoinSwapFragment extends Fragment {
     private ImageView sendIcon, getIcon;
 
     private View mView;
-    private LoadToast loadToast;
 
     private BottomSheetDialog dialog;
     private RecyclerView recyclerView;
@@ -85,6 +90,7 @@ public class CoinSwapFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         loadToast = new LoadToast(getActivity());
+        confirmAlert = new ConfirmAlert(getActivity());
     }
 
     @Override
@@ -177,18 +183,14 @@ public class CoinSwapFragment extends Fragment {
                     return;
                 }
 
-                    AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                    alert.setIcon(R.mipmap.ic_launcher_round)
-                            .setTitle("Confirm Swap")
-                            .setMessage("Please confirm your transaction.\n" +  SharedHelper.getKey(getContext(), "msgCoinSwapFeePolicy"))
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    confirmAlert.confirm("Please confirm your transaction.\n" +  SharedHelper.getKey(getContext(), "msgCoinSwapFeePolicy"))
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
                                     doExchange();
+                                    confirmAlert.process();
                                 }
-                            })
-                            .setNegativeButton("No", null)
-                            .show();
+                            }).show();
 
             }
         });
@@ -279,15 +281,17 @@ public class CoinSwapFragment extends Fragment {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
                             Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }
 
     private void displayFee(){
-        getAmount = sellAmount * (1-rateModel.getSendFee()) * rateModel.getRate();
-        fee = getAmount * rateModel.getFee();
+        Double sysFee = sellAmount * rateModel.getSystemFeePerc()*0.01 * rateModel.getRate();
+        Double sendFee = rateModel.getSendFee() * rateModel.getRate();
+        getAmount = sellAmount * rateModel.getRate() - sendFee - sysFee; // sendFee is minus from server
+        fee = sysFee + rateModel.getFee() +  sendFee;
         mtvGetFee.setText(new DecimalFormat("#,###.######").format(fee));
     }
     private void displayEstCost(){
@@ -301,7 +305,7 @@ public class CoinSwapFragment extends Fragment {
     }
 
     private void doExchange() {
-        loadToast.show();
+//        loadToast.show();
         JSONObject jsonObject = new JSONObject();
 
         try {
@@ -325,15 +329,17 @@ public class CoinSwapFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
-                        loadToast.success();
-                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+//                        loadToast.success();
+//                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                            confirmAlert.success(response.optString("message"));
                     }
 
                     @Override
                     public void onError(ANError error) {
                         loadToast.error();
                         // handle error
-                        Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                        confirmAlert.error(error.getErrorBody());
                         Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
@@ -396,7 +402,7 @@ public class CoinSwapFragment extends Fragment {
                             loadToast.error();
                             // handle error
                             Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }

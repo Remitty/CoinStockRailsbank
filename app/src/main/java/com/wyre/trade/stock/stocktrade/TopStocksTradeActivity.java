@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 import com.wyre.trade.R;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
+import com.wyre.trade.model.StocksInfo;
 import com.wyre.trade.stock.adapter.StockChartTabAdapter;
 
 import net.steamcrafted.loadtoast.LoadToast;
@@ -38,8 +39,8 @@ import static android.graphics.Color.RED;
 public class TopStocksTradeActivity extends AppCompatActivity {
     private LoadToast loadToast;
     private KProgressHUD loadProgress;
-    private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc;
-    private String companysummary, companyindustry, companyweb;
+    private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc, mYearHigh, mYearLow, mDailyVolume;
+    private String companysummary="", companyindustry="", companyweb="";
     private MaterialButton mBtnBuy;
     private Intent mIntent;
     private LinearLayout mStocksContent;
@@ -91,9 +92,6 @@ public class TopStocksTradeActivity extends AppCompatActivity {
         mBtnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(StockPrice == 0)
-//                    Toast.makeText(getBaseContext(), "Not working today.", Toast.LENGTH_SHORT).show();
-//                else
                 onBuyStack();
             }
         });
@@ -111,6 +109,10 @@ public class TopStocksTradeActivity extends AppCompatActivity {
         mStockPriceFloat = findViewById(R.id.stock_price_float);
         mStockTodayChange = findViewById(R.id.stock_today_change);
         mStockTodayChangePerc = findViewById(R.id.stock_today_change_perc);
+
+        mYearHigh= findViewById(R.id.stock_year_high);
+        mYearLow= findViewById(R.id.stock_year_low);
+        mDailyVolume= findViewById(R.id.stock_daily_volume);
 
         mBtnBuy = findViewById(R.id.btn_stock_buy);
 
@@ -161,6 +163,14 @@ public class TopStocksTradeActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
 //                            loadToast.success();
+                            try {
+                                StocksInfo stocks = new StocksInfo(response.getJSONObject("stock"));
+                                mYearHigh.setText("$"+ stocks.getYearHigh());
+                                mYearLow.setText("$"+ stocks.getYearLow());
+                                mDailyVolume.setText(stocks.getDailyVolume());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
                             try {
                                 mAggregateDay = response.getJSONArray("aggregate_day");

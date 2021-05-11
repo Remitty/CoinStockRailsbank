@@ -19,6 +19,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.model.StocksInfo;
 import com.wyre.trade.stock.adapter.StockChartTabAdapter;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
@@ -37,14 +38,13 @@ import static android.graphics.Color.RED;
 public class StocksTradingActivity extends AppCompatActivity {
     private LoadToast loadToast;
     private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc;
-    private TextView mStockShares, mStockQuantity, mStockAvgCost, mStockProfit;
+    private TextView mStockShares, mStockQuantity, mStockAvgCost, mStockProfit, mYearHigh, mYearLow, mDailyVolume;
     ImageView profitArrow;
     private String companysummary, companyindustry, companyweb;
     private MaterialButton mBtnBuy, mBtnSell;
     private Intent mIntent;
     private LinearLayout mStocksContent;
     private String StockBalance="0.0";
-    private double StockPrice = 0.0;
     TextView mTextCompanySummary, mTextCompanyWeb, mTextCompanyIndustry;
 
     private JSONArray mAggregateDay = new JSONArray(), mAggregateWeek = new JSONArray(), mAggregateMonth = new JSONArray(), mAggregate6Month = new JSONArray(), mAggregateYear = new JSONArray(), mAggregateAll = new JSONArray();
@@ -72,7 +72,6 @@ public class StocksTradingActivity extends AppCompatActivity {
         mStockSymbol.setText(mIntent.getStringExtra("stock_symbol"));
         String price = mIntent.getStringExtra("stock_price");
         String[] separatedPrice = price.split("\\.");
-        StockPrice = Double.parseDouble(price);
         mStockPriceInteger.setText(separatedPrice[0].trim());
         if(separatedPrice.length> 1)
             mStockPriceFloat.setText("."+separatedPrice[1].trim());
@@ -142,6 +141,9 @@ public class StocksTradingActivity extends AppCompatActivity {
         mStockAvgCost = findViewById(R.id.stock_avg_costs);
         mStockProfit = findViewById(R.id.stock_profit);
         profitArrow= findViewById(R.id.stock_profit_arrow);
+        mYearHigh= findViewById(R.id.stock_year_high);
+        mYearLow= findViewById(R.id.stock_year_low);
+        mDailyVolume= findViewById(R.id.stock_daily_volume);
 
         mBtnBuy = findViewById(R.id.btn_stock_buy);
         mBtnSell = findViewById(R.id.btn_stock_sell);
@@ -201,6 +203,15 @@ public class StocksTradingActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
                             loadToast.success();
+
+                            try {
+                                StocksInfo stocks = new StocksInfo(response.getJSONObject("stock"));
+                                mYearHigh.setText("$"+ stocks.getYearHigh());
+                                mYearLow.setText("$"+ stocks.getYearLow());
+                                mDailyVolume.setText(stocks.getDailyVolume());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
                             try {
                                 mAggregateDay = response.getJSONArray("aggregate_day");
@@ -271,13 +282,11 @@ public class StocksTradingActivity extends AppCompatActivity {
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getBaseContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Toast.makeText(getBaseContext(), "Network error", Toast.LENGTH_SHORT).show();
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }
-
-
 
     @Override
     public boolean onSupportNavigateUp() {

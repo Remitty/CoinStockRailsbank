@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Brian-work-CoinStockRailsbank.iml" filepath="$PROJECT_DIR$/../Brian-work-CoinStockRailsbank.iml" group="CoinStockRailsbank" />
       <module fileurl="file://$PROJECT_DIR$/../CoinStockRailsbank.iml" filepath="$PROJECT_DIR$/../CoinStockRailsbank.iml" group="CoinStockRailsbank" />
       <module fileurl="file://$PROJECT_DIR$/../PhoneVerification/PhoneVerification.iml" filepath="$PROJECT_DIR$/../PhoneVerification/PhoneVerification.iml" group="CoinStockRailsbank/PhoneVerification" />
       <module fileurl="file://$PROJECT_DIR$/../anychart/anychart.iml" filepath="$PROJECT_DIR$/../anychart/anychart.iml" group="CoinStockRailsbank/anychart" />

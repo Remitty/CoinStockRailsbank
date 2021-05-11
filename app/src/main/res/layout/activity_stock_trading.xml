@@ -304,6 +304,101 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="12dp"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:text="52Weeks High"/>
+                        <TextView
+                            android:id="@+id/stock_year_high"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rounded_corner_white_rectangle"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="16dp"
+                            android:text="0"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:layout_gravity="right"
+                            android:textSize="12dp"
+                            android:text="52Weeks Low"/>
+                        <TextView
+                            android:id="@+id/stock_year_low"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rounded_corner_white_rectangle"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="16dp"
+                            android:text="0"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="12dp"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:text="Volume 24hr Ago"/>
+                        <TextView
+                            android:id="@+id/stock_daily_volume"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rounded_corner_white_rectangle"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="16dp"
+                            android:text="0"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
