@@ -52,10 +52,10 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
     ConfirmAlert confirmAlert;
 //    private JSONArray history;
 
-    private Button mBtnWithdrawCoin, btnWithdrawBank, btnWithdrawCard, btnConnectBank, btnAddCard;
+    private Button mBtnWithdrawCoin, btnWithdrawBank, btnWithdrawCard, btnConnectBank, btnAddCard, tvViewHistory;
     private EditText mWalletAddress, mEditAmount;
     TextView mStockBalance, mUSDCRate;
-    TextView tvViewHistory;
+//    TextView tvViewHistory;
     RadioGroup radioGroup;
     Double StockBalance = 0.0, USDCRate = 0.0;
 

@@ -55,8 +55,8 @@ public class Paypal2StockFragment extends Fragment {
     TextView mStockBalance, tvpaypal;
     EditText mEditAmount;
     CheckBox mChkMargin;
-    Button mBtnTransfer;
-    TextView tvViewHistory, tvAdd;
+    Button mBtnTransfer, tvViewHistory;
+    TextView tvAdd;
 
     public static final int PAYPAL_REQUEST_CODE = 123;
     private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_NO_NETWORK;

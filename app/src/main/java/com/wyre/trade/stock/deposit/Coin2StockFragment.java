@@ -52,8 +52,8 @@ public class Coin2StockFragment extends Fragment {
     TextView mCoinBalance, mCoinUsdc, mCoinSymbol, mStockBalance;
     ImageView mCoinIcon;
     EditText mEditAmount;
-    Button mBtnTransfer;
-    TextView tvViewHistory;
+    Button mBtnTransfer, tvViewHistory;
+//    TextView tvViewHistory;
     CheckBox mChkMargin;
 
     View mView;

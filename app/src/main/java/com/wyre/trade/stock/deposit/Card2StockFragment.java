@@ -55,8 +55,8 @@ public class Card2StockFragment extends Fragment {
     TextView mStockBalance, tvCardId;
     EditText mEditAmount;
     CheckBox mChkMargin;
-    Button mBtnTransfer;
-    TextView tvViewHistory, tvChangeCard, tvEditCard;
+    Button mBtnTransfer, tvViewHistory;
+    TextView tvChangeCard, tvEditCard;
     LinearLayout llAddCard;
 
     BottomSheetDialog dialog;
