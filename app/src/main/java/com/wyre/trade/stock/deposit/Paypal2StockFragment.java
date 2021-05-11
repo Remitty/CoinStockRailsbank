@@ -129,8 +129,12 @@ public class Paypal2StockFragment extends Fragment {
                     Toast.makeText(getContext(), "No paypal", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                if(mEditAmount.getText().toString().equals("")) {
+                String amount = mEditAmount.getText().toString();
+                if(amount.isEmpty() || amount.startsWith(".")) {
+                    mEditAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(amount) == 0 ) {
                     mEditAmount.setError("!");
                     return;
                 }

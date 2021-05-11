@@ -21,6 +21,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.home.HomeActivity;
@@ -38,12 +39,14 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class SendUsdcActivity extends AppCompatActivity {
     TextView tvBalance;
 
     RecyclerView contactListView;
-    Button btnPay;
-    TextView tvViewHistory;
+    Button btnPay, tvViewHistory;
+//    TextView tvViewHistory;
 
     TextView tvTo;
     EditText editAmount;
@@ -61,6 +64,7 @@ public class SendUsdcActivity extends AppCompatActivity {
 
 
     private LoadToast loadToast;
+    ConfirmAlert confirmAlert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,7 @@ public class SendUsdcActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
+        confirmAlert = new ConfirmAlert(SendUsdcActivity.this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
 
         tvBalance = findViewById(R.id.usdc_balance);
@@ -119,28 +124,33 @@ public class SendUsdcActivity extends AppCompatActivity {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(validate()) {
-                    dialog.dismiss();
-                    AlertDialog.Builder alert1 = new AlertDialog.Builder(SendUsdcActivity.this);
-                    alert1.setTitle("Confirm Pay")
-                            .setIcon(R.mipmap.ic_launcher_round)
-                            .setMessage("Are you sure you want to pay " + editAmount.getText().toString() + "usdc to " + tvTo.getText().toString())
-                            .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    amount = editAmount.getText().toString();
-                                    sendCoin();
-                                }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .show();
+                String amount = editAmount.getText().toString();
+                if(TextUtils.isEmpty(amount) || amount.startsWith(".")){
+                    editAmount.setError("!");
+                    return;
                 }
+                if(TextUtils.isEmpty(tvTo.getText().toString())){
+                    tvTo.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(amount) == 0) {
+                    editAmount.setError("!");
+                    return;
+                }
+                if(usdcBalance < Double.parseDouble(amount)){
+                    confirmAlert.alert("Insufficient funds");
+                    return;
+                }
+                    dialog.dismiss();
+
+                    confirmAlert.confirm("Are you sure you want to pay " + amount + "usdc to " + tvTo.getText().toString())
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sendCoin();
+                                    confirmAlert.process();
+                                }
+                            }).show();
             }
         });
 
@@ -182,7 +192,7 @@ public class SendUsdcActivity extends AppCompatActivity {
                             loadToast.error();
                             // handle error
                             Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }
@@ -214,26 +224,10 @@ public class SendUsdcActivity extends AppCompatActivity {
         }
     }
 
-    private boolean validate() {
-        boolean validate = true;
-        if(!TextUtils.isEmpty(editAmount.getText().toString()) && usdcBalance < Double.parseDouble(editAmount.getText().toString())){
-            Toast.makeText(getBaseContext(), "Insufficient funds", Toast.LENGTH_SHORT).show();
-            validate = false;
-        }
-        if(TextUtils.isEmpty(editAmount.getText().toString())){
-            editAmount.setError("!");
-            validate = false;
-        }
-        if(TextUtils.isEmpty(tvTo.getText().toString())){
-            tvTo.setError("!");
-            validate = false;
-        }
 
-        return validate;
-    }
 
     private void sendCoin() {
-        loadToast.show();
+//        loadToast.show();
         JSONObject param = new JSONObject();
         try {
             param.put("user", selectedUserEmail);
@@ -254,17 +248,19 @@ public class SendUsdcActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-                            loadToast.success();
-                            Toast.makeText(getBaseContext(), "Sent successfully.", Toast.LENGTH_SHORT).show();
+//                            loadToast.success();
+//                            Toast.makeText(getBaseContext(), "Sent successfully.", Toast.LENGTH_SHORT).show();
                             setData(response);
+                            confirmAlert.success("Sent successfully.");
 
                         }
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
+//                            loadToast.error();
                             // handle error
-                            Toast.makeText(getBaseContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            confirmAlert.error(error.getErrorBody());
+//                            Toast.makeText(getBaseContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
                             Log.d("errorm", "" + error.getErrorBody());
                         }
                     });

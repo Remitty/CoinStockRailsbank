@@ -98,12 +98,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private boolean validate() {
         boolean validate = true;
 
-        if(editOldPW.getText().toString().equals("")){
+        if(editOldPW.getText().toString().isEmpty()){
             validate = false;
             editOldPW.setError("!");
         }
 
-        if(editNewPW.getText().toString().equals("")){
+        if(editNewPW.getText().toString().isEmpty()){
             validate = false;
             editNewPW.setError("!");
         }
@@ -113,7 +113,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             editNewPW.setError("At least 6 characters");
         }
 
-        if(editConfirmNewPW.getText().toString().equals("")){
+        if(editConfirmNewPW.getText().toString().isEmpty()){
             validate = false;
             editConfirmNewPW.setError("!");
         }

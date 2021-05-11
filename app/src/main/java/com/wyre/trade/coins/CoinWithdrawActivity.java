@@ -29,6 +29,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
 import com.wyre.trade.adapters.BottomCoinAdapter;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.model.CoinInfo;
@@ -46,16 +47,20 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class CoinWithdrawActivity extends AppCompatActivity {
     private static final int REQUEST_PHONE_VERIFICATION = 1080;
+    private LoadToast loadToast;
+    ConfirmAlert confirmAlert;
+
     EditText editWithdrawAmount, editAddress;
-    TextView mtvCoin,mtvAvailCoinQty, mTVCoinBalance, mtvWithdrawalFee, mtvWithdrawalFeeSymbol, mtvGasFee, mtvGasFeeSymbol, mtvGetAmount, mtvGetAmountSymbol, mtvWeeklyLimit, tvViewHistory;
+    TextView mtvCoin,mtvAvailCoinQty, mTVCoinBalance, mtvWithdrawalFee, mtvWithdrawalFeeSymbol, mtvGasFee, mtvGasFeeSymbol, mtvGetAmount, mtvGetAmountSymbol, mtvWeeklyLimit;
     ImageView imgIcon;
-    Button btnWithdraw;
+    Button btnWithdraw, tvViewHistory;
     BottomCoinAdapter mBottomAdapter;
     private RecyclerView recyclerView;
     private BottomSheetDialog dialog;
-    private LoadToast loadToast;
 
     private String CoinId="1", CoinUsdc="0", Fee="0", Coin="BTC", GasFee = "0";
 
@@ -67,6 +72,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_withdraw);
         loadToast = new LoadToast(this);
+        confirmAlert = new ConfirmAlert(CoinWithdrawActivity.this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -136,7 +142,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String amount = s.toString();
-                if(amount.equals("") || amount.equals(".")) {
+                if(amount.isEmpty() || amount.equals(".")) {
                     mtvGetAmount.setText("0");
                 } else {
                     mtvGetAmount.setText(new DecimalFormat("#,###.####").format(Double.parseDouble(amount) - Double.parseDouble(Fee)));
@@ -155,48 +161,41 @@ public class CoinWithdrawActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                confirmPhoneVerification();
                 String amount = editWithdrawAmount.getText().toString();
-                if(amount.equals("") || CoinId.equals("0") || editAddress.getText().toString().equals("")) {
-                    if(amount.equals(""))
+                if(amount.isEmpty() || CoinId.equals("0") || editAddress.getText().toString().isEmpty()) {
+                    if(amount.isEmpty())
                         editWithdrawAmount.setError("!");
-                    if(editAddress.getText().toString().equals(""))
+                    if(editAddress.getText().toString().isEmpty())
                         editAddress.setError("!");
                     if(CoinId.equals("0"))
-                        Toast.makeText(getBaseContext(), "Please select coin", Toast.LENGTH_SHORT).show();
+                        confirmAlert.alert("Please select coin.");
+//                        Toast.makeText(getBaseContext(), "Please select coin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(Double.parseDouble(amount) == 0) {
+                    editWithdrawAmount.setError("!");
                     return;
                 }
 
                 if(Double.parseDouble(amount) > Double.parseDouble(CoinUsdc)) {
-                    Toast.makeText(getBaseContext(), "Insufficient funds", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getBaseContext(), "Insufficient funds", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("Insufficient funds.");
                     return;
                 }
                 if(Double.parseDouble(amount) < Double.parseDouble(Fee)) {
-                    Toast.makeText(getBaseContext(), "You have to request amount than " + Fee + " at least.", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getBaseContext(), "You have to request amount than " + Fee + " at least.", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("You have to request amount than " + Fee + " at least.");
                     return;
                 }
                 String total = new DecimalFormat("#,###.####").format(Double.parseDouble(amount) - Double.parseDouble(Fee));
-                new AlertDialog.Builder(CoinWithdrawActivity.this)
-                        .setIcon(R.mipmap.ic_launcher_round)
-                        .setTitle("Confirm")
-                        .setMessage("Are you sure you want to withdraw " + amount + Coin + " ? Fee is " + Fee + Coin + ".\nTotal is " + total + Coin + ".\n" + SharedHelper.getKey(getBaseContext(), "msgCoinWithdrawFeePolicy"))
-                        .setPositiveButton("Confirm",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-//                                        submitWithdraw();
-                                        confirmPhoneVerification();
-                                    }
-                                })
-                        .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                                        // dismiss the dialog
-                                        dialogInterface.dismiss();
-
-                                        // dismiss the bottomsheet
-                                    }
-                                }).show();
+                confirmAlert.confirm("Are you sure you want to withdraw " + amount + Coin + " ? Fee is " + Fee + Coin + ".\nTotal is " + total + Coin + ".\n" + SharedHelper.getKey(getBaseContext(), "msgCoinWithdrawFeePolicy"))
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                confirmPhoneVerification();
+                            }
+                        }).show();
 
             }
         });
@@ -222,7 +221,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                 else mtvGasFee.setText("0");
 
                 String withdraw_amount = editWithdrawAmount.getText().toString();
-                if(!withdraw_amount.equals("")) {
+                if(!withdraw_amount.isEmpty()) {
                     BigDecimal amount = new BigDecimal(withdraw_amount);
                     BigDecimal fee = new BigDecimal(Fee);
                     mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()));
@@ -233,7 +232,8 @@ public class CoinWithdrawActivity extends AppCompatActivity {
     }
 
     private void submitWithdraw() {
-        loadToast.show();
+//        loadToast.show();
+        confirmAlert.process();
         JSONObject jsonObject = new JSONObject();
 
         try {
@@ -256,39 +256,25 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("coin assets response", "" + response);
-                            loadToast.success();
+//                            loadToast.success();
                             if(response.optBoolean("success")) {
                                 CoinInfo coin = new CoinInfo(response.optJSONObject("result"));
                                 mtvAvailCoinQty.setText(coin.getCoinBalance());
 //                                mtvCoinSymbol.setText(coin.getCoinSymbol() + " available");
                                 mTVCoinBalance.setText("$ "+coin.getCoinUsdc());
                                 CoinUsdc = coin.getCoinUsdc();
-                                Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
-
+//                                Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                                confirmAlert.success(response.optString("message"));
                             }
                             else {
-                                AlertDialog.Builder alert = new AlertDialog.Builder(CoinWithdrawActivity.this);
-                                alert.setIcon(R.mipmap.ic_launcher_round)
-                                        .setTitle("Withdraw error")
-                                        .setMessage(response.optString("message"))
-                                        .show();
+                                confirmAlert.error(response.optString("message"));
                             }
                         }
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
-                            // handle error
-                            AlertDialog.Builder alert = new AlertDialog.Builder(CoinWithdrawActivity.this);
-                            alert.setIcon(R.mipmap.ic_launcher_round)
-                                    .setTitle("Alert")
-                                    .setMessage(error.getErrorBody())
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                                    .show();
+//                            loadToast.error();
+                           confirmAlert.error(error.getErrorBody());
                         }
                     });
     }
@@ -372,7 +358,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
 
                             mtvGetAmountSymbol.setText(Coin);
                             String withdraw_amount = editWithdrawAmount.getText().toString();
-                            if(!withdraw_amount.equals("")) {
+                            if(!withdraw_amount.isEmpty()) {
                                 BigDecimal amount = new BigDecimal(withdraw_amount);
                                 BigDecimal fee = new BigDecimal(Fee);
                                 mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()));
@@ -404,7 +390,8 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                     submitWithdraw();
                 } else {
                     // If mobile number is not verified successfully You can hendle according to your requirement.
-                    Toast.makeText(getBaseContext(), "Mobile number verification fails",Toast.LENGTH_SHORT);
+//                    Toast.makeText(getBaseContext(), "Mobile number verification fails",Toast.LENGTH_SHORT).show();
+                    confirmAlert.error("Mobile number verification fails");
                 }
                 break;
         }

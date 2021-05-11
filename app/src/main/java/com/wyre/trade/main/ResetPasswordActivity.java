@@ -97,7 +97,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private boolean validate() {
         boolean validate = true;
 
-        if(editOTP.getText().toString().equals("")){
+        if(editOTP.getText().toString().isEmpty()){
             validate = false;
             editOTP.setError("!");
         }
@@ -107,7 +107,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             editOTP.setError("Not match!");
         }
 
-        if(editNewPW.getText().toString().equals("")){
+        if(editNewPW.getText().toString().isEmpty()){
             validate = false;
             editNewPW.setError("!");
         }
@@ -117,7 +117,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             editNewPW.setError("At least 6 characters");
         }
 
-        if(editConfirmNewPW.getText().toString().equals("")){
+        if(editConfirmNewPW.getText().toString().isEmpty()){
             validate = false;
             editConfirmNewPW.setError("!");
         }

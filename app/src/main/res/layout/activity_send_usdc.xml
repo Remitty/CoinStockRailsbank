@@ -121,14 +121,24 @@
                         app:cornerRadius="20dp"
                         android:layout_gravity="center_horizontal"
                         android:text="Pay Now"/>
-                    <TextView
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_view_history"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        android:textColor="@color/colorBlue"-->
+<!--                        android:text="Pay History"/>-->
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/tv_view_history"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_width="300dp"
                         android:layout_gravity="center_horizontal"
-                        android:textColor="@color/colorBlue"
-                        android:text="Pay History"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/gray_text"
+                        app:cornerRadius="20dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:text="Pay history"/>
                 </LinearLayout>
 
             </LinearLayout>

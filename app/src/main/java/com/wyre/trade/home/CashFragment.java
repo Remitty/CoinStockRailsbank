@@ -12,6 +12,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.cash.AddBankActivity;
 import com.wyre.trade.cash.AddFriendActivity;
 import com.wyre.trade.cash.InfoActivity;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.home.adapters.BankTransactionAdapter;
 import com.wyre.trade.cash.SendTargetActivity;
 import com.wyre.trade.helper.SharedHelper;
@@ -47,7 +48,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class CashFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+
+    private LoadToast loadToast;
+    ConfirmAlert confirmAlert;
 
     View mView;
 
@@ -71,7 +77,6 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
     private ViewPager mViewPager;
     private ViewPagerWithIndicator mViewPagerWithIndicator;
 
-    private LoadToast loadToast;
 
     public CashFragment() {
         // Required empty public constructor
@@ -93,6 +98,7 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_cash, container, false);
         loadToast = new LoadToast(getActivity());
+        confirmAlert = new ConfirmAlert(getActivity());
 
         initComponents();
 
@@ -117,24 +123,23 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
 
         getBankData();
 
-//        showAlert();
-
         return mView;
 
     }
 
     private void showAlert() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-        alert.setIcon(R.mipmap.ic_launcher_round)
-                .setTitle("Coming soon")
-                .setMessage(" Make sure no one can access")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
+//        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+//        alert.setIcon(R.mipmap.ic_launcher_round)
+//                .setTitle("Coming soon")
+//                .setMessage(" Make sure no one can access")
+//                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                })
+//                .show();
+        confirmAlert.alert("This is test mode. Make sure no one can access");
     }
 
     private void initComponents() {
@@ -214,6 +219,9 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                             Log.d("info Edit ProfileGet", "" + response);
                             loadToast.success();
                             currencies.clear();
+
+                            if(response.optDouble("mode") != 2) showAlert(); // test mode alert
+
                             JSONArray currencies_array = response.optJSONArray("currencies");
                             for(int i = 0; i < currencies_array.length(); i ++) {
                                 BankInfo bankInfo = new BankInfo();
@@ -244,13 +252,13 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                             loadToast.error();
                             // handle error
                             Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }
 
     private void sendAddCurrency(int currency) {
-        loadToast.show();
+//        loadToast.show();
         JSONObject object = new JSONObject();
         try {
             object.put("currency", currency);
@@ -270,7 +278,7 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-                            loadToast.success();
+//                            loadToast.success();
 
                             if(response.optBoolean("success")){
 
@@ -291,16 +299,18 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                                     tvNoWallet.setVisibility(View.VISIBLE);
                             }
 
-                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                            confirmAlert.success(response.optString("message"));
 
                         }
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
+//                            loadToast.error();
                             // handle error
-                            Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
                             Log.d("errorm", "" + error.getErrorBody());
+                            confirmAlert.error(error.getErrorBody());
                         }
                     });
     }
@@ -323,18 +333,15 @@ public class CashFragment extends Fragment implements AdapterView.OnItemSelected
                 currency = "SGD";
             }
             if(position != 0) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Add currency")
-                        .setIcon(R.mipmap.ic_launcher_round)
-                        .setMessage("Are you sure you want to add " + currency +"?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                confirmAlert.confirm("Are you sure you want to add " + currency +"?")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 sendAddCurrency(position);
+                                confirmAlert.process();
                             }
-                        })
-                        .setNegativeButton("No", null);
-                builder.show();
+                        }).show();
 //                addCurrencySpinner.setSelection(0);
             }
         }

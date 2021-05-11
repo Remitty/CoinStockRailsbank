@@ -231,6 +231,8 @@ public class TransferCoinFragment extends Fragment {
                                 loserAdapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                            } catch (NullPointerException e) {
+                                e.printStackTrace();
                             }
 
                         }

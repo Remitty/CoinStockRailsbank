@@ -165,7 +165,7 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
                                 eurAccountId.setText(currencies.get(i).getBankId());
                                 eurIban.setText(currencies.get(i).getIban());
                                 eurSwift.setText(currencies.get(i).getSwift());
-                                if(currencies.get(i).getSwift().equals(""))
+                                if(currencies.get(i).getSwift().isEmpty())
                                     btnAssign.setVisibility(View.VISIBLE);
                             }
                             if(currencies.get(i).getCurrencyID().equals("3")) {

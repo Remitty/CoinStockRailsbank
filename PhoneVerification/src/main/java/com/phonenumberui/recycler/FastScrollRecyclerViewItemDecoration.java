@@ -43,7 +43,7 @@ public class FastScrollRecyclerViewItemDecoration extends RecyclerView.ItemDecor
         boolean showLetter = ((FastScrollRecyclerView) parent).showLetter;
 
         // We draw the letter in the middle
-        if (showLetter & section != null && !section.equals("")) {
+        if (showLetter & section != null && !section.isEmpty()) {
             //overlay everything when displaying selected index Letter in the middle
             Paint overlayDark = new Paint();
             overlayDark.setColor(Color.BLACK);
@@ -69,7 +69,7 @@ public class FastScrollRecyclerViewItemDecoration extends RecyclerView.ItemDecor
         textPaint.setStyle(Paint.Style.FILL);
 
         for (int i = 0; i < sections.length; i++) {
-            if (showLetter & section != null && !section.equals("") && section != null
+            if (showLetter & section != null && !section.isEmpty() && section != null
                     && sections[i].toUpperCase().equals(section.toUpperCase())) {
                 textPaint.setColor(Color.WHITE);
                 textPaint.setAlpha(255);

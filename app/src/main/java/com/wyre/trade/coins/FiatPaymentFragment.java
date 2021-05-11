@@ -20,6 +20,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
 import com.wyre.trade.adapters.BottomCoinAdapter;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.home.WebViewActivity;
@@ -178,7 +179,7 @@ public class FiatPaymentFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-                            loadToast.success();
+                            loadToast.hide();
                             if(response.optBoolean("success")) {
                                 String address = response.optString("address");
 
@@ -191,16 +192,21 @@ public class FiatPaymentFragment extends Fragment {
                                     doXanpool(symbol, address);
                                 }
                             }
-                            else
-                                Toast.makeText(getContext(), response.optString("error"), Toast.LENGTH_SHORT).show();
+                            else {
+                                ConfirmAlert confirmAlert = new ConfirmAlert(getActivity());
+                                confirmAlert.error(response.optString("error"));
+//                                Toast.makeText(getContext(), response.optString("error"), Toast.LENGTH_SHORT).show();
+                            }
+
                         }
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
+//                            loadToast.error();
                             // handle error
-                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            ConfirmAlert confirmAlert = new ConfirmAlert(getActivity());
+                            confirmAlert.error(error.getErrorBody());
+//                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
                             Log.d("errorm", "" + error.getErrorBody());
 
                         }
@@ -208,7 +214,8 @@ public class FiatPaymentFragment extends Fragment {
     }
 
     private void doXanpool(String symbol, String address) {
-        String base = "https://checkout.sandbox.xanpool.com/";
+//        String base = "https://checkout.sandbox.xanpool.com/";
+        String base = "https://checkout.xanpool.com/";
         String apikey = "?apiKey="+xanpoolApikey;
         String wallet = "&wallet=" + address;
         String cryptoCurrency = "&cryptoCurrency=" + symbol;

@@ -173,12 +173,14 @@ public class CoinSwapFragment extends Fragment {
                 }
 
                 if(sellAmount > Double.parseDouble(sendCoin.getCoinBalance())) {
-                    Toast.makeText(getContext(), "Insufficient funds", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Insufficient funds", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("Insufficient funds");
                     return;
                 }
 
                 if(sellAmount < Double.parseDouble(rateModel.getSendMin()) || sellAmount > Double.parseDouble(rateModel.getSendMax())) {
-                    Toast.makeText(getContext(), "The deposit amount is not within the range", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "The deposit amount is not within the range", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("The deposit amount is not within the range");
                     return;
                 }
 
@@ -226,7 +228,7 @@ public class CoinSwapFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String price=charSequence.toString();
-                if(price.equals(".") || price.equals("")) {
+                if(price.equals(".") || price.isEmpty()) {
                     sellAmount = 0.0;
                 }
                 else sellAmount = new Double(price);

@@ -154,7 +154,7 @@ public class Card2StockFragment extends Fragment {
                     return;
                 }
 
-                if(mEditAmount.getText().toString().equals("")) {
+                if(mEditAmount.getText().toString().isEmpty()) {
                     mEditAmount.setError("!");
                     return;
                 }

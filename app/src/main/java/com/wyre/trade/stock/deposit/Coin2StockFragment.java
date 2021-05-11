@@ -117,12 +117,18 @@ public class Coin2StockFragment extends Fragment {
         mBtnTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mEditAmount.getText().toString().isEmpty()) {
+                String amount = mEditAmount.getText().toString();
+                if(amount.isEmpty() || amount.startsWith(".")) {
+                    mEditAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(amount) == 0 ) {
                     mEditAmount.setError("!");
                     return;
                 }
                 if(Double.parseDouble(mEditAmount.getText().toString()) > coinBalance) {
-                    Toast.makeText(getContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("Insufficient balance");
                     return;
                 }
 

@@ -20,6 +20,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 
@@ -30,12 +31,16 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class SendCashActivity extends AppCompatActivity {
+
+    private LoadToast loadToast;
+    ConfirmAlert confirmAlert;
 
     EditText editSend;
     TextView tvGet, tvBankName, tvBankCurrency, sendCurrency;
     Button btnSend;
-    private LoadToast loadToast;
 
     private String getterId, bankName, bankCurrency, Currency, CurrencyId, type, rate="1";
 
@@ -62,6 +67,7 @@ public class SendCashActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
+        confirmAlert = new ConfirmAlert(SendCashActivity.this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
 
         tvBankCurrency = findViewById(R.id.bank_currency);
@@ -91,7 +97,7 @@ public class SendCashActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String str = s.toString();
-                if(str.equals("") || str.equals("."))
+                if(str.isEmpty() || str.equals("."))
                     tvGet.setText("0");
                 else {
                     tvGet.setText(new DecimalFormat("#,###.##").format(Double.parseDouble(rate) * Double.parseDouble(str)));
@@ -111,18 +117,15 @@ public class SendCashActivity extends AppCompatActivity {
                     editSend.setError("!");
                     return;
                 }
-                AlertDialog.Builder builder = new AlertDialog.Builder(SendCashActivity.this);
-                builder.setTitle(R.string.app_name)
-                        .setIcon(R.mipmap.ic_launcher_round)
-                        .setMessage("Are you sure you want to send "+editSend.getText().toString()+" "+bankCurrency+ " to " + bankName +" ?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                confirmAlert.confirm("Are you sure you want to send "+editSend.getText().toString()+" "+bankCurrency+ " to " + bankName +" ?")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 sendMoney();
+                                confirmAlert.process();
                             }
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
+                        }).show();
             }
         });
     }
@@ -165,7 +168,7 @@ public class SendCashActivity extends AppCompatActivity {
     }
 
     private void sendMoney() {
-        loadToast.show();
+//        loadToast.show();
         JSONObject object = new JSONObject();
         try {
 
@@ -189,17 +192,18 @@ public class SendCashActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
-                        loadToast.success();
-
-                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+//                        loadToast.success();
+                        confirmAlert.success(response.optString("message"));
+//                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        loadToast.error();
+//                        loadToast.error();
                         // handle error
-                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        confirmAlert.error(error.getErrorBody());
+//                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }

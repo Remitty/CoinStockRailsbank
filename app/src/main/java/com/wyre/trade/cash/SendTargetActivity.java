@@ -5,6 +5,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.cash.adapters.BankAdapter;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.model.BankInfo;
@@ -33,6 +34,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class SendTargetActivity extends AppCompatActivity {
 
     ImageButton btnAddBank, btnAddFriend;
@@ -41,6 +44,7 @@ public class SendTargetActivity extends AppCompatActivity {
     BankAdapter mBankAdapter;
 
     private LoadToast loadToast;
+    ConfirmAlert confirmAlert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,24 +58,22 @@ public class SendTargetActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
+        confirmAlert = new ConfirmAlert(SendTargetActivity.this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
 
         mBankAdapter = new BankAdapter(bankList);
         mBankAdapter.setListener(new BankAdapter.Listener() {
             @Override
             public void onDelBank(final int position) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(SendTargetActivity.this);
-                builder.setTitle(R.string.app_name)
-                        .setMessage("Are you sure you want to remove this bank?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                confirmAlert.confirm("Are you sure you want to remove this bank?")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 removeBank(position);
+                                confirmAlert.delete();
                             }
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
+                        }).show();
             }
 
             @Override
@@ -112,7 +114,7 @@ public class SendTargetActivity extends AppCompatActivity {
 
     private void removeBank(int position) {
         BankInfo bankInfo = bankList.get(position);
-        loadToast.show();
+//        loadToast.show();
         JSONObject param = new JSONObject();
         try {
             param.put("id", bankInfo.getId());
@@ -131,7 +133,7 @@ public class SendTargetActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
-                        loadToast.success();
+//                        loadToast.success();
 
                         bankList.clear();
                         JSONArray data = response.optJSONArray("data");
@@ -143,14 +145,17 @@ public class SendTargetActivity extends AppCompatActivity {
                         }
 
                         mBankAdapter.notifyDataSetChanged();
+
+                        confirmAlert.success("Deleted successfully");
                     }
 
                     @Override
                     public void onError(ANError error) {
                         loadToast.error();
                         // handle error
-                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        confirmAlert.error(error.getErrorBody());
+//                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }

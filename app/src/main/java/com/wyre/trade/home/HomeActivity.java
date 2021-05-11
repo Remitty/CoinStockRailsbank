@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.wyre.trade.coins.StakeAssetListActivity;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.mtn.MTNActivity;
 import com.wyre.trade.predict.PredictActivity;
 import com.wyre.trade.profile.ProfileActivity;
@@ -43,6 +44,7 @@ import com.wyre.trade.stock.stockorder.StockOrderHistoryActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.riddhimanadib.library.BottomNavigationBar;
 import me.riddhimanadib.library.NavigationPage;
 
@@ -148,24 +150,17 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     }
 
     private void confirmLogout() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setIcon(R.mipmap.ic_launcher_round)
-                .setTitle(getString(R.string.app_name))
-                .setMessage("Are you sure you want to logout?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+
+        ConfirmAlert confirmAlert = new ConfirmAlert(HomeActivity.this);
+        confirmAlert.confirm("Are you sure you want to logout?")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sharedPrefs.clearLogin();
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        sweetAlertDialog.dismissWithAnimation();
                     }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .show();
+                }).show();
     }
 
     //

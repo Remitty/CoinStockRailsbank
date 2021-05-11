@@ -22,6 +22,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.google.android.material.button.MaterialButtonToggleGroup;
@@ -31,7 +32,11 @@ import net.steamcrafted.loadtoast.LoadToast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class AddPredictActivity extends AppCompatActivity implements View.OnClickListener {
+    LoadToast loadToast;
+    ConfirmAlert confirmAlert;
     private String symbol;
     private int duration = 2;
     TextView mtvSymbol, mtvName, mtvEndDate, mtvPrice, mtvUsdcBalance;
@@ -40,7 +45,6 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
     MaterialButtonToggleGroup group1;
     Button btn1H, btn1W, btn2W, btn3W, btn4W, btn5W,  btnCreate;
     Button btn10, btn50, btn100, btn200;
-    LoadToast loadToast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,8 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
             getSupportActionBar().setTitle("");
         }
         loadToast = new LoadToast(this);
+        confirmAlert = new ConfirmAlert(AddPredictActivity.this);
+
         initComponents();
         initListeners();
         if(getIntent() != null) {
@@ -123,18 +129,14 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View v) {
                 if(isValidate()) {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(AddPredictActivity.this);
-                    alert.setIcon(R.mipmap.ic_launcher_round)
-                            .setTitle("Confirm Predictions")
-                            .setMessage("Are you sure you want to post this prediction?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    confirmAlert.confirm("Are you sure you want to post this prediction?")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
                                     postPrediction();
                                 }
-                            })
-                            .setNegativeButton("No", null)
-                            .show();
+                            }).show();
                 }
             }
         });
@@ -177,23 +179,27 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
 
     private boolean isValidate() {
         boolean validate = true;
-        if(TextUtils.isEmpty(meditEstPrice.getText().toString())){
+        String estPrice = meditEstPrice.getText().toString();
+        if(TextUtils.isEmpty(estPrice) || estPrice.equals(".")){
             validate = false;
             meditEstPrice.setError("!");
         }
-        if(TextUtils.isEmpty(meditBetPrice.getText().toString())){
+        String betPrice = meditBetPrice.getText().toString();
+        if(TextUtils.isEmpty(betPrice) || betPrice.equals(".")){
             validate = false;
             meditBetPrice.setError("!");
         }
         if((int)radioGroup.getCheckedRadioButtonId() <= 0) {
             validate = false;
-            Toast.makeText(this, "Please select type.", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Please select type.", Toast.LENGTH_SHORT).show();
+            confirmAlert.alert("Please select type.");
         }
         return validate;
     }
 
     private void postPrediction() {
-        loadToast.show();
+//        loadToast.show();
+        confirmAlert.process();
         JSONObject object = new JSONObject();
         try {
             object.put("est_price", meditEstPrice.getText().toString());
@@ -225,21 +231,24 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
-                        loadToast.success();
+//                        loadToast.success();
                         if(response.optBoolean("success")) {
-                            Toast.makeText(getBaseContext(), "Posted successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(AddPredictActivity.this, PredictActivity.class));
+//                            Toast.makeText(getBaseContext(), "Posted successfully", Toast.LENGTH_SHORT).show();
+                            confirmAlert.success("Posted successfully");
+//                            startActivity(new Intent(AddPredictActivity.this, PredictActivity.class));
                         }
                         else
-                            Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                            confirmAlert.error(response.optString("message"));
+//                            Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        loadToast.error();
-                        // handle error
-                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+//                        loadToast.error();
+//                        // handle error
+//                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getErrorBody());
+                        confirmAlert.error(error.getErrorBody());
                     }
                 });
     }

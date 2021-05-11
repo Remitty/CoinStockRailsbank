@@ -46,7 +46,7 @@ public class ZaboAssetAdapter extends RecyclerView.Adapter<ZaboAssetAdapter.Cust
         holder.mtvFiat.setText("$" + new DecimalFormat("#,###.##").format(item.getFiatValue()));
         holder.mtvBalance.setText(new DecimalFormat("#,###.####").format(item.getBalance()) + " " + item.getSymbol());
         String icon = item.getIcon();
-        if(icon.equals(""))
+        if(icon.isEmpty())
             holder.icon.setVisibility(View.GONE);
         else {
             if (!icon.startsWith("http"))

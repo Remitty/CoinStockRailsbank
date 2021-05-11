@@ -76,7 +76,7 @@ public class DepositDialog extends DialogFragment {
         registerForContextMenu(address);
 
         try {
-            if(!mqrCode.equals("")) {
+            if(!mqrCode.isEmpty()) {
                 bmpQrcode = EncodingHandler.createQRCode(mqrCode, 400);
                 imgQrcode.setImageBitmap(bmpQrcode);
             }

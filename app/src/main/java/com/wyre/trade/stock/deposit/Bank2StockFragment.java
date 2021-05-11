@@ -112,7 +112,12 @@ public class Bank2StockFragment extends Fragment {
 //                    return;
 //                }
 
-                if(mEditAmount.getText().toString().equals("")) {
+                String amount = mEditAmount.getText().toString();
+                if(amount.isEmpty() || amount.startsWith(".")) {
+                    mEditAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(amount) == 0 ) {
                     mEditAmount.setError("!");
                     return;
                 }

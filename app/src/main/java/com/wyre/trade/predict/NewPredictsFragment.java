@@ -20,6 +20,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.model.PredictionModel;
@@ -32,14 +33,17 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class NewPredictsFragment extends Fragment {
+    private LoadToast loadToast;
+    ConfirmAlert confirmAlert;
 //    JSONArray data = new JSONArray();
     ArrayList<PredictionModel> dataList = new ArrayList<PredictionModel>();
     RecyclerView recyclerView;
     PredictAdapter mAdapter;
     LinearLayout emptyLayout;
     private String answer, bet_currency;
-    private LoadToast loadToast;
 
     public NewPredictsFragment(ArrayList all) {
         // Required empty public constructor
@@ -63,6 +67,7 @@ public class NewPredictsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_all_predicts, container, false);
 
         loadToast = new LoadToast(getActivity());
+        confirmAlert = new ConfirmAlert(getActivity());
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -89,18 +94,14 @@ public class NewPredictsFragment extends Fragment {
                 PredictionModel object = dataList.get(position);
                 bet_currency = object.getSymbol();
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setIcon(R.mipmap.ic_launcher_round)
-                        .setTitle("Confirm Prediction")
-                        .setMessage("You are about to disagree this predict.")
-                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+
+                confirmAlert.confirm("You are about to disagree this predict.")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 sendAnswer(position);
                             }
-                        })
-                        .setNegativeButton("Cancel", null)
-                        .show();
+                        }).show();
             }
         });
         emptyLayout = view.findViewById(R.id.empty_layout);
@@ -110,21 +111,9 @@ public class NewPredictsFragment extends Fragment {
         return view;
     }
 
-    private String getEstType(int type) {
-        switch (type) {
-            case 0:
-                return "not change";
-            case 1:
-                return "lower than";
-            case 2:
-                return "higher than";
-            default:
-                return "not change";
-        }
-    }
-
     private void sendAnswer(final int idx) {
-        loadToast.show();
+//        loadToast.show();
+        confirmAlert.process();
         JSONObject object = new JSONObject();
         try {
             object.put("id", dataList.get(idx).getId());
@@ -143,22 +132,25 @@ public class NewPredictsFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
-                        loadToast.success();
+//                        loadToast.success();
                         if(response.optBoolean("success")) {
-                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                             dataList.remove(idx);
                             mAdapter.notifyDataSetChanged();
+                            confirmAlert.success(response.optString("message"));
                         }
                         else
-                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                            confirmAlert.error(response.optString("message"));
+//                            Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        loadToast.error();
+//                        loadToast.error();
                         // handle error
-                        Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        confirmAlert.error(error.getErrorBody());
+//                        Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }

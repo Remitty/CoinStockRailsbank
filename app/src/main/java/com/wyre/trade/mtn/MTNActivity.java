@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.home.HomeActivity;
@@ -35,7 +37,12 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class MTNActivity extends AppCompatActivity {
+
+    LoadToast loadToast;
+    ConfirmAlert confirmAlert;
 
     Button btnPay, btnTopup, btnConvert, btnConvert1;
     TextView tvBalance, tvCurrency, tvViewAll;
@@ -45,7 +52,6 @@ public class MTNActivity extends AppCompatActivity {
     ArrayList<MTNTransactionItem> transactions = new ArrayList<>();
     AlertDialog.Builder alert;
     String amount, to, currency;
-    LoadToast loadToast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +64,7 @@ public class MTNActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0);
         }
         loadToast = new LoadToast(this);
+        confirmAlert = new ConfirmAlert(MTNActivity.this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
         initComponents();
         initListeners();
@@ -70,7 +77,7 @@ public class MTNActivity extends AppCompatActivity {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View view = View.inflate(getBaseContext(), R.layout.layout_mtn_payment, null);
+                View view = getLayoutInflater().inflate(R.layout.layout_mtn_payment, null);
                 final EditText mtnAmount = view.findViewById(R.id.edit_mtn_pay_amount);
                 final EditText mtnTo = view.findViewById(R.id.edit_mtn_pay_to);
                 alert.setTitle("Disbursement")
@@ -78,18 +85,28 @@ public class MTNActivity extends AppCompatActivity {
 
                 final AlertDialog alertDialog = alert.create();
                 alertDialog.show();
-
+                Button btnCancel = view.findViewById(R.id.btn_mtn_cancel);
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
                 Button btnOk = view.findViewById(R.id.btn_mtn_ok);
                 btnOk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         amount = mtnAmount.getText().toString();
                         to = mtnTo.getText().toString();
-                        if(amount.equals("")) {
+                        if(amount.isEmpty() || amount.startsWith(".")) {
                             mtnAmount.setError("!");
                             return;
                         }
-                        if(to.equals("")) {
+                        if(Double.parseDouble(amount) == 0) {
+                            mtnAmount.setError("!");
+                            return;
+                        }
+                        if(to.isEmpty()) {
                             mtnTo.setError("!");
                             return;
                         }
@@ -100,17 +117,14 @@ public class MTNActivity extends AppCompatActivity {
                             return;
                         }
                         alertDialog.dismiss();
-                        AlertDialog.Builder alert = new AlertDialog.Builder(MTNActivity.this);
-                        alert.setIcon(R.mipmap.ic_launcher_round)
-                                .setTitle("Are you sure you want to pay " + amount + "" + currency + " to " + to + "?")
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                        confirmAlert.confirm("Are you sure you want to pay " + amount + "" + currency + " to " + to + "?")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
                                         handlePay();
                                     }
-                                })
-                                .setNegativeButton("No", null)
-                                .show();
+                                }).show();
                     }
                 });
             }
@@ -119,7 +133,7 @@ public class MTNActivity extends AppCompatActivity {
         btnTopup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View view = View.inflate(getBaseContext(), R.layout.layout_mtn_payment, null);
+                View view = getLayoutInflater().inflate(R.layout.layout_mtn_payment, null);
                 final EditText mtnAmount = view.findViewById(R.id.edit_mtn_pay_amount);
                 final EditText mtnTo = view.findViewById(R.id.edit_mtn_pay_to);
                 alert.setTitle("Collection")
@@ -127,16 +141,27 @@ public class MTNActivity extends AppCompatActivity {
                 final AlertDialog alertDialog = alert.create();
                 alertDialog.show();
                 Button btnOk = view.findViewById(R.id.btn_mtn_ok);
+                Button btnCancel = view.findViewById(R.id.btn_mtn_cancel);
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
                 btnOk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         amount = mtnAmount.getText().toString();
                         to = mtnTo.getText().toString();
-                        if(amount.equals("")) {
+                        if(amount.isEmpty() || amount.startsWith(".")) {
                             mtnAmount.setError("!");
                             return;
                         }
-                        if(to.equals("")) {
+                        if(Double.parseDouble(amount) == 0) {
+                            mtnAmount.setError("!");
+                            return;
+                        }
+                        if(to.isEmpty()) {
                             mtnTo.setError("!");
                             return;
                         }
@@ -147,17 +172,14 @@ public class MTNActivity extends AppCompatActivity {
                             return;
                         }
                         alertDialog.dismiss();
-                        AlertDialog.Builder alert = new AlertDialog.Builder(MTNActivity.this);
-                        alert.setIcon(R.mipmap.ic_launcher_round)
-                                .setTitle("Are you sure you want to topup " + amount + "" + currency + "?")
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                        confirmAlert.confirm("Are you sure you want to topup " + amount + "" + currency + "?")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
                                         handleTopup();
                                     }
-                                })
-                                .setNegativeButton("No", null)
-                                .show();
+                                }).show();
                     }
                 });
             }
@@ -166,7 +188,8 @@ public class MTNActivity extends AppCompatActivity {
         btnConvert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View view = View.inflate(getBaseContext(), R.layout.layout_mtn_payment, null);
+                View view = getLayoutInflater().inflate(R.layout.layout_mtn_payment, null);
+
                 final EditText mtnAmount = view.findViewById(R.id.edit_mtn_pay_amount);
                 final EditText mtnTo = view.findViewById(R.id.edit_mtn_pay_to);
                 mtnTo.setVisibility(View.GONE);
@@ -175,27 +198,35 @@ public class MTNActivity extends AppCompatActivity {
                 final AlertDialog alertDialog = alert.create();
                 alertDialog.show();
                 Button btnOk = view.findViewById(R.id.btn_mtn_ok);
+                Button btnCancel = view.findViewById(R.id.btn_mtn_cancel);
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
                 btnOk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         amount = mtnAmount.getText().toString();
-                        if(amount.equals("")) {
+                        if(amount.isEmpty() || amount.startsWith(".")) {
+                            mtnAmount.setError("!");
+                            return;
+                        }
+                        if(Double.parseDouble(amount) == 0) {
                             mtnAmount.setError("!");
                             return;
                         }
 
                         alertDialog.dismiss();
-                        AlertDialog.Builder alert = new AlertDialog.Builder(MTNActivity.this);
-                        alert.setIcon(R.mipmap.ic_launcher_round)
-                                .setTitle("Are you sure you want to convert " + amount + "" + currency + "?")
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                        confirmAlert.confirm("Are you sure you want to convert " + amount + "" + currency + "?")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
                                         handleConvert(0);
                                     }
-                                })
-                                .setNegativeButton("No", null)
-                                .show();
+                                }).show();
                     }
                 });
             }
@@ -204,7 +235,7 @@ public class MTNActivity extends AppCompatActivity {
         btnConvert1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View view = View.inflate(getBaseContext(), R.layout.layout_mtn_payment, null);
+                View view = getLayoutInflater().inflate(R.layout.layout_mtn_payment, null);
                 final EditText mtnAmount = view.findViewById(R.id.edit_mtn_pay_amount);
                 final EditText mtnTo = view.findViewById(R.id.edit_mtn_pay_to);
                 mtnTo.setVisibility(View.GONE);
@@ -213,27 +244,34 @@ public class MTNActivity extends AppCompatActivity {
                 final AlertDialog alertDialog = alert.create();
                 alertDialog.show();
                 Button btnOk = view.findViewById(R.id.btn_mtn_ok);
+                Button btnCancel = view.findViewById(R.id.btn_mtn_cancel);
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
                 btnOk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         amount = mtnAmount.getText().toString();
-                        if(amount.equals("")) {
+                        if(amount.isEmpty() || amount.startsWith(".")) {
+                            mtnAmount.setError("!");
+                            return;
+                        }
+                        if(Double.parseDouble(amount) == 0) {
                             mtnAmount.setError("!");
                             return;
                         }
 
                         alertDialog.dismiss();
-                        AlertDialog.Builder alert = new AlertDialog.Builder(MTNActivity.this);
-                        alert.setIcon(R.mipmap.ic_launcher_round)
-                                .setTitle("Are you sure you want to convert " + amount +  "USDC ?")
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        confirmAlert.confirm("Are you sure you want to convert " + amount +  "USDC ?")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
                                         handleConvert(1);
                                     }
-                                })
-                                .setNegativeButton("No", null)
-                                .show();
+                                }).show();
                     }
                 });
             }
@@ -314,7 +352,8 @@ public class MTNActivity extends AppCompatActivity {
     }
 
     private void handleTopup() {
-        loadToast.show();
+//        loadToast.show();
+        confirmAlert.process();
         JSONObject object = new JSONObject();
         try {
             object.put("amount", amount);
@@ -333,7 +372,7 @@ public class MTNActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
-                        loadToast.success();
+//                        loadToast.success();
                         if(response.optBoolean("success")) {
                             transactions.clear();
                             JSONObject data = null;
@@ -352,22 +391,27 @@ public class MTNActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            confirmAlert.success(response.optString("message"));
+                        } else {
+                            confirmAlert.error(response.optString("message"));
                         }
-                            Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        loadToast.error();
+//                        loadToast.error();
                         // handle error
-                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        confirmAlert.error(error.getErrorBody());
+//                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }
 
     private void handlePay() {
-        loadToast.show();
+//        loadToast.show();
+        confirmAlert.process();
         JSONObject object = new JSONObject();
         try {
             object.put("amount", amount);
@@ -386,7 +430,7 @@ public class MTNActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
-                        loadToast.success();
+//                        loadToast.success();
                         if(response.optBoolean("success")) {
                             transactions.clear();
                             JSONObject data = null;
@@ -404,23 +448,27 @@ public class MTNActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            confirmAlert.success(response.optString("message"));
+                        } else {
+                            confirmAlert.error(response.optString("message"));
+//                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        loadToast.error();
+//                        loadToast.error();
                         // handle error
-                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        confirmAlert.error(error.getErrorBody());
+//                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }
 
-
     private void handleConvert(int type) {
-        loadToast.show();
+//        loadToast.show();
+        confirmAlert.process();
         JSONObject object = new JSONObject();
         try {
             object.put("amount", amount);
@@ -439,7 +487,7 @@ public class MTNActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
-                        loadToast.success();
+//                        loadToast.success();
                         if(response.optBoolean("success")) {
                             transactions.clear();
                             JSONObject data = null;
@@ -456,20 +504,21 @@ public class MTNActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }
-                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                            confirmAlert.success(response.optString("message"));
+                        } else
+                            confirmAlert.error(response.optString("message"));
+//                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        loadToast.error();
-                        // handle error
-                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+//                        loadToast.error();
+                        confirmAlert.error(error.getErrorBody());
+//                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
                         Log.d("errorm", "" + error.getMessage());
                     }
                 });
     }
-
 
     @Override
     public void onBackPressed() {

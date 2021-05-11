@@ -34,6 +34,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.model.TokenTradePair;
@@ -56,20 +57,24 @@ import java.util.ArrayList;
 import com.wyre.trade.token.adapters.TokenChartTabAdapter;
 import com.google.android.material.tabs.TabLayout;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 import static android.graphics.Color.BLACK;
 
 public class CoinExchangeFragment extends Fragment {
+    private LoadToast loadToast;
+    ConfirmAlert confirmAlert;
+
     private Button mBtnTrade;
     private TextView mBtnBuy, mBtnSell;
     private EditText mEditQuantity, mEditPrice;
     private TextView mTextChangeVolume, mTextChangeRate, mTextChangeLow, mTextChangeHigh, mTextCoinBuy, mTextCoinBuyBalance, mTextCoinSellBalance, mTextCoinSellBalance1, mTextOutputTrade, mTextAsksTotalUSD, mTextBidsTotalUSD, mTextPriceUSD;
     private TextView mtvOrderSymbol;
     private TextView mtvMaxBidQty, mtvMaxBidValue;
-    private TextView mtvTradeHistory, mtvOrderBook;
+    private Button mtvTradeHistory, mtvOrderBook;
     private String marketCoinSymbol, tradeCoinSymbol = "PEPE";
     private View mView;
     private DecimalFormat df = new DecimalFormat("#.####");
-    private LoadToast loadToast;
     private RecyclerView orderView, orderHistoryView, orderbookAsksView, orderbookBidsView;
     OrderAdapter orderAdapter;
 
@@ -126,6 +131,7 @@ public class CoinExchangeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadToast = new LoadToast(getActivity());
+        confirmAlert = new ConfirmAlert(getActivity());
 //        loadToast.setProgressColor(R.color.green);
     }
 
@@ -195,23 +201,15 @@ public class CoinExchangeFragment extends Fragment {
         orderAdapter.setListener(new OrderAdapter.Listener() {
             @Override
             public void cancelOrder(final int position) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                alert.setIcon(R.mipmap.ic_launcher_round)
-                        .setTitle("Confirm cancel")
-                        .setMessage("Are you sure you want to cancel this order?")
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        })
-                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                confirmAlert.confirm("Are you sure you want to cancel this order?")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 submitCancel(position);
+                                confirmAlert.process();
                             }
-                        })
-                        .show();
+                        }).show();
 
             }
         });
@@ -265,23 +263,15 @@ public class CoinExchangeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(validate()) {
-                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
-                    alertBuilder.setIcon(R.mipmap.ic_launcher_round)
-                            .setTitle("Confirm trade")
-                            .setMessage("Are you sure you want to " + selType + " " + mEditQuantity.getText().toString() + tradeCoinSymbol +"?")
-                            .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    sendData();
-                                }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
 
+                    confirmAlert.confirm("Are you sure you want to " + selType + " " + mEditQuantity.getText().toString() + tradeCoinSymbol +"?")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sendData();
+                                    confirmAlert.process();
                                 }
-                            })
-                            .show();
+                            }).show();
                 }
 
 
@@ -373,7 +363,7 @@ public class CoinExchangeFragment extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 changedPrice = true;
                 String str = charSequence.toString();
-                if (str.equals("") || str.equals(".")) {
+                if (str.isEmpty() || str.equals(".")) {
                     mBTCXMT_rate = 0.0;
                 } else
                     mBTCXMT_rate = mBTCUSD_rate * Double.parseDouble(str);
@@ -684,7 +674,7 @@ public class CoinExchangeFragment extends Fragment {
         }
         Log.d("xmt exchange params", jsonObject.toString());
         if(getContext() != null) {
-            loadToast.show();
+//            loadToast.show();
             AndroidNetworking.post(URLHelper.COIN_TRADE)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
@@ -696,7 +686,8 @@ public class CoinExchangeFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("xmt trading response", "" + response.toString());
-                            loadToast.hide();
+//                            loadToast.hide();
+
                             if (!response.has("success")) {
                                 /*
                                 try {
@@ -706,15 +697,17 @@ public class CoinExchangeFragment extends Fragment {
                                 }
 
                                  */
-                                Toast.makeText(getContext(), "Order failed.", Toast.LENGTH_SHORT).show();
-
+//                                Toast.makeText(getContext(), "Order failed.", Toast.LENGTH_SHORT).show();
+                                confirmAlert.error("Order failed.");
                                 return;
                             }
 
                             if (response.has("filled")) {
-                                Toast.makeText(getContext(), "Order placed successfully.", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getContext(), "Order placed successfully.", Toast.LENGTH_SHORT).show();
+                                confirmAlert.success("Order placed successfully.");
                             } else {
-                                Toast.makeText(getContext(), "Order created, waiting to be filled.", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getContext(), "Order created, waiting to be filled.", Toast.LENGTH_SHORT).show();
+                                confirmAlert.success("Order created, waiting for fill.");
                             }
 
                             ordersList.clear();
@@ -740,9 +733,10 @@ public class CoinExchangeFragment extends Fragment {
                         @Override
                         public void onError(ANError error) {
                             // handle error
-                            loadToast.hide();
+//                            loadToast.hide();
                             Log.d("errorpost", "" + error.getErrorBody());
-                            Toast.makeText(getActivity(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                            confirmAlert.error(error.getErrorBody());
                         }
                     });
         }
@@ -756,7 +750,7 @@ public class CoinExchangeFragment extends Fragment {
             jsonObject.put("orderid", orderid);
             Log.d("cancel xmt orderid", orderid);
             if (getContext() != null) {
-                loadToast.show();
+//                loadToast.show();
                 AndroidNetworking.post(URLHelper.COIN_TRADE_CANCEL)
                         .addHeaders("Content-Type", "application/json")
                         .addHeaders("accept", "application/json")
@@ -767,13 +761,14 @@ public class CoinExchangeFragment extends Fragment {
                         .getAsJSONObject(new JSONObjectRequestListener() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                loadToast.hide();
+//                                loadToast.hide();
                                 Log.d("coin post response", "" + response.toString());
 
                                 if (response.optBoolean("success")) {
-                                    Toast.makeText(getContext(), "Order Cancelled.", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(getContext(), "Order Cancelled.", Toast.LENGTH_SHORT).show();
                                     ordersList.remove(position);
                                     orderAdapter.notifyDataSetChanged();
+                                    confirmAlert.success("Order cancelled");
                                 }
 
                             }
@@ -781,9 +776,10 @@ public class CoinExchangeFragment extends Fragment {
                             @Override
                             public void onError(ANError error) {
                                 // handle error
-                                loadToast.hide();
-                                Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
+//                                loadToast.hide();
+//                                Toast.makeText(getContext(), error.getErrorBody(), Toast.LENGTH_SHORT).show();
                                 Log.d("errorpost", "" + error.getErrorBody() + " responde: " + error.getResponse());
+                                confirmAlert.error(error.getErrorBody());
                             }
                         });
             }
@@ -796,13 +792,27 @@ public class CoinExchangeFragment extends Fragment {
 
     private boolean validate() {
         boolean validation = true;
-        if(mEditPrice.getText().toString().equals("")) {
+        String price = mEditPrice.getText().toString();
+        if(price.isEmpty() || price.startsWith(".")) {
             mEditPrice.setError("!");
             validation = false;
+            return false;
         }
-        if(mEditQuantity.getText().toString().equals("")) {
+        if(Double.parseDouble(price) == 0) {
             mEditQuantity.setError("!");
             validation = false;
+            return false;
+        }
+        String amount = mEditQuantity.getText().toString();
+        if(amount.isEmpty() || amount.startsWith(".")) {
+            mEditQuantity.setError("!");
+            validation = false;
+            return false;
+        }
+        if(Double.parseDouble(amount) == 0) {
+            mEditQuantity.setError("!");
+            validation = false;
+            return false;
         }
         return validation;
     }

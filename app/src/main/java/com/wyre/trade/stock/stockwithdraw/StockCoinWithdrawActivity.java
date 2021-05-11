@@ -95,16 +95,17 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(mEditAmount.getText().toString().equals("")) {
+                String amount = mEditAmount.getText().toString();
+                if(amount.isEmpty() || amount.startsWith(".")) {
                     mEditAmount.setError("!");
                     return;
                 }
-                if(Double.parseDouble(mEditAmount.getText().toString()) > USDCRate){
-                    Toast.makeText(getBaseContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
+                if(Double.parseDouble(amount) == 0 ) {
+                    mEditAmount.setError("!");
                     return;
                 }
                 type = "USDC";
-                alertMsg = "Are you sure withdraw " + mEditAmount.getText().toString() + " USDC?";
+                alertMsg = "Are you sure withdraw " + amount + " USDC?";
                 showInvoiceDialog();
             }
         });
@@ -113,7 +114,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(mEditAmount.getText().toString().equals("")) {
+                if(mEditAmount.getText().toString().isEmpty()) {
                     mEditAmount.setError("!");
                     return;
                 }
@@ -131,7 +132,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(mEditAmount.getText().toString().equals("")) {
+                if(mEditAmount.getText().toString().isEmpty()) {
                     mEditAmount.setError("!");
                     return;
                 }

@@ -41,7 +41,7 @@ public class BankTransactionAdapter extends RecyclerView.Adapter<BankTransaction
         holder.mStatus.setText(item.getStatus());
         holder.mDate.setText(item.getDate());
 
-        if(item.getGetterName().equals(""))
+        if(item.getGetterName().isEmpty())
             holder.mGetterLayout.setVisibility(View.GONE);
 
     }

@@ -17,6 +17,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 
@@ -97,8 +98,10 @@ public class AddFriendActivity extends AppCompatActivity {
                     public void onError(ANError error) {
                         loadToast.error();
                         // handle error
-                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        ConfirmAlert confirmAlert = new ConfirmAlert(AddFriendActivity.this);
+                        confirmAlert.error(error.getErrorBody());
+//                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }

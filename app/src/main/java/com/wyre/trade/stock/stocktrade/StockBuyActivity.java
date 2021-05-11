@@ -96,15 +96,17 @@ public class StockBuyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(SharedHelper.getKey(getBaseContext(),"stock_auto_sell").equals("1")){
-                    Toast.makeText(getBaseContext(), "Account liquidation. You can't buy stocks now.", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getBaseContext(), "Account liquidation. You can't buy stocks now.", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("Account liquidation. You can't buy stocks now.");
                     return;
                 }
-                if(mEditShares.getText().toString().equals("")){
+                if(mStockShares == 0){
                     mEditShares.setError("!");
                     return;
                 }
                 if(mEstCost > mStockBalance){
-                    Toast.makeText(getBaseContext(), "Insufficient Funds", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getBaseContext(), "Insufficient Funds", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("Insufficient Funds");
                     return;
                 }
 
@@ -134,7 +136,7 @@ public class StockBuyActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String str = charSequence.toString();
-                if(str.equals("") || str.equals("."))
+                if(str.isEmpty() || str.equals("."))
                     mStockShares = 0.0;
                 else
                     mStockShares = Double.parseDouble(str);
@@ -158,7 +160,7 @@ public class StockBuyActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 String str = charSequence.toString();
-                if(str.equals("") || str.equals(".")) {
+                if(str.isEmpty() || str.equals(".")) {
                     mStockPrice = 0.0;
                 }
                 else {
@@ -182,7 +184,7 @@ public class StockBuyActivity extends AppCompatActivity {
                 dialog.dismiss();
                 if(radioGroup.getCheckedRadioButtonId() == R.id.rdb_limit_price){//limit price
                     String limit =mEditStockLimitPrice.getText().toString();
-                    if(limit.equals("") || limit.equals("."))
+                    if(limit.isEmpty() || limit.equals("."))
                         mStockPrice = 0.0;
                     llMktPrice.setVisibility(View.GONE);
                     llLimitPrice.setVisibility(View.VISIBLE);

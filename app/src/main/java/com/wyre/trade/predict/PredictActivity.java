@@ -96,7 +96,7 @@ public class PredictActivity extends AppCompatActivity {
             }
         });
 
-        getData();
+
     }
 
     private void getData() {
@@ -154,7 +154,7 @@ public class PredictActivity extends AppCompatActivity {
                         loadToast.error();
                         // handle error
                         Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }
@@ -169,5 +169,11 @@ public class PredictActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
     }
 }

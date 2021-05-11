@@ -99,11 +99,11 @@ public class StockSellActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 String str = charSequence.toString();
-                if(str.equals("") || str.equals("."))
-                    mStockShares = 0.0;
+                if(str.isEmpty() || str.equals("."))
+                    mStockOrderShares = 0.0;
                 else
-                    mStockShares = Double.parseDouble(str);
-                mEstCost = mStockShares * mStockPrice;
+                    mStockOrderShares = Double.parseDouble(str);
+                mEstCost = mStockOrderShares * mStockPrice;
                 mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
 
@@ -122,14 +122,14 @@ public class StockSellActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String str = charSequence.toString();
-                if(str.equals("") || str.equals(".")) {
+                if(str.isEmpty() || str.equals(".")) {
                     mStockPrice = 0.0;
                 }
                 else {
                     mStockPrice = Double.parseDouble(str);
                 }
 
-                mEstCost = mStockShares * mStockPrice;
+                mEstCost = mStockOrderShares * mStockPrice;
                 mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
 
@@ -142,18 +142,20 @@ public class StockSellActivity extends AppCompatActivity {
         mBtnSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mEditShares.getText().toString().equals("")){
+                if(mStockOrderShares == 0){
                     mEditShares.setError("!");
                     return;
                 }
                 if(mStockOrderShares > mStockShares){
-                    Toast.makeText(getBaseContext(), "Insufficient Shares", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getBaseContext(), "Insufficient Shares", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("Insufficient Shares");
                     return;
                 }
-                if(mEstCost < 1.99){
-                    Toast.makeText(getBaseContext(), "Please sell more than $1.99 at least", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if(mEstCost < 1.99){
+////                    Toast.makeText(getBaseContext(), "Please sell more than $1.99 at least", Toast.LENGTH_SHORT).show();
+//                    confirmAlert.alert("Please sell more than $1.99 at least");
+//                    return;
+//                }
                 showSellConfirmAlertDialog();
             }
         });
@@ -179,7 +181,7 @@ public class StockSellActivity extends AppCompatActivity {
                 dialog.dismiss();
                 if(radioGroup.getCheckedRadioButtonId() == R.id.rdb_limit_price){//limit price
                     String limit =mEditStockLimitPrice.getText().toString();
-                    if(limit.equals("") || limit.equals("."))
+                    if(limit.isEmpty() || limit.equals("."))
                         mStockPrice = 0.0;
                     llMktPrice.setVisibility(View.GONE);
                     llLimitPrice.setVisibility(View.VISIBLE);
@@ -191,7 +193,7 @@ public class StockSellActivity extends AppCompatActivity {
                     mStockTradeType = "market";
                 }
 
-                mEstCost = mStockShares * mStockPrice;
+                mEstCost = mStockOrderShares * mStockPrice;
                 mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
         });

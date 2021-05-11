@@ -43,7 +43,7 @@ public class TransferFundsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setElevation(0);
+        getSupportActionBar().setElevation(0);
 
         mCoinBalance = findViewById(R.id.coin_balance);
         mStockBalance = findViewById(R.id.stock_balance);

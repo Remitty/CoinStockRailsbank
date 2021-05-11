@@ -33,7 +33,7 @@ public class PaymentUserActivity extends AppCompatActivity {
     private LoadToast loadToast;
     private EditText editName, editEmail;
     Button btnAddUser;
-    TextView tvViewUsers;
+    Button tvViewUsers;
 
 
     @Override

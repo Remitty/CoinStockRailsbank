@@ -18,6 +18,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.home.HomeActivity;
@@ -29,14 +30,18 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class StakeActivity extends AppCompatActivity {
+    private LoadToast loadToast;
+    ConfirmAlert confirmAlert;
+
     private String symbol, id;
     private Double balance = 0.0, amount = 0.0, dailyReward=0.0, rewardPercent = 0.0;
-    Button btnStake, btnRelease;
-    TextView tvViewHistory;
+    Button btnStake, btnRelease, tvViewHistory;
+//    TextView tvViewHistory;
     TextView mtvYearlyFee, mtvBalance, mtvStakingBalance, mtvDailyReward, mtvSymbol, mtVSymbolInput;
     EditText editAmount;
-    private LoadToast loadToast;
     private Double mBalance = 0.0, mStakingBalance = 0.0;
 
 
@@ -54,6 +59,7 @@ public class StakeActivity extends AppCompatActivity {
         }
 
         loadToast = new LoadToast(this);
+        confirmAlert = new ConfirmAlert(StakeActivity.this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
 
         mtvSymbol = findViewById(R.id.symbol);
@@ -72,12 +78,36 @@ public class StakeActivity extends AppCompatActivity {
         btnStake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(editAmount.getText().toString().isEmpty() || editAmount.getText().toString().startsWith(".")) {
+                    editAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(editAmount.getText().toString()) == 0) {
+                    editAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(editAmount.getText().toString()) > mBalance) {
+                    confirmAlert.alert("Insufficient balance");
+                    return;
+                }
                 confirmStakeAlert();
             }
         });
         btnRelease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(editAmount.getText().toString().isEmpty() || editAmount.getText().toString().startsWith(".")) {
+                    editAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(editAmount.getText().toString()) == 0) {
+                    editAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(editAmount.getText().toString()) > mStakingBalance) {
+                    confirmAlert.alert("Insufficient staking balance");
+                    return;
+                }
                 confirmReleaseAlert();
             }
         });
@@ -111,47 +141,30 @@ public class StakeActivity extends AppCompatActivity {
     }
 
     private void confirmReleaseAlert() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setIcon(R.mipmap.ic_launcher_round)
-                .setTitle("Confirm stake release")
-                .setMessage("Are you sure you want to release " + editAmount.getText().toString() + symbol + "?")
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+
+        confirmAlert.confirm("Are you sure you want to release " + editAmount.getText().toString() + symbol + "?")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sendStakeRelease();
                     }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .show();
+                }).show();
     }
 
     private void confirmStakeAlert() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setIcon(R.mipmap.ic_launcher_round)
-                .setTitle("Confirm stake")
-                .setMessage("Are you sure you want to stake " + editAmount.getText().toString() + symbol + "?")
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+
+        confirmAlert.confirm("Are you sure you want to stake " + editAmount.getText().toString() + symbol + "?")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sendStake();
                     }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .show();
+                }).show();
     }
 
     private void sendStake() {
-        loadToast.show();
+//        loadToast.show();
+        confirmAlert.process();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("amount", editAmount.getText().toString());
@@ -170,7 +183,7 @@ public class StakeActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
-                        loadToast.success();
+//                        loadToast.success();
                         if(response.optBoolean("success")){
                             try {
                                 mBalance = response.getDouble("coin_balance");
@@ -184,22 +197,26 @@ public class StakeActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            confirmAlert.success(response.optString("message"));
+                        } else {
+                            confirmAlert.error(response.optString("message"));
                         }
-                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        loadToast.error();
+//                        loadToast.error();
                         // handle error
-                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        confirmAlert.error(error.getErrorBody());
+//                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getErrorBody());
                     }
                 });
     }
 
     private void sendStakeRelease() {
-        loadToast.show();
+//        loadToast.show();
+        confirmAlert.process();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("amount", editAmount.getText().toString());
@@ -218,7 +235,7 @@ public class StakeActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
-                        loadToast.success();
+//                        loadToast.success();
                         if(response.optBoolean("success")){
                             try {
                                 mBalance = response.getDouble("coin_balance");
@@ -231,15 +248,19 @@ public class StakeActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            confirmAlert.success(response.optString("message"));
+                        } else {
+                            confirmAlert.error(response.optString("message"));
                         }
-                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        loadToast.error();
+//                        loadToast.error();
                         // handle error
-                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        confirmAlert.error(error.getErrorBody());
+//                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
                         Log.d("errorm", "" + error.getMessage());
                     }
                 });

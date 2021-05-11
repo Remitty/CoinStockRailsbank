@@ -87,7 +87,7 @@ public class StockReplaceActivity extends AppCompatActivity {
 
         mStockTradeType = getIntent().getStringExtra("stock_order_type");
 
-        mEditShares.setText(new DecimalFormat("#,###.##").format(mStockOrderShares));
+        mEditShares.setText(new DecimalFormat("###.##").format(mStockOrderShares));
         mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
 
         if(mStockTradeType.equals("limit")){
@@ -117,11 +117,11 @@ public class StockReplaceActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 String str = charSequence.toString();
-                if(str.equals("") || str.equals("."))
-                    mStockShares = 0.0;
+                if(str.isEmpty() || str.equals("."))
+                    mStockOrderShares = 0.0;
                 else
-                    mStockShares = Double.parseDouble(str);
-                mEstCost = mStockShares * mStockPrice;
+                    mStockOrderShares = Double.parseDouble(str);
+                mEstCost = mStockOrderShares * mStockPrice;
                 mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
 
@@ -141,14 +141,14 @@ public class StockReplaceActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 String str = charSequence.toString();
-                if(str.equals("") || str.equals(".")) {
+                if(str.isEmpty() || str.equals(".")) {
                     mStockPrice = 0.0;
                 }
                 else {
                     mStockPrice = Double.parseDouble(str);
                 }
 
-                mEstCost = mStockShares * mStockPrice;
+                mEstCost = mStockOrderShares * mStockPrice;
                 mTextShareEstCost.setText(new DecimalFormat("#,###.##").format(mEstCost));
             }
 
@@ -161,17 +161,19 @@ public class StockReplaceActivity extends AppCompatActivity {
         mBtnReplace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mEditShares.getText().toString().equals("")){
+                if(mStockOrderShares == 0){
                     mEditShares.setError("!");
 //                    Toast.makeText(getBaseContext(), "Please input shares", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(StockSide.equals("buy") && mEstCost > mStockBalance){
-                    Toast.makeText(getBaseContext(), "Insufficient Funds", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getBaseContext(), "Insufficient Funds", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("Insufficient balance");
                     return;
                 }
-                if(StockSide.equals("sell") && Double.parseDouble(mTextShareEstCost.getText().toString()) > mStockShares){
-                    Toast.makeText(getBaseContext(), "Insufficient Shares", Toast.LENGTH_SHORT).show();
+                if(StockSide.equals("sell") && mStockOrderShares > mStockShares){
+//                    Toast.makeText(getBaseContext(), "Insufficient Shares", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("Insufficient shares");
                     return;
                 }
                 showReplaceConfirmAlertDialog();
@@ -199,7 +201,7 @@ public class StockReplaceActivity extends AppCompatActivity {
                 dialog.dismiss();
                 if(radioGroup.getCheckedRadioButtonId() == R.id.rdb_limit_price){//limit price
                     String limit =mEditStockLimitPrice.getText().toString();
-                    if(limit.equals("") || limit.equals("."))
+                    if(limit.isEmpty() || limit.equals("."))
                         mStockPrice = 0.0;
                     llMktPrice.setVisibility(View.GONE);
                     llLimitPrice.setVisibility(View.VISIBLE);
@@ -240,7 +242,7 @@ public class StockReplaceActivity extends AppCompatActivity {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("ticker", mStockName);
-            jsonObject.put("shares", mEditShares.getText());
+            jsonObject.put("shares", mStockOrderShares);
             jsonObject.put("cost", mEstCost);
             jsonObject.put("buyorsell", StockSide);
             jsonObject.put("limit_price", mStockPrice);

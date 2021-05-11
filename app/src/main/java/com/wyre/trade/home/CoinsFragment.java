@@ -25,6 +25,7 @@ import com.wyre.trade.R;
 import com.wyre.trade.adapters.BottomCoinAdapter;
 import com.wyre.trade.coins.CoinTradeActivity;
 import com.wyre.trade.coins.CoinWithdrawActivity;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.home.adapters.CoinAdapter;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
@@ -332,7 +333,6 @@ public class CoinsFragment extends Fragment {
 
     private void doGenerateWalletAddress() {
         loadToast.show();
-//        loadToast.show();
         JSONObject jsonObject = new JSONObject();
 
         try {
@@ -354,21 +354,26 @@ public class CoinsFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-                            loadToast.success();
                             if(response.optBoolean("success")) {
-                                String address = response.optString("address");
+                                loadToast.success();
                                 showWalletAddressDialog(response);
                             }
-                            else
-                                Toast.makeText(getContext(), response.optString("error"), Toast.LENGTH_SHORT).show();
+                            else {
+                                loadToast.hide();
+                                ConfirmAlert confirmAlert = new ConfirmAlert(getActivity());
+                                confirmAlert.error(response.optString("error"));
+//                                Toast.makeText(getContext(), response.optString("error"), Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            ConfirmAlert confirmAlert = new ConfirmAlert(getActivity());
+                            confirmAlert.error(error.getErrorBody());
+//                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+//                            Log.d("errorm", "" + error.getMessage());
                             Log.d("errorm", "" + error.getErrorBody());
 
                         }
