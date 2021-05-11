@@ -64,6 +64,7 @@ public class StockBuyActivity extends AppCompatActivity {
         mStockName = getIntent().getStringExtra("stock_name");
         mStockPrice = Double.parseDouble(getIntent().getStringExtra("stock_price"));
         mStockSymbol = getIntent().getStringExtra("stock_symbol");
+        mStockBalance = Double.parseDouble(SharedHelper.getKey(this, "stocks_balance"));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -80,10 +81,6 @@ public class StockBuyActivity extends AppCompatActivity {
         mTextMktPrice.setText("$ " + mStockPrice);
         mTextStockName.setText(mStockName);
         mTextStockSymbol.setText(mStockSymbol);
-//        if(getIntent().getStringExtra("stock_balance").equals(""))
-            mStockBalance = Double.parseDouble(SharedHelper.getKey(getBaseContext(), "stock_balance"));
-//            else
-//                mStockBalance = getIntent().getStringExtra("stock_balance");
         mTextStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(mStockBalance));
         mTextStockShares.setText(getIntent().getStringExtra("stock_shares"));
 
@@ -258,7 +255,7 @@ public class StockBuyActivity extends AppCompatActivity {
 //                            loadToast.success();
                             mStockBalance = response.optDouble("stock_balance");
                             mTextStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(mStockBalance));
-                            SharedHelper.putKey(getBaseContext(), "stock_balance", mStockBalance+"");
+                            SharedHelper.putKey(getBaseContext(), "stocks_balance", mStockBalance+"");
 
 //                            Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
                             confirmAlert.success(response.optString("message"));

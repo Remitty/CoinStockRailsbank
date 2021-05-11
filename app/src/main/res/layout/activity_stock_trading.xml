@@ -410,6 +410,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Company Profile"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
                     android:textColor="@color/green"
                     android:textSize="16dp"/>
 

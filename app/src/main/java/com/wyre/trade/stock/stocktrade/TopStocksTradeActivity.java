@@ -44,7 +44,7 @@ public class TopStocksTradeActivity extends AppCompatActivity {
     private MaterialButton mBtnBuy;
     private Intent mIntent;
     private LinearLayout mStocksContent;
-    private String StockBalance="0.0";
+    private Double StockBalance=0.0;
     private double StockPrice = 0.0;
     TextView mTextCompanySummary, mTextCompanyWeb, mTextCompanyIndustry;
 
@@ -129,11 +129,11 @@ public class TopStocksTradeActivity extends AppCompatActivity {
 
 
     private void onBuyStack() {
-        Intent intent = new Intent(this, StockBuyActivity.class);
+        Intent intent = new Intent(TopStocksTradeActivity.this, StockBuyActivity.class);
         intent.putExtra("stock_price", mIntent.getStringExtra("stock_price"));
         intent.putExtra("stock_name", mStockName.getText());
         intent.putExtra("stock_symbol", mStockSymbol.getText());
-        intent.putExtra("stock_balance", StockBalance);
+//        intent.putExtra("stock_balance", StockBalance);
 //        intent.putExtra("stock_shares", mIntent.getStringExtra("stock_shares"));
         intent.putExtra("company_summary", companysummary);
         intent.putExtra("company_industry", companyindustry);
@@ -142,8 +142,8 @@ public class TopStocksTradeActivity extends AppCompatActivity {
     }
 
     private void getStockDetailData() {
-//        loadToast.show();
-        loadProgress.show();
+        loadToast.show();
+//        loadProgress.show();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("ticker", mStockSymbol.getText());
@@ -162,7 +162,7 @@ public class TopStocksTradeActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-//                            loadToast.success();
+                            loadToast.success();
                             try {
                                 StocksInfo stocks = new StocksInfo(response.getJSONObject("stock"));
                                 mYearHigh.setText("$"+ stocks.getYearHigh());
@@ -219,7 +219,8 @@ public class TopStocksTradeActivity extends AppCompatActivity {
 
                             try {
 
-                                StockBalance = response.optString("stock_balance");
+//                                StockBalance = response.optDouble("stock_balance");
+                                SharedHelper.putKey(getBaseContext(), "stocks_balance", response.getString("stock_balance"));
 
                                 JSONObject company = response.getJSONObject("company");
                                 if(company != null) {
@@ -236,13 +237,13 @@ public class TopStocksTradeActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            loadProgress.dismiss();
+//                            loadProgress.dismiss();
                         }
 
                         @Override
                         public void onError(ANError error) {
-//                            loadToast.error();
-                            loadProgress.dismiss();
+                            loadToast.error();
+//                            loadProgress.dismiss();
                             // handle error
                             Toast.makeText(getBaseContext(), "Network error", Toast.LENGTH_SHORT).show();
                             Log.d("errorm", "" + error.getErrorBody());

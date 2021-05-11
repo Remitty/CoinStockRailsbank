@@ -189,6 +189,8 @@ public class TransferCoinFragment extends Fragment {
                                 usdcBalance = response.getDouble("usdc_balance");
                                 tvBalance.setText(new DecimalFormat("###,###.##").format(usdcBalance));
 
+                                SharedHelper.putKey(getContext(), "stocks_balance", response.getString("stocks_balance"));
+
                                 String msg1 = response.getString("msgMarginAccountUsagePolicy");
                                 SharedHelper.putKey(getContext(), "msgMarginAccountUsagePolicy", msg1);
 

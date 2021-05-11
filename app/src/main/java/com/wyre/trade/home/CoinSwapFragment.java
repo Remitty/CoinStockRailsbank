@@ -51,12 +51,11 @@ public class CoinSwapFragment extends Fragment {
     private LoadToast loadToast;
     ConfirmAlert confirmAlert;
 
-    private Button mBtnExchange;
+    private Button mBtnExchange, tvViewHistory;
     private EditText mEditSendAmount;
     private TextView mtvGetCoin, mtvSendCoin, mtvSendLimit, mtvGetFee,
             mtvSendCoinBalance, mtvGetEstQty,
-            mtvSendRateCoin, mtvGetRateCoin, mtvGetCoinRate,
-            tvViewHistory;
+            mtvSendRateCoin, mtvGetRateCoin, mtvGetCoinRate;
     private ImageView sendIcon, getIcon;
 
     private View mView;
