@@ -218,7 +218,7 @@ public class Coin2StockFragment extends Fragment {
 
     private void showTransferConfirmAlertDialog() {
 
-        confirmAlert.confirm("Are you sure transfer " + mEditAmount.getText()+"USDC ?")
+        confirmAlert.confirm("Amount: " + mEditAmount.getText()+"USDC")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {

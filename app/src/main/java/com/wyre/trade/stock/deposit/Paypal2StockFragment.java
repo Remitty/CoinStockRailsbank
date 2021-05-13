@@ -183,14 +183,14 @@ public class Paypal2StockFragment extends Fragment {
     }
 
     private void showTransferConfirmAlertDialog() {
-        confirmAlert.confirm("Are you sure transfer $ " + mEditAmount.getText()
-                + "?\nYou must hold " + SharedHelper.getKey(getActivity(), "token_amount_for_stock_deposit_payment") + " PEPE to process this transaction."
-                +"\nFee is "+SharedHelper.getKey(getActivity(), "stock_deposit_from_card_fee_percent"))
+        confirmAlert.confirm("Amount: $ " + mEditAmount.getText()
+//                + "?\nYou must hold " + SharedHelper.getKey(getActivity(), "token_amount_for_stock_deposit_payment") + " PEPE to process this transaction."
+                +"\nDeposit Fee: "+SharedHelper.getKey(getActivity(), "stock_deposit_from_card_fee_percent") + "%")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                        handlePaypal();
-                        checkDepositable();
+                        handlePaypal();
+//                        checkDepositable();
                         confirmAlert.process();
                     }
                 })

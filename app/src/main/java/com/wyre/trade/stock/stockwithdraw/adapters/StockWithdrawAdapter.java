@@ -24,7 +24,7 @@ public class StockWithdrawAdapter extends RecyclerView.Adapter<StockWithdrawAdap
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvItemPrice, tvItemStatus, tvItemDate, tvItemReceived;
+        TextView tvItemPrice, tvItemStatus, tvItemDate, tvItemReceived, tvItemKind;
 
         @SuppressLint("ResourceAsColor")
         public OrderViewHolder(View view) {
@@ -32,6 +32,7 @@ public class StockWithdrawAdapter extends RecyclerView.Adapter<StockWithdrawAdap
 
             tvItemPrice = view.findViewById(R.id.item_price);
             tvItemReceived = view.findViewById(R.id.item_received);
+            tvItemKind = view.findViewById(R.id.item_kind);
             tvItemStatus = view.findViewById(R.id.item_status);
             tvItemDate = view.findViewById(R.id.item_date);
 
@@ -49,10 +50,12 @@ public class StockWithdrawAdapter extends RecyclerView.Adapter<StockWithdrawAdap
     @Override
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
         JSONObject item = history.get(position);
-
-        holder.tvItemPrice.setText(item.optString("req_amount"));
-        holder.tvItemReceived.setText(item.optString("payable_amount"));
+        String kind = item.optString("coin");
+        String unit = kind.equals("USDC")? "": "$";
+        holder.tvItemPrice.setText(unit + item.optString("req_amount"));
+        holder.tvItemReceived.setText(unit + item.optString("payable_amount"));
         holder.tvItemStatus.setText(item.optString("status"));
+        holder.tvItemKind.setText(kind);
         holder.tvItemDate.setText(item.optString("updated_at").substring(0, 10));
 
     }

@@ -33,4 +33,12 @@ public class Card {
             return "Visa";
         }
     }
+
+    public String getCVC() {
+        try {
+            return data.getString("cvc");
+        } catch (JSONException e) {
+            return "no data";
+        }
+    }
 }

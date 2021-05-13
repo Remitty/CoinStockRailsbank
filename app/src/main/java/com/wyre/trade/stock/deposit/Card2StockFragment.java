@@ -49,7 +49,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Card2StockFragment extends Fragment {
     View mView;
-    String stockBalance, stripe_pub_key;
+    String stockBalance, stripe_pub_key, mCVV="";
     Card mCard;
 
     TextView mStockBalance, tvCardId;
@@ -230,43 +230,75 @@ public class Card2StockFragment extends Fragment {
     }
 
     private void showTransferConfirmAlertDialog() {
-        confirmAlert.confirm("Are you sure transfer $ " + mEditAmount.getText()
+        confirmAlert.confirm("Amount: $ " + mEditAmount.getText()
                 +"? "
 //                + "\nYou must hold " + SharedHelper.getKey(getActivity(), "token_amount_for_stock_deposit_payment") + " PEPE to process this transaction."
-                +"\nFee is "+SharedHelper.getKey(getActivity(), "stock_deposit_from_card_fee_percent")
+                +"\nDeposit Fee: "+SharedHelper.getKey(getActivity(), "stock_deposit_from_card_fee_percent")
                 +"%.\nDaily limit is $"+SharedHelper.getKey(getActivity(), "stock_deposit_from_card_daily_limit")
                 +".")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        onTransferFunds();
+//                        onTransferFunds();
+                        showConfirmCVVDialog();
                         confirmAlert.process();
                     }
                 })
                 .show();
     }
 
-    private void showMarginConfirmAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        builder.setTitle(getContext().getResources().getString(R.string.app_name))
-                .setIcon(R.mipmap.ic_launcher_round)
-                .setMessage("Do you want to transfer $ " + mEditAmount.getText()+" into your margin account?")
-                .setCancelable(false);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                showTransferConfirmAlertDialog();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alertDialog = builder.create();
+    private void showConfirmCVVDialog() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_confirm_cvv, null);
+        final EditText editCvv = view.findViewById(R.id.edit_cvv);
+        Button btnCancel = view.findViewById(R.id.btn_cancel);
+        Button btnConfirm = view.findViewById(R.id.btn_confirm);
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setIcon(R.mipmap.ic_launcher_round);
+        alert.setTitle("Confirm CVC")
+                .setView(view);
+
+        final AlertDialog alertDialog = alert.create();
         alertDialog.show();
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmAlert.dismissWithAnimation();
+                alertDialog.dismiss();
+            }
+        });
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cvv = editCvv.getText().toString();
+                if(cvv.isEmpty()) {
+                    editCvv.setError("!");
+                    return;
+                }
+                if(mCard.getCVC().equals(cvv)) {
+                    Toast.makeText(getActivity(), "Matched cvv successfully", Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                    onTransferFunds();
+                } else {
+                    Toast.makeText(getActivity(), "No matched", Toast.LENGTH_SHORT).show();
+//                    confirmAlert.error("No matched");
+//                    mCVV = cvv;
+//                    getCVV();
+                }
+            }
+        });
+    }
+
+    private void showMarginConfirmAlertDialog() {
+
+        confirmAlert.confirm("Do you want to transfer $ " + mEditAmount.getText()+" into your margin account?")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        showTransferConfirmAlertDialog();
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                }).show();
     }
 
     private void getCard() {
@@ -355,6 +387,41 @@ public class Card2StockFragment extends Fragment {
 
                         }
                     });
+    }
+
+    private void getCVV() {
+        AndroidNetworking.get(URLHelper.REQUEST_CARD)
+                .addHeaders("Content-Type", "application/json")
+                .addHeaders("accept", "application/json")
+                .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getActivity(),"access_token"))
+                .addQueryParameter("id", mCard.getCardId())
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String cvv = response.getString("cvc");
+                            if(cvv.equals(mCVV)) {
+                                Toast.makeText(getActivity(), "Matched cvv successfully", Toast.LENGTH_SHORT).show();
+                                onTransferFunds();
+                            } else {
+                                confirmAlert.error("No matched");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+//                        loadToast.error();
+                        // handle error
+//                        Toast.makeText(getActivity(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                        Log.d("errorm", "" + error.getErrorBody());
+                        confirmAlert.error(error.getErrorBody());
+                    }
+                });
     }
 
 }

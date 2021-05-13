@@ -23,6 +23,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.wyre.trade.R;
 import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.PlaidConnect;
@@ -49,21 +50,22 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class StockCoinWithdrawActivity extends AppCompatActivity {
     private static final int STRIPE_CONNECT = 200;
     LoadToast loadToast;
+    private KProgressHUD loadProgress;
     ConfirmAlert confirmAlert;
 //    private JSONArray history;
 
-    private Button mBtnWithdrawCoin, btnWithdrawBank, btnWithdrawCard, btnConnectBank, btnAddCard, tvViewHistory;
+    private Button mBtnWithdrawCoin, btnWithdrawBank, btnWithdrawCard, btnWithdrawPaypal, btnConnectBank, btnAddCard, tvViewHistory;
     private EditText mWalletAddress, mEditAmount;
     TextView mStockBalance, mUSDCRate;
 //    TextView tvViewHistory;
     RadioGroup radioGroup;
-    Double StockBalance = 0.0, USDCRate = 0.0;
+    Double StockBalance = 0.0, USDCRate = 0.0, fee = 0.0, coinfee = 0.0;
 
     BottomSheetDialog dialog;
     BottomCardAdapter mBottomAdapter;
     RecyclerView recyclerView;
     ArrayList<Card> cardList = new ArrayList<Card>();
-    String selectedCard, type, alertMsg, bank;
+    String selectedCard, type, alertMsg, bank, paypal;
     boolean stripeAccountVerified = false;
 
     @Override
@@ -73,6 +75,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
 
         loadToast = new LoadToast(this);
         confirmAlert = new ConfirmAlert(StockCoinWithdrawActivity.this);
+        loadProgress = new KProgressHUD(StockCoinWithdrawActivity.this);
         //loadToast.setBackgroundColor(R.color.colorBlack);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -105,7 +108,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                     return;
                 }
                 type = "USDC";
-                alertMsg = "Are you sure withdraw " + amount + " USDC?";
+                alertMsg = "Payout amount: " + amount + " USDC\nWithdraw fee: "+coinfee + "USDC";
                 showInvoiceDialog();
             }
         });
@@ -114,16 +117,22 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(mEditAmount.getText().toString().isEmpty()) {
+                String amount = mEditAmount.getText().toString();
+                if(amount.isEmpty() || amount.startsWith(".")) {
                     mEditAmount.setError("!");
                     return;
                 }
-                if(Double.parseDouble(mEditAmount.getText().toString()) > USDCRate){
-                    Toast.makeText(getBaseContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
+                if(Double.parseDouble(amount) == 0 ) {
+                    mEditAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(amount) > StockBalance){
+//                    Toast.makeText(getBaseContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("Insufficient balance");
                     return;
                 }
                 type = "bank";
-                alertMsg = "Are you sure withdraw $" + mEditAmount.getText().toString() + " to your bank?";
+                alertMsg = "Payout amount: $" + amount + "\nWithdraw fee: $" + fee;
                 showInvoiceDialog();
             }
         });
@@ -132,16 +141,50 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(mEditAmount.getText().toString().isEmpty()) {
+                String amount = mEditAmount.getText().toString();
+                if(amount.isEmpty() || amount.startsWith(".")) {
                     mEditAmount.setError("!");
                     return;
                 }
-                if(Double.parseDouble(mEditAmount.getText().toString()) > USDCRate){
-                    Toast.makeText(getBaseContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
+                if(Double.parseDouble(amount) == 0 ) {
+                    mEditAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(amount) > StockBalance){
+//                    Toast.makeText(getBaseContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("Insufficient balance");
                     return;
                 }
                 type = "card";
+                alertMsg = "Payout amount: $" + amount + "\nWithdraw fee: $" + fee;
                 getCard();
+            }
+        });
+
+        btnWithdrawPaypal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(paypal.isEmpty()) {
+                    confirmAlert.alert("No registered paypal.");
+                    return;
+                }
+                String amount = mEditAmount.getText().toString();
+                if(amount.isEmpty() || amount.startsWith(".")) {
+                    mEditAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(amount) == 0 ) {
+                    mEditAmount.setError("!");
+                    return;
+                }
+                if(Double.parseDouble(amount) > StockBalance){
+//                    Toast.makeText(getBaseContext(), "Insufficient balance", Toast.LENGTH_SHORT).show();
+                    confirmAlert.alert("Insufficient balance");
+                    return;
+                }
+                type = "paypal";
+                alertMsg = "Payout amount: $" + amount + "\nWithdraw fee: $" + fee;
+                showInvoiceDialog();
             }
         });
 
@@ -172,7 +215,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                     if(stripeAccountVerified)
                         new PlaidConnect(StockCoinWithdrawActivity.this).openPlaid();
                     else {
-                        confirmAlert.confirm("No connected account. Would you connect?")
+                        confirmAlert.confirm("Not connected account. Would you connect?")
                                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
@@ -184,18 +227,15 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
 
                 }
                 else {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(StockCoinWithdrawActivity.this);
-                    alert.setIcon(R.mipmap.ic_launcher_round)
-                            .setTitle("Confirm")
-                            .setMessage("You connected to " + bank + " already. Would you replace with other bank?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    confirmAlert.confirm("You connected to " + bank + " already. Would you replace with other bank?")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
                                     new PlaidConnect(StockCoinWithdrawActivity.this).openPlaid();
+                                    sweetAlertDialog.dismissWithAnimation();
                                 }
-                            })
-                            .setNegativeButton("No", null)
-                            .show();
+                            }).show();
                 }
             }
         });
@@ -233,7 +273,8 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                                         Intent intent = new Intent(StockCoinWithdrawActivity.this, WebViewActivity.class);
                                         intent.putExtra("uri", response.getString("stripe_connect_link"));
                                         startActivityForResult(intent, STRIPE_CONNECT);
-
+                                    } else {
+                                        confirmAlert.alert("Not connected.");
                                     }
                                 }
 
@@ -256,6 +297,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
         mUSDCRate = findViewById(R.id.stock_usdc_rate);
         mBtnWithdrawCoin = findViewById(R.id.btn_coin_withdraw);
         btnWithdrawBank = findViewById(R.id.btn_bank_withdraw);
+        btnWithdrawPaypal = findViewById(R.id.btn_paypal_withdraw);
         btnWithdrawCard = findViewById(R.id.btn_card_withdraw);
         btnConnectBank = findViewById(R.id.btn_connect_bank);
         btnAddCard = findViewById(R.id.btn_add_card);
@@ -267,7 +309,8 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        loadToast.show();
+//        loadToast.show();
+        loadProgress.show();
         if(getBaseContext() != null)
             AndroidNetworking.get(URLHelper.STOCK_WITHDRAW)
                     .addHeaders("Content-Type", "application/json")
@@ -279,18 +322,21 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
-                            loadToast.success();
-
+//                            loadToast.success();
+                            loadProgress.dismiss();
                             try {
                                 StockBalance = response.getDouble("stock_balance");
                                 USDCRate = response.getDouble("stock2usdc");
+                                paypal = response.getString("paypal");
+
+                                fee = response.getDouble("withdraw_fee");
+                                coinfee = response.getDouble("coinwithdraw_fee");
 
                                 mStockBalance.setText("$ "+ new DecimalFormat("#,###.##").format(StockBalance));
                                 mUSDCRate.setText(new DecimalFormat("#,###.##").format(USDCRate));
 
                                 bank = response.getString("stripe_bank");
                                 stripeAccountVerified = response.getInt("stripe_account_verified") == 0? false: true;
-
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -299,7 +345,8 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
+//                            loadToast.error();
+                            loadProgress.dismiss();
                             // handle error
                             Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
                             Log.d("errorm", "" + error.getMessage());
@@ -323,7 +370,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
             public void onSelectCard(int position) {
                 Card card = cardList.get(position);
                 selectedCard = card.getCardId();
-                alertMsg = "Are you sure withdraw $" + mEditAmount.getText().toString() + " to " + card.getLastFour() + "?";
+//                alertMsg = "Are you sure withdraw $" + mEditAmount.getText().toString() + " to " + card.getLastFour() + "?";
                 dialog.dismiss();
                 showInvoiceDialog();
             }

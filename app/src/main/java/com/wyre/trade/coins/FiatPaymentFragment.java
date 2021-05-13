@@ -126,7 +126,7 @@ public class FiatPaymentFragment extends Fragment {
                 assetList.clear();
                 type = 2;
                 for (CoinInfo coin: coinList) {
-                    if(coin.getBuyNowOption() > 2 && coin.getBuyNowOption() < 100)
+                    if(coin.getBuyNowOption() >= 2 && coin.getBuyNowOption() < 100)
                         assetList.add(coin);
                 }
                 mBottomAdapter.notifyDataSetChanged();
@@ -250,7 +250,7 @@ public class FiatPaymentFragment extends Fragment {
 //                                    String coin_address = "";
         String excludeCryptos = "&excludeCryptos=EOS,USDT,XLM,BUSD,GUSD,HUSD,PAX,USDS";
         String url = "https://widget.onramper.com?color=1d2d50&apiKey="+mOnramperApikey+"&defaultCrypto="
-                +symbol+excludeCryptos+coin_address+"&onlyCryptos="+onRamperCoins
+                +symbol+excludeCryptos+coin_address+"&onlyCryptos="+symbol
                 +"&isAddressEditable=false";
         Intent browserIntent = new Intent(getActivity(), WebViewActivity.class);
         browserIntent.putExtra("uri", url);
