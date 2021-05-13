@@ -54,15 +54,16 @@ public class BottomCardAdapter extends RecyclerView.Adapter<BottomCardAdapter.Or
         Card item = arrItems.get(position);
 
         holder.tvCardId.setText("XXXX-XXXX-XXXX-" + item.getLastFour());
-        if(item.getBrand().equals("Visa")) {
-            Picasso.with(mContext)
-                    .load(R.drawable.ic_visa)
-                    .into(holder.CardIcon);
-        } else {
-            Picasso.with(mContext)
-                    .load(R.drawable.ic_mastercard)
-                    .into(holder.CardIcon);
-        }
+        
+//        if(item.getBrand().equals("Visa")) {
+//            Picasso.with(mContext)
+//                    .load(R.drawable.ic_visa)
+//                    .into(holder.CardIcon);
+//        } else {
+//            Picasso.with(mContext)
+//                    .load(R.drawable.ic_mastercard)
+//                    .into(holder.CardIcon);
+//        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

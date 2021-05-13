@@ -40,9 +40,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CustomViewHold
 
         holder.tvCardId.setText("XXXX-XXXX-XXXX-" + item.getLastFour());
 
-        if(item.getBrand().equals("Visa")) {
-            Picasso.with(mContext).load(R.drawable.ic_visa).into(holder.imgCardIcon);
-        } else Picasso.with(mContext).load(R.drawable.ic_mastercard).into(holder.imgCardIcon);
+//        if(item.getBrand().equals("Visa")) {
+//            Picasso.with(mContext).load(R.drawable.ic_visa).into(holder.imgCardIcon);
+//        } else Picasso.with(mContext).load(R.drawable.ic_mastercard).into(holder.imgCardIcon);
 
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
