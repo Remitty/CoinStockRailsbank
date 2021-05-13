@@ -72,7 +72,7 @@ public class CardActivity extends AppCompatActivity {
 
         cardView = findViewById(R.id.card_view);
 
-        mAdapter = new CardAdapter(this, cardList);
+        mAdapter = new CardAdapter(CardActivity.this, cardList);
         cardView.setAdapter(mAdapter);
         cardView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter.setListener(new CardAdapter.Listener() {

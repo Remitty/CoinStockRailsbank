@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CustomViewHolder> {
     private ArrayList<Card> arrItems;
-    private CardAdapter.Listener listener;
+    private Listener listener;
     private Context mContext;
     public CardAdapter(Context context, ArrayList<Card> data ){
         mContext = context;
@@ -39,9 +39,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CustomViewHold
         Card item = arrItems.get(i);
 
         holder.tvCardId.setText("XXXX-XXXX-XXXX-" + item.getLastFour());
+
         if(item.getBrand().equals("Visa")) {
             Picasso.with(mContext).load(R.drawable.ic_visa).into(holder.imgCardIcon);
         } else Picasso.with(mContext).load(R.drawable.ic_mastercard).into(holder.imgCardIcon);
+
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

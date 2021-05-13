@@ -44,6 +44,8 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -65,7 +67,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
     BottomCardAdapter mBottomAdapter;
     RecyclerView recyclerView;
     ArrayList<Card> cardList = new ArrayList<Card>();
-    String selectedCard, type, alertMsg, bank, paypal;
+    String selectedCard, type, alertMsg, bank, paypal="";
     boolean stripeAccountVerified = false;
 
     @Override
@@ -413,11 +415,57 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                        confirmAlert.process();
-                        doWithdraw();
+                        if(type.equals("paypal")) {
+                            showInputPaypalDialog();
+                            confirmAlert.process();
+                        } else {
+                            confirmAlert.process();
+                            doWithdraw();
+                        }
                     }
                 })
                 .show();
+    }
+
+    private void showInputPaypalDialog() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_input_paypal, null);
+        final EditText editPaypal = view.findViewById(R.id.edit_paypal);
+        editPaypal.setText(paypal);
+        Button btnCancel = view.findViewById(R.id.btn_cancel);
+        Button btnConfirm = view.findViewById(R.id.btn_confirm);
+        AlertDialog.Builder alert = new AlertDialog.Builder(StockCoinWithdrawActivity.this);
+        alert.setIcon(R.mipmap.ic_launcher_round);
+        alert.setTitle("Confirm Paypal")
+                .setView(view);
+
+        final AlertDialog alertDialog = alert.create();
+        alertDialog.show();
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmAlert.dismissWithAnimation();
+                alertDialog.dismiss();
+            }
+        });
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String paypal = editPaypal.getText().toString();
+                Pattern p = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
+                final Matcher m = p.matcher(paypal);
+                if(paypal.isEmpty()) {
+                    editPaypal.setError("!");
+                    return;
+                }
+                if(!m.matches()) {
+                    editPaypal.setError("Invalid paypal");
+                    return;
+                }
+                alertDialog.dismiss();
+                doWithdraw();
+            }
+        });
     }
 
     private void doWithdraw() {
@@ -426,6 +474,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
 
         try {
             jsonObject.put("type", type);
+            jsonObject.put("paypal", paypal);
             jsonObject.put("card_id", selectedCard);
             jsonObject.put("amount", mEditAmount.getText());
             jsonObject.put("address", mWalletAddress.getText());

@@ -44,6 +44,8 @@
             android:layout_weight="1"
             android:textSize="10dp"
             android:textColor="@color/colorBlack"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
