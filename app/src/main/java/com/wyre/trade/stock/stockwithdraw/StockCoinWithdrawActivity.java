@@ -166,10 +166,10 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
         btnWithdrawPaypal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(paypal.isEmpty()) {
-                    confirmAlert.alert("No registered paypal.");
-                    return;
-                }
+//                if(paypal.isEmpty()) {
+//                    confirmAlert.alert("No registered paypal.");
+//                    return;
+//                }
                 String amount = mEditAmount.getText().toString();
                 if(amount.isEmpty() || amount.startsWith(".")) {
                     mEditAmount.setError("!");
@@ -415,9 +415,17 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                        if(type.equals("paypal")) {
-                            showInputPaypalDialog();
-                            confirmAlert.process();
+                        if(type.equals("paypal") && paypal.isEmpty()) {
+                            confirmAlert.dismissWithAnimation();
+                            confirmAlert.confirm("No registered paypal, Would you like to register your paypal?")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                showInputPaypalDialog();
+                                                confirmAlert.process();
+
+                                        }
+                                    }).show();
                         } else {
                             confirmAlert.process();
                             doWithdraw();
@@ -430,7 +438,6 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
     private void showInputPaypalDialog() {
         View view = getLayoutInflater().inflate(R.layout.dialog_input_paypal, null);
         final EditText editPaypal = view.findViewById(R.id.edit_paypal);
-        editPaypal.setText(paypal);
         Button btnCancel = view.findViewById(R.id.btn_cancel);
         Button btnConfirm = view.findViewById(R.id.btn_confirm);
         AlertDialog.Builder alert = new AlertDialog.Builder(StockCoinWithdrawActivity.this);

@@ -135,7 +135,7 @@ public class Card2StockFragment extends Fragment {
         llAddCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddCardActivity.class);
+                Intent intent = new Intent(getActivity(), CardActivity.class);
                 intent.putExtra("stripe_pub_key", stripe_pub_key);
                 startActivity(intent);
             }
@@ -276,7 +276,7 @@ public class Card2StockFragment extends Fragment {
                     return;
                 }
                 if(mCard.getCVC().equals(cvv)) {
-                    Toast.makeText(getActivity(), "Matched cvv successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Matched cvc successfully", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
                     onTransferFunds();
                 } else {

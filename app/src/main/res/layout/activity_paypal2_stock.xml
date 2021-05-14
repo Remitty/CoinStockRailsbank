@@ -53,6 +53,7 @@
                             android:layout_height="wrap_content"
                             android:maxLines="1"
                             android:ellipsize="end"
+                            android:visibility="gone"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="5dp"
                             android:text="No Paypal"
@@ -78,6 +79,7 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="2dp"
                                 android:textColor="@color/white"
+                                android:visibility="gone"
                                 android:textSize="10dp"
                                 android:text="Add"/>
 

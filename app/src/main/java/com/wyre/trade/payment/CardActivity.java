@@ -17,6 +17,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.stripe.android.view.CardInputWidget;
 import com.wyre.trade.R;
 import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
@@ -36,12 +37,18 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class CardActivity extends AppCompatActivity {
     LoadToast loadToast;
+    ConfirmAlert confirmAlert;
+
     Button btnAdd;
     CardAdapter mAdapter;
     RecyclerView cardView;
     ArrayList<Card> cardList = new ArrayList<Card>();
     int withdrawal = 0;
-    ConfirmAlert confirmAlert;
+
+    CardInputWidget stripeWidget;
+    String cvcNo, cardNo;
+    int month, year;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,14 +66,14 @@ public class CardActivity extends AppCompatActivity {
         confirmAlert = new ConfirmAlert(CardActivity.this);
 
         btnAdd = findViewById(R.id.btn_add_card);
+        stripeWidget = findViewById(R.id.stripe_widget);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CardActivity.this, AddCardActivity.class);
-                intent.putExtra("stripe_pub_key", getIntent().getStringExtra("stripe_pub_key"));
-                intent.putExtra("withdrawal", withdrawal);
-                startActivity(intent);
+                if(stripeWidget.getCard() != null && !stripeWidget.getCard().getNumber().isEmpty()) {
+                    checkoutStripe();
+                }
             }
         });
 
@@ -92,6 +99,69 @@ public class CardActivity extends AppCompatActivity {
         });
 
         getCard();
+    }
+
+    private void checkoutStripe() {
+//        Stripe stripe = new Stripe(AddCardActivity.this, stripPubKey);
+        com.stripe.android.model.Card card = stripeWidget.getCard();
+        if(card.validateCard()) {
+            cvcNo = stripeWidget.getCard().getCVC();
+            cardNo = stripeWidget.getCard().getNumber();
+            month = stripeWidget.getCard().getExpMonth();
+            year = stripeWidget.getCard().getExpYear();
+
+            sendAddCard("");
+//            loadToast.show();
+//            stripe.createToken(card, new ApiResultCallback<Token>() {
+//                @Override
+//                public void onSuccess(@NonNull Token token) {
+//
+//                    sendAddCard(token.getId());
+//                }
+//
+//                @Override
+//                public void onError(@NonNull Exception e) {
+//                    loadToast.error();
+//                }
+//            });
+        } else {
+//            Toast.makeText(getBaseContext(), "Invalid card", Toast.LENGTH_SHORT).show();
+            confirmAlert.error("Invalid card");
+        }
+
+    }
+
+    private void sendAddCard(String token) {
+//        loadToast.show();
+        confirmAlert.show();
+        confirmAlert.process();
+        AndroidNetworking.post(URLHelper.REQUEST_CARD)
+                .addHeaders("Content-Type", "application/json")
+                .addHeaders("accept", "application/json")
+                .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))
+                .addBodyParameter("no", cardNo)
+                .addBodyParameter("month", month+"")
+                .addBodyParameter("year", year+"")
+                .addBodyParameter("cvc", cvcNo+"")
+                .addBodyParameter("user_type", "0")
+                .addBodyParameter("withdrawal", String.valueOf(withdrawal))
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+//                        loadToast.success();
+//                        Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                        confirmAlert.success(response.optString("message"));
+                        getCard();
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+//                        loadToast.error();
+                        confirmAlert.error(error.getErrorBody());
+                    }
+                });
     }
 
     private void deleteCard(final int position) {

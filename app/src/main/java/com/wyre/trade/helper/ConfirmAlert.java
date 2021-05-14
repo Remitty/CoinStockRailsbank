@@ -92,4 +92,9 @@ public class ConfirmAlert {
     public void dismissWithAnimation() {
         pDialog.dismissWithAnimation();
     }
+
+    public void show() {
+        pDialog = new SweetAlertDialog(mContext, SweetAlertDialog.WARNING_TYPE);
+        pDialog.show();
+    }
 }

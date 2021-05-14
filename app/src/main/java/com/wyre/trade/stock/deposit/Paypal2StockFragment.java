@@ -44,6 +44,8 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -96,7 +98,7 @@ public class Paypal2StockFragment extends Fragment {
         mStockBalance.setText("$ " + new DecimalFormat("#,###.##").format(Double.parseDouble(stockBalance)));
         if(!paypal.optString("paypal").isEmpty()) {
             tvpaypal.setText(paypal.optString("paypal"));
-            tvAdd.setText("Edit");
+            tvAdd.setVisibility(View.GONE);
         }
 
         return mView;
@@ -116,10 +118,11 @@ public class Paypal2StockFragment extends Fragment {
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddPaypalActivity.class);
-                if(!paypal.optString("paypal").isEmpty())
-                    intent.putExtra("paypal", paypal.optString("paypal"));
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), AddPaypalActivity.class);
+//                if(!paypal.optString("paypal").isEmpty())
+//                    intent.putExtra("paypal", paypal.optString("paypal"));
+//                startActivity(intent);
+                showInputPaypalDialog();
             }
         });
         mBtnTransfer.setOnClickListener(new View.OnClickListener() {
@@ -333,6 +336,75 @@ public class Paypal2StockFragment extends Fragment {
         }
     }
 
+    private void showInputPaypalDialog() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_input_paypal, null);
+        final EditText editPaypal = view.findViewById(R.id.edit_paypal);
+        Button btnCancel = view.findViewById(R.id.btn_cancel);
+        Button btnConfirm = view.findViewById(R.id.btn_confirm);
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setIcon(R.mipmap.ic_launcher_round);
+        alert.setTitle("Confirm Paypal")
+                .setView(view);
+
+        final AlertDialog alertDialog = alert.create();
+        alertDialog.show();
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmAlert.dismissWithAnimation();
+                alertDialog.dismiss();
+            }
+        });
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String paypal = editPaypal.getText().toString();
+                Pattern p = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
+                final Matcher m = p.matcher(paypal);
+                if(paypal.isEmpty()) {
+                    editPaypal.setError("!");
+                    return;
+                }
+                if(!m.matches()) {
+                    editPaypal.setError("Invalid paypal");
+                    return;
+                }
+                alertDialog.dismiss();
+                editPaypal(paypal);
+            }
+        });
+    }
+
+    private void editPaypal(String paypal) {
+//        loadToast.show();
+        confirmAlert.show();
+        confirmAlert.process();
+        AndroidNetworking.post(URLHelper.REQUEST_PAYPAL)
+                .addHeaders("Content-Type", "application/json")
+                .addHeaders("accept", "application/json")
+                .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getContext(),"access_token"))
+                .addBodyParameter("paypal", paypal)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+//                        loadToast.success();
+//                        Toast.makeText(getContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                        confirmAlert.success(response.optString("message"));
+                        tvpaypal.setText(paypal);
+                        tvAdd.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+//                        loadToast.error();
+                        confirmAlert.error(error.getErrorBody());
+                    }
+                });
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //If the result is from paypal
@@ -357,14 +429,17 @@ public class Paypal2StockFragment extends Fragment {
 
                     } catch (JSONException e) {
                         Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
+                        confirmAlert.dismissWithAnimation();
                     }
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("paymentExample", "The user canceled.");
-                loadToast.hide();
+//                loadToast.hide();
+                confirmAlert.dismissWithAnimation();
             } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
                 Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
-                loadToast.error();
+//                loadToast.error();
+                confirmAlert.dismissWithAnimation();
             }
         }
 

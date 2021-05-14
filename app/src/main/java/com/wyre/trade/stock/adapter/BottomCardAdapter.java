@@ -54,7 +54,7 @@ public class BottomCardAdapter extends RecyclerView.Adapter<BottomCardAdapter.Or
         Card item = arrItems.get(position);
 
         holder.tvCardId.setText("XXXX-XXXX-XXXX-" + item.getLastFour());
-        
+
 //        if(item.getBrand().equals("Visa")) {
 //            Picasso.with(mContext)
 //                    .load(R.drawable.ic_visa)
