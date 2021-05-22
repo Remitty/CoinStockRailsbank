@@ -136,17 +136,18 @@ public class SignUpActivity extends AppCompatActivity {
                         Log.d("response", "" + response.toString());
                         loadToast.success();
                         if(response.optBoolean("success")) {
-                            JSONObject user = response.optJSONObject("data");
-                            String key = user.optString("access_token");
-                            sharedPrefs.savePref(key);
-                            SharedHelper.putKey(getBaseContext(), "access_token", key);
-
-                            SharedHelper.putKey(getBaseContext(), "userId", user.optString("id"));
-                            SharedHelper.putKey(getBaseContext(), "is_completed", user.optString("isCompleteProfile"));
-                            SharedHelper.putKey(getBaseContext(), "email", mEmailEditText.getText().toString());
-
-                            SharedHelper.putKey(getBaseContext(), "fullName", mFirstNameEditText.getText().toString() + " " + mLastNameEditText.getText().toString());
-                            startActivity(new Intent(getApplicationContext(), SplashActivity.class));
+//                            JSONObject user = response.optJSONObject("data");
+//                            String key = user.optString("access_token");
+//                            sharedPrefs.savePref(key);
+//                            SharedHelper.putKey(getBaseContext(), "access_token", key);
+//
+//                            SharedHelper.putKey(getBaseContext(), "userId", user.optString("id"));
+//                            SharedHelper.putKey(getBaseContext(), "is_completed", user.optString("isCompleteProfile"));
+//                            SharedHelper.putKey(getBaseContext(), "email", mEmailEditText.getText().toString());
+//
+//                            SharedHelper.putKey(getBaseContext(), "fullName", mFirstNameEditText.getText().toString() + " " + mLastNameEditText.getText().toString());
+//                            startActivity(new Intent(getApplicationContext(), SplashActivity.class));
+                            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
                         }
 
                         Toast.makeText(getApplicationContext(), response.optString("message"), Toast.LENGTH_LONG).show();
