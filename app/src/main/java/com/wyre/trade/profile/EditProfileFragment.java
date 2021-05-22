@@ -2,6 +2,7 @@ package com.wyre.trade.profile;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -154,6 +155,8 @@ public class EditProfileFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 datePicker.show();
+                datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.GREEN);
+                datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.GREEN);
             }
         });
 
@@ -176,7 +179,7 @@ public class EditProfileFragment extends Fragment{
         boolean validFlag = true;
         // Check if all strings are null or not
 
-
+        validFlag = validatePhone();
         if (TextUtils.isEmpty(editTextName.getText().toString())) {
             editTextName.setError("!");
             validFlag = false;
@@ -199,11 +202,11 @@ public class EditProfileFragment extends Fragment{
             editTextAddress1.setError("!");
             validFlag = false;
         }
-        if (TextUtils.isEmpty(editTextAddress2.getText().toString())) {
-            editTextAddress2.setError("!");
-            validFlag = false;
-        }
-        validFlag = validatePhone();
+//        if (TextUtils.isEmpty(editTextAddress2.getText().toString())) {
+//            editTextAddress2.setError("!");
+//            validFlag = false;
+//        }
+
         if (TextUtils.isEmpty(editTextPostalCode.getText().toString())) {
             editTextPostalCode.setError("!");
             validFlag = false;
@@ -262,10 +265,10 @@ public class EditProfileFragment extends Fragment{
             jsonObject.put("postalcode", editTextPostalCode.getText().toString().trim());
             jsonObject.put("city", editTextCity.getText().toString().trim());
             jsonObject.put("state", editTextState.getText().toString().trim());
+            jsonObject.put("ssn", editTextSSN.getText().toString().trim());
             jsonObject.put("country", editCountry.getText().toString().trim());
             jsonObject.put("dob", editDob.getText().toString().trim());
             jsonObject.put("region", editTextNational.getText().toString().trim());
-            jsonObject.put("ssn", editTextSSN.getText().toString().trim());
             jsonObject.put("user_type", 0);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -292,8 +295,10 @@ public class EditProfileFragment extends Fragment{
                         public void onError(ANError error) {
                             loadToast.error();
                             // handle error
-                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            ConfirmAlert alert = new ConfirmAlert(getActivity());
+                            alert.error(error.getErrorBody());
+//                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }
@@ -346,9 +351,11 @@ public class EditProfileFragment extends Fragment{
                         @Override
                         public void onError(ANError error) {
                             loadToast.error();
+//                            ConfirmAlert alert = new ConfirmAlert(getActivity());
+//                            alert.error(error.getErrorBody());
                             // handle error
-                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+//                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }

@@ -7,7 +7,10 @@ import io.michaelrocks.libphonenumber.android.PhoneNumberUtil;
 import io.michaelrocks.libphonenumber.android.Phonenumber;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -26,6 +29,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.main.MainActivity;
@@ -40,11 +44,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static android.graphics.Color.GREEN;
 
 public class ProfileCompleteActivity extends AppCompatActivity {
     EditText editTextAddress1, editTextAddress2, editTextCity, editCountry,
-            editTextPostalCode, editTextNational;
+            editTextPostalCode, editTextNational, editTextState, editTextSSN;
     Button btnUpdate;
     TextView editDob, editTextName;
 
@@ -81,6 +88,8 @@ public class ProfileCompleteActivity extends AppCompatActivity {
         editCountry = findViewById(R.id.editTextCountry);
         editTextCity = findViewById(R.id.editTextCity);
         editDob = findViewById(R.id.editTextDOB);
+        editTextState = findViewById(R.id.editTextState);
+        editTextSSN = findViewById(R.id.editTextSSN);
 
         etCountryCode = findViewById(R.id.etCountryCode);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
@@ -103,6 +112,8 @@ public class ProfileCompleteActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datePicker.show();
+                datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.GREEN);
+                datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.GREEN);
             }
         });
 
@@ -116,8 +127,10 @@ public class ProfileCompleteActivity extends AppCompatActivity {
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     editDob.setText(year + "-"  + (monthOfYear + 1) + "-" + dayOfMonth );
                     datePicker.dismiss();
+
                 }
             }, year, month, day);
+
         }
     }
 
@@ -125,19 +138,19 @@ public class ProfileCompleteActivity extends AppCompatActivity {
         boolean validFlag = true;
         // Check if all strings are null or not
         Pattern p = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
-
+        validFlag = validatePhone();
         if (TextUtils.isEmpty(editTextAddress1.getText().toString())) {
             editTextAddress1.setError("!");
             validFlag = false;
         }
-        if (TextUtils.isEmpty(editTextAddress2.getText().toString())) {
-            editTextAddress2.setError("!");
-            validFlag = false;
-        }
-        if (TextUtils.isEmpty(etPhoneNumber.getText().toString())) {
-            etPhoneNumber.setError("!");
-            validFlag = false;
-        }
+//        if (TextUtils.isEmpty(editTextAddress2.getText().toString())) {
+//            editTextAddress2.setError("!");
+//            validFlag = false;
+//        }
+//        if (TextUtils.isEmpty(etPhoneNumber.getText().toString())) {
+//            etPhoneNumber.setError("!");
+//            validFlag = false;
+//        }
         if (TextUtils.isEmpty(editTextPostalCode.getText().toString())) {
             editTextPostalCode.setError("!");
             validFlag = false;
@@ -150,6 +163,10 @@ public class ProfileCompleteActivity extends AppCompatActivity {
             editTextCity.setError("!");
             validFlag = false;
         }
+        if (TextUtils.isEmpty(editTextState.getText().toString())) {
+            editTextState.setError("!");
+            validFlag = false;
+        }
         if (TextUtils.isEmpty(editCountry.getText().toString())) {
             editCountry.setError("!");
             validFlag = false;
@@ -158,7 +175,21 @@ public class ProfileCompleteActivity extends AppCompatActivity {
             editTextNational.setError("!");
             validFlag = false;
         }
-        validFlag = validatePhone();
+        if(editCountry.getText().toString().equals("US")) {
+            if (TextUtils.isEmpty(editTextSSN.getText().toString())) {
+                editTextSSN.setError("!");
+                validFlag = false;
+            }
+            else {
+//                Pattern p = Pattern.compile( "^(?!666|000|9\\d{2})\\d{3}" + "-(?!00)\\d{2}-" + "(?!0{4})\\d{4}$" );
+                Pattern p1 = Pattern.compile( "(?!0{4})\\d{4}$" );
+                Matcher m = p1.matcher(editTextSSN.getText().toString());
+                validFlag = m.matches();
+                if(!validFlag)
+                    editTextSSN.setError("Invalid format");
+            }
+        }
+
         return validFlag;
     }
 
@@ -176,6 +207,8 @@ public class ProfileCompleteActivity extends AppCompatActivity {
             jsonObject.put("country", editCountry.getText().toString().trim());
             jsonObject.put("dob", editDob.getText().toString().trim());
             jsonObject.put("region", editTextNational.getText().toString().trim());
+            jsonObject.put("state", editTextState.getText().toString().trim());
+            jsonObject.put("ssn", editTextSSN.getText().toString().trim());
             jsonObject.put("user_type", 2);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -206,10 +239,12 @@ public class ProfileCompleteActivity extends AppCompatActivity {
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
+                            loadToast.hide();
                             // handle error
-                            Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            ConfirmAlert alert = new ConfirmAlert(ProfileCompleteActivity.this);
+                            alert.error(error.getErrorBody());
+//                            Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }

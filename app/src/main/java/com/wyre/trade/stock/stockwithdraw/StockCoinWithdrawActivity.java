@@ -110,7 +110,7 @@ public class StockCoinWithdrawActivity extends AppCompatActivity {
                     return;
                 }
                 type = "USDC";
-                alertMsg = "Payout amount: " + amount + " USDC\nWithdraw fee: "+coinfee + "USDC";
+                alertMsg = "Payout amount: " + amount + " USDC";
                 showInvoiceDialog();
             }
         });

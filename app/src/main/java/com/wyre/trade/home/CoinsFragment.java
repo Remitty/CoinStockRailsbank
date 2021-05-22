@@ -22,6 +22,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.SharedPrefs;
 import com.wyre.trade.adapters.BottomCoinAdapter;
 import com.wyre.trade.coins.CoinTradeActivity;
 import com.wyre.trade.coins.CoinWithdrawActivity;
@@ -29,6 +30,7 @@ import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.home.adapters.CoinAdapter;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
+import com.wyre.trade.main.SplashActivity;
 import com.wyre.trade.model.CoinInfo;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -325,8 +327,16 @@ public class CoinsFragment extends Fragment {
                     public void onError(ANError error) {
                         loadToast.error();
                         // handle error
-                        Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        Log.d("errorm", "" + error.getErrorBody());
+                        //                            JSONObject errorObj = new JSONObject(error.getErrorBody());
+//                            Log.d("error object", errorObj.toString());
+                        if(error.getErrorBody().contains("Unauthenticated")) {
+                            SharedPrefs sharedPrefs = new SharedPrefs(getActivity());
+                            sharedPrefs.clearLogin();
+                            startActivity(new Intent(getActivity(), SplashActivity.class));
+
+                        } else
+                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

@@ -21,8 +21,10 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.wyre.trade.R;
+import com.wyre.trade.SharedPrefs;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
+import com.wyre.trade.main.SplashActivity;
 import com.wyre.trade.model.NewsInfo;
 import com.wyre.trade.model.TopStocks;
 import com.wyre.trade.stock.adapter.NewsAdapter;
@@ -242,8 +244,14 @@ public class TransferCoinFragment extends Fragment {
 //                            loadToast.error();
                             // handle error
                             loadProgress.dismiss();
-                            Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
                             Log.d("errorm", "" + error.getErrorBody());
+                            if(error.getErrorBody().contains("Unauthenticated")) {
+                                SharedPrefs sharedPrefs = new SharedPrefs(getActivity());
+                                sharedPrefs.clearLogin();
+                                startActivity(new Intent(getActivity(), SplashActivity.class));
+
+                            } else
+                                Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
                         }
                     });
     }

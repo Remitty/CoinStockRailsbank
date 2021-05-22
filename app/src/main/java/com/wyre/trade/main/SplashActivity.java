@@ -56,19 +56,20 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
 
                 if (sharedPrefs.getLogedInKey() != null) {
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                    return;
-                }
-                else {
-//                    Log.d("profile completed", SharedHelper.getKey(this, "is_completed"));
                     if (SharedHelper.getKey(getBaseContext(), "is_completed").equals("false")) {
                         startActivity(new Intent(getApplicationContext(), ProfileCompleteActivity.class));
                         return;
-                    }
-                    else {
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    } else {
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         return;
+
                     }
+                }
+                else {
+//                    Log.d("profile completed", SharedHelper.getKey(this, "is_completed"));
+
+                        startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+                        return;
                 }
 
 //                startActivity(new Intent(getApplicationContext(), MainActivity.class));

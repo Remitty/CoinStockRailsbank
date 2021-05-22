@@ -153,15 +153,15 @@ public class Card2StockFragment extends Fragment {
                     Toast.makeText(getContext(), "No card", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                if(mEditAmount.getText().toString().isEmpty()) {
+                String amount = mEditAmount.getText().toString();
+                if(amount.isEmpty() || amount.equals(".")) {
                     mEditAmount.setError("!");
                     return;
                 }
 
-                if(Double.parseDouble(mEditAmount.getText().toString()) > 500) {
+                if(Double.parseDouble(amount) > Double.parseDouble(SharedHelper.getKey(getActivity(), "stock_deposit_from_card_daily_limit"))) {
                     ConfirmAlert alert = new ConfirmAlert(getActivity());
-                    alert.alert("Limit is $500");
+                    alert.alert("Limit is $"+SharedHelper.getKey(getActivity(), "stock_deposit_from_card_daily_limit"));
                     return;
                 }
 
@@ -254,7 +254,7 @@ public class Card2StockFragment extends Fragment {
         Button btnConfirm = view.findViewById(R.id.btn_confirm);
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setIcon(R.mipmap.ic_launcher_round);
-        alert.setTitle("Confirm CVC")
+        alert.setTitle("Confirm CVV")
                 .setView(view);
 
         final AlertDialog alertDialog = alert.create();
@@ -276,7 +276,7 @@ public class Card2StockFragment extends Fragment {
                     return;
                 }
                 if(mCard.getCVC().equals(cvv)) {
-                    Toast.makeText(getActivity(), "Matched cvc successfully", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "Matched cvc successfully", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
                     onTransferFunds();
                 } else {

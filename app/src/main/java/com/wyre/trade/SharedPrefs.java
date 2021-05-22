@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 public class SharedPrefs {
 
     private static final String myPrefs = "myprefs";
-    private static final String LogedInKey = "Key";
+    private static final String LogedInKey = "loginKey";
     private final Context context;
     private final SharedPreferences sharedPreferences;
     private final SharedPreferences.Editor editor;

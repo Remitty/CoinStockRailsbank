@@ -22,6 +22,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.wyre.trade.R;
 import com.wyre.trade.SharedPrefs;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 
@@ -35,7 +36,7 @@ import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
     private SharedPrefs sharedPrefs;
-    private EditText mUserNameEditText, mFirstNameEditText, mLastNameEditText, mEmailEditText, mPasswordEditText;
+    private EditText mUserNameEditText, mFirstNameEditText, mLastNameEditText, mEmailEditText, mPasswordEditText, editConfirmPass;
     private TextView mSigninButton;
     private LoadToast loadToast;
 
@@ -45,6 +46,8 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        sharedPrefs = new SharedPrefs(SignUpActivity.this);
 
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
             Window window = getWindow();
@@ -60,11 +63,12 @@ public class SignUpActivity extends AppCompatActivity {
         mLastNameEditText = findViewById(R.id.lastname);
         mEmailEditText = findViewById(R.id.email);
         mPasswordEditText = findViewById(R.id.password);
+        editConfirmPass = findViewById(R.id.confirm_password);
         mSigninButton = findViewById(R.id.already_user);
         Button mSignUpButton = findViewById(R.id.signup);
 
         Pattern p = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
-        final Matcher m = p.matcher(mEmailEditText.getText().toString());
+        final Matcher m = p.matcher(mEmailEditText.getText().toString().trim());
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,11 +80,19 @@ public class SignUpActivity extends AppCompatActivity {
                 else if (mEmailEditText.getText().toString().isEmpty())
                     mEmailEditText.setError("!");
 //                else if (!m.matches()) {
+//                    Log.d("email", mEmailEditText.getText().toString());
 //                    mEmailEditText.setError("Invalid email format");
 //                }
+                else if (!mEmailEditText.getText().toString().contains("@")) {
+                    mEmailEditText.setError("Invalid email format");
+                }
                 else if (mPasswordEditText.getText().toString().isEmpty())
                     mPasswordEditText.setError("!");
-                else checkMailAlreadyExit();
+                else if (editConfirmPass.getText().toString().isEmpty())
+                    editConfirmPass.setError("!");
+                else if (!editConfirmPass.getText().toString().equals(mPasswordEditText.getText().toString()))
+                    editConfirmPass.setError("Not match");
+                else doSignUp();
             }
         });
 
@@ -125,12 +137,13 @@ public class SignUpActivity extends AppCompatActivity {
                         loadToast.success();
                         if(response.optBoolean("success")) {
                             JSONObject user = response.optJSONObject("data");
-                            String key = response.optString("access_token");
+                            String key = user.optString("access_token");
                             sharedPrefs.savePref(key);
                             SharedHelper.putKey(getBaseContext(), "access_token", key);
 
-                            SharedHelper.putKey(getBaseContext(), "userId", response.optString("id"));
-                            SharedHelper.putKey(getBaseContext(), "is_completed", response.optString("isCompleteProfile"));
+                            SharedHelper.putKey(getBaseContext(), "userId", user.optString("id"));
+                            SharedHelper.putKey(getBaseContext(), "is_completed", user.optString("isCompleteProfile"));
+                            SharedHelper.putKey(getBaseContext(), "email", mEmailEditText.getText().toString());
 
                             SharedHelper.putKey(getBaseContext(), "fullName", mFirstNameEditText.getText().toString() + " " + mLastNameEditText.getText().toString());
                             startActivity(new Intent(getApplicationContext(), SplashActivity.class));
@@ -142,12 +155,9 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError error) {
                         // handle error
-                        Log.d("errorb", "" + error.getErrorBody());
-                        Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errord", "" + error.getErrorDetail());
-                        Log.d("errorc", "" + error.getErrorCode());
-                        Log.d("errorm", "" + error.getMessage());
-                        loadToast.error();
+                        loadToast.hide();
+                        ConfirmAlert alert = new ConfirmAlert(SignUpActivity.this);
+                        alert.error(error.getErrorBody());
                     }
                 });
     }

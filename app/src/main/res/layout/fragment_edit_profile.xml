@@ -592,7 +592,9 @@
                                 android:padding="10dp"
                                 android:hint=""
                                 android:inputType="text"
+                                android:textAllCaps="true"
                                 android:maxLines="1"
+                                android:maxLength="2"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
