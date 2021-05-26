@@ -12,7 +12,7 @@
         android:textSize="16dp"
         android:textStyle="bold"
         android:textColor="@color/colorBlack"
-        android:text="Please confirm your 3 digit CVV at the back of your card
+        android:text="Please confirm your 3 digit CVC at the back of your card
 "/>
     <EditText
         android:id="@+id/edit_cvv"
@@ -21,7 +21,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="CVV"/>
+        android:hint="CVC"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

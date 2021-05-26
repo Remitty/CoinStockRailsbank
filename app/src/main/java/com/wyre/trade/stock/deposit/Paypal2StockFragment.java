@@ -128,10 +128,10 @@ public class Paypal2StockFragment extends Fragment {
         mBtnTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(paypal.optString("paypal").isEmpty()) {
-                    Toast.makeText(getContext(), "No paypal", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if(paypal.optString("paypal").isEmpty()) {
+//                    Toast.makeText(getContext(), "No paypal", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 String amount = mEditAmount.getText().toString();
                 if(amount.isEmpty() || amount.startsWith(".")) {
                     mEditAmount.setError("!");

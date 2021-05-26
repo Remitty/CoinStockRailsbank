@@ -5,7 +5,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_coin_stake"
-            android:icon="@drawable/pepe"
+            android:icon="@drawable/staking"
             android:title="Stake Coin" />
 
         <item
@@ -15,16 +15,16 @@
             android:title="Trade Cryptos"/>
         <item
             android:id="@+id/nav_coin_trade"
-            android:icon="@drawable/nav_trading"
+            android:icon="@drawable/wallet"
             android:title="Link Wallet"/>
         <item
             android:id="@+id/nav_mtn"
-            android:icon="@drawable/nav_smartphone"
+            android:icon="@drawable/mtn"
             android:title="MTN Service"/>
 
         <item
             android:id="@+id/nav_predict"
-            android:icon="@drawable/nav_analysis"
+            android:icon="@drawable/prediction"
             android:title="Prediction"/>
 
         <item
@@ -35,12 +35,12 @@
 
         <item
             android:id="@+id/nav_stock_activity"
-            android:icon="@drawable/nav_chart"
+            android:icon="@drawable/history"
             android:title="Stock History" />
 
         <item
                 android:id="@+id/nav_coin_activity"
-                android:icon="@drawable/nav_credit"
+                android:icon="@drawable/deposit_history"
             android:title="Deposit Activities"/>
 
         <item

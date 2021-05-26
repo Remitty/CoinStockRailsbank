@@ -124,7 +124,7 @@ public class SendUsdcActivity extends AppCompatActivity {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String amount = editAmount.getText().toString();
+                amount = editAmount.getText().toString();
                 if(TextUtils.isEmpty(amount) || amount.startsWith(".")){
                     editAmount.setError("!");
                     return;
@@ -138,12 +138,12 @@ public class SendUsdcActivity extends AppCompatActivity {
                     return;
                 }
                 if(usdcBalance < Double.parseDouble(amount)){
-                    confirmAlert.alert("Insufficient funds");
+                    confirmAlert.alert("Insufficient balance");
                     return;
                 }
                     dialog.dismiss();
 
-                    confirmAlert.confirm("Are you sure you want to pay " + amount + "usdc to " + tvTo.getText().toString())
+                    confirmAlert.confirm("You pay " + amount + "usdc to " + tvTo.getText().toString())
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
                                 public void onClick(SweetAlertDialog sweetAlertDialog) {

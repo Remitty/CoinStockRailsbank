@@ -381,7 +381,7 @@ public class CoinsFragment extends Fragment {
                             loadToast.error();
                             // handle error
                             ConfirmAlert confirmAlert = new ConfirmAlert(getActivity());
-                            confirmAlert.error(error.getErrorBody());
+                            confirmAlert.alert(error.getErrorBody());
 //                            Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
 //                            Log.d("errorm", "" + error.getMessage());
                             Log.d("errorm", "" + error.getErrorBody());

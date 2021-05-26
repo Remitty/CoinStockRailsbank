@@ -254,7 +254,7 @@ public class Card2StockFragment extends Fragment {
         Button btnConfirm = view.findViewById(R.id.btn_confirm);
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setIcon(R.mipmap.ic_launcher_round);
-        alert.setTitle("Confirm CVV")
+        alert.setTitle("Confirm CVC")
                 .setView(view);
 
         final AlertDialog alertDialog = alert.create();
@@ -403,7 +403,7 @@ public class Card2StockFragment extends Fragment {
                         try {
                             String cvv = response.getString("cvc");
                             if(cvv.equals(mCVV)) {
-                                Toast.makeText(getActivity(), "Matched cvv successfully", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getActivity(), "Matched cvv successfully", Toast.LENGTH_SHORT).show();
                                 onTransferFunds();
                             } else {
                                 confirmAlert.error("No matched");

@@ -280,10 +280,11 @@ public class CoinSwapFragment extends Fragment {
 
                         @Override
                         public void onError(ANError error) {
-                            loadToast.error();
-                            // handle error
-                            Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
+                            loadToast.hide();
+//                            // handle error
+//                            Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
                             Log.d("errorm", "" + error.getErrorBody());
+                            confirmAlert.error(error.getErrorBody());
                         }
                     });
     }

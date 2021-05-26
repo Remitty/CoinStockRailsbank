@@ -44,6 +44,7 @@
                 android:layout_marginTop="3dp"
                 tools:text="HOME"
                 android:textSize="12sp"
+                android:textStyle="bold"
                 android:id="@+id/textViewBar1"
                 android:textColor="@color/colorNavAccentSelected"/>
 
@@ -78,6 +79,7 @@
                 android:layout_height="wrap_content"
                 tools:text="SUPPORT"
                 android:textSize="12sp"
+                android:textStyle="bold"
                 android:layout_marginTop="3dp"
                 android:id="@+id/textViewBar2"
                 android:textColor="@color/colorNavAccentUnselected"/>
@@ -113,6 +115,7 @@
                 android:layout_height="wrap_content"
                 tools:text="BILLING"
                 android:textSize="12sp"
+                android:textStyle="bold"
                 android:layout_marginTop="3dp"
                 android:id="@+id/textViewBar3"
                 android:textColor="@color/colorNavAccentUnselected"/>
@@ -183,6 +186,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="SUPPORT"
+                android:textStyle="bold"
                 android:textSize="12sp"
                 android:layout_marginTop="3dp"
                 android:id="@+id/textViewBar5"
