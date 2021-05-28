@@ -25,6 +25,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
 import com.wyre.trade.helper.PlaidConnect;
+import com.wyre.trade.helper.PriceFormat;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 
@@ -76,7 +77,7 @@ public class Bank2StockFragment extends Fragment {
         initComponents();
         initListeners();
 
-        mStockBalance.setText("$ " + new DecimalFormat("#,###.##").format(Double.parseDouble(stockBalance)));
+        mStockBalance.setText(new PriceFormat(Double.parseDouble(stockBalance)).toString());
         if(bankBalance.equals("No wallet"))
             mBankBalance.setText(bankBalance);
         else {

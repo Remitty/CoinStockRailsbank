@@ -27,6 +27,7 @@ import com.wyre.trade.adapters.BottomCoinAdapter;
 import com.wyre.trade.coins.CoinTradeActivity;
 import com.wyre.trade.coins.CoinWithdrawActivity;
 import com.wyre.trade.helper.ConfirmAlert;
+import com.wyre.trade.helper.PriceFormat;
 import com.wyre.trade.home.adapters.CoinAdapter;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
@@ -283,7 +284,7 @@ public class CoinsFragment extends Fragment {
                         coinList.clear();
 
                         try {
-                            mTotalBalance.setText("$ " +new DecimalFormat("#,###.##").format(response.getDouble("total_balance")));
+                            mTotalBalance.setText(new PriceFormat(response.getDouble("total_balance")).toString());
                             mTotalEffect.setText(response.getString("total_effect")+" %");
 //                            mUSDBalance.setText(new DecimalFormat("#,###.##").format(response.getDouble("usd_balance")));
                             mOnramperApikey = response.getString("onramper_api_key");
@@ -295,7 +296,7 @@ public class CoinsFragment extends Fragment {
                             }
                             else {
                                 Picasso.with(getContext()).load(R.drawable.ic_up).into(icArrow);
-                                mTotalEffect.setTextColor(GREEN);
+                                mTotalEffect.setTextColor(getContext().getColor(R.color.green));
                             }
 
                             JSONArray coins = response.getJSONArray("coins");

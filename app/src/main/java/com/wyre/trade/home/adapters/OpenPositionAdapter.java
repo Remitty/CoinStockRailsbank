@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wyre.trade.R;
+import com.wyre.trade.helper.PriceFormat;
 import com.wyre.trade.model.StocksInfo;
 import com.squareup.picasso.Picasso;
 
@@ -62,7 +63,7 @@ public class OpenPositionAdapter extends RecyclerView.Adapter<OpenPositionAdapte
         holder.tvStockSymbol.setText(item.getSymbol());
         holder.tvStockName.setText(item.getName());
         holder.tvStockShared.setText(item.getQty());
-        holder.tvStockPrice.setText("$ "+item.getCurrentPrice());
+        holder.tvStockPrice.setText(new PriceFormat(item.getCurrentPrice()).toString());
         holder.tvStockChangePrice.setText("$ "+item.getChangePrice());
         holder.tvStockHoldingPrice.setText("$ "+item.getHolding());
         holder.tvStockProfit.setText("$ "+item.getProfit());

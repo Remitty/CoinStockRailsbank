@@ -191,30 +191,30 @@ public class ZaboActivity extends AppCompatActivity {
 
         if (requestCode == ZAHO_CONNECT) {
             if (resultCode == RESULT_OK) {
-                if (data != null) {
-                    if (data.hasExtra("response")) {
-                        try {
-                            String url = data.getStringExtra("response");
-                            URL aURL = new URL(url);
-                            String query = aURL.getQuery();
-                            query = query.replace("%20", "");
-                            query = query.replace("%22", "'");
-                            query = query.substring(8);
-                            try {
-                                JSONObject account = new JSONObject(query);
-                                String id = account.getString("id");
-                                String token = account.getString("token");
-//                                sendAccount(id, token);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }
+//                if (data != null) {
+//                    if (data.hasExtra("response")) {
+//                        try {
+//                            String url = data.getStringExtra("response");
+//                            URL aURL = new URL(url);
+//                            String query = aURL.getQuery();
+//                            query = query.replace("%20", "");
+//                            query = query.replace("%22", "'");
+//                            query = query.substring(8);
+//                            try {
+//                                JSONObject account = new JSONObject(query);
+//                                String id = account.getString("id");
+//                                String token = account.getString("token");
+////                                sendAccount(id, token);
+//
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                }
             }
         }
     }

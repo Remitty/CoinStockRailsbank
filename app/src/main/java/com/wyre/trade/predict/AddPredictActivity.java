@@ -22,6 +22,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.CoinBalanceFormat;
 import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
@@ -39,6 +40,7 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
     ConfirmAlert confirmAlert;
     private String symbol;
     private int duration = 2;
+    private Double usdcBalance = 0.0;
     TextView mtvSymbol, mtvName, mtvEndDate, mtvPrice, mtvUsdcBalance;
     EditText meditEstPrice, meditBetPrice;
     RadioGroup radioGroup;
@@ -85,7 +87,13 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
                         loadToast.success();
-                        mtvUsdcBalance.setText(String.format("%.4f",Double.parseDouble(response.optString("usdc_balance"))));
+                        try {
+                            usdcBalance = response.optDouble("usdc_balance");
+                            mtvUsdcBalance.setText(new CoinBalanceFormat(usdcBalance).toString());
+
+                        }catch (NumberFormatException e) {
+                            Toast.makeText(getBaseContext(), "Please load again. Network error.", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -93,7 +101,7 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
                         loadToast.error();
                         // handle error
                         Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                        Log.d("errorm", "" + error.getMessage());
+                        Log.d("errorm", "" + error. getErrorBody());
                     }
                 });
     }
@@ -180,14 +188,19 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
     private boolean isValidate() {
         boolean validate = true;
         String estPrice = meditEstPrice.getText().toString();
-        if(TextUtils.isEmpty(estPrice) || estPrice.equals(".")){
+        if(TextUtils.isEmpty(estPrice) || estPrice.startsWith(".")){
             validate = false;
             meditEstPrice.setError("!");
         }
+
         String betPrice = meditBetPrice.getText().toString();
-        if(TextUtils.isEmpty(betPrice) || betPrice.equals(".")){
+        if(TextUtils.isEmpty(betPrice) || betPrice.startsWith(".")){
             validate = false;
             meditBetPrice.setError("!");
+        }
+        if(Double.parseDouble(betPrice) > usdcBalance) {
+            validate = false;
+            confirmAlert.error("Insufficient balance");
         }
         if((int)radioGroup.getCheckedRadioButtonId() <= 0) {
             validate = false;

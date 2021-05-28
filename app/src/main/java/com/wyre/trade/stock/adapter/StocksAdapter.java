@@ -19,6 +19,7 @@ import com.anychart.data.Mapping;
 import com.anychart.data.Set;
 
 import com.wyre.trade.R;
+import com.wyre.trade.helper.PriceFormat;
 import com.wyre.trade.model.StocksInfo;
 
 import org.json.JSONArray;
@@ -88,7 +89,7 @@ public class StocksAdapter extends RecyclerView.Adapter<StocksAdapter.OrderViewH
             holder.tvStocksChangeRed.setVisibility(View.GONE);
         }
 
-        holder.tvStocksPrice.setText("$ " + item.getCurrentPrice());
+        holder.tvStocksPrice.setText(new PriceFormat(item.getCurrentPrice()).toString());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

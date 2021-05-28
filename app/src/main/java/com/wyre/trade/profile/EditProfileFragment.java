@@ -194,9 +194,11 @@ public class EditProfileFragment extends Fragment{
         } else {
             Pattern p = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
             Matcher m = p.matcher(editTextEmail.getText().toString());
-            validFlag = m.matches();
-            if(!validFlag)
+//            validFlag = m.matches();
+            if(!m.matches()) {
                 editTextEmail.setError("Invalid email format");
+                validFlag = false;
+            }
         }
         if (TextUtils.isEmpty(editTextAddress1.getText().toString())) {
             editTextAddress1.setError("!");

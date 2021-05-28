@@ -62,7 +62,8 @@ public class CoinWithdrawActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BottomSheetDialog dialog;
 
-    private String CoinId="1", CoinUsdc="0", Fee="0", Coin="BTC", GasFee = "0";
+    private String CoinId="1", Fee="0", Coin="BTC", GasFee = "0";
+    private Double coinBalance = 0.0;
 
     private List<CoinInfo> coinList = new ArrayList<>();
     private CoinInfo selectedCoin;
@@ -161,29 +162,30 @@ public class CoinWithdrawActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                confirmPhoneVerification();
                 String amount = editWithdrawAmount.getText().toString();
-                if(amount.isEmpty() || CoinId.equals("0") || editAddress.getText().toString().isEmpty()) {
-                    if(amount.isEmpty())
+                    if(amount.isEmpty() || amount.startsWith(".")) {
                         editWithdrawAmount.setError("!");
-                    if(editAddress.getText().toString().isEmpty())
+                        return;
+                    }
+                    if(editAddress.getText().toString().isEmpty()) {
                         editAddress.setError("!");
-                    if(CoinId.equals("0"))
+                        return;
+                    }
+                    if(CoinId.equals("0")) {
                         confirmAlert.alert("Please select coin.");
-//                        Toast.makeText(getBaseContext(), "Please select coin", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                        return;
+                    }
+
 
                 if(Double.parseDouble(amount) == 0) {
                     editWithdrawAmount.setError("!");
                     return;
                 }
 
-                if(Double.parseDouble(amount) > Double.parseDouble(CoinUsdc)) {
-//                    Toast.makeText(getBaseContext(), "Insufficient funds", Toast.LENGTH_SHORT).show();
+                if(Double.parseDouble(amount) > coinBalance) {
                     confirmAlert.alert("Insufficient funds.");
                     return;
                 }
                 if(Double.parseDouble(amount) < Double.parseDouble(Fee)) {
-//                    Toast.makeText(getBaseContext(), "You have to request amount than " + Fee + " at least.", Toast.LENGTH_SHORT).show();
                     confirmAlert.alert("You have to request amount than " + Fee + " at least.");
                     return;
                 }
@@ -207,9 +209,11 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                 mtvCoin.setText(coin.getCoinSymbol());
                 Picasso.with(getBaseContext()).load(coin.getCoinIcon()).into(imgIcon);
                 Coin = coin.getCoinSymbol();
-                mtvAvailCoinQty.setText(coin.getCoinBalance());
-                mTVCoinBalance.setText("$ "+coin.getCoinUsdc());
-                CoinUsdc = coin.getCoinBalance();
+                coinBalance = coin.getCoinBalance();
+                if(coinBalance > 0)
+                    mtvAvailCoinQty.setText(new DecimalFormat("#,###.####").format(coinBalance));
+                else mtvAvailCoinQty.setText("0.0000");
+//                mTVCoinBalance.setText("$ "+coin.getcoinBalance());
                 CoinId = coin.getCoinId();
                 Fee = coin.getWithdrawalFee();
                 mtvWithdrawalFee.setText(Fee);
@@ -259,11 +263,10 @@ public class CoinWithdrawActivity extends AppCompatActivity {
 //                            loadToast.success();
                             if(response.optBoolean("success")) {
                                 CoinInfo coin = new CoinInfo(response.optJSONObject("result"));
-                                mtvAvailCoinQty.setText(coin.getCoinBalance());
-//                                mtvCoinSymbol.setText(coin.getCoinSymbol() + " available");
-                                mTVCoinBalance.setText("$ "+coin.getCoinUsdc());
-                                CoinUsdc = coin.getCoinUsdc();
-//                                Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                                coinBalance = coin.getCoinBalance();
+                                if(coinBalance > 0)
+                                    mtvAvailCoinQty.setText(new DecimalFormat("#,###.####").format(coinBalance));
+                                else mtvAvailCoinQty.setText("0.0000");
                                 confirmAlert.success(response.optString("message"));
                             }
                             else {
@@ -322,7 +325,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                             loadToast.error();
                             // handle error
                             Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }
@@ -347,10 +350,12 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                             GasFee = response.optString("coin_withdraw_gas_fee");
 //                            mtvGasFee.setText(GasFee);
                             selectedCoin = new CoinInfo(response.optJSONObject("coin"));
-                            mtvAvailCoinQty.setText(selectedCoin.getCoinBalance());
+                            coinBalance = selectedCoin.getCoinBalance();
+                            if(coinBalance > 0)
+                                mtvAvailCoinQty.setText(new DecimalFormat("#,###.####").format(coinBalance));
+                            else mtvAvailCoinQty.setText("0.0000");
 
                             Coin = selectedCoin.getCoinSymbol();
-                            CoinUsdc = selectedCoin.getCoinBalance();
                             CoinId = selectedCoin.getCoinId();
                             Fee = selectedCoin.getWithdrawalFee();
                             mtvWithdrawalFee.setText(Fee);

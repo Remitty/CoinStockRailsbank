@@ -45,12 +45,11 @@ public class StocksInfo {
         }
     }
 
-    public String getCurrentPrice(){
+    public Double getCurrentPrice(){
         try {
-//            return data.getString("current_price");
-            return new DecimalFormat("#,###.##").format(data.getDouble("current_price"));
+            return data.getDouble("current_price");
         } catch (JSONException e) {
-            return "0.0";
+            return 0.0;
         }
     }
 

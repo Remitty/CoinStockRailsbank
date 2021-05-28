@@ -843,11 +843,11 @@ public class CoinExchangeFragment extends Fragment {
         //Log.d("calculate","Quantity: "+mEditQuantity.getText().toString()+" Price: "+mEditPrice.getText().toString());
         String fixval1, fixval2;
         fixval1 = mEditQuantity.getText().toString();
-        if (fixval1 == null || fixval1.isEmpty()) {
+        if (fixval1.equals(".") || fixval1.isEmpty()) {
             fixval1 = "0";
         }
         fixval2 = mEditPrice.getText().toString();
-        if (fixval2 == null || fixval2.isEmpty()) {
+        if (fixval2.equals(".") || fixval2.isEmpty()) {
             fixval2 = "0";
         }
         Float calc = Float.parseFloat(fixval1) * Float.parseFloat(fixval2);

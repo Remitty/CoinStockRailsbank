@@ -54,13 +54,17 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
 
     private List<NavigationPage> mNavigationPageList = new ArrayList<>();
     private BottomNavigationBar mBottomNav;
+    Toolbar toolbar;
+    TextView toolbarTitle;
     DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home) ;
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("");
+        toolbar = findViewById(R.id.toolbar);
+        toolbarTitle = toolbar.findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("Pay");
+//        toolbar.setTitle("Pay");
 //        toolbar.setTitle(getResources().getString(R.string.app_name));
 //        toolbar.setLogo(getDrawable(R.drawable.pepe));
         setSupportActionBar(toolbar);
@@ -222,18 +226,27 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         Fragment fragment = null;
         switch (menuType) {
             case BottomNavigationBar.MENU_BAR_1:
+//                toolbar.setTitle("Pay");
+                toolbarTitle.setText("Pay");
                 fragment = mNavigationPageList.get(0).getFragment();
                 break;
             case BottomNavigationBar.MENU_BAR_2:
+//                toolbar.setTitle("Coins");
+                toolbarTitle.setText("Coins");
                 fragment = mNavigationPageList.get(1).getFragment();
                 break;
             case BottomNavigationBar.MENU_BAR_3:
+//                toolbar.setTitle("Swap");
+                toolbarTitle.setText("Swap");
                 fragment = mNavigationPageList.get(2).getFragment();
                 break;
             case BottomNavigationBar.MENU_BAR_4:
+//                toolbar.setTitle("Cash");
                 fragment = mNavigationPageList.get(3).getFragment();
                 break;
             case BottomNavigationBar.MENU_BAR_5:
+//                toolbar.setTitle("Investing");
+                toolbarTitle.setText("Investing");
                 fragment = mNavigationPageList.get(4).getFragment();
                 break;
         }

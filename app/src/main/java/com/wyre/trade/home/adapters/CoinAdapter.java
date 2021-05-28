@@ -17,10 +17,12 @@ import com.wyre.trade.R;
 import com.wyre.trade.model.CoinInfo;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
+import static android.graphics.Color.parseColor;
 
 public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolder> {
     private List<CoinInfo> arrItems;
@@ -77,31 +79,22 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
             holder.tvCoinEffect.setTextColor(RED);
             Picasso.with(mContext).load(R.drawable.ic_down).into(holder.arrowIcon);
         }else {
-            holder.tvCoinEffect.setTextColor(GREEN);
+            holder.tvCoinEffect.setTextColor(mContext.getColor(R.color.green));
             Picasso.with(mContext).load(R.drawable.ic_up).into(holder.arrowIcon);
         }
 
-//        if(Double.parseDouble(item.getCoinBalance()) == 0) {
-////            holder.tvCoinBalance.setVisibility(View.GONE);
-//            holder.tvCoinBalance.setText("0.00"+ " " + item.getCoinSymbol());
-//        }
-//        else {
-            holder.tvCoinBalance.setText(item.getCoinBalance());
-            holder.tvCoinBalance.setVisibility(View.VISIBLE);
-//        }
+        Double balance = item.getCoinBalance();
+        if(balance > 0)
+            holder.tvCoinBalance.setText(new DecimalFormat("#,###.####").format(balance));
+        else holder.tvCoinBalance.setText("0.0000");
             holder.tvCoinEstAmount.setText("$ "+item.getCoinUsdc());
-//        if(!item.getCoinSymbol().equals("DAI"))
+
             Picasso.with(mContext)
                 .load(item.getCoinIcon())
                 .placeholder(R.drawable.coin_bitcoin)
                 .error(R.drawable.coin_bitcoin)
                 .into(holder.coinIcon);
 
-//        if(item.getCoinSymbol().equals("DAI")){
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                holder.coinIcon.setImageDrawable(mContext.getDrawable(R.drawable.dai));
-//            }
-//        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,27 +102,6 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
 //                listener.OnDeposit(position);
             }
         });
-        
-//        holder.btnDeposit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                listener.OnDeposit(position);
-//            }
-//        });
-//        holder.btnRamp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                listener.OnBuyNow(position);
-//            }
-//        });
-        String coins = "BTC ETH DAI XDAI USDC DOT";
-//        if(coins.contains(item.getCoinSymbol())) {
-//        if(item.getBuyNowOption() != 0 && item.getBuyNowOption() != 100) {
-//            holder.btnRamp.setVisibility(View.VISIBLE);
-//        }
-//        else {
-//            holder.btnRamp.setVisibility(View.GONE);
-//        }
 
     }
 

@@ -10,6 +10,8 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/colorBlack"
         android:textSize="20dp"/>
     <TextView
@@ -17,12 +19,14 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textSize="20dp"
         android:textColor="@color/colorBlack"/>
     <ImageButton
         android:id="@+id/btn_delete"
-        android:layout_width="10dp"
-        android:layout_height="20dp"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
         android:src="@drawable/ic_delete_forever"/>

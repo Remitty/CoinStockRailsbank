@@ -231,7 +231,7 @@ public class StocksOrderActivity extends AppCompatActivity {
                                 mStockSymbol.setText(response.optString("symbol"));
                                 StockBalance = response.optString("stock_balance");
                                 StocksInfo stock = new StocksInfo(response.optJSONObject("stock"));
-                                price = stock.getCurrentPrice();
+                                price = stock.getCurrentPrice() + "";
                                 String[] separatedPrice = price.split("\\.");
                                 mStockPriceInteger.setText(separatedPrice[0].trim());
                                 if(separatedPrice.length > 1)

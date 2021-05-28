@@ -52,7 +52,7 @@ public class SignUpActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.parseColor("#3AE57F"));
+            window.setStatusBarColor(getColor(R.color.green));
         }
 
         loadToast = new LoadToast(this);

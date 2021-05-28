@@ -215,8 +215,8 @@ public class SendUsdcActivity extends AppCompatActivity {
 
             userContactAdapter.notifyDataSetChanged();
 
-            usdcBalance = Double.parseDouble(response.getString("usdc_balance"));
-            tvBalance.setText(new DecimalFormat("###,###.##").format(usdcBalance));
+            usdcBalance = response.getDouble("usdc_balance");
+            tvBalance.setText(new DecimalFormat("###,###.####").format(usdcBalance));
         } catch (JSONException e) {
             e.printStackTrace();
         }catch (NullPointerException e) {

@@ -24,6 +24,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
+import com.wyre.trade.helper.PriceFormat;
 import com.wyre.trade.stock.deposit.StockDepositActivity;
 import com.wyre.trade.stock.StocksActivity;
 import com.wyre.trade.stock.stocktrade.StocksTradingActivity;
@@ -237,14 +238,14 @@ public class InvestedStockFragment extends Fragment {
                             stocksList.clear();
                             try {
                                 Log.d("invested stocks response", response.toString());
-                                mTotalBalance.setText("$ " + new DecimalFormat("#,###.####").format(response.getDouble("total_balance")));
-                                mStockBalance.setText("$ " + new DecimalFormat("#,###.####").format(response.getDouble("stock_balance")));
-                                mTextStockProfit.setText("$ " + response.getString("stock_profit"));
+                                mTotalBalance.setText(new PriceFormat(response.getDouble("total_balance")).toString());
+                                mStockBalance.setText(new PriceFormat(response.getDouble("stock_balance")).toString());
+                                mTextStockProfit.setText(new PriceFormat(response.getDouble("stock_profit")).toString());
                                 mTextStockMargin.setText("$ " + response.getString("margin_balance"));
                                 marketStatus.setText(response.getString("market_status"));
     
-                                if(Double.parseDouble(response.getString("stock_profit"))>0)
-                                    mTextStockProfit.setTextColor(GREEN);
+                                if(response.getDouble("stock_profit")>0)
+                                    mTextStockProfit.setTextColor(getContext().getColor(R.color.green));
                                 else {
                                     mTextStockProfit.setTextColor(RED);
                                     Picasso.with(getActivity()).load(R.drawable.ic_down).into(icArrow);

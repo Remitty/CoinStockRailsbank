@@ -67,7 +67,7 @@ public class CoinSwapFragment extends Fragment {
 
     private CoinInfo sendCoin, getCoin;
     private SwapRateModel rateModel;
-    private Double sellAmount = 0.1, getAmount = 0.0, fee = 0.0;
+    private Double sellAmount = 0.1, getAmount = 0.0, fee = 0.0, balance = 0.0;
     private String selectedType = "get";
 
     public CoinSwapFragment() {
@@ -151,7 +151,10 @@ public class CoinSwapFragment extends Fragment {
                 if(selectedType.equals("send")) {
                     sendCoin = coin;
                     mtvSendCoin.setText(coin.getCoinSymbol());
-                    mtvSendCoinBalance.setText(coin.getCoinBalance());
+                    balance = coin.getCoinBalance();
+                    if(balance > 0)
+                        mtvSendCoinBalance.setText(new DecimalFormat("#,###.####").format(balance));
+                    else mtvSendCoinBalance.setText("0.0000");
                     Picasso.with(getActivity()).load(sendCoin.getCoinIcon()).into(sendIcon);
                 }//sell coin
                 if(selectedType.equals("get")) {
@@ -172,14 +175,12 @@ public class CoinSwapFragment extends Fragment {
                     return;
                 }
 
-                if(sellAmount > Double.parseDouble(sendCoin.getCoinBalance())) {
-//                    Toast.makeText(getContext(), "Insufficient funds", Toast.LENGTH_SHORT).show();
+                if(sellAmount > sendCoin.getCoinBalance()) {
                     confirmAlert.alert("Insufficient funds");
                     return;
                 }
 
                 if(sellAmount < Double.parseDouble(rateModel.getSendMin()) || sellAmount > Double.parseDouble(rateModel.getSendMax())) {
-//                    Toast.makeText(getContext(), "The deposit amount is not within the range", Toast.LENGTH_SHORT).show();
                     confirmAlert.alert("The deposit amount is not within the range");
                     return;
                 }
@@ -389,7 +390,11 @@ public class CoinSwapFragment extends Fragment {
                             getCoin = new CoinInfo(response.optJSONObject("receiveCoin"));
                             sendCoin = new CoinInfo(response.optJSONObject("sendCoin"));
 
-                            mtvSendCoinBalance.setText(sendCoin.getCoinBalance());
+                            balance = sendCoin.getCoinBalance();
+                            if(balance > 0)
+                                mtvSendCoinBalance.setText(new DecimalFormat("#,###.####").format(balance));
+                            else mtvSendCoinBalance.setText("0.0000");
+
                             Picasso.with(getContext()).load(getCoin.getCoinIcon()).into(getIcon);
                             mtvGetCoin.setText(getCoin.getCoinSymbol());
 

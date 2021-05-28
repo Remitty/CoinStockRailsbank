@@ -50,6 +50,7 @@
                             android:inputType="text"
                             android:maxLines="1"
                             android:text="$ 0.0"
+                            android:textStyle="bold"
                             android:textColor="@color/colorBlack"
                             android:textSize="16dp" />
                     </LinearLayout>
@@ -83,6 +84,7 @@
                                 android:inputType="text"
                                 android:maxLines="1"
                                 android:text="$ 0.0"
+                                android:textStyle="bold"
                                 android:textColor="@color/green"
                                 android:textSize="16dp" />
                             <ImageView
@@ -126,6 +128,7 @@
                             android:inputType="text"
                             android:maxLines="1"
                             android:text="$ 0.0"
+                            android:textStyle="bold"
                             android:textColor="@color/green"
                             android:textSize="16dp" />
                     </LinearLayout>
@@ -154,6 +157,7 @@
                             android:inputType="text"
                             android:maxLines="1"
                             android:text="$ 0.0"
+                            android:textStyle="bold"
                             android:textColor="@color/colorBlack"
                             android:textSize="16dp" />
                     </LinearLayout>

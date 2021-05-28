@@ -16,7 +16,7 @@ public class CoinInfo implements Parcelable {
     private String symbol;
     private String id;
     private String icon;
-    private String balance;
+    private Double balance;
     private Double price;
     private String changeRate;
     private String type;
@@ -29,9 +29,7 @@ public class CoinInfo implements Parcelable {
         icon = data.optString("icon");
         if(!icon.startsWith("http"))
             icon = URLHelper.base + icon;
-        if(data.optDouble("balance") != 0)
-            balance = new DecimalFormat("#,###.####").format(data.optDouble("balance"));
-        else balance = "0.0000";
+        balance = data.optDouble("balance");
         price = data.optDouble("coin_rate");
         changeRate = new DecimalFormat("#.####").format(data.optDouble("change_rate"));
 //        changeRate = String.format("%.2f", data.optDouble("change_rate"));
@@ -59,7 +57,7 @@ public class CoinInfo implements Parcelable {
         return symbol;
     }
 
-    public String getCoinBalance() {
+    public Double getCoinBalance() {
         return balance;
     }
 
@@ -137,7 +135,7 @@ public class CoinInfo implements Parcelable {
         dest.writeString(symbol);
         dest.writeString(id);
         dest.writeString(icon);
-        dest.writeString(balance);
+        dest.writeDouble(balance);
         dest.writeDouble(price);
         dest.writeString(changeRate);
         dest.writeString(type);
@@ -162,7 +160,7 @@ public class CoinInfo implements Parcelable {
         symbol = in.readString();
         id = in.readString();
         icon = in.readString();
-        balance = in.readString();
+        balance = in.readDouble();
         price = in.readDouble();
         changeRate = in.readString();
         type = in.readString();

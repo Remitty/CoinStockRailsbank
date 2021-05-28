@@ -20,6 +20,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
 import com.wyre.trade.SharedPrefs;
+import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 
@@ -55,14 +56,14 @@ public class SignInActivity extends AppCompatActivity {
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
                 Window window=getWindow();
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(getResources().getColor(R.color.colorRedCrayon));
+                window.setStatusBarColor(getResources().getColor(R.color.green));
             }
         }
 
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.parseColor("#3AE57F"));
+            window.setStatusBarColor(getColor(R.color.green));
         }
 
         mUserNameEditText = findViewById(R.id.login_emailid);
@@ -155,25 +156,15 @@ public class SignInActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            return;
                         }
 
-                        try {
-                            Toast.makeText(getBaseContext(), response.getString("message"), Toast.LENGTH_LONG ).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
 
                     @Override
                     public void onError(ANError error) {
                         loadToast.error();
-                        Toast.makeText(getApplicationContext(), "wrong username or password", Toast.LENGTH_SHORT).show();
-                        // handle error
-                        Log.d("errorb", "" + error.getErrorBody());
-                        Log.d("errord", "" + error.getErrorDetail());
-                        Log.d("errorc", "" + error.getErrorCode());
-                        Log.d("errorm", "" + error.getMessage());
+                        ConfirmAlert confirmAlert = new ConfirmAlert(SignInActivity.this);
+                        confirmAlert.error(error.getErrorBody());
                     }
                 });
     }
