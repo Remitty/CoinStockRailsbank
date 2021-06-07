@@ -209,6 +209,15 @@ public class StocksTradingActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
                             loadToast.success();
+                            StocksInfo stock = new StocksInfo(response.optJSONObject("stock"));
+                            mStockProfit.setText("$ " + new DecimalFormat("#,###.##").format(Double.parseDouble(stock.getProfit())));
+                            if(Double.parseDouble(stock.getProfit()) < 0) {
+                                mStockProfit.setTextColor(getResources().getColor(R.color.colorRedCrayon));
+                                Picasso.with(getBaseContext()).load(R.drawable.ic_down).into(profitArrow);
+                            } else {
+                                mStockProfit.setTextColor(getResources().getColor(R.color.green));
+                                Picasso.with(getBaseContext()).load(R.drawable.ic_up).into(profitArrow);
+                            }
 
                             try {
                                 StocksInfo stocks = new StocksInfo(response.getJSONObject("stock"));

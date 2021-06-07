@@ -2,10 +2,11 @@ package com.wyre.trade.stock.stocktrade;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -24,16 +25,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StockChartFragment extends Fragment {
+public class StockChartFragment1 extends Fragment {
     private static JSONArray chartData;
     private AnyChartView mStocksChartView;
 
-    public StockChartFragment() {
+    public StockChartFragment1() {
         // Required empty public constructor
     }
 
-    public static StockChartFragment newInstance(JSONArray data) {
-        StockChartFragment fragment = new StockChartFragment();
+    public static StockChartFragment1 newInstance(JSONArray data) {
+        StockChartFragment1 fragment = new StockChartFragment1();
         chartData = data;
         return fragment;
     }
@@ -70,7 +71,7 @@ public class StockChartFragment extends Fragment {
                     JSONObject data = aggregate.getJSONObject(i);
                     String time = data.optString("date");
                     Double vw = data.optDouble("open");
-                    seriesData.add(new StockChartFragment.ChartDataEntry(time, vw));
+                    seriesData.add(new StockChartFragment1.ChartDataEntry(time, vw));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

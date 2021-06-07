@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.wyre.trade.stock.stocktrade.StockChartFragment;
+import com.wyre.trade.stock.stocktrade.StockChartFragment1;
 
 import org.json.JSONArray;
 
@@ -20,7 +21,11 @@ public class StockChartTabAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        StockChartFragment fragment = StockChartFragment.newInstance(chartData.get(i));
+        Fragment fragment;
+        if( i == 0) {
+            fragment = StockChartFragment1.newInstance(chartData.get(i));
+        } else
+            fragment = StockChartFragment.newInstance(chartData.get(i));
         return fragment;
     }
 
@@ -29,7 +34,17 @@ public class StockChartTabAdapter extends FragmentStatePagerAdapter {
         return items.length;
     }
 
+    @Override
+    public int getItemPosition(Object object) {
 
+        if (object instanceof StockChartFragment1) {
+            return POSITION_NONE;
+        }
+        if (object instanceof StockChartFragment) {
+            return POSITION_NONE;
+        }
+        return 1;
+    }
 
     @Override
     public CharSequence getPageTitle(int position) {

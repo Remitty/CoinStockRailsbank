@@ -10,6 +10,7 @@ import com.wyre.trade.coins.StakeAssetListActivity;
 import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.mtn.MTNActivity;
 import com.wyre.trade.predict.PredictActivity;
+import com.wyre.trade.predict.PredictFragment;
 import com.wyre.trade.profile.ProfileActivity;
 import com.wyre.trade.stock.NewsListActivity;
 import com.wyre.trade.token.TokenTradingActivity;
@@ -105,7 +106,8 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         NavigationPage page1 = new NavigationPage("Pay", ContextCompat.getDrawable(this, R.drawable.ic_home), TransferCoinFragment.newInstance());
         NavigationPage page2 = new NavigationPage("Coins", ContextCompat.getDrawable(this, R.drawable.ic_coin), CoinsFragment.newInstance());
         NavigationPage page3 = new NavigationPage("Swap", ContextCompat.getDrawable(this, R.drawable.ic_swap), CoinSwapFragment.newInstance());
-        NavigationPage page4 = new NavigationPage("Cash", ContextCompat.getDrawable(this, R.drawable.ic_cash), CashFragment.newInstance());
+        NavigationPage page4 = new NavigationPage("Predict", ContextCompat.getDrawable(this, R.drawable.ic_predict), PredictFragment.newInstance());
+//        NavigationPage page4 = new NavigationPage("Cash", ContextCompat.getDrawable(this, R.drawable.ic_cash), CashFragment.newInstance());
         NavigationPage page5 = new NavigationPage("Stocks", ContextCompat.getDrawable(this, R.drawable.ic_stock), InvestedStockFragment.newInstance());
 
         List<NavigationPage> navigationPages = new ArrayList<>();
@@ -242,6 +244,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                 break;
             case BottomNavigationBar.MENU_BAR_4:
 //                toolbar.setTitle("Cash");
+                toolbarTitle.setText("Predict");
                 fragment = mNavigationPageList.get(3).getFragment();
                 break;
             case BottomNavigationBar.MENU_BAR_5:

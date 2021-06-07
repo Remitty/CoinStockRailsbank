@@ -112,6 +112,9 @@ public class PredictActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Log.d("response", "" + response);
                         loadToast.success();
+                        all.clear();
+                        incoming.clear();
+                        my_post.clear();
                             try {
 
                                 JSONArray all_temp = response.getJSONArray("new_predict");
