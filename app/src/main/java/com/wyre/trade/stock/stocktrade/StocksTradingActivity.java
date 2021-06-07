@@ -70,11 +70,17 @@ public class StocksTradingActivity extends AppCompatActivity {
 
         mStockName.setText(mIntent.getStringExtra("stock_name"));
         mStockSymbol.setText(mIntent.getStringExtra("stock_symbol"));
-        String price = mIntent.getStringExtra("stock_price");
-        String[] separatedPrice = price.split("\\.");
-        mStockPriceInteger.setText(separatedPrice[0].trim());
-        if(separatedPrice.length> 1)
-            mStockPriceFloat.setText("."+separatedPrice[1].trim());
+        try {
+            String price = mIntent.getStringExtra("stock_price");
+            String[] separatedPrice = price.split("\\.");
+            mStockPriceInteger.setText(separatedPrice[0].trim());
+            if(separatedPrice.length> 1)
+                mStockPriceFloat.setText("."+separatedPrice[1].trim());
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        
         mStockShares.setText(mIntent.getStringExtra("stock_shares"));
 
         mStockAvgCost.setText("$ "+mIntent.getStringExtra("stock_avg_price"));

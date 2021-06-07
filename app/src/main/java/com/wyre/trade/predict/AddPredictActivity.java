@@ -186,28 +186,33 @@ public class AddPredictActivity extends AppCompatActivity implements View.OnClic
     }
 
     private boolean isValidate() {
-        boolean validate = true;
         String estPrice = meditEstPrice.getText().toString();
         if(TextUtils.isEmpty(estPrice) || estPrice.startsWith(".")){
-            validate = false;
             meditEstPrice.setError("!");
+            return false;
         }
 
         String betPrice = meditBetPrice.getText().toString();
         if(TextUtils.isEmpty(betPrice) || betPrice.startsWith(".")){
-            validate = false;
             meditBetPrice.setError("!");
+            return false;
         }
-        if(Double.parseDouble(betPrice) > usdcBalance) {
-            validate = false;
-            confirmAlert.error("Insufficient balance");
+        try {
+            if(Double.parseDouble(betPrice) > usdcBalance) {
+                confirmAlert.error("Insufficient balance");
+                return false;
+            }
+
+        }catch (NumberFormatException e) {
+            meditBetPrice.setError("!");
+            return false;
         }
+
         if((int)radioGroup.getCheckedRadioButtonId() <= 0) {
-            validate = false;
-//            Toast.makeText(this, "Please select type.", Toast.LENGTH_SHORT).show();
             confirmAlert.alert("Please select type.");
+            return false;
         }
-        return validate;
+        return true;
     }
 
     private void postPrediction() {

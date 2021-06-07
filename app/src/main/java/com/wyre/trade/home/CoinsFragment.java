@@ -266,9 +266,6 @@ public class CoinsFragment extends Fragment {
     private void getAllCoins(boolean update) {
         if(!update)
             loadToast.show();
-        JSONObject jsonObject = new JSONObject();
-
-        Log.d("access_token", SharedHelper.getKey(getContext(), "access_token"));
         if(getContext() != null)
             AndroidNetworking.get(URLHelper.GET_ALL_COINS)
                 .addHeaders("Content-Type", "application/json")
@@ -291,12 +288,24 @@ public class CoinsFragment extends Fragment {
                             xanpoolApikey = response.getString("xanpool_api_key");
                             icArrow.setVisibility(View.VISIBLE);
                             if(response.getString("total_effect").startsWith("-")) {
-                                Picasso.with(getContext()).load(R.drawable.ic_down).into(icArrow);
+                                try {
+                                    Picasso.with(getContext()).load(R.drawable.ic_down).into(icArrow);
+                                } catch (IllegalArgumentException e) {
+                                    e.printStackTrace();
+                                }
                                 mTotalEffect.setTextColor(RED);
                             }
                             else {
-                                Picasso.with(getContext()).load(R.drawable.ic_up).into(icArrow);
-                                mTotalEffect.setTextColor(getContext().getColor(R.color.green));
+                                try {
+                                    Picasso.with(getContext()).load(R.drawable.ic_up).into(icArrow);
+                                } catch (IllegalArgumentException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    mTotalEffect.setTextColor(getContext().getColor(R.color.green));
+                                } catch (NumberFormatException e) {
+                                    e.printStackTrace();
+                                }
                             }
 
                             JSONArray coins = response.getJSONArray("coins");

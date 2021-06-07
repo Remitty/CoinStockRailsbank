@@ -105,9 +105,9 @@ public class TransferCoinFragment extends Fragment {
         sendingLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(usdcBalance > 0)
+//                if(usdcBalance > 0)
                     startActivity(new Intent(getActivity(), SendUsdcActivity.class));
-                else Toast.makeText(getContext(), "No balance", Toast.LENGTH_SHORT).show();
+//                else Toast.makeText(getContext(), "No balance", Toast.LENGTH_SHORT).show();
             }
         });
 

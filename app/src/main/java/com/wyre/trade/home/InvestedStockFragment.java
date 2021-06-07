@@ -248,7 +248,11 @@ public class InvestedStockFragment extends Fragment {
                                     mTextStockProfit.setTextColor(getContext().getColor(R.color.green));
                                 else {
                                     mTextStockProfit.setTextColor(RED);
-                                    Picasso.with(getActivity()).load(R.drawable.ic_down).into(icArrow);
+                                    try {
+                                        Picasso.with(getActivity()).load(R.drawable.ic_down).into(icArrow);
+                                    } catch (IllegalArgumentException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
     
                                 if(response.getInt("stock_auto_sell") == 1){
@@ -337,7 +341,7 @@ public class InvestedStockFragment extends Fragment {
         Intent intent = new Intent(getActivity(), StocksTradingActivity.class);
         intent.putExtra("stock_symbol", stock.getSymbol());
         intent.putExtra("stock_name", stock.getName());
-        intent.putExtra("stock_price", stock.getCurrentPrice());
+        intent.putExtra("stock_price", stock.getCurrentPrice()+"");
         intent.putExtra("stock_shares", stock.getQty());
         intent.putExtra("stock_avg_price", stock.getAvgPrice());
         intent.putExtra("stock_equity", stock.getHolding());

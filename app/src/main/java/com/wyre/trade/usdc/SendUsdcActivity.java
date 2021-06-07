@@ -133,12 +133,18 @@ public class SendUsdcActivity extends AppCompatActivity {
                     tvTo.setError("!");
                     return;
                 }
-                if(Double.parseDouble(amount) == 0) {
+                try {
+                    if(Double.parseDouble(amount) == 0) {
+                        editAmount.setError("!");
+                        return;
+                    }
+                    if(usdcBalance < Double.parseDouble(amount)){
+                        confirmAlert.alert("Insufficient balance");
+                        return;
+                    }
+
+                } catch (NumberFormatException e) {
                     editAmount.setError("!");
-                    return;
-                }
-                if(usdcBalance < Double.parseDouble(amount)){
-                    confirmAlert.alert("Insufficient balance");
                     return;
                 }
                     dialog.dismiss();

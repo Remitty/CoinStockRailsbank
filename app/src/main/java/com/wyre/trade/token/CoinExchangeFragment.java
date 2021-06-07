@@ -362,13 +362,18 @@ public class CoinExchangeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 changedPrice = true;
-                String str = charSequence.toString();
-                if (str.isEmpty() || str.equals(".")) {
-                    mBTCXMT_rate = 0.0;
-                } else
-                    mBTCXMT_rate = mBTCUSD_rate * Double.parseDouble(str);
-                mTextPriceUSD.setText("$" + new DecimalFormat("#,###.##").format(mBTCXMT_rate));
-                calculate();
+                try {
+                    String str = charSequence.toString();
+                    if (str.isEmpty() || str.startsWith(".")) {
+                        mBTCXMT_rate = 0.0;
+                    } else
+                        mBTCXMT_rate = mBTCUSD_rate * Double.parseDouble(str);
+                    mTextPriceUSD.setText("$" + new DecimalFormat("#,###.##").format(mBTCXMT_rate));
+                    calculate();
+
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -791,30 +796,35 @@ public class CoinExchangeFragment extends Fragment {
 
 
     private boolean validate() {
-        boolean validation = true;
         String price = mEditPrice.getText().toString();
         if(price.isEmpty() || price.startsWith(".")) {
             mEditPrice.setError("!");
-            validation = false;
             return false;
         }
-        if(Double.parseDouble(price) == 0) {
-            mEditQuantity.setError("!");
-            validation = false;
-            return false;
+        try {
+            if(Double.parseDouble(price) == 0) {
+                mEditQuantity.setError("!");
+                return false;
+            }
+
+        } catch (NumberFormatException e) {
+            return  false;
         }
         String amount = mEditQuantity.getText().toString();
         if(amount.isEmpty() || amount.startsWith(".")) {
             mEditQuantity.setError("!");
-            validation = false;
             return false;
         }
-        if(Double.parseDouble(amount) == 0) {
-            mEditQuantity.setError("!");
-            validation = false;
+        try {
+            if(Double.parseDouble(amount) == 0) {
+                mEditQuantity.setError("!");
+                return false;
+            }
+
+        }catch (NumberFormatException e) {
             return false;
         }
-        return validation;
+        return true;
     }
 
     private Double getPrice() throws JSONException {
@@ -840,18 +850,17 @@ public class CoinExchangeFragment extends Fragment {
     }
 
     private void calculate() {
-        //Log.d("calculate","Quantity: "+mEditQuantity.getText().toString()+" Price: "+mEditPrice.getText().toString());
         String fixval1, fixval2;
+        Double val1 = 0.0,  val2 = 0.0;
         fixval1 = mEditQuantity.getText().toString();
-        if (fixval1.equals(".") || fixval1.isEmpty()) {
-            fixval1 = "0";
+        if (!fixval1.startsWith(".") && !fixval1.isEmpty()) {
+            val1 = Double.parseDouble(fixval1);
         }
         fixval2 = mEditPrice.getText().toString();
-        if (fixval2.equals(".") || fixval2.isEmpty()) {
-            fixval2 = "0";
+        if (!fixval2.startsWith(".") && !fixval2.isEmpty()) {
+            val2 = Double.parseDouble(fixval2);
         }
-        Float calc = Float.parseFloat(fixval1) * Float.parseFloat(fixval2);
-        mTextOutputTrade.setText(new DecimalFormat("#.####").format(calc) + marketCoinSymbol);
+        mTextOutputTrade.setText(new DecimalFormat("#.####").format(val1 * val2) + marketCoinSymbol);
 
     }
 

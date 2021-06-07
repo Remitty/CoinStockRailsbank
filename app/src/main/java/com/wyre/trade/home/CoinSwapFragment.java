@@ -229,10 +229,17 @@ public class CoinSwapFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String price=charSequence.toString();
-                if(price.equals(".") || price.isEmpty()) {
+                if(price.startsWith(".") || price.isEmpty()) {
                     sellAmount = 0.0;
                 }
-                else sellAmount = new Double(price);
+                else {
+                    try {
+
+                        sellAmount = Double.parseDouble(price);
+                    } catch (NumberFormatException e) {
+                        sellAmount = 0.0;
+                    }
+                }
                 displayFee();
                 displayEstCost();
             }
@@ -276,6 +283,8 @@ public class CoinSwapFragment extends Fragment {
                                 displayExchangeRate();
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                            } catch (NullPointerException e) {
+                                confirmAlert.error("Please try again");
                             }
                         }
 
