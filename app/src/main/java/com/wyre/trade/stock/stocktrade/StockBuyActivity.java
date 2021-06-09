@@ -50,7 +50,7 @@ public class StockBuyActivity extends AppCompatActivity {
     AppCompatRadioButton mRdbMkt, mRdbLimit;
     BottomSheetDialog dialog;
     Button mBtnBuy;
-    TextView mTextCompanySummary, mTextCompanyWeb, mTextCompanyIndustry;
+    TextView mTextCompanySummary, mTextCompanyWeb, mTextCompanyIndustry, mTextCompanyCEO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +87,7 @@ public class StockBuyActivity extends AppCompatActivity {
         mTextCompanyIndustry.setText(getIntent().getStringExtra("company_industry"));
         mTextCompanySummary.setText(getIntent().getStringExtra("company_summary"));
         mTextCompanyWeb.setText(getIntent().getStringExtra("company_web"));
+        mTextCompanyCEO.setText(getIntent().getStringExtra("company_ceo"));
 
         initListeners();
     }
@@ -217,6 +218,7 @@ public class StockBuyActivity extends AppCompatActivity {
         mTextCompanyIndustry = findViewById(R.id.company_industry);
         mTextCompanySummary = findViewById(R.id.company_summary);
         mTextCompanyWeb = findViewById(R.id.company_web);
+        mTextCompanyCEO = findViewById(R.id.company_ceo);
 
         llMktPrice = findViewById(R.id.ll_mkt_price);
         llLimitPrice = findViewById(R.id.ll_limit_price);

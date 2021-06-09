@@ -184,9 +184,10 @@ public class ProfileCompleteActivity extends AppCompatActivity {
 //                Pattern p = Pattern.compile( "^(?!666|000|9\\d{2})\\d{3}" + "-(?!00)\\d{2}-" + "(?!0{4})\\d{4}$" );
                 Pattern p1 = Pattern.compile( "(?!0{4})\\d{4}$" );
                 Matcher m = p1.matcher(editTextSSN.getText().toString());
-                validFlag = m.matches();
-                if(!validFlag)
+                if(!m.matches()) {
                     editTextSSN.setError("Invalid format");
+                    validFlag = false;
+                }
             }
         }
 

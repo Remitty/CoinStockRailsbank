@@ -116,5 +116,13 @@ public class StocksInfo {
         }
     }
 
+    public String getMarketCap() {
+        try {
+            return data.getString("marketCap");
+        } catch (JSONException e) {
+            return "0.0";
+        }
+    }
+
 }
 

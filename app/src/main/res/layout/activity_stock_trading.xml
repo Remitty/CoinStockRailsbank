@@ -402,8 +402,29 @@
                     </LinearLayout>
                     <LinearLayout
                         android:layout_weight="1"
+                        android:layout_marginLeft="20dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:layout_gravity="right"
+                            android:textSize="12dp"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:text="market Cap"/>
+                        <TextView
+                            android:id="@+id/stock_cap"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rounded_corner_white_rectangle"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="16dp"
+                            android:text="0"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -429,6 +450,14 @@
                     android:text=""
                     android:textColor="@color/colorBlack"
                     />
+                <TextView
+                    android:id="@+id/company_ceo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    android:text=""/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -445,6 +474,7 @@
                         android:id="@+id/company_industry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
                         android:textColor="@color/colorBlack"
                         android:text=""/>
                 </LinearLayout>

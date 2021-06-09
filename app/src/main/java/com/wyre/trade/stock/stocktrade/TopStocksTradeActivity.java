@@ -39,14 +39,14 @@ import static android.graphics.Color.RED;
 public class TopStocksTradeActivity extends AppCompatActivity {
     private LoadToast loadToast;
     private KProgressHUD loadProgress;
-    private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc, mYearHigh, mYearLow, mDailyVolume;
-    private String companysummary="", companyindustry="", companyweb="";
+    private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc, mYearHigh, mYearLow, mDailyVolume, mMarketCap;
+    private String companysummary="", companyindustry="", companyweb="", companyceo="";
     private MaterialButton mBtnBuy;
     private Intent mIntent;
     private LinearLayout mStocksContent;
     private Double StockBalance=0.0;
     private double StockPrice = 0.0;
-    TextView mTextCompanySummary, mTextCompanyWeb, mTextCompanyIndustry;
+    TextView mTextCompanySummary, mTextCompanyWeb, mTextCompanyIndustry, mTextCompanyCEO;
 
     private JSONArray mAggregateDay = new JSONArray(), mAggregateWeek = new JSONArray(), mAggregateMonth = new JSONArray(), mAggregate6Month = new JSONArray(), mAggregateYear = new JSONArray(), mAggregateAll = new JSONArray();
     private ViewPager mStockChartViewPager;
@@ -113,6 +113,7 @@ public class TopStocksTradeActivity extends AppCompatActivity {
         mYearHigh= findViewById(R.id.stock_year_high);
         mYearLow= findViewById(R.id.stock_year_low);
         mDailyVolume= findViewById(R.id.stock_daily_volume);
+        mMarketCap= findViewById(R.id.stock_cap);
 
         mBtnBuy = findViewById(R.id.btn_stock_buy);
 
@@ -124,6 +125,7 @@ public class TopStocksTradeActivity extends AppCompatActivity {
         mTextCompanyIndustry = findViewById(R.id.company_industry);
         mTextCompanySummary = findViewById(R.id.company_summary);
         mTextCompanyWeb = findViewById(R.id.company_web);
+        mTextCompanyCEO = findViewById(R.id.company_ceo);
 
     }
 
@@ -168,6 +170,7 @@ public class TopStocksTradeActivity extends AppCompatActivity {
                                 mYearHigh.setText("$"+ stocks.getYearHigh());
                                 mYearLow.setText("$"+ stocks.getYearLow());
                                 mDailyVolume.setText(stocks.getDailyVolume());
+                                mMarketCap.setText(stocks.getMarketCap());
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -226,11 +229,13 @@ public class TopStocksTradeActivity extends AppCompatActivity {
                                 if(company != null) {
                                     companysummary = company.optString("description");
                                     companyindustry = company.optString("industry");
-                                    companyweb = company.optString("url");
+                                    companyweb = company.optString("website");
+                                    companyceo = company.optString("ceo") + " (CEO)";
 
                                     mTextCompanyIndustry.setText(companyindustry);
                                     mTextCompanySummary.setText(companysummary);
                                     mTextCompanyWeb.setText(companyweb);
+                                    mTextCompanyCEO.setText(companyceo);
                                 }
 
                             } catch (JSONException e) {

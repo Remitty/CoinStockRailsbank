@@ -38,14 +38,14 @@ import static android.graphics.Color.RED;
 public class StocksTradingActivity extends AppCompatActivity {
     private LoadToast loadToast;
     private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc;
-    private TextView mStockShares, mStockQuantity, mStockAvgCost, mStockProfit, mYearHigh, mYearLow, mDailyVolume;
+    private TextView mStockShares, mStockQuantity, mStockAvgCost, mStockProfit, mYearHigh, mYearLow, mDailyVolume, mMarketCap;
     ImageView profitArrow;
-    private String companysummary, companyindustry, companyweb;
+    private String companysummary, companyindustry, companyweb, companyceo;
     private MaterialButton mBtnBuy, mBtnSell;
     private Intent mIntent;
     private LinearLayout mStocksContent;
     private Double StockBalance = 0.0;
-    TextView mTextCompanySummary, mTextCompanyWeb, mTextCompanyIndustry;
+    TextView mTextCompanySummary, mTextCompanyWeb, mTextCompanyIndustry, mTextCompanyCEO;
 
     private JSONArray mAggregateDay = new JSONArray(), mAggregateWeek = new JSONArray(), mAggregateMonth = new JSONArray(), mAggregate6Month = new JSONArray(), mAggregateYear = new JSONArray(), mAggregateAll = new JSONArray();
     private ViewPager mStockChartViewPager;
@@ -150,6 +150,7 @@ public class StocksTradingActivity extends AppCompatActivity {
         mYearHigh= findViewById(R.id.stock_year_high);
         mYearLow= findViewById(R.id.stock_year_low);
         mDailyVolume= findViewById(R.id.stock_daily_volume);
+        mMarketCap= findViewById(R.id.stock_cap);
 
         mBtnBuy = findViewById(R.id.btn_stock_buy);
         mBtnSell = findViewById(R.id.btn_stock_sell);
@@ -162,6 +163,7 @@ public class StocksTradingActivity extends AppCompatActivity {
         mTextCompanyIndustry = findViewById(R.id.company_industry);
         mTextCompanySummary = findViewById(R.id.company_summary);
         mTextCompanyWeb = findViewById(R.id.company_web);
+        mTextCompanyCEO = findViewById(R.id.company_ceo);
 
     }
 
@@ -185,6 +187,7 @@ public class StocksTradingActivity extends AppCompatActivity {
         intent.putExtra("company_summary", companysummary);
         intent.putExtra("company_industry", companyindustry);
         intent.putExtra("company_web", companyweb);
+        intent.putExtra("company_ceo", companyceo);
         startActivity(intent);
     }
 
@@ -211,6 +214,7 @@ public class StocksTradingActivity extends AppCompatActivity {
                             loadToast.success();
                             StocksInfo stock = new StocksInfo(response.optJSONObject("stock"));
                             mStockProfit.setText("$ " + new DecimalFormat("#,###.##").format(Double.parseDouble(stock.getProfit())));
+                            mMarketCap.setText(stock.getMarketCap());
                             if(Double.parseDouble(stock.getProfit()) < 0) {
                                 mStockProfit.setTextColor(getResources().getColor(R.color.colorRedCrayon));
                                 Picasso.with(getBaseContext()).load(R.drawable.ic_down).into(profitArrow);
@@ -282,11 +286,13 @@ public class StocksTradingActivity extends AppCompatActivity {
                                 if(company != null) {
                                     companysummary = company.optString("description");
                                     companyindustry = company.optString("industry");
-                                    companyweb = company.optString("url");
+                                    companyweb = company.optString("website");
+                                    companyceo = company.optString("ceo") + " (CEO)";
 
                                     mTextCompanyIndustry.setText(companyindustry);
                                     mTextCompanySummary.setText(companysummary);
                                     mTextCompanyWeb.setText(companyweb);
+                                    mTextCompanyCEO.setText(companyceo);
                                 }
 
                             } catch (JSONException e) {
