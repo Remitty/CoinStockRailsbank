@@ -245,6 +245,10 @@ public class TransferCoinFragment extends Fragment {
                             // handle error
                             loadProgress.dismiss();
                             Log.d("errorm", "" + error.getErrorBody());
+                            if(error.getErrorBody().equals("null")) {
+                                Toast.makeText(getContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             if(error.getErrorBody().contains("Unauthenticated")) {
                                 SharedPrefs sharedPrefs = new SharedPrefs(getActivity());
                                 sharedPrefs.clearLogin();

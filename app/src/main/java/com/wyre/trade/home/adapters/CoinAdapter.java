@@ -72,7 +72,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
 
         holder.tvCoinName.setText(item.getCoinName());
         holder.tvCoinSymbol.setText(item.getCoinSymbol());
-        holder.tvCoinRate.setText("$ " + String.format("%.2f", item.getCoinRate()));
+        holder.tvCoinRate.setText("$ " + new DecimalFormat("#,###.####").format(item.getCoinRate()));
         holder.tvCoinEffect.setText(item.getCoinEffect() + "%");
 
         if(item.getCoinEffect().startsWith("-")){
@@ -99,7 +99,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                listener.OnDeposit(position);
+                listener.onClick(position);
             }
         });
 
@@ -122,7 +122,6 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.OrderViewHolde
         /**
          * @param position
          */
-        void OnDeposit(int position);
-        void OnBuyNow(int position);
+        void onClick(int position);
     }
 }

@@ -16,24 +16,61 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".stock.stocktrade.TopStocksTradeActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".payment.CardActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".payment.AddPaypalActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".stock.deposit.Paypal2StockFragment" android:screenOrientation="portrait"/>
-        <activity android:name=".payment.AddCardActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".usdc.PaymentUserListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".coins.StakeHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".stock.stockwithdraw.StockWithdrawHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".usdc.SendUsdcHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".stock.deposit.Coin2StockHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".stock.deposit.Bank2StockHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".coins.CoinWithdrawHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".coins.CoinSwapHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".token.TokenOrderBookActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".coins.CoinTradeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".coins.StakeAssetListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".token.TokenTradeHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".zabo.ZaboAccountActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".coins.CoinDetailActivity"></activity>
+        <activity
+            android:name=".stock.stocktrade.TopStocksTradeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".payment.CardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".payment.AddPaypalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".stock.deposit.Paypal2StockFragment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".payment.AddCardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".usdc.PaymentUserListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".coins.StakeHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".stock.stockwithdraw.StockWithdrawHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".usdc.SendUsdcHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".stock.deposit.Coin2StockHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".stock.deposit.Bank2StockHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".coins.CoinWithdrawHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".coins.CoinSwapHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".token.TokenOrderBookActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".coins.CoinTradeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".coins.StakeAssetListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".token.TokenTradeHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".zabo.ZaboAccountActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".zabo.ZaboActivity">
             <intent-filter android:label="Zaho connect account">
                 <action android:name="android.intent.action.VIEW" />
@@ -46,7 +83,9 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".usdc.PaymentUserActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".usdc.PaymentUserActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".main.SplashActivity"
             android:screenOrientation="portrait"
@@ -59,8 +98,8 @@
         </activity>
         <activity
             android:name=".main.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".main.SignInActivity"
             android:parentActivityName=".main.MainActivity"
@@ -68,26 +107,44 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".main.SignUpActivity"
-            android:screenOrientation="portrait"
             android:parentActivityName=".main.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".home.HomeActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".stock.stocktrade.StocksTradingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".stock.stocktrade.StockBuyActivity" android:screenOrientation="portrait" />
-        <activity android:name=".stock.stocktrade.StockSellActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".stock.stocktrade.StocksOrderActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".stock.stocktrade.StocksTradingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".stock.stocktrade.StockBuyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".stock.stocktrade.StockSellActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".stock.stocktrade.StocksOrderActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".stock.NewsListActivity" />
         <activity android:name=".stock.NewsActivity" />
-        <activity android:name=".stock.stockwithdraw.StockCoinWithdrawActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".stock.stocktrade.StockReplaceActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".stock.deposit.StockDepositActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".coins.CoinWithdrawActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".stock.stockwithdraw.StockCoinWithdrawActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".stock.stocktrade.StockReplaceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".stock.deposit.StockDepositActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".coins.CoinWithdrawActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".stock.StockNewsActivity" />
-        <activity android:name=".coins.CoinDepositHistoryActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".coins.CoinDepositHistoryActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="network.ramp.instantsdk.ui.bank.BankActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
@@ -113,30 +170,74 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".home.WebViewActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity android:name=".usdc.SendUsdcActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".mtn.MtnTransactionActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".mtn.MTNActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".token.TokenTradingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".coins.StakeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".predict.AddPredictActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".predict.PredictableListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".predict.PredictActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".profile.ProfileCompleteActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".cash.InfoActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".cash.AddFriendActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".stock.StocksActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".cash.AddBankActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".profile.ProfileActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".cash.CollectCashActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".cash.SendCashActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".cash.SendTargetActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".main.SupportActivity" android:screenOrientation="portrait" />
-        <activity android:name=".main.ChangePasswordActivity" android:screenOrientation="portrait" />
-        <activity android:name=".main.ResetPasswordActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".main.ForgotPasswordActivity" android:screenOrientation="portrait" />
-        <activity android:name=".stock.stockorder.StockOrderHistoryActivity" android:screenOrientation="portrait"/>
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".usdc.SendUsdcActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mtn.MtnTransactionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mtn.MTNActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".token.TokenTradingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".coins.StakeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".predict.AddPredictActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".predict.PredictableListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".predict.PredictActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".profile.ProfileCompleteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".cash.InfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".cash.AddFriendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".stock.StocksActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".cash.AddBankActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".profile.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".cash.CollectCashActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".cash.SendCashActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".cash.SendTargetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.SupportActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.ResetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".stock.stockorder.StockOrderHistoryActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".chat.SocialGroupActivity" />
     </application>
 

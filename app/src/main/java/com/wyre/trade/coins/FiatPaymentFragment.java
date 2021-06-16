@@ -126,7 +126,7 @@ public class FiatPaymentFragment extends Fragment {
                 assetList.clear();
                 type = 2;
                 for (CoinInfo coin: coinList) {
-                    if(coin.getBuyNowOption() >= 2 && coin.getBuyNowOption() < 100)
+                    if(coin.getBuyNowOption() > 2 && coin.getBuyNowOption() < 100)
                         assetList.add(coin);
                 }
                 mBottomAdapter.notifyDataSetChanged();

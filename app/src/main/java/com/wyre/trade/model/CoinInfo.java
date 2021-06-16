@@ -62,12 +62,7 @@ public class CoinInfo implements Parcelable {
     }
 
     public Double getCoinRate() {
-        try {
-            return data.getDouble("coin_rate");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return 0.0;
-        }
+        return price;
     }
 
     public String getCoinUsdc() {

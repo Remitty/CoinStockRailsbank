@@ -62,7 +62,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BottomSheetDialog dialog;
 
-    private String CoinId="1", Fee="0", Coin="BTC", GasFee = "0";
+    private String CoinId="-1", Fee="0", Coin="BTC", GasFee = "0";
     private Double coinBalance = 0.0;
 
     private List<CoinInfo> coinList = new ArrayList<>();
@@ -170,7 +170,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                         editAddress.setError("!");
                         return;
                     }
-                    if(CoinId.equals("0")) {
+                    if(CoinId.equals("-1")) {
                         confirmAlert.alert("Please select coin.");
                         return;
                     }
@@ -195,7 +195,8 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                confirmPhoneVerification();
+//                                confirmPhoneVerification();
+                                submitWithdraw();
                             }
                         }).show();
 
@@ -261,16 +262,28 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             Log.d("coin assets response", "" + response);
 //                            loadToast.success();
-                            if(response.optBoolean("success")) {
-                                CoinInfo coin = new CoinInfo(response.optJSONObject("result"));
-                                coinBalance = coin.getCoinBalance();
-                                if(coinBalance > 0)
-                                    mtvAvailCoinQty.setText(new DecimalFormat("#,###.####").format(coinBalance));
-                                else mtvAvailCoinQty.setText("0.0000");
-                                confirmAlert.success(response.optString("message"));
-                            }
-                            else {
-                                confirmAlert.error(response.optString("message"));
+                            try {
+
+                                if(response.optBoolean("success")) {
+//                                    CoinInfo coin = new CoinInfo(response.optJSONObject("result"));
+//                                    coinBalance = coin.getCoinBalance();
+                                    coinBalance = response.optDouble("result");
+                                    if(coinBalance > 0)
+                                        mtvAvailCoinQty.setText(new DecimalFormat("#,###.####").format(coinBalance));
+                                    else mtvAvailCoinQty.setText("0.0000");
+                                    confirmAlert.success(response.optString("message"));
+                                }
+                                else {
+                                    confirmAlert.error(response.optString("message"));
+                                }
+                            } catch (NullPointerException e){
+                                e.printStackTrace();
+                                confirmAlert.dismissWithAnimation();
+                                Toast.makeText(getBaseContext(), "Please try again.", Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                Toast.makeText(getBaseContext(), "Please try again.", Toast.LENGTH_SHORT).show();
+                                confirmAlert.dismissWithAnimation();
                             }
                         }
 

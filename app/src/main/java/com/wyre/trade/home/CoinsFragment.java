@@ -24,6 +24,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.wyre.trade.R;
 import com.wyre.trade.SharedPrefs;
 import com.wyre.trade.adapters.BottomCoinAdapter;
+import com.wyre.trade.coins.CoinDetailActivity;
 import com.wyre.trade.coins.CoinTradeActivity;
 import com.wyre.trade.coins.CoinWithdrawActivity;
 import com.wyre.trade.helper.ConfirmAlert;
@@ -167,6 +168,24 @@ public class CoinsFragment extends Fragment {
 
     private void initCoinsRecyclerView() {
         mAdapter = new CoinAdapter(coinList, getActivity(), true);
+        mAdapter.setListener(new CoinAdapter.Listener() {
+
+            @Override
+            public void onClick(int position) {
+                CoinInfo coin = coinList.get(position);
+//                if(Double.parseDouble(coin.getCoinId()) == 0) {
+//                    Toast.makeText(getContext(), "No data for " + coin.getCoinSymbol(), Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+                Intent intent = new Intent(getActivity(), CoinDetailActivity.class);
+                intent.putExtra("onrampercoins", onRamperCoins);
+                intent.putParcelableArrayListExtra("coins", coinList);
+                intent.putExtra("onramperApiKey", mOnramperApikey);
+                intent.putExtra("xanpoolApiKey", xanpoolApikey);
+                intent.putExtra("coin", coin);
+                startActivity(intent);
+            }
+        });
         coinListView.setLayoutManager(new LinearLayoutManager(getContext()));
         coinListView.setAdapter(mAdapter);
     }
@@ -305,7 +324,10 @@ public class CoinsFragment extends Fragment {
                                     mTotalEffect.setTextColor(getContext().getColor(R.color.green));
                                 } catch (NumberFormatException e) {
                                     e.printStackTrace();
+                                } catch (NullPointerException e) {
+                                    e.printStackTrace();
                                 }
+
                             }
 
                             JSONArray coins = response.getJSONArray("coins");

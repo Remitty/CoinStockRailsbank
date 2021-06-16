@@ -22,6 +22,7 @@ public class CoinTradeActivity extends AppCompatActivity {
     LoadToast loadToast;
 
     String onRamperCoins, mOnramperApikey, xanpoolApikey;
+    Integer pageLocation = 0;
 
     private ArrayList<CoinInfo> coinList = new ArrayList<CoinInfo>();
 
@@ -43,6 +44,7 @@ public class CoinTradeActivity extends AppCompatActivity {
             onRamperCoins = getIntent().getStringExtra("onrampercoins");
             mOnramperApikey = getIntent().getStringExtra("onramperApiKey");
             xanpoolApikey = getIntent().getStringExtra("xanpoolApiKey");
+            pageLocation = getIntent().getIntExtra("page_location", 0);
 
         }
 
@@ -56,6 +58,7 @@ public class CoinTradeActivity extends AppCompatActivity {
         mAdapter.add(FiatPaymentFragment.newInstance(coinList, mOnramperApikey, onRamperCoins, xanpoolApikey));
 
         pager.setAdapter(mAdapter);
+        pager.setCurrentItem(pageLocation);
         tab.setupWithViewPager(pager);
 
     }

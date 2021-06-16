@@ -20,6 +20,8 @@ public class URLHelper {
     public static final String UseProfileUpdate = REDIRECT_URL+"profile/update";
     public static final String GET_USER_BALANCES = REDIRECT_URL + "balances";
 
+    public static final String GET_ALL_COINS = REDIRECT_URL + "coins";
+    public static final String GET_COIN = REDIRECT_URL + "coin";
     public static final String COIN_DEPOSIT = REDIRECT_URL + "coin/deposit";
     public static final String COIN_TRADE = REDIRECT_URL + "coin/trade";
     public static final String COIN_TRADE_LIST = REDIRECT_URL + "coin/tradablelist";
@@ -27,7 +29,6 @@ public class URLHelper {
     public static final String COIN_TRADE_HISTORY_DATA = REDIRECT_URL + "coin/trade/history";
     public static final String COIN_TRADE_ORDERS = REDIRECT_URL + "coin/trade/orders";
     public static final String COIN_TRADE_CANCEL = REDIRECT_URL + "coin/trade/cancel";
-    public static final String GET_ALL_COINS = REDIRECT_URL + "coins";
     public static final String COIN_EXCHANGE = REDIRECT_URL + "coin/exchange";
     public static final String GET_COIN_EXCHANGE_LIST = REDIRECT_URL + "coin/exchange/list";
     public static final String GET_COIN_EXCHANGE_RATE = REDIRECT_URL + "coin/exchange/rate";
