@@ -19,28 +19,58 @@
                 android:layout_height="445dp"
                 android:orientation="vertical"
                 android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/stock_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/colorBlue"
-                    android:textStyle="bold"
-                    android:textSize="20dp" />
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/stock_name"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            android:textSize="20dp" />
 
-                <TextView
-                    android:id="@+id/stock_symbol"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/colorBlue"
-                    android:textSize="17dp"
-                    android:textStyle="bold" />
-
-
+                        <TextView
+                            android:id="@+id/stock_symbol"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/gray_text"
+                            android:textSize="17dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/coin_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            android:text="0"
+                            android:textSize="20dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:textColor="@color/gray_text"
+                            android:text="Balance"
+                            android:textSize="12dp" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -130,7 +160,7 @@
                         android:id="@+id/stock_chart_tab_bar"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-
+                        android:layout_marginHorizontal="10dp"
                         app:tabIndicatorColor="@color/transparent"
                         app:tabRippleColor="@color/green"
                         app:tabSelectedTextColor="@color/colorRedCrayon"

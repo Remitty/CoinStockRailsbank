@@ -203,15 +203,7 @@
                                 android:text="0.00"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="13dp" />
-                            <TextView
-                                android:id="@+id/gas_fee_symbol"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"
-                                android:layout_marginLeft="3dp"
-                                android:text="ETH"
-                                android:textColor="@color/colorBlack"
-                                android:textSize="13dp" />
+
 
                         </LinearLayout>
                     </LinearLayout>

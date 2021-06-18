@@ -33,6 +33,7 @@ public class URLHelper {
     public static final String GET_COIN_EXCHANGE_LIST = REDIRECT_URL + "coin/exchange/list";
     public static final String GET_COIN_EXCHANGE_RATE = REDIRECT_URL + "coin/exchange/rate";
     public static final String COIN_WITHDRAW = REDIRECT_URL + "coin/withdraw";
+    public static final String COIN_WITHDRAW_HISTORY = REDIRECT_URL + "coin/withdraw/history";
     public static final String GET_WITHDRAWBLE_COIN_ASSETS = REDIRECT_URL + "coin/withdraw_assets";
     public static final String TRANSFER_COIN = REDIRECT_URL + "coin/transfer";
     public static final String TRANSFER_COIN_HISTORY = REDIRECT_URL + "coin/transfer/history";

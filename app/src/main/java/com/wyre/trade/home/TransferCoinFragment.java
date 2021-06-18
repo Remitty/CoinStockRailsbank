@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,11 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
+
+import ss.com.bannerslider.banners.Banner;
+import ss.com.bannerslider.banners.RemoteBanner;
+import ss.com.bannerslider.views.BannerSlider;
 
 public class TransferCoinFragment extends Fragment {
     TextView tvBalance;
@@ -66,6 +72,10 @@ public class TransferCoinFragment extends Fragment {
     RecyclerView losersView;
     ArrayList<TopStocks> losers = new ArrayList<>();
     TopStocksAdapter loserAdapter;
+
+    BannerSlider bannerSlider;
+    List<Banner> banners = new ArrayList<>();
+    ArrayList<String> imageUrls = new ArrayList<>();
 
     public TransferCoinFragment() {
         // Required empty public constructor
@@ -161,7 +171,17 @@ public class TransferCoinFragment extends Fragment {
         gainersView.setLayoutManager(new LinearLayoutManager(getContext()));
         gainersView.setAdapter(gainerAdapter);
 
+        bannerSlider = view.findViewById(R.id.banner_slider);
 
+//        bannerSlider.setOnBannerClickListener(position -> {
+//            if (banners.size() > 0) {
+//
+//                Intent i = new Intent(getActivity(), FullScreenViewActivity.class);
+//                i.putExtra("imageUrls", imageUrls);
+//                i.putExtra("position", position);
+//                startActivity(i);
+//            }
+//        });
 
         getData();
 
@@ -231,6 +251,22 @@ public class TransferCoinFragment extends Fragment {
                                     losers.add(new TopStocks(toplosers.getJSONObject(i)));
                                 }
                                 loserAdapter.notifyDataSetChanged();
+
+                                banners.clear();
+                                imageUrls.clear();
+//                                if(bannerSlider != null) bannerSlider.removeAllBanners();
+                                for (int i = 0; i < response.getJSONArray("banners").length(); i++) {
+                                    String path = response.getJSONArray("banners").getJSONObject(i).getString("image");
+                                    if(!path.startsWith("http"))
+                                        path = URLHelper.base + "storage/" + path;
+                                    banners.add(new RemoteBanner(path));
+                                    imageUrls.add(path);
+                                    banners.get(i).setScaleType(ImageView.ScaleType.FIT_XY);
+                                }
+
+                                if (banners.size() > 0)
+                                    bannerSlider.setBanners(banners);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (NullPointerException e) {

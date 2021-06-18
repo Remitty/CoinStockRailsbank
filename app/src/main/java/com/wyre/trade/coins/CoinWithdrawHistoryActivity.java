@@ -56,7 +56,7 @@ public class CoinWithdrawHistoryActivity extends AppCompatActivity {
         loadToast.show();
 
         if(getBaseContext() != null)
-            AndroidNetworking.get(URLHelper.COIN_WITHDRAW)
+            AndroidNetworking.get(URLHelper.COIN_WITHDRAW_HISTORY)
                     .addHeaders("Content-Type", "application/json")
                     .addHeaders("accept", "application/json")
                     .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))

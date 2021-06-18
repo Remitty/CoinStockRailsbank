@@ -4,6 +4,8 @@ import com.wyre.trade.helper.URLHelper;
 
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+
 public class DepositInfo {
     private JSONObject data;
 
@@ -16,14 +18,14 @@ public class DepositInfo {
     }
 
     public String getCoinSymbol() {
-        return data.optString("coin_name");
+        return data.optString("currency");
     }
 
     public String getAmount() {
-        String amount = data.optString("received_amount");
+        String amount = data.optString("amount");
         if(amount.equals("null"))
             amount = "0";
-        return amount;
+        return new DecimalFormat("#,###.########").format(Double.parseDouble(amount));
     }
 
     public String getDepositDate() {

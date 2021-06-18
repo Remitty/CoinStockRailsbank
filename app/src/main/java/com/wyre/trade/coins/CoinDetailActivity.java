@@ -41,7 +41,7 @@ public class CoinDetailActivity extends AppCompatActivity {
 
     CoinInfo coin;
     private LoadToast loadToast;
-    private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc;
+    private TextView mStockName, mStockSymbol, mStockPriceInteger, mStockPriceFloat, mStockTodayChange, mStockTodayChangePerc, mTvBalance;
     TextView tvOpen, tvHigh, tvLow, tvClose, tvAsk, tvBid;
     private JSONArray mAggregateDay = new JSONArray(), mAggregateWeek = new JSONArray(), mAggregateMonth = new JSONArray(), mAggregate6Month = new JSONArray(), mAggregateYear = new JSONArray(), mAggregateAll = new JSONArray();
     private ViewPager mStockChartViewPager;
@@ -86,16 +86,9 @@ public class CoinDetailActivity extends AppCompatActivity {
 
         mStockName.setText(coin.getCoinName());
         mStockSymbol.setText(coin.getCoinSymbol());
-        try {
-            String price = coin.getCoinRate().toString();
-            String[] separatedPrice = price.split("\\.");
-            mStockPriceInteger.setText(separatedPrice[0].trim());
-            if(separatedPrice.length> 1)
-                mStockPriceFloat.setText("."+separatedPrice[1].trim());
+        mTvBalance.setText(new DecimalFormat("#,###.####").format(coin.getCoinBalance()));
 
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+        setDisplayPrice(coin.getCoinRate());
 
 //
         if(coin.getCoinEffect().startsWith("-")) {
@@ -108,6 +101,19 @@ public class CoinDetailActivity extends AppCompatActivity {
 //        mStockTodayChangePerc.setText("( % "+mIntent.getStringExtra("stock_today_change_perc")+" )");
     }
 
+    private void setDisplayPrice(Double value) {
+        try {
+            String price = new DecimalFormat("###.####").format(value);
+            String[] separatedPrice = price.split("\\.");
+            mStockPriceInteger.setText(separatedPrice[0].trim());
+            if(separatedPrice.length> 1)
+                mStockPriceFloat.setText("."+separatedPrice[1].trim());
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void initComponents() {
 
         mStockName = findViewById(R.id.stock_name);
@@ -116,6 +122,7 @@ public class CoinDetailActivity extends AppCompatActivity {
         mStockPriceFloat = findViewById(R.id.stock_price_float);
         mStockTodayChange = findViewById(R.id.stock_today_change);
         mStockTodayChangePerc = findViewById(R.id.stock_today_change_perc);
+        mTvBalance = findViewById(R.id.coin_balance);
 
         tvOpen = findViewById(R.id.coin_open);
         tvHigh = findViewById(R.id.coin_high);
@@ -233,6 +240,8 @@ public class CoinDetailActivity extends AppCompatActivity {
                             tvClose.setText(new DecimalFormat("$ #,###.####").format(quote.getDouble("lastPrice")));
                             tvAsk.setText(new DecimalFormat("$ #,###.####").format(quote.getDouble("askPrice")));
                             tvBid.setText(new DecimalFormat("$ #,###.####").format(quote.getDouble("bidPrice")));
+
+                                setDisplayPrice(quote.getDouble("lastPrice"));
 
                             } catch (NullPointerException e) {
                                 e.printStackTrace();

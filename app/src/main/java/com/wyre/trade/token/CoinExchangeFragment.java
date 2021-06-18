@@ -852,15 +852,24 @@ public class CoinExchangeFragment extends Fragment {
     private void calculate() {
         String fixval1, fixval2;
         Double val1 = 0.0,  val2 = 0.0;
-        fixval1 = mEditQuantity.getText().toString();
-        if (!fixval1.startsWith(".") && !fixval1.isEmpty()) {
-            val1 = Double.parseDouble(fixval1);
+        try {
+            fixval1 = mEditQuantity.getText().toString();
+            if (!fixval1.startsWith(".") && !fixval1.isEmpty()) {
+                val1 = Double.parseDouble(fixval1);
+            }
+            fixval2 = mEditPrice.getText().toString();
+            if (!fixval2.startsWith(".") && !fixval2.isEmpty()) {
+                val2 = Double.parseDouble(fixval2);
+            }
+            mTextOutputTrade.setText(new DecimalFormat("#.####").format(val1 * val2) + marketCoinSymbol);
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
-        fixval2 = mEditPrice.getText().toString();
-        if (!fixval2.startsWith(".") && !fixval2.isEmpty()) {
-            val2 = Double.parseDouble(fixval2);
-        }
-        mTextOutputTrade.setText(new DecimalFormat("#.####").format(val1 * val2) + marketCoinSymbol);
 
     }
 

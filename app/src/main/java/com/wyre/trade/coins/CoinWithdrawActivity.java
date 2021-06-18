@@ -62,7 +62,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BottomSheetDialog dialog;
 
-    private String CoinId="-1", Fee="0", Coin="BTC", GasFee = "0";
+    private String CoinId="-1", Fee="0", Coin="BTC", EthGas = "0", BSCGas = "0";
     private Double coinBalance = 0.0;
 
     private List<CoinInfo> coinList = new ArrayList<>();
@@ -83,7 +83,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         initComponents();
         initListeners();
 
-        getWithdrawHistory();
+        getWithdrawData();
     }
 
     private void initComponents() {
@@ -97,7 +97,6 @@ public class CoinWithdrawActivity extends AppCompatActivity {
         mtvWithdrawalFee = findViewById(R.id.withdrawal_fee);
         mtvWithdrawalFeeSymbol = findViewById(R.id.withdrawal_fee_symbol);
         mtvGasFee = findViewById(R.id.gas_fee);
-        mtvGasFeeSymbol = findViewById(R.id.gas_fee_symbol);
         mtvGetAmount = findViewById(R.id.receipt_amount);
         mtvGetAmountSymbol = findViewById(R.id.receipt_amount_symbol);
 
@@ -222,7 +221,9 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                 mtvGetAmountSymbol.setText(Coin);
 
                 if(coin.getType().equals("ERC20"))
-                    mtvGasFee.setText(GasFee);
+                    mtvGasFee.setText(EthGas + " ETH");
+                else if(coin.getType().equals("BEP20"))
+                    mtvGasFee.setText(BSCGas + " BNB(BSC)");
                 else mtvGasFee.setText("0");
 
                 String withdraw_amount = editWithdrawAmount.getText().toString();
@@ -343,7 +344,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                     });
     }
 
-    private void getWithdrawHistory() {
+    private void getWithdrawData() {
         loadToast.show();
 
         if(getBaseContext() != null)
@@ -360,7 +361,8 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                             loadToast.success();
 
                             mtvWeeklyLimit.setText("Weekly withdrawal limit = $" + response.optString("weekly_withdraw_limit"));
-                            GasFee = response.optString("coin_withdraw_gas_fee");
+                            EthGas = response.optString("eth_gas");
+                            BSCGas = response.optString("bsc_gas");
 //                            mtvGasFee.setText(GasFee);
                             selectedCoin = new CoinInfo(response.optJSONObject("coin"));
                             coinBalance = selectedCoin.getCoinBalance();
@@ -389,7 +391,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                             loadToast.error();
                             // handle error
                             Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
     }
