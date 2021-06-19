@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         setContentView(R.layout.activity_home) ;
         toolbar = findViewById(R.id.toolbar);
         toolbarTitle = toolbar.findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Pay");
+        toolbarTitle.setText("Home");
 //        toolbar.setTitle("Pay");
 //        toolbar.setTitle(getResources().getString(R.string.app_name));
 //        toolbar.setLogo(getDrawable(R.drawable.pepe));

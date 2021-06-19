@@ -7,8 +7,8 @@ android {
         minSdkVersion 25
         targetSdkVersion 29
         multiDexEnabled true
-        versionCode 12
-        versionName "1.1.4"
+        versionCode 13
+        versionName "1.1.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -87,6 +87,7 @@ dependencies {
     implementation 'io.michaelrocks:libphonenumber-android:8.4.1'
 
     implementation 'com.stripe:stripe-android:11.2.1'
+//    implementation 'com.stripe:stripe-android:16.9.0'
 
     implementation "com.plaid.link:sdk-core:3.2.0" // minSdk 21
 
