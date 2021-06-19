@@ -1,12 +1,11 @@
 package com.wyre.trade.home;
 
-import androidx.appcompat.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.wyre.trade.coins.StakeAssetListActivity;
+import com.wyre.trade.coins.TransferCoinActivity;
 import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.mtn.MTNActivity;
 import com.wyre.trade.predict.PredictActivity;
@@ -104,7 +103,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
             });
         }
 
-        NavigationPage page1 = new NavigationPage("Pay", ContextCompat.getDrawable(this, R.drawable.ic_home), TransferCoinFragment.newInstance());
+        NavigationPage page1 = new NavigationPage("Home", ContextCompat.getDrawable(this, R.drawable.ic_home), HomeFragment.newInstance());
         NavigationPage page2 = new NavigationPage("Coins", ContextCompat.getDrawable(this, R.drawable.ic_coin), CoinsFragment.newInstance());
         NavigationPage page3 = new NavigationPage("Swap", ContextCompat.getDrawable(this, R.drawable.ic_swap), CoinSwapFragment.newInstance());
         NavigationPage page4 = new NavigationPage("Predict", ContextCompat.getDrawable(this, R.drawable.ic_predict), PredictFragment.newInstance());
@@ -180,6 +179,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
             case R.id.nav_stock_activity:
                 startActivity(new Intent(getApplicationContext(), StockOrderHistoryActivity.class));
                 break;
+            case R.id.nav_usdc:
+                startActivity(new Intent(getApplicationContext(), TransferCoinActivity.class));
+                break;
             case R.id.nav_coin_withdraw:
                 startActivity(new Intent(getApplicationContext(), CoinWithdrawActivity.class));
                 break;
@@ -233,7 +235,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         switch (menuType) {
             case BottomNavigationBar.MENU_BAR_1:
 //                toolbar.setTitle("Pay");
-                toolbarTitle.setText("Pay");
+                toolbarTitle.setText("Home");
                 fragment = mNavigationPageList.get(0).getFragment();
                 break;
             case BottomNavigationBar.MENU_BAR_2:

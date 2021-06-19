@@ -7,7 +7,10 @@
             android:id="@+id/nav_coin_stake"
             android:icon="@drawable/staking"
             android:title="Stake Coin" />
-
+        <item
+            android:id="@+id/nav_usdc"
+            android:icon="@drawable/ic_round_usdc"
+            android:title="Send USDC"/>
         <item
             android:id="@+id/nav_exchange"
             android:icon="@drawable/nav_trade"
@@ -60,7 +63,7 @@
        <item
            android:id="@+id/nav_friend"
            android:icon="@drawable/nav_trade"
-           android:title="Invite friend" />
+           android:title="Invite Friend" />
        <item
            android:id="@+id/nav_help"
            android:icon="@drawable/nav_support"

@@ -29,7 +29,6 @@ import com.wyre.trade.main.SplashActivity;
 import com.wyre.trade.model.NewsInfo;
 import com.wyre.trade.model.TopStocks;
 import com.wyre.trade.stock.adapter.NewsAdapter;
-import com.wyre.trade.stock.adapter.StocksAdapter;
 import com.wyre.trade.stock.adapter.TopStocksAdapter;
 import com.wyre.trade.stock.stocktrade.TopStocksTradeActivity;
 import com.wyre.trade.usdc.PaymentUserActivity;
@@ -49,10 +48,8 @@ import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.views.BannerSlider;
 
-public class TransferCoinFragment extends Fragment {
+public class HomeFragment extends Fragment {
     TextView tvBalance;
-
-    LinearLayout sendingLayout, addLayout;
 
     Double usdcBalance= 0.0;
 
@@ -77,12 +74,14 @@ public class TransferCoinFragment extends Fragment {
     List<Banner> banners = new ArrayList<>();
     ArrayList<String> imageUrls = new ArrayList<>();
 
-    public TransferCoinFragment() {
+    LinearLayout emptyLayout;
+
+    public HomeFragment() {
         // Required empty public constructor
     }
 
-    public static TransferCoinFragment newInstance() {
-        TransferCoinFragment fragment = new TransferCoinFragment();
+    public static HomeFragment newInstance() {
+        HomeFragment fragment = new HomeFragment();
         return fragment;
     }
 
@@ -95,7 +94,7 @@ public class TransferCoinFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_transfer_coin, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         loadToast = new LoadToast(getActivity());
 
@@ -106,27 +105,11 @@ public class TransferCoinFragment extends Fragment {
 
         tvBalance = view.findViewById(R.id.usdc_balance);
 
-        sendingLayout = view.findViewById(R.id.ll_send_usdc);
-        addLayout = view.findViewById(R.id.ll_add_contact);
+        emptyLayout = view.findViewById(R.id.layout_empty);
+
 
         mtvUserName = view.findViewById(R.id.user_name);
         mtvUserName.setText(SharedHelper.getKey(getContext(), "fullName"));
-
-        sendingLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                if(usdcBalance > 0)
-                    startActivity(new Intent(getActivity(), SendUsdcActivity.class));
-//                else Toast.makeText(getContext(), "No balance", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        addLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), PaymentUserActivity.class));
-            }
-        });
 
         newsView = view.findViewById(R.id.news_view);
         mAdapter = new NewsAdapter(getActivity(), newsList);
@@ -203,6 +186,7 @@ public class TransferCoinFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             Log.d("response", "" + response);
 //                            loadToast.success();
+                            emptyLayout.setVisibility(View.GONE);
                             loadProgress.dismiss();
                             newsList.clear();
                             gainers.clear();
