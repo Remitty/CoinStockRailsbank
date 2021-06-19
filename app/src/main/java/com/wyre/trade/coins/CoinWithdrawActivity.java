@@ -194,8 +194,8 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                                confirmPhoneVerification();
-                                submitWithdraw();
+                                confirmPhoneVerification();
+//                                submitWithdraw();
                             }
                         }).show();
 

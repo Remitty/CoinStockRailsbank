@@ -2,6 +2,8 @@ package com.wyre.trade.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.michaelrocks.libphonenumber.android.NumberParseException;
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil;
 import io.michaelrocks.libphonenumber.android.Phonenumber;
@@ -231,8 +233,19 @@ public class ProfileCompleteActivity extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
 
                                 SharedHelper.putKey(getBaseContext(), "is_completed", "true");
+                                SweetAlertDialog pDialog = new SweetAlertDialog(ProfileCompleteActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                                pDialog.setContentText("You will get free PEPE Token.")
+                                        .setConfirmText("Ok")
+                                        .setTitleText("Congratulation!")
+                                        .showCancelButton(false)
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                sDialog.cancel();
+                                                startActivity(new Intent(ProfileCompleteActivity.this, MainActivity.class));
+                                            }
+                                        }).show();
 
-                                startActivity(new Intent(ProfileCompleteActivity.this, MainActivity.class));
                             }
                             else
                              Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
