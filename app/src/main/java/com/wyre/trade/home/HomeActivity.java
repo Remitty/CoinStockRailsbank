@@ -12,6 +12,7 @@ import com.wyre.trade.mtn.MTNActivity;
 import com.wyre.trade.predict.PredictActivity;
 import com.wyre.trade.predict.PredictFragment;
 import com.wyre.trade.profile.ProfileActivity;
+import com.wyre.trade.referral.ReferralActivity;
 import com.wyre.trade.stock.NewsListActivity;
 import com.wyre.trade.token.TokenTradingActivity;
 import com.wyre.trade.zabo.ZaboActivity;
@@ -199,6 +200,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                 break;
             case R.id.nav_mtn:
                 startActivity(new Intent(getApplicationContext(), MTNActivity.class));
+                break;
+            case R.id.nav_friend:
+                startActivity(new Intent(getApplicationContext(), ReferralActivity.class));
                 break;
             case R.id.nav_exchange:
                 startActivity(new Intent(getApplicationContext(), TokenTradingActivity.class));

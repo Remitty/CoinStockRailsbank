@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".coins.CoinDetailActivity"></activity>
+        <activity android:name=".referral.ReferralActivity"></activity>
+        <activity android:name=".coins.CoinDetailActivity" />
         <activity
             android:name=".stock.stocktrade.TopStocksTradeActivity"
             android:screenOrientation="portrait" />

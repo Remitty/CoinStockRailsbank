@@ -96,7 +96,7 @@ public class Coin2StockHistoryActivity extends AppCompatActivity {
                             loadToast.error();
                             // handle error
                             Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getMessage());
+                            Log.d("errorm", "" + error.getErrorBody());
                         }
                     });
 

@@ -57,7 +57,10 @@
 
     </group>
    <group android:checkableBehavior="none">
-
+       <item
+           android:id="@+id/nav_friend"
+           android:icon="@drawable/nav_trade"
+           android:title="Invite friend" />
        <item
            android:id="@+id/nav_help"
            android:icon="@drawable/nav_support"

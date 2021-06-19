@@ -119,6 +119,9 @@ public class SignUpActivity extends AppCompatActivity {
             jsonObject.put("email", mEmailEditText.getText().toString());
             jsonObject.put("password", mPasswordEditText.getText().toString());
             jsonObject.put("user_type", 1);
+            if(SharedHelper.getKey(getBaseContext(), "referred_by") != null) {
+                jsonObject.put("referred_by", SharedHelper.getKey(getBaseContext(), "referred_by"));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

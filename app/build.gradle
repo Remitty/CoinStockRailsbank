@@ -53,22 +53,22 @@ dependencies {
 
     implementation 'com.ss.bannerslider:bannerslider:1.8.0'
 
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:28.1.0')
+
+    // Declare the dependencies for the Dynamic Links and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-dynamic-links'
+    implementation 'com.google.firebase:firebase-analytics'
 //    implementation 'com.google.firebase:firebase-core:11.8.0'
 //    implementation 'com.google.firebase:firebase-database:11.8.0'
 //    implementation 'com.google.firebase:firebase-storage:11.8.0'
-    implementation 'com.google.firebase:firebase-crash:11.8.0'
+//    implementation 'com.google.firebase:firebase-crash'
 //    implementation 'com.google.firebase:firebase-messaging:11.8.0'
-    implementation 'com.google.firebase:firebase-auth:11.8.0'
+    implementation 'com.google.firebase:firebase-auth'
 //    implementation 'com.google.firebase:firebase-firestore:11.8.0'
 
-//    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-//    implementation 'com.google.android.gms:play-services-places:17.0.0'
-//    implementation 'com.google.android.gms:play-services-auth:17.0.0'
-//    implementation 'com.google.android.libraries.places:places:2.1.0'
-
-
     implementation 'androidx.multidex:multidex:2.0.0'
-//    implementation "com.google.android.gms:play-services:11.8.0"
 
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.github.kassisdion:ViewPagerWithIndicator:v1.0'//for cash
