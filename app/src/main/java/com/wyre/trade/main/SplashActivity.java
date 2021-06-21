@@ -1,11 +1,15 @@
 package com.wyre.trade.main;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,11 +17,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.wyre.trade.R;
 import com.wyre.trade.SharedPrefs;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.home.HomeActivity;
 import com.wyre.trade.profile.ProfileCompleteActivity;
+import com.wyre.trade.referral.ReferralActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

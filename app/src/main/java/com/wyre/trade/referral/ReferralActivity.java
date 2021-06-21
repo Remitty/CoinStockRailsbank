@@ -113,7 +113,7 @@ public class ReferralActivity extends AppCompatActivity {
                         // an invitation, sign in the user anonymously, and record the
                         // referrer's UID.
                         //
-                        if(SharedHelper.getKey(getBaseContext(), "userId") == null) {
+                        if(SharedHelper.getKey(getBaseContext(), "userId") == null || SharedHelper.getKey(getBaseContext(), "userId") == "") {
                             String referrerUid = deepLink.getQueryParameter("invitedby");
                             Log.d("invitedby", referrerUid);
                             createAnonymousAccountWithReferrerInfo(referrerUid);

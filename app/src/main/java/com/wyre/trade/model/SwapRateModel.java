@@ -16,7 +16,7 @@ public class SwapRateModel {
         try {
             return  new DecimalFormat("#.####").format(data.getDouble("max"));
         } catch (JSONException e) {
-            return "";
+            return "0";
         }
     }
 
@@ -24,7 +24,7 @@ public class SwapRateModel {
         try {
             return  new DecimalFormat("#.####").format(data.getDouble("min"));
         } catch (JSONException e) {
-            return "";
+            return "0";
         }
     }
 

@@ -17,7 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".coins.TransferCoinActivity"></activity>
-        <activity android:name=".referral.ReferralActivity" />
+        <activity android:name=".referral.ReferralActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="wyretrade.page.link"
+                    android:scheme="https"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".coins.CoinDetailActivity" />
         <activity
             android:name=".stock.stocktrade.TopStocksTradeActivity"

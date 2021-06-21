@@ -245,7 +245,10 @@ public class CoinDetailActivity extends AppCompatActivity {
 
                             } catch (NullPointerException e) {
                                 e.printStackTrace();
-                            } catch (JSONException e) {
+                            } catch (IllegalStateException e) {
+                                e.printStackTrace();
+                            }
+                            catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
