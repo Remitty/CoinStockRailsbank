@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.wyre.trade.R;
 import com.wyre.trade.SharedPrefs;
+import com.wyre.trade.helper.GridSpacingItemDecoration;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.main.SplashActivity;
@@ -107,7 +110,6 @@ public class HomeFragment extends Fragment {
 
         emptyLayout = view.findViewById(R.id.layout_empty);
 
-
         mtvUserName = view.findViewById(R.id.user_name);
         mtvUserName.setText(SharedHelper.getKey(getContext(), "fullName"));
 
@@ -116,9 +118,12 @@ public class HomeFragment extends Fragment {
         newsView.setLayoutManager(new LinearLayoutManager(getContext()));
         newsView.setAdapter(mAdapter);
 
+        GridSpacingItemDecoration gridSpacingDec = new GridSpacingItemDecoration(2, 10, false);
+
         losersView = view.findViewById(R.id.losers_view);
         loserAdapter = new TopStocksAdapter(getActivity(), losers);
-        losersView.setLayoutManager(new LinearLayoutManager(getContext()));
+        losersView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        losersView.addItemDecoration(gridSpacingDec);
         loserAdapter.setListener(new TopStocksAdapter.Listener() {
             @Override
             public void OnGoToTrade(int position) {
@@ -135,9 +140,10 @@ public class HomeFragment extends Fragment {
         losersView.setAdapter(loserAdapter);
 
         gainersView = view.findViewById(R.id.gainers_view);
-        gainersView.setNestedScrollingEnabled(false);
-        gainersView.setLayoutManager(new LinearLayoutManager(getContext()));
         gainerAdapter = new TopStocksAdapter(getActivity(), gainers);
+//        gainersView.setNestedScrollingEnabled(false);
+        gainersView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        gainersView.addItemDecoration(gridSpacingDec);
         gainerAdapter.setListener(new TopStocksAdapter.Listener() {
             @Override
             public void OnGoToTrade(int position) {
@@ -151,7 +157,6 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        gainersView.setLayoutManager(new LinearLayoutManager(getContext()));
         gainersView.setAdapter(gainerAdapter);
 
         bannerSlider = view.findViewById(R.id.banner_slider);

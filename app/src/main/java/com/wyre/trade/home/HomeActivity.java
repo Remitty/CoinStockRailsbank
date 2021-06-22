@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         setContentView(R.layout.activity_home) ;
         toolbar = findViewById(R.id.toolbar);
         toolbarTitle = toolbar.findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Home");
+        toolbarTitle.setText("Market");
 //        toolbar.setTitle("Pay");
 //        toolbar.setTitle(getResources().getString(R.string.app_name));
 //        toolbar.setLogo(getDrawable(R.drawable.pepe));
@@ -235,7 +235,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         switch (menuType) {
             case BottomNavigationBar.MENU_BAR_1:
 //                toolbar.setTitle("Pay");
-                toolbarTitle.setText("Home");
+                toolbarTitle.setText("Market");
                 fragment = mNavigationPageList.get(0).getFragment();
                 break;
             case BottomNavigationBar.MENU_BAR_2:
