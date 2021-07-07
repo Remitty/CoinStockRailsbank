@@ -1,6 +1,7 @@
 package com.wyre.trade.main;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//            window.setStatusBarColor(Color.parseColor("#3AE57F"));
+            window.setStatusBarColor(Color.parseColor("#000000"));
         }
 
         mGetStartedButton = findViewById(R.id.getstarted);

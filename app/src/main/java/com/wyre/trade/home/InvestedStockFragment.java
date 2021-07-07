@@ -244,13 +244,21 @@ public class InvestedStockFragment extends Fragment {
                                 mTextStockMargin.setText("$ " + response.getString("margin_balance"));
                                 marketStatus.setText(response.getString("market_status"));
     
-                                if(response.getDouble("stock_profit")>0)
-                                    mTextStockProfit.setTextColor(getContext().getColor(R.color.green));
-                                else {
-                                    mTextStockProfit.setTextColor(RED);
+                                if(response.getDouble("stock_profit")>0) {
                                     try {
+                                        mTextStockProfit.setTextColor(getContext().getColor(R.color.green));
+                                    } catch (NullPointerException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                                else {
+                                    try {
+                                        mTextStockProfit.setTextColor(RED);
                                         Picasso.with(getActivity()).load(R.drawable.ic_down).into(icArrow);
                                     } catch (IllegalArgumentException e) {
+                                        e.printStackTrace();
+                                    } catch (NullPointerException e) {
                                         e.printStackTrace();
                                     }
                                 }

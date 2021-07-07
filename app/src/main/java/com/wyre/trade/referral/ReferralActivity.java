@@ -62,9 +62,13 @@ public class ReferralActivity extends AppCompatActivity {
                         .setDomainUriPrefix("https://wyretrade.page.link")
                         .setAndroidParameters(
                                 new DynamicLink.AndroidParameters.Builder("com.wyre.trade")
-                                        .setMinimumVersion(125)
+                                        .setMinimumVersion(17)
                                         .build())
-
+//                        .setIosParameters(
+//                                new DynamicLink.IosParameters.Builder("com.example.ios")
+//                                        .setAppStoreId("123456789")
+//                                        .setMinimumVersion("1.1.1")
+//                                        .build())
                         .buildShortDynamicLink()
                         .addOnSuccessListener(new OnSuccessListener<ShortDynamicLink>() {
                             @Override

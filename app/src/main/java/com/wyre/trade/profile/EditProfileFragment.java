@@ -180,6 +180,11 @@ public class EditProfileFragment extends Fragment{
         // Check if all strings are null or not
 
         validFlag = validatePhone();
+        String code = etCountryCode.getText().toString();
+        if(code.length() < 2 || !code.startsWith("+")) {
+            etCountryCode.setError("!");
+            validFlag = false;
+        }
         if (TextUtils.isEmpty(editTextName.getText().toString())) {
             editTextName.setError("!");
             validFlag = false;
@@ -213,10 +218,10 @@ public class EditProfileFragment extends Fragment{
             editTextPostalCode.setError("!");
             validFlag = false;
         }
-        if (TextUtils.isEmpty(editDob.getText().toString())) {
-            editDob.setError("!");
-            validFlag = false;
-        }
+//        if (TextUtils.isEmpty(editDob.getText().toString())) {
+//            editDob.setError("!");
+//            validFlag = false;
+//        }
         if (TextUtils.isEmpty(editTextCity.getText().toString())) {
             editTextCity.setError("!");
             validFlag = false;
@@ -225,29 +230,29 @@ public class EditProfileFragment extends Fragment{
             editTextState.setError("!");
             validFlag = false;
         }
-        if (TextUtils.isEmpty(editCountry.getText().toString())) {
-            editCountry.setError("!");
-            validFlag = false;
-        }
+//        if (TextUtils.isEmpty(editCountry.getText().toString())) {
+//            editCountry.setError("!");
+//            validFlag = false;
+//        }
         if (TextUtils.isEmpty(editTextNational.getText().toString())) {
             editTextNational.setError("!");
             validFlag = false;
         }
-        if(editCountry.getText().toString().equals("US")) {
-            if (TextUtils.isEmpty(editTextSSN.getText().toString())) {
-                editTextSSN.setError("!");
-                validFlag = false;
-            }
-            else {
-//                Pattern p = Pattern.compile( "^(?!666|000|9\\d{2})\\d{3}" + "-(?!00)\\d{2}-" + "(?!0{4})\\d{4}$" );
-                Pattern p = Pattern.compile( "(?!0{4})\\d{4}$" );
-                Matcher m = p.matcher(editTextSSN.getText().toString());
-                if(!m.matches()) {
-                    editTextSSN.setError("Invalid format");
-                    validFlag = false;
-                }
-            }
-        }
+//        if(editCountry.getText().toString().equals("US")) {
+//            if (TextUtils.isEmpty(editTextSSN.getText().toString())) {
+//                editTextSSN.setError("!");
+//                validFlag = false;
+//            }
+//            else {
+////                Pattern p = Pattern.compile( "^(?!666|000|9\\d{2})\\d{3}" + "-(?!00)\\d{2}-" + "(?!0{4})\\d{4}$" );
+//                Pattern p = Pattern.compile( "(?!0{4})\\d{4}$" );
+//                Matcher m = p.matcher(editTextSSN.getText().toString());
+//                if(!m.matches()) {
+//                    editTextSSN.setError("Invalid format");
+//                    validFlag = false;
+//                }
+//            }
+//        }
 
 
         return validFlag;
@@ -268,9 +273,9 @@ public class EditProfileFragment extends Fragment{
             jsonObject.put("postalcode", editTextPostalCode.getText().toString().trim());
             jsonObject.put("city", editTextCity.getText().toString().trim());
             jsonObject.put("state", editTextState.getText().toString().trim());
-            jsonObject.put("ssn", editTextSSN.getText().toString().trim());
-            jsonObject.put("country", editCountry.getText().toString().trim());
-            jsonObject.put("dob", editDob.getText().toString().trim());
+//            jsonObject.put("ssn", editTextSSN.getText().toString().trim());
+//            jsonObject.put("country", editCountry.getText().toString().trim());
+//            jsonObject.put("dob", editDob.getText().toString().trim());
             jsonObject.put("region", editTextNational.getText().toString().trim());
             jsonObject.put("user_type", 0);
         } catch (JSONException e) {

@@ -17,6 +17,7 @@
                 android:id="@+id/coin_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:visibility="gone"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/coin_bitcoin"/>
             <LinearLayout

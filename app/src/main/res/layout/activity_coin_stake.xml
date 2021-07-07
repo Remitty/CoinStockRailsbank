@@ -207,5 +207,5 @@
         android:backgroundTint="@color/gray_text"
         app:cornerRadius="20dp"
         android:layout_marginHorizontal="20dp"
-        android:text="Swap history"/>
+        android:text="history"/>
 </LinearLayout>

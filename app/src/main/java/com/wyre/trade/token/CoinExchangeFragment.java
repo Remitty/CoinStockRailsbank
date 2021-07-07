@@ -147,7 +147,7 @@ public class CoinExchangeFragment extends Fragment {
 
         selType = "buy";
 
-        mPair = "PEPE-XLM";
+        mPair = "";
         initComponents();
 
         initListeners();
@@ -638,15 +638,18 @@ public class CoinExchangeFragment extends Fragment {
                                     try {
                                         mBTCUSD_rate = response.getDouble("btc_rate");
                                         mBTCXMT_rate = mBTCUSD_rate * getPrice();
-                                        mTextPriceUSD.setText("$"+new DecimalFormat("#,###.##").format(mBTCXMT_rate));
                                         mTextAsksTotalUSD.setText("$ "+new DecimalFormat("#,###.##").format(response.getDouble("asks_total")));
                                         mTextBidsTotalUSD.setText("$ "+new DecimalFormat("#,###.##").format(response.getDouble("bids_total")));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
 
-                                     if (!changedPrice && !focusedPrice)
-                                         mEditPrice.setText(new DecimalFormat("#.########").format(getPrice()));
+                                     if (!changedPrice && !focusedPrice) {
+                                         mEditPrice.setText(new DecimalFormat("#.####").format(getPrice()));
+
+                                         mTextPriceUSD.setText("$"+new DecimalFormat("#,###.##").format(mBTCXMT_rate));
+                                         calculate();
+                                     }
 
                                 }else {
                                     Toast.makeText(getContext(), response.getString("msg"), Toast.LENGTH_SHORT).show();
@@ -845,7 +848,7 @@ public class CoinExchangeFragment extends Fragment {
                 }
             }
         } catch (Exception e) {
-            return 1.0;
+            return Double.parseDouble(mEditPrice.getText().toString());
         }
     }
 

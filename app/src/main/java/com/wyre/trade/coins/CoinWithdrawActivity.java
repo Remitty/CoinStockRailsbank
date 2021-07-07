@@ -142,10 +142,15 @@ public class CoinWithdrawActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String amount = s.toString();
-                if(amount.isEmpty() || amount.equals(".")) {
+                if(amount.isEmpty() || amount.startsWith(".")) {
                     mtvGetAmount.setText("0");
                 } else {
-                    mtvGetAmount.setText(new DecimalFormat("#,###.####").format(Double.parseDouble(amount) - Double.parseDouble(Fee)));
+                    try {
+                        mtvGetAmount.setText(new DecimalFormat("#,###.####").format(Double.parseDouble(amount) - Double.parseDouble(Fee)));
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        mtvGetAmount.setText("0");
+                    }
                 }
 
             }

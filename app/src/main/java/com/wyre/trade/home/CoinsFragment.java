@@ -229,7 +229,11 @@ public class CoinsFragment extends Fragment {
                 public void onCancel() {
                 }
             });
-            mContentDialog.show(getActivity().getSupportFragmentManager(), "deposit");
+            try {
+                mContentDialog.show(getActivity().getSupportFragmentManager(), "deposit");
+            }catch (IllegalStateException e) {
+                Toast.makeText(getContext(), "Please try again", Toast.LENGTH_SHORT).show();
+            }
 
     }
 
