@@ -2,7 +2,6 @@ package com.wyre.trade.main;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,16 +17,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
-import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.wyre.trade.R;
 import com.wyre.trade.SharedPrefs;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.home.HomeActivity;
 import com.wyre.trade.profile.ProfileCompleteActivity;
-import com.wyre.trade.referral.ReferralActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -85,6 +79,8 @@ public class SplashActivity extends AppCompatActivity {
 //                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         }, 2000);
+
+
     }
 
 

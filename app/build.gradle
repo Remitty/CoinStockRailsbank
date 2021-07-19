@@ -7,8 +7,8 @@ android {
         minSdkVersion 25
         targetSdkVersion 29
         multiDexEnabled true
-        versionCode 18
-        versionName "1.1.6"
+        versionCode 20
+        versionName "1.1.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -60,13 +60,10 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-dynamic-links'
     implementation 'com.google.firebase:firebase-analytics'
-//    implementation 'com.google.firebase:firebase-core:11.8.0'
-//    implementation 'com.google.firebase:firebase-database:11.8.0'
-//    implementation 'com.google.firebase:firebase-storage:11.8.0'
-//    implementation 'com.google.firebase:firebase-crash'
-//    implementation 'com.google.firebase:firebase-messaging:11.8.0'
+//    implementation 'com.google.firebase:firebase-core'
     implementation 'com.google.firebase:firebase-auth'
-//    implementation 'com.google.firebase:firebase-firestore:11.8.0'
+    implementation 'com.google.firebase:firebase-messaging'
+
 
     implementation 'androidx.multidex:multidex:2.0.0'
 
@@ -86,8 +83,8 @@ dependencies {
 //    implementation 'org.chat21.android:chat21:1.0.15'
     implementation 'io.michaelrocks:libphonenumber-android:8.4.1'
 
-    implementation 'com.stripe:stripe-android:11.2.1'
-//    implementation 'com.stripe:stripe-android:16.9.0'
+//    implementation 'com.stripe:stripe-android:11.2.1'
+    implementation 'com.stripe:stripe-android:16.9.0'
 
     implementation "com.plaid.link:sdk-core:3.2.0" // minSdk 21
 

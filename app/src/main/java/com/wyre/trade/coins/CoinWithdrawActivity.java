@@ -62,7 +62,7 @@ public class CoinWithdrawActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BottomSheetDialog dialog;
 
-    private String CoinId="-1", Fee="0", Coin="BTC", EthGas = "0", BSCGas = "0";
+    private String CoinId="-1", Fee="0", Coin="BSC", EthGas = "0", BSCGas = "0";
     private Double coinBalance = 0.0;
 
     private List<CoinInfo> coinList = new ArrayList<>();
@@ -146,7 +146,10 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                     mtvGetAmount.setText("0");
                 } else {
                     try {
-                        mtvGetAmount.setText(new DecimalFormat("#,###.####").format(Double.parseDouble(amount) - Double.parseDouble(Fee)));
+                        if(!CoinId.equals("0"))
+                            mtvGetAmount.setText(new DecimalFormat("#,###.####").format(Double.parseDouble(amount) - Double.parseDouble(Fee)));
+                        else
+                            mtvGetAmount.setText(new DecimalFormat("#,###.####").format(Double.parseDouble(amount)));
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                         mtvGetAmount.setText("0");
@@ -166,43 +169,47 @@ public class CoinWithdrawActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                confirmPhoneVerification();
                 String amount = editWithdrawAmount.getText().toString();
-                    if(amount.isEmpty() || amount.startsWith(".")) {
-                        editWithdrawAmount.setError("!");
-                        return;
-                    }
-                    if(editAddress.getText().toString().isEmpty()) {
-                        editAddress.setError("!");
-                        return;
-                    }
-                    if(CoinId.equals("-1")) {
-                        confirmAlert.alert("Please select coin.");
-                        return;
-                    }
-
-
-                if(Double.parseDouble(amount) == 0) {
+                if(amount.isEmpty() || amount.startsWith(".")) {
                     editWithdrawAmount.setError("!");
                     return;
                 }
-
-                if(Double.parseDouble(amount) > coinBalance) {
-                    confirmAlert.alert("Insufficient funds.");
+                if(editAddress.getText().toString().isEmpty()) {
+                    editAddress.setError("!");
                     return;
                 }
-                if(Double.parseDouble(amount) < Double.parseDouble(Fee)) {
-                    confirmAlert.alert("You have to request amount than " + Fee + " at least.");
+                if(CoinId.equals("-1")) {
+                    confirmAlert.alert("Please select coin.");
                     return;
                 }
-                String total = new DecimalFormat("#,###.####").format(Double.parseDouble(amount) - Double.parseDouble(Fee));
 
-                confirmAlert.confirm("Are you sure you want to withdraw " + amount + Coin + " ? Fee is " + Fee + Coin + ".\nTotal is " + total + Coin + ".\n" + SharedHelper.getKey(getBaseContext(), "msgCoinWithdrawFeePolicy"))
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                confirmPhoneVerification();
-//                                submitWithdraw();
-                            }
-                        }).show();
+                try {
+
+                    if(Double.parseDouble(amount) == 0) {
+                        editWithdrawAmount.setError("!");
+                        return;
+                    }
+
+                    if(Double.parseDouble(amount) > coinBalance) {
+                        confirmAlert.alert("Insufficient funds.");
+                        return;
+                    }
+                    if(Double.parseDouble(amount) < Double.parseDouble(Fee)) {
+                        confirmAlert.alert("You have to request amount than " + Fee + " at least.");
+                        return;
+                    }
+                    String total = new DecimalFormat("#,###.####").format(Double.parseDouble(amount) - Double.parseDouble(Fee));
+
+                    confirmAlert.confirm("Are you sure you want to withdraw " + amount + Coin + " ? Fee is " + Fee + Coin + ".\nTotal is " + total + Coin + ".\n" + SharedHelper.getKey(getBaseContext(), "msgCoinWithdrawFeePolicy"))
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    confirmPhoneVerification();
+    //                                submitWithdraw();
+                                }
+                            }).show();
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getBaseContext(), "Please input correct number", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -224,18 +231,23 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                 mtvWithdrawalFee.setText(Fee);
                 mtvWithdrawalFeeSymbol.setText(Coin);
                 mtvGetAmountSymbol.setText(Coin);
-
+                if(CoinId.equals("0"))
+                    mtvWithdrawalFeeSymbol.setText(" BNB(BSC)");
                 if(coin.getType().equals("ERC20"))
                     mtvGasFee.setText(EthGas + " ETH");
-                else if(coin.getType().equals("BEP20"))
+                else if(coin.getType().equals("BEP20")) {
                     mtvGasFee.setText(BSCGas + " BNB(BSC)");
+                }
                 else mtvGasFee.setText("0");
 
                 String withdraw_amount = editWithdrawAmount.getText().toString();
                 if(!withdraw_amount.isEmpty()) {
                     BigDecimal amount = new BigDecimal(withdraw_amount);
                     BigDecimal fee = new BigDecimal(Fee);
-                    mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()));
+                    if(!CoinId.equals("0"))
+                        mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.subtract(fee).doubleValue()));
+                    else
+                        mtvGetAmount.setText(new DecimalFormat("#,###.####").format(amount.doubleValue()));
                 }
                 dialog.dismiss();
             }
@@ -379,7 +391,10 @@ public class CoinWithdrawActivity extends AppCompatActivity {
                             CoinId = selectedCoin.getCoinId();
                             Fee = selectedCoin.getWithdrawalFee();
                             mtvWithdrawalFee.setText(Fee);
-                            mtvWithdrawalFeeSymbol.setText(Coin);
+                            if(CoinId.equals("0"))
+                                mtvWithdrawalFeeSymbol.setText("BNB(BSC)");
+                            else
+                                mtvWithdrawalFeeSymbol.setText(Coin);
 
                             mtvGetAmountSymbol.setText(Coin);
                             String withdraw_amount = editWithdrawAmount.getText().toString();

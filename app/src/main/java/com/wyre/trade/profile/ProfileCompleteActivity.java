@@ -39,6 +39,7 @@ import com.phonenumberui.CountryCodeActivity;
 import com.phonenumberui.countrycode.Country;
 import com.phonenumberui.countrycode.CountryUtils;
 import com.phonenumberui.utility.Utility;
+import com.wyre.trade.main.SignInActivity;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -235,11 +236,11 @@ public class ProfileCompleteActivity extends AppCompatActivity {
                             Log.d("response", "" + response);
                             loadToast.success();
                             if(response.optBoolean("success")) {
-                                Toast.makeText(getBaseContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), "Completed profile successfully", Toast.LENGTH_SHORT).show();
 
                                 SharedHelper.putKey(getBaseContext(), "is_completed", "true");
                                 SweetAlertDialog pDialog = new SweetAlertDialog(ProfileCompleteActivity.this, SweetAlertDialog.SUCCESS_TYPE);
-                                pDialog.setContentText("You will get free PEPE Token.")
+                                pDialog.setContentText("You will get free PEPE token. \nInvite friends and earn more PEPE token")
                                         .setConfirmText("Ok")
                                         .setTitleText("Congratulation!")
                                         .showCancelButton(false)
@@ -252,18 +253,28 @@ public class ProfileCompleteActivity extends AppCompatActivity {
                                         }).show();
 
                             }
-                            else
-                             Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                            else {
+                                Toast.makeText(getBaseContext(), response.optString("message"), Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(ProfileCompleteActivity.this, MainActivity.class));
+                            }
                         }
 
                         @Override
                         public void onError(ANError error) {
                             loadToast.hide();
                             // handle error
-                            ConfirmAlert alert = new ConfirmAlert(ProfileCompleteActivity.this);
-                            alert.error(error.getErrorBody());
-//                            Toast.makeText(getBaseContext(), "Please try again. Network error.", Toast.LENGTH_SHORT).show();
-                            Log.d("errorm", "" + error.getErrorBody());
+                            SweetAlertDialog pDialog = new SweetAlertDialog(ProfileCompleteActivity.this, SweetAlertDialog.ERROR_TYPE);
+                            pDialog.setContentText(error.getErrorBody())
+                                    .setConfirmText("Ok")
+                                    .setTitleText("Error!")
+                                    .showCancelButton(false)
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            sDialog.cancel();
+                                            startActivity(new Intent(ProfileCompleteActivity.this, MainActivity.class));
+                                        }
+                                    }).show();
                         }
                     });
     }

@@ -197,9 +197,9 @@
                             android:layout_marginLeft="50dp">
                             <TextView
                                 android:id="@+id/gas_fee"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"
+
                                 android:text="0.00"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="13dp" />
