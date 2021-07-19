@@ -84,7 +84,8 @@ dependencies {
     implementation 'io.michaelrocks:libphonenumber-android:8.4.1'
 
 //    implementation 'com.stripe:stripe-android:11.2.1'
-    implementation 'com.stripe:stripe-android:16.9.0'
+//    implementation 'com.stripe:stripe-android:16.9.0'
+    implementation 'com.braintreepayments:card-form:5.2.0'
 
     implementation "com.plaid.link:sdk-core:3.2.0" // minSdk 21
 

@@ -1,7 +1,7 @@
 package com.wyre.trade.stock.deposit;
 
 import androidx.appcompat.app.AlertDialog;
-import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,7 +32,6 @@ import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
 import com.wyre.trade.helper.URLHelper;
 import com.wyre.trade.model.Card;
-import com.wyre.trade.payment.AddCardActivity;
 import com.wyre.trade.payment.CardActivity;
 import com.wyre.trade.stock.adapter.BottomCardAdapter;
 

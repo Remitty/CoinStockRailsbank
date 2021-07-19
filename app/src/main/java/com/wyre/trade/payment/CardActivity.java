@@ -1,12 +1,9 @@
 package com.wyre.trade.payment;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +14,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.stripe.android.view.CardInputWidget;
+import com.braintreepayments.cardform.view.CardForm;
 import com.wyre.trade.R;
 import com.wyre.trade.helper.ConfirmAlert;
 import com.wyre.trade.helper.SharedHelper;
@@ -45,9 +42,9 @@ public class CardActivity extends AppCompatActivity {
     ArrayList<Card> cardList = new ArrayList<Card>();
     int withdrawal = 0;
 
-    CardInputWidget stripeWidget;
-    String cvcNo, cardNo;
-    int month, year;
+    String cvcNo, cardNo, month, year;
+
+    CardForm cardForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +62,27 @@ public class CardActivity extends AppCompatActivity {
         loadToast = new LoadToast(this);
         confirmAlert = new ConfirmAlert(CardActivity.this);
 
+        cardForm = (CardForm) findViewById(R.id.card_form);
+        cardForm.cardRequired(true)
+                .expirationRequired(true)
+                .cvvRequired(true)
+//                .cardholderName(CardForm.FIELD_REQUIRED)
+                .postalCodeRequired(false)
+                .mobileNumberRequired(false)
+//                .mobileNumberExplanation("SMS is required on this number")
+//                .actionLabel("Purchase")
+                .setup(CardActivity.this);
+
         btnAdd = findViewById(R.id.btn_add_card);
-        stripeWidget = findViewById(R.id.stripe_widget);
+
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(stripeWidget.getCard() != null && !stripeWidget.getCard().getNumber().isEmpty()) {
-                    checkoutStripe();
+                if(cardForm.isValid()) {
+                    checkCard();
+                } else {
+                    Toast.makeText(getBaseContext(), "Please fill valid card", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -101,33 +111,14 @@ public class CardActivity extends AppCompatActivity {
         getCard();
     }
 
-    private void checkoutStripe() {
-//        Stripe stripe = new Stripe(AddCardActivity.this, stripPubKey);
-        com.stripe.android.model.Card card = stripeWidget.getCard();
-        if(card.validateCard()) {
-            cvcNo = stripeWidget.getCard().getCVC();
-            cardNo = stripeWidget.getCard().getNumber();
-            month = stripeWidget.getCard().getExpMonth();
-            year = stripeWidget.getCard().getExpYear();
+    private void checkCard() {
+
+            cvcNo = cardForm.getCvv();
+            cardNo = cardForm.getCardNumber();
+            month = cardForm.getExpirationMonth();
+            year = cardForm.getExpirationYear();
 
             sendAddCard("");
-//            loadToast.show();
-//            stripe.createToken(card, new ApiResultCallback<Token>() {
-//                @Override
-//                public void onSuccess(@NonNull Token token) {
-//
-//                    sendAddCard(token.getId());
-//                }
-//
-//                @Override
-//                public void onError(@NonNull Exception e) {
-//                    loadToast.error();
-//                }
-//            });
-        } else {
-//            Toast.makeText(getBaseContext(), "Invalid card", Toast.LENGTH_SHORT).show();
-            confirmAlert.error("Invalid card");
-        }
 
     }
 
@@ -140,9 +131,9 @@ public class CardActivity extends AppCompatActivity {
                 .addHeaders("accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + SharedHelper.getKey(getBaseContext(),"access_token"))
                 .addBodyParameter("no", cardNo)
-                .addBodyParameter("month", month+"")
-                .addBodyParameter("year", year+"")
-                .addBodyParameter("cvc", cvcNo+"")
+                .addBodyParameter("month", month)
+                .addBodyParameter("year", year)
+                .addBodyParameter("cvc", cvcNo)
                 .addBodyParameter("user_type", "0")
                 .addBodyParameter("withdrawal", String.valueOf(withdrawal))
                 .setPriority(Priority.MEDIUM)

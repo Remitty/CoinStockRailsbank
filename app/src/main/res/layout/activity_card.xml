@@ -12,14 +12,10 @@ tools:context=".payment.CardActivity"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
-        <com.stripe.android.view.CardInputWidget
-            android:id="@+id/stripe_widget"
-            android:background="@drawable/rounded_corner_white_rectangle_border_grey"
-            android:outlineProvider="bounds"
-            android:outlineSpotShadowColor="@color/grayBlue"
-            android:layout_weight="1"
+        <com.braintreepayments.cardform.view.CardForm
+            android:id="@+id/card_form"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
         <com.google.android.material.button.MaterialButton

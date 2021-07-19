@@ -33,15 +33,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".payment.CardActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".payment.AddPaypalActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".stock.deposit.Paypal2StockFragment"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".payment.AddCardActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".usdc.PaymentUserListActivity"
